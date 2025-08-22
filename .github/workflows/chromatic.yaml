@@ -7,20 +7,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Install Node (no cache yet)
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'        # cache pnpm store
 
+      # Install pnpm
       - uses: pnpm/action-setup@v4
         with:
           version: 9
           run_install: false
 
+      # Now that pnpm exists, enable setup-node caching for pnpm
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
       - run: pnpm install --frozen-lockfile
 
-      # If chromatic is not in devDependencies, use pnpm dlx:
-      # - run: pnpm dlx chromatic
+      # If chromatic is a devDependency:
       - run: pnpm exec chromatic
         env:
           CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+
+      # Or, if not installed locally:
+      # - run: pnpm dlx chromatic
+      #   env:
+      #     CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
