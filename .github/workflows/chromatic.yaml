@@ -1,13 +1,26 @@
 name: Chromatic
 on: [push, pull_request]
+
 jobs:
   chromatic:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
-        with: { node-version: 20 }
-      - run: npm ci
-      - run: npx chromatic
+        with:
+          node-version: 20
+          cache: 'pnpm'        # cache pnpm store
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      - run: pnpm install --frozen-lockfile
+
+      # If chromatic is not in devDependencies, use pnpm dlx:
+      # - run: pnpm dlx chromatic
+      - run: pnpm exec chromatic
         env:
           CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
