@@ -6,32 +6,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # <-- fetch full history for Chromatic
 
-      # Install Node (no cache yet)
       - uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      # Install pnpm
       - uses: pnpm/action-setup@v4
         with:
           version: 9
           run_install: false
 
-      # Now that pnpm exists, enable setup-node caching for pnpm
+      # enable caching now that pnpm exists
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
+          cache: pnpm
 
       - run: pnpm install --frozen-lockfile
 
-      # If chromatic is a devDependency:
-      - run: pnpm exec chromatic
+      # if chromatic is a devDependency:
+      - run: pnpm exec chromatic --ci --exit-zero-on-changes
         env:
           CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 
-      # Or, if not installed locally:
-      # - run: pnpm dlx chromatic
+      # if it's not a devDependency, use:
+      # - run: pnpm dlx chromatic --ci --exit-zero-on-changes
       #   env:
       #     CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
