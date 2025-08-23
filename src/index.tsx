@@ -1,3 +1,7 @@
-import { Button } from "./components/Button";
+import { Button } from "./button/Button.tsx";
+import { InputText } from "./input/InputText.tsx";
 
-export default { Button };
+export {
+  Button,
+  InputText
+};
