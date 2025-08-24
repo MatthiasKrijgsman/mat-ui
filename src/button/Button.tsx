@@ -26,24 +26,28 @@ const sizeClasses: Record<Size, string> = {
   lg: 'h-14 px-8'
 }
 
-export const Button = (props: ButtonProps) => {
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
 
   const {
     variant = 'white',
     size = 'md',
     className,
-    children
+    children,
+    ...rest
   } = props;
 
   return (
     <button
+      ref={ ref }
       className={ classNames(
         base,
         variantClasses[variant],
         sizeClasses[size],
         className
-      ) }>
+      ) }
+      { ...rest }
+    >
       { children }
     </button>
   );
-};
+});
