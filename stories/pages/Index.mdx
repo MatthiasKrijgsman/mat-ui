@@ -1,16 +1,30 @@
-import {Meta} from "@storybook/addon-docs/blocks";
-import {Button, InputText} from "@";
+import {Meta, Unstyled} from "@storybook/addon-docs/blocks";
+import {Button, InputSelect, InputText} from "@";
 import './page.css';
 
 <Meta title="Index"/>
 
-<div className={'sb-page'}>
-    <div className={'flex flex-row items-center gap-3'}>
-        <Button>Button</Button>
-        <Button variant={"black"}>Button</Button>
-        <InputText
-            label={'Search'}
-            description={'Search for something...'}
-        />
+<Unstyled>
+    <div className={'sb-page'}>
+        <div className={'flex flex-col mx-auto w-[400px] gap-12'}>
+            <Button>Button</Button>
+            <Button variant={"black"}>Button</Button>
+            <InputText
+                label={'Search'}
+                description={'Search for something...'}
+            />
+            <InputSelect
+                label={'Search'}
+                description={'Search for something...'}
+                value={''}
+                options={[
+                    {label: '- Select -', value: '', disabled: true},
+                    {label: 'Option 1', value: 'option1'},
+                    {label: 'Option 2', value: 'option2'},
+                    {label: 'Option 3', value: 'option3'},
+                ]}
+            />
+        </div>
     </div>
-</div>
+
+</Unstyled>

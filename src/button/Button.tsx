@@ -16,7 +16,7 @@ const base: string = `inline-flex flex-row items-center justify-center font-semi
 const variantClasses: Record<Variant, string> = {
   primary: 'border border-blue-600 text-white bg-blue-600 active:bg-blue-700 active:border-blue-700 ring-blue-600/10 shadow-sm',
   white: 'border border-gray-200 text-gray-900 bg-white active:bg-gray-50 ring-gray-900/10 shadow-sm',
-  black: 'border border-gray-950 text-white bg-gray-950 active:bg-gray-800 active:border-gray-800 ring-gray-900/10 shadow-sm',
+  black: 'border border-gray-950 text-white bg-gray-950 active:bg-gray-800 active:border-gray-800 ring-gray-900/20 shadow-sm',
   transparent: 'border border-transparent text-gray-900 bg-transparent ring-gray-900/10'
 }
 
