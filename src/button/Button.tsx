@@ -11,7 +11,7 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children?: React.ReactNode;
 }
 
-const base: string = `inline-flex flex-row items-center justify-center font-semibold ring-0 hover:ring-4 active:ring-1 rounded-xl cursor-pointer transition-all duration-150 select-none focus:outline-none focus-visible:ring-4`;
+const base: string = `inline-flex flex-row items-center justify-center font-semibold ring-0 hover:ring-4 active:ring-1 rounded-xl cursor-pointer transition-all duration-150 select-none focus:outline-none focus:ring-4`;
 
 const variantClasses: Record<Variant, string> = {
   primary: 'border border-blue-600 text-white bg-blue-600 active:bg-blue-700 active:border-blue-700 ring-blue-600/10 shadow-sm',

@@ -1,31 +1,198 @@
 import {Meta, Unstyled} from "@storybook/addon-docs/blocks";
-import {Button, InputSelect, InputText, Dropdown} from "@";
+import {
+    Button,
+    ButtonIconRound,
+    ButtonIconSquare,
+    Divider,
+    Dropdown,
+    InputSelect,
+    InputSelectNative,
+    InputText,
+    Panel
+} from "@";
 import './page.css';
+import {IconSearch, IconSettingsFilled} from "@tabler/icons-react";
 
 <Meta title="Index"/>
 
 <Unstyled>
     <div className={'sb-page'}>
         <div className={'flex flex-col mx-auto w-[400px] gap-12'}>
-            <Button>Button</Button>
-            <Button variant={"black"}>Button</Button>
-            <InputText
-                label={'Search'}
-                description={'Search for something...'}
-            />
-            <InputSelect
-                label={'Search'}
-                description={'Search for something...'}
-                value={''}
-                options={[
-                    {label: '- Select -', value: '', disabled: true},
-                    {label: 'Option 1', value: 'option1'},
-                    {label: 'Option 2', value: 'option2'},
-                    {label: 'Option 3', value: 'option3'},
-                ]}
-            />
-            <Dropdown />
-            <Dropdown />
+            <Panel>
+                <Button>Button</Button>
+                <Divider/>
+                <Button variant={"black"}>Button</Button>
+                <Divider/>
+                <InputText
+                    label={'Label'}
+                    description={'Some description'}
+                />
+                <InputText
+                    label={'Label'}
+                    description={'Some description'}
+                    error={'This field is required'}
+                />
+                <Divider/>
+                <InputText
+                    placeholder={'Search ...'}
+                    Icon={IconSearch}
+                />
+                <Divider/>
+                <InputSelectNative
+                    label={'Select (native)'}
+                    value={''}
+                    options={[
+                        {label: '- Select -', value: '', disabled: true},
+                        {label: 'Option 1', value: 'option1'},
+                        {label: 'Option 2', value: 'option2'},
+                        {label: 'Option 3', value: 'option3'},
+                    ]}
+                />
+                <Divider/>
+                <InputSelect
+                    label={'Select'}
+                    value={''}
+                    options={[
+                        {label: '- Select -', value: '', disabled: true},
+                        {label: 'Option 1', value: 'option1'},
+                        {label: 'Option 2', value: 'option2'},
+                        {label: 'Option 3', value: 'option3'},
+                    ]}
+                    onChange={() => {}}
+                />
+                <Divider/>
+                <div className={'flex flex-row gap-3 items-center'}>
+                    <ButtonIconSquare
+                        Icon={IconSettingsFilled}
+                        size={'sm'}
+                    />
+                    <ButtonIconSquare
+                        variant={'primary'}
+                        Icon={IconSettingsFilled}
+                        size={'sm'}
+                    />
+                    <ButtonIconSquare
+                        variant={'black'}
+                        Icon={IconSettingsFilled}
+                        size={'sm'}
+                    />
+                    <ButtonIconSquare
+                        variant={'transparent'}
+                        Icon={IconSettingsFilled}
+                        size={'sm'}
+                    />
+                </div>
+                <Divider/>
+                <div className={'flex flex-row gap-3 items-center'}>
+                    <ButtonIconSquare
+                        Icon={IconSettingsFilled}
+                        size={'md'}
+                    />
+                    <ButtonIconSquare
+                        variant={'primary'}
+                        Icon={IconSettingsFilled}
+                        size={'md'}
+                    />
+                    <ButtonIconSquare
+                        variant={'black'}
+                        Icon={IconSettingsFilled}
+                        size={'md'}
+                    />
+                    <ButtonIconSquare
+                        variant={'transparent'}
+                        Icon={IconSettingsFilled}
+                        size={'md'}
+                    />
+                </div>
+                <Divider/>
+                <div className={'flex flex-row gap-3 items-center'}>
+                    <ButtonIconSquare
+                        Icon={IconSettingsFilled}
+                        size={'lg'}
+                    />
+                    <ButtonIconSquare
+                        variant={'primary'}
+                        Icon={IconSettingsFilled}
+                        size={'lg'}
+                    />
+                    <ButtonIconSquare
+                        variant={'black'}
+                        Icon={IconSettingsFilled}
+                        size={'lg'}
+                    />
+                    <ButtonIconSquare
+                        variant={'transparent'}
+                        Icon={IconSettingsFilled}
+                        size={'lg'}
+                    />
+                </div>
+                <Divider/>
+                <div className={'flex flex-row gap-3 items-center'}>
+                    <ButtonIconRound
+                        Icon={IconSettingsFilled}
+                        size={'sm'}
+                    />
+                    <ButtonIconRound
+                        variant={'primary'}
+                        Icon={IconSettingsFilled}
+                        size={'sm'}
+                    />
+                    <ButtonIconRound
+                        variant={'black'}
+                        Icon={IconSettingsFilled}
+                        size={'sm'}
+                    />
+                    <ButtonIconRound
+                        variant={'transparent'}
+                        Icon={IconSettingsFilled}
+                        size={'sm'}
+                    />
+                </div>
+                <Divider/>
+                <div className={'flex flex-row gap-3 items-center'}>
+                    <ButtonIconRound
+                        Icon={IconSettingsFilled}
+                        size={'md'}
+                    />
+                    <ButtonIconRound
+                        variant={'primary'}
+                        Icon={IconSettingsFilled}
+                        size={'md'}
+                    />
+                    <ButtonIconRound
+                        variant={'black'}
+                        Icon={IconSettingsFilled}
+                        size={'md'}
+                    />
+                    <ButtonIconRound
+                        variant={'transparent'}
+                        Icon={IconSettingsFilled}
+                        size={'md'}
+                    />
+                </div>
+                <Divider/>
+                <div className={'flex flex-row gap-3 items-center'}>
+                    <ButtonIconRound
+                        Icon={IconSettingsFilled}
+                        size={'lg'}
+                    />
+                    <ButtonIconRound
+                        variant={'primary'}
+                        Icon={IconSettingsFilled}
+                        size={'lg'}
+                    />
+                    <ButtonIconRound
+                        variant={'black'}
+                        Icon={IconSettingsFilled}
+                        size={'lg'}
+                    />
+                    <ButtonIconRound
+                        variant={'transparent'}
+                        Icon={IconSettingsFilled}
+                        size={'lg'}
+                    />
+                </div>
+            </Panel>
         </div>
     </div>
 </Unstyled>

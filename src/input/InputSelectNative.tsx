@@ -3,20 +3,20 @@ import { classNames } from "@/util/classnames.util.ts";
 import { IconChevronDown } from "@tabler/icons-react";
 
 
-export type InputSelectProps<T> = React.InputHTMLAttributes<HTMLSelectElement> & {
+export type InputSelectNativeProps = React.InputHTMLAttributes<HTMLSelectElement> & {
   label?: string | React.ReactNode;
   description?: string | React.ReactNode;
-  options?: Option<T>[];
+  options?: OptionNative[];
 }
 
-export type Option<T> = {
+export type OptionNative = {
   label: string;
-  value: T;
+  value: string;
   disabled?: boolean;
 }
 
 
-export const InputSelect = <T, >(props: InputSelectProps<T>) => {
+export const InputSelectNative = (props: InputSelectNativeProps) => {
 
   const {
     className,
@@ -40,7 +40,8 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
           className={ `
           appearance-none
           h-12 
-          px-4
+          pl-4
+          pr-10
           border 
           border-gray-200 
           text-gray-900
@@ -52,20 +53,20 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
           shadow-sm 
           ring-0
           ring-gray-900/10
-          focus-visible:ring-4
-          focus-visible:outline-none
+          focus:ring-4
+          focus:outline-none
           ` }
           { ...rest }
         >
           { options && options.map((option, index) => (
             <option
               key={ index }
-              value={ String(option.value) }
+              value={ option.value }
               disabled={ option.disabled }
             >{ option.label }</option>
           )) }
         </select>
-        <IconChevronDown className={ 'h-5 w-5 absolute text-gray-900 top-3.5 right-3' }/>
+        <IconChevronDown className={ 'h-4 w-4 absolute text-gray-900 top-4 right-4' }/>
       </div>
       { description && (
         <div className={ 'text-gray-500 text-sm font-medium mt-2' }>{ description }</div>
