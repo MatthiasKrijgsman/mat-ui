@@ -4,7 +4,7 @@ import {
     ButtonIconRound,
     ButtonIconSquare,
     Divider,
-    Dropdown,
+    InputCheck,
     InputSelect,
     InputSelectNative,
     InputText,
@@ -19,14 +19,11 @@ import {IconSearch, IconSettingsFilled} from "@tabler/icons-react";
     <div className={'sb-page'}>
         <div className={'flex flex-col mx-auto w-[400px] gap-12'}>
             <Panel>
-                <Button>Button</Button>
-                <Divider/>
-                <Button variant={"black"}>Button</Button>
-                <Divider/>
                 <InputText
                     label={'Label'}
                     description={'Some description'}
                 />
+                <Divider/>
                 <InputText
                     label={'Label'}
                     description={'Some description'}
@@ -51,15 +48,22 @@ import {IconSearch, IconSettingsFilled} from "@tabler/icons-react";
                 <Divider/>
                 <InputSelect
                     label={'Select'}
-                    value={''}
+                    value={'option1'}
                     options={[
                         {label: '- Select -', value: '', disabled: true},
                         {label: 'Option 1', value: 'option1'},
                         {label: 'Option 2', value: 'option2'},
                         {label: 'Option 3', value: 'option3'},
                     ]}
-                    onChange={() => {}}
+                    onChange={() => {
+                    }}
                 />
+                <Divider/>
+                <InputCheck />
+                <Divider/>
+                <Button>Button</Button>
+                <Divider/>
+                <Button variant={"black"}>Button</Button>
                 <Divider/>
                 <div className={'flex flex-row gap-3 items-center'}>
                     <ButtonIconSquare

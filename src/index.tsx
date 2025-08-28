@@ -2,6 +2,7 @@ import { Button } from "./button/Button.tsx";
 import { ButtonIconSquare } from "./button/ButtonIconSquare.tsx";
 import { ButtonIconRound } from "./button/ButtonIconRound.tsx";
 import { InputText } from "./input/InputText.tsx";
+import { InputCheck } from "./input/InputCheck.tsx";
 import { InputSelect } from "./input/input-select/InputSelect.tsx";
 import { InputSelectNative } from "./input/InputSelectNative.tsx";
 import { Dropdown } from "./dropdown/Dropdown.tsx";
@@ -13,6 +14,7 @@ export {
   InputText,
   InputSelectNative,
   InputSelect,
+  InputCheck,
   Dropdown,
   Panel,
   ButtonIconSquare,

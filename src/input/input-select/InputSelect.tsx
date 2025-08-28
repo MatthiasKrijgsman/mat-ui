@@ -70,8 +70,9 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
         <Dropdown
           open={ open }
           setOpen={ setOpen }
+          fullWidth={ true }
         >
-          <div className={'flex flex-col p-1'}>
+          <div className={ 'flex flex-col p-1 gap-1' }>
             { options.map((option) => {
               const isSelected = option.value === value;
               return (
