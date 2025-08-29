@@ -2,22 +2,45 @@ import * as React from "react";
 import { classNames } from "@/util/classnames.util.ts";
 
 interface InputCheckProps extends React.HTMLAttributes<HTMLInputElement> {
-  children?: React.ReactNode;
+  label?: string | React.ReactNode;
+  description?: string | React.ReactNode;
+  error?: string | React.ReactNode;
 }
 
 export const InputCheck = (props: InputCheckProps) => {
   const {
     className,
-    children,
+    label,
+    description,
+    error,
     ...rest
   } = props;
   return (
-    <div>
-      <input
-        type={ 'checkbox' }
-        className={ 'h-6 w-6 rounded-lg' }
-        { ...rest }
-      />
+    <div
+      className={ classNames(
+        'flex flex-col',
+        className
+      ) }
+    >
+      <div className={ 'flex flex-row gap-3' }>
+        <input
+          type={ 'checkbox' }
+          className={ 'h-6 w-6 rounded-lg border border-gray-300 shadow-sm ring-0 hover:ring-4 focus:ring-4 ring-gray-900/10 ring-offset-0 focus:outline-0 transition-all duration-150' }
+          { ...rest }
+        />
+        { label && (
+          <label htmlFor={ props.id } className={ classNames(
+            'text-gray-900 font-medium mb-1',
+            props.id && 'cursor-pointer'
+          ) }>{ label }</label>
+        ) }
+      </div>
+      { description && (
+        <div className={ 'text-gray-500 text-sm font-medium mt-2' }>{ description }</div>
+      ) }
+      { error && (
+        <div className={ 'text-red-600 text-sm font-medium mt-2' }>{ error }</div>
+      ) }
     </div>
   );
 };

@@ -1,0 +1,90 @@
+import {Meta, Unstyled} from "@storybook/addon-docs/blocks";
+import {InputCheck, Panel} from "@";
+import './page.css';
+
+<Meta title="Todo"/>
+
+<Unstyled>
+    <div className={'sb-page'}>
+        <div className={'flex flex-col mx-auto w-[400px] gap-12'}>
+            <Panel>
+                <InputCheck
+                    label={'Input Text'}
+                    checked={true}
+                />
+                <InputCheck
+                    label={'Input Number'}
+                    checked={false}
+                />
+                <InputCheck
+                    label={'Input Email'}
+                    checked={false}
+                />
+                <InputCheck
+                    label={'Input Password (With show Icon)'}
+                    checked={false}
+                />
+                <InputCheck
+                    label={'Input Phone'}
+                    checked={false}
+                />
+                <InputCheck
+                    label={'Input Checkbox'}
+                    checked={true}
+                />
+                <InputCheck
+                    label={'Input Date'}
+                    checked={false}
+                />
+                <InputCheck
+                    label={'Input Time'}
+                    checked={false}
+                />
+                <InputCheck
+                    label={'Input Datetime'}
+                    checked={false}
+                />
+                <InputCheck
+                    label={'Input Textarea'}
+                    checked={false}
+                />
+                <InputCheck
+                    label={'Input Tags'}
+                    checked={false}
+                />
+                <InputCheck
+                    label={'Input File'}
+                    checked={false}
+                />
+                <InputCheck
+                    label={'Input Radio'}
+                    checked={false}
+                />
+                <InputCheck
+                    label={'Input RadioGroup'}
+                    checked={false}
+                />
+                <InputCheck
+                    label={'Input Toggle'}
+                    checked={false}
+                />
+                <InputCheck
+                    label={'Input Select'}
+                    checked={true}
+                />
+                <InputCheck
+                    label={'Input Select (Native)'}
+                    checked={true}
+                />
+                <InputCheck
+                    label={'Input Searchable Select'}
+                    checked={false}
+                />
+                <InputCheck
+                    label={'Input Searchable Select (API)'}
+                    checked={false}
+                />
+            </Panel>
+        </div>
+    </div>
+</Unstyled>

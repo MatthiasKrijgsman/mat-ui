@@ -59,7 +59,17 @@ import {IconSearch, IconSettingsFilled} from "@tabler/icons-react";
                     }}
                 />
                 <Divider/>
-                <InputCheck />
+                <InputCheck
+                    label={'Label'}
+                    description={'Some description'}
+                    error={'This field is required'}
+                    checked={true}
+                />
+                <Divider/>
+                <InputCheck
+                    label={'Test'}
+                    checked={false}
+                />
                 <Divider/>
                 <Button>Button</Button>
                 <Divider/>
