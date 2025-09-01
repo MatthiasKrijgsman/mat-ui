@@ -80,7 +80,10 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
           ref={ ref }
           role={ 'button' }
           tabIndex={ 0 }
-          className={ 'flex flex-row items-center h-12 pl-4 pr-10 border border-gray-200 text-gray-900 placeholder:text-gray-400 bg-white transition-all duration-150 rounded-xl shadow-sm ring-0 ring-gray-900/10 focus:ring-4 focus:outline-none select-none' }
+          className={ classNames(
+            'flex flex-row items-center h-12 pl-4 pr-10 border border-gray-200 text-gray-900 placeholder:text-gray-400 bg-white transition-all duration-150 rounded-xl shadow-sm ring-0 ring-gray-900/10 focus:ring-4 focus:outline-none select-none',
+            open && 'ring-4'
+          ) }
           onKeyDown={ (e) => e.key === ' ' && setOpen(o => !o) }
           onClick={ () => setOpen(!open) }
         >
