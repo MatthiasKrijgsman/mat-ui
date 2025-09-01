@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { ButtonIconSquare } from "@/ButtonIconSquare.tsx";
 import { IconChevronDown } from "@tabler/icons-react";
-import { usePopover } from "@/hooks/use-popover.tsx";
+import { usePopover } from "@/popover/use-popover.tsx";
+import { PopoverPanel } from "@/popover/PopoverPanel.tsx";
 
 export const Test = () => {
   const [ open, setOpen ] = useState(false);
 
-  const { anchorRef, PopoverBase } = usePopover({
+  const { anchorRef, Popover } = usePopover({
     placement: 'bottom-start',
     onOutsideClick: () => setOpen(false),
+    minWidth: 150
   });
 
   return (<>
@@ -17,8 +19,10 @@ export const Test = () => {
       onClick={ () => setOpen(!open) }
       ref={ anchorRef }
     />
-    <PopoverBase open={ open }>
-      <div className={'bg-black text-white text-lg p-6 w-full'}>Yay</div>
-    </PopoverBase>
+    <Popover open={ open }>
+      <PopoverPanel>
+        Yay
+      </PopoverPanel>
+    </Popover>
   </>);
 };

@@ -2,8 +2,9 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { classNames } from "@/util/classnames.util.ts";
 import { IconChevronDown } from "@tabler/icons-react";
-import { Popover } from "@/Popover.tsx";
 import { InputSelectOption } from "@/InputSelectOption.tsx";
+import { usePopover } from "@/popover/use-popover.tsx";
+import { PopoverPanel } from "@/popover/PopoverPanel.tsx";
 
 
 export type InputSelectProps<T> = {
@@ -43,6 +44,12 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
     if (open) ref.current?.focus({ preventScroll: true });
   }, [ open ])
 
+  const { anchorRef, Popover } = usePopover({
+    placement: 'bottom',
+    fullWidth: true,
+    onOutsideClick: () => setOpen(false),
+  })
+
   return (
     <div
       className={ classNames(
@@ -53,7 +60,7 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
         <label className={ 'text-gray-900 font-medium mb-1' }>{ label }</label>
       ) }
 
-      <div className={ 'relative flex w-full flex-col' }>
+      <div className={ 'relative flex w-full flex-col' } ref={ anchorRef }>
         <div
           ref={ ref }
           role={ 'button' }
@@ -67,32 +74,29 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
           ) }
         </div>
         <IconChevronDown className={ 'h-4 w-4 absolute text-gray-900 top-4 right-4' }/>
-        <Popover
-          open={ open }
-          setOpen={ setOpen }
-          fullWidth={ true }
-        >
-          <div className={ 'flex flex-col p-1 gap-1' }>
-            { options.map((option) => {
-              const isSelected = option.value === value;
-              return (
-                <InputSelectOption
-                  key={ String(option.value) }
-                  onClick={ () => {
-                    if (!option.disabled && !!onChange) {
-                      onChange(option.value)
-                      console.log('asdasd')
-                      setOpen(false);
-                    }
-                  } }
-                  selected={ isSelected }
-                  disabled={ option.disabled }
-                >
-                  { option.label }
-                </InputSelectOption>
-              )
-            }) }
-          </div>
+        <Popover open={ open }>
+          <PopoverPanel className={'!p-0'}>
+            <div className={ 'flex flex-col p-1 gap-1' }>
+              { options.map((option) => {
+                const isSelected = option.value === value;
+                return (
+                  <InputSelectOption
+                    key={ String(option.value) }
+                    onClick={ () => {
+                      if (!option.disabled && !!onChange) {
+                        onChange(option.value)
+                        setOpen(false);
+                      }
+                    } }
+                    selected={ isSelected }
+                    disabled={ option.disabled }
+                  >
+                    { option.label }
+                  </InputSelectOption>
+                )
+              }) }
+            </div>
+          </PopoverPanel>
         </Popover>
       </div>
       { description && (

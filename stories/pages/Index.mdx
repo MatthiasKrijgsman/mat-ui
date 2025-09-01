@@ -1,5 +1,5 @@
 import {Meta, Unstyled} from "@storybook/addon-docs/blocks";
-import {Panel, Test} from "@";
+import {Divider, InputSelect, Panel, Test} from "@";
 import './page.css';
 
 <Meta title="Index"/>
@@ -9,6 +9,19 @@ import './page.css';
         <div className={'flex flex-col mx-auto w-[400px] gap-12'}>
             <Panel>
                 <Test/>
+                <Divider/>
+
+                <InputSelect
+                    label={'Test'}
+                    options={[
+                        {value: '1', label: 'One'},
+                        {value: '2', label: 'Two'},
+                        {value: '3', label: 'Three'},
+                    ]}
+                    onChange={(value) => {}}
+                    placeholder={'Select an option'}
+                    value={'1'}
+                />
             </Panel>
         </div>
     </div>

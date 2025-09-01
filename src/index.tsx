@@ -5,7 +5,6 @@ import { InputText } from "./InputText.tsx";
 import { InputCheck } from "./InputCheck.tsx";
 import { InputSelect } from "./InputSelect.tsx";
 import { InputSelectNative } from "./InputSelectNative.tsx";
-import { Popover } from "./Popover.tsx";
 import { Panel } from "./Panel.tsx";
 import { Divider } from "./Divider.tsx";
 import { Test } from "./Test.tsx";
@@ -16,7 +15,6 @@ export {
   InputSelectNative,
   InputSelect,
   InputCheck,
-  Popover,
   Panel,
   ButtonIconSquare,
   ButtonIconRound,
