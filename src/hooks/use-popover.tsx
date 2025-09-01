@@ -1,4 +1,4 @@
-import { type Placement, size, useFloating } from "@floating-ui/react";
+import { FloatingOverlay, type Placement, size, useFloating } from "@floating-ui/react";
 import { AnimatePresence, motion } from "motion/react";
 import * as React from "react";
 
@@ -19,60 +19,85 @@ const placementOriginMap: Record<Placement, string> = {
 
 export type UsePopoverProps = {
   placement?: Placement;
-  open: boolean;
+  onOutsideClick?: () => void;
   fullWidth?: boolean;
   minWidth?: number;
 };
 
 export const usePopover = (props: UsePopoverProps) => {
-  const { placement = "bottom", open, fullWidth, minWidth } = props;
+  const { placement = "bottom", onOutsideClick, fullWidth, minWidth } = props;
 
-  // Stabilize middleware to avoid re-creating functions every render
   const middleware = React.useMemo(() => {
-    if (!fullWidth) return [] as NonNullable<Parameters<typeof useFloating>[0]>["middleware"];
     return [
       size({
         apply({ rects, elements }) {
+          if (fullWidth) {
+            elements.floating.style.width = `${ rects.reference.width }px`;
+          }
           if (minWidth) {
-            elements.floating.style.minWidth = `${Math.max(minWidth, rects.reference.width)}px`;
-          } else {
-            elements.floating.style.width = `${rects.reference.width}px`;
+            elements.floating.style.minWidth = `${ Math.max(minWidth, rects.reference.width) }px`;
           }
         },
-      }),
+      })
     ];
-  }, [fullWidth, minWidth]);
+  }, [ fullWidth, minWidth ]);
 
   const { refs, floatingStyles } = useFloating({
     placement,
-    // `open` is not needed for positioning; keeping options stable prevents loops
     middleware,
   });
 
-  // Render helper avoids changing component identity and re-mount loops
-  const renderPopover = React.useCallback(
-    (children: React.ReactNode) => (
-      <AnimatePresence>
-        {open && (
-          <div ref={refs.setFloating} style={floatingStyles}>
-            <motion.div
-              style={{ transformOrigin: placementOriginMap[placement] }}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.1, ease: "easeInOut" }}
-            >
-              {children}
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-    ),
-    [open, refs.setFloating, floatingStyles, placement]
-  );
+  const latest = React.useRef({
+    onOutsideClick,
+    floatingStyles,
+    setFloating: refs.setFloating,
+    placement,
+  });
+  latest.current = {
+    onOutsideClick,
+    floatingStyles,
+    setFloating: refs.setFloating,
+    placement,
+  };
+
+  const PopoverBase = React.useMemo(() => {
+    const Comp: React.FC<{ open: boolean; children: React.ReactNode, className?: string }> = (
+      {
+        open,
+        children,
+        className
+      }) => {
+      const { floatingStyles, setFloating, onOutsideClick, placement } = latest.current;
+      return (
+        <AnimatePresence>
+          { open && (<>
+              { onOutsideClick && (
+                <FloatingOverlay
+                  onClick={ onOutsideClick }
+                />
+              ) }
+              <div ref={ setFloating } style={ floatingStyles }>
+                <motion.div
+                  className={ className }
+                  style={ { transformOrigin: placementOriginMap[placement] } }
+                  initial={ { opacity: 0, scale: 0.9 } }
+                  animate={ { opacity: 1, scale: 1 } }
+                  exit={ { opacity: 0, scale: 0.9 } }
+                  transition={ { duration: 0.1, ease: "easeInOut" } }
+                >
+                  { children }
+                </motion.div>
+              </div>
+            </>
+          ) }
+        </AnimatePresence>
+      );
+    };
+    return React.memo(Comp);
+  }, []);
 
   return {
     anchorRef: refs.setReference,
-    renderPopover,
+    PopoverBase: PopoverBase,
   };
 };

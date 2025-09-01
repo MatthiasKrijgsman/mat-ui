@@ -6,9 +6,9 @@ import { usePopover } from "@/hooks/use-popover.tsx";
 export const Test = () => {
   const [ open, setOpen ] = useState(false);
 
-  const { anchorRef, renderPopover } = usePopover({
-    open,
+  const { anchorRef, PopoverBase } = usePopover({
     placement: 'bottom-start',
+    onOutsideClick: () => setOpen(false),
   });
 
   return (<>
@@ -17,6 +17,8 @@ export const Test = () => {
       onClick={ () => setOpen(!open) }
       ref={ anchorRef }
     />
-    {renderPopover(<div className={'bg-black text-white text-lg p-6'}>Yay</div>)}
+    <PopoverBase open={ open }>
+      <div className={'bg-black text-white text-lg p-6 w-full'}>Yay</div>
+    </PopoverBase>
   </>);
 };
