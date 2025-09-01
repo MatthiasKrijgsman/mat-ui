@@ -4,7 +4,7 @@ import { FloatingOverlay, size, useFloating } from "@floating-ui/react";
 import { AnimatePresence, motion } from "motion/react";
 import { classNames } from "@/util/classnames.util.ts";
 
-export type DropdownProps = {
+export type PopoverProps = {
   placement?: Placement;
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -34,7 +34,7 @@ const placementOriginMap: Record<Placement, string> = {
   'left-end': 'bottom right',
 }
 
-export const Dropdown = (props: DropdownProps) => {
+export const Popover = (props: PopoverProps) => {
   const {
     placement = 'bottom',
     children,
@@ -61,8 +61,6 @@ export const Dropdown = (props: DropdownProps) => {
       }),
     ],
   });
-
-  //TODO: Add proper origin based on placement
 
   return (
     <>

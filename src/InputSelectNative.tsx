@@ -47,6 +47,7 @@ export const InputSelectNative = (props: InputSelectNativeProps) => {
           text-gray-900
           placeholder:text-gray-400
           bg-white
+          bg-none
           transition-all 
           duration-150
           rounded-xl

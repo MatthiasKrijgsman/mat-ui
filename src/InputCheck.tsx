@@ -25,7 +25,7 @@ export const InputCheck = (props: InputCheckProps) => {
       <div className={ 'flex flex-row gap-3' }>
         <input
           type={ 'checkbox' }
-          className={ 'h-6 w-6 rounded-lg border border-gray-300 shadow-sm ring-0 hover:ring-4 focus:ring-4 ring-gray-900/10 ring-offset-0 focus:outline-0 transition-all duration-150' }
+          className={ 'h-6 w-6 shrink-0 rounded-lg border border-gray-300 shadow-sm ring-0 hover:ring-4 focus:ring-4 ring-gray-900/10 ring-offset-0 focus:outline-0 transition-all duration-150' }
           { ...rest }
         />
         { label && (

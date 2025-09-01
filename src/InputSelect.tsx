@@ -2,8 +2,8 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { classNames } from "@/util/classnames.util.ts";
 import { IconChevronDown } from "@tabler/icons-react";
-import { Dropdown } from "@/dropdown/Dropdown.tsx";
-import { InputSelectOption } from "@/input/input-select/InputSelectOption.tsx";
+import { Popover } from "@/Popover.tsx";
+import { InputSelectOption } from "@/InputSelectOption.tsx";
 
 
 export type InputSelectProps<T> = {
@@ -67,7 +67,7 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
           ) }
         </div>
         <IconChevronDown className={ 'h-4 w-4 absolute text-gray-900 top-4 right-4' }/>
-        <Dropdown
+        <Popover
           open={ open }
           setOpen={ setOpen }
           fullWidth={ true }
@@ -93,7 +93,7 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
               )
             }) }
           </div>
-        </Dropdown>
+        </Popover>
       </div>
       { description && (
         <div className={ 'text-gray-500 text-sm font-medium mt-2' }>{ description }</div>
