@@ -65,7 +65,7 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
           ref={ ref }
           role={ 'button' }
           tabIndex={ 0 }
-          className={ `flex flex-row items-center h-12 pl-4 pr-10 border border-gray-200 text-gray-900 placeholder:text-gray-400 bg-white transition-all duration-150 rounded-xl shadow-sm ring-0 ring-gray-900/10 focus:ring-4 focus:outline-none select-none` }
+          className={ 'flex flex-row items-center h-12 pl-4 pr-10 border border-gray-200 text-gray-900 placeholder:text-gray-400 bg-white transition-all duration-150 rounded-xl shadow-sm ring-0 ring-gray-900/10 focus:ring-4 focus:outline-none select-none' }
           onKeyDown={ (e) => e.key === ' ' && setOpen(o => !o) }
           onClick={ () => setOpen(!open) }
         >
@@ -75,7 +75,7 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
         </div>
         <IconChevronDown className={ 'h-4 w-4 absolute text-gray-900 top-4 right-4' }/>
         <Popover open={ open }>
-          <PopoverPanel className={'!p-0'}>
+          <PopoverPanel className={ '!p-0' }>
             <div className={ 'flex flex-col p-1 gap-1' }>
               { options.map((option) => {
                 const isSelected = option.value === value;
