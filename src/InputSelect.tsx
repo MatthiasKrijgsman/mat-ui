@@ -16,6 +16,8 @@ export type InputSelectProps<T> = {
   options: Option<T>[];
   value: T;
   onChange: (value: T) => void;
+  placeholder?: string;
+  maxHeight?: number;
 }
 
 export type Option<T> = {
@@ -34,6 +36,8 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
     options,
     onChange,
     value,
+    placeholder,
+    maxHeight
   } = props;
 
   const [ open, setOpen ] = useState(false);
@@ -72,11 +76,14 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
           { selectedOption && (
             <span>{ selectedOption.label }</span>
           ) }
+          { !selectedOption && placeholder && (
+            <span>{ placeholder }</span>
+          ) }
         </div>
         <IconChevronDown className={ 'h-4 w-4 absolute text-gray-900 top-4 right-4' }/>
         <Popover open={ open }>
-          <PopoverPanel className={ '!p-0' }>
-            <div className={ 'flex flex-col p-1 gap-1' }>
+          <PopoverPanel className={ '!p-0' } style={ { maxHeight: maxHeight } }>
+            <div className={ 'flex flex-col p-2 gap-1' }>
               { options.map((option) => {
                 const isSelected = option.value === value;
                 return (

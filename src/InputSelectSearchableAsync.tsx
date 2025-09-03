@@ -5,19 +5,21 @@ import { IconChevronDown, IconSearch, IconSearchOff } from "@tabler/icons-react"
 import { InputSelectOption } from "@/InputSelectOption.tsx";
 import { usePopover } from "@/popover/use-popover.tsx";
 import { PopoverPanel } from "@/popover/PopoverPanel.tsx";
+import { Spinner } from "@/spinner/Spinner.tsx";
 
 
-export type InputSelectSearchableProps<T> = {
+export type InputSelectSearchableAsyncProps<T> = {
   name?: string;
   id?: string;
   className?: string;
   label?: string | React.ReactNode;
   description?: string | React.ReactNode;
   options: Option<T>[];
-  onSearch: (search: string, options: Option<T>[]) => Option<T>[];
+  onSearch: (search: string) => Promise<Option<T>[]>;
+  onSearchDebounceMs?: number;
   value: T;
   onChange: (value: T) => void;
-  placeholder?: string;
+  placeholder?: string; // TODO Add placeholder to other select
   maxHeight?: number;
 }
 
@@ -28,7 +30,7 @@ export type Option<T> = {
 }
 
 //TODO Add remove value button
-export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>) => {
+export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyncProps<T>) => {
 
   const {
     className,
@@ -37,6 +39,7 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
     options,
     onChange,
     onSearch,
+    onSearchDebounceMs = 200,
     value,
     placeholder,
     maxHeight
@@ -48,10 +51,18 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
   const [ filteredOptions, setFilteredOptions ] = useState<Option<T>[]>(options);
   const selectedOption = options?.find(option => option.value === value);
   const inputSearchRef = React.useRef<HTMLInputElement>(null);
+  const [ isFetching, setIsFetching ] = useState(false);
 
   useEffect(() => {
-    setFilteredOptions(onSearch(search, options));
-  }, [ search, options, onSearch ]);
+    const delayDebounceFn = setTimeout(() => {
+      setIsFetching(true);
+      onSearch(search).then((opts) => {
+        setFilteredOptions(opts);
+        setIsFetching(false);
+      });
+    }, onSearchDebounceMs)
+    return () => clearTimeout(delayDebounceFn)
+  }, [search, options, onSearch, onSearchDebounceMs]);
 
   useEffect(() => {
     if (open) {
@@ -111,12 +122,17 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
             <div className={ 'flex flex-col gap-1 p-2' }>
               { search !== '' && (
                 <>
-                  { filteredOptions.length === 0 && (
+                  { !isFetching && filteredOptions.length === 0 && (
                     <div className={ 'flex flex-col items-center justify-center py-6' }>
                       <IconSearchOff className={ 'h-6 w-6 text-gray-900' }/>
                     </div>
                   ) }
-                  { filteredOptions.map((option) => {
+                  { isFetching && (
+                    <div className={ 'flex flex-col items-center justify-center py-6' }>
+                      <Spinner className={'h-6 w-6  text-gray-900'} />
+                    </div>
+                  ) }
+                  { !isFetching && filteredOptions.map((option) => {
                     const isSelected = option.value === value;
                     return (
                       <InputSelectOption
