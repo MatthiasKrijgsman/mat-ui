@@ -1,5 +1,5 @@
 import { ButtonIconSquare } from "@/ButtonIconSquare.tsx";
-import { IconEye } from "@tabler/icons-react";
+import { IconEye, IconFolder, IconFolderFilled } from "@tabler/icons-react";
 import { Button } from "@/Button.tsx";
 import { TabButtons } from "@/TabButtons.tsx";
 import { Badge } from "@/Badge.tsx";
@@ -23,7 +23,7 @@ export const Test = () => {
         ] }
       />
       <div className={ 'space-x-2 space-y-2' }>
-        <Badge onClick={ () => {} } color={ 'red' }>Red</Badge>
+        <Badge Icon={IconFolderFilled} onClick={ () => {} } color={ 'red' }>Red</Badge>
         <Badge onClick={ () => {} } color={ 'orange' }>Orange</Badge>
         <Badge onClick={ () => {} } color={ 'amber' }>Amber</Badge>
         <Badge onClick={ () => {} } color={ 'yellow' }>Yellow</Badge>
