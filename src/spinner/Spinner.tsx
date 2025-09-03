@@ -20,8 +20,8 @@ export const Spinner = (props: SpinnerProps) => {
     className
   } = props;
 
-  const rotateDuration = 1 / speed; // original: 1s
-  const clipDuration = 2 / speed;   // original: 2s
+  const rotateDuration = 1 / speed;
+  const clipDuration = 2 / speed;
 
   return (
     <AnimatePresence>
