@@ -30,6 +30,8 @@ export type Option<T> = {
 }
 
 //TODO Add remove value button
+//TODO remove options and trigger onSearch for initial options
+//TODO Add way to fetch selected values if not in options
 export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyncProps<T>) => {
 
   const {
