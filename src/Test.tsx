@@ -1,30 +1,24 @@
-import { Panel } from "@/Panel.tsx";
-import { InputSelectSearchableAsync } from "@/InputSelectSearchableAsync.tsx";
 import { useState } from "react";
-
-const options = [
-  { label: 'Matthias Krijgsman', value: 'matthias' },
-  { label: 'Dennis Snijder', value: 'dennis' },
-  { label: 'Arco Krijgsman', value: 'arco' },
-]
-
-
-const fetchOptions = async (search: string) => {
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  return options.filter((option) => option.label.toLowerCase().indexOf(search.toLowerCase()) > -1);
-}
+import { ButtonIconSquare } from "@/ButtonIconSquare.tsx";
+import { IconEye } from "@tabler/icons-react";
+import { Modal } from "@/Modal.tsx";
 
 export const Test = () => {
 
-  const [ value, setValue ] = useState();
+  const [ open, setOpen ] = useState(false);
 
-  return (
-    <Panel className={ 'h-[500px]' }>
-      <InputSelectSearchableAsync
-        options={ options }
-        onSearch={ fetchOptions}
-        value={ value }
-        onChange={ (option) => setValue(option) }/>
-    </Panel>
-  );
+  return (<>
+    <ButtonIconSquare
+      Icon={ IconEye }
+      onClick={ () => setOpen(true) }
+    />
+    <Modal
+      open={ open }
+      onOutsideClick={() => setOpen(false)}
+      onClose={() => setOpen(false)}
+      className={'gap-3'}
+    >
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </Modal>
+  </>);
 };
