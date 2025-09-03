@@ -1,0 +1,28 @@
+export const BadgeColor = {
+  red: 'bg-red-100 text-red-700 ring-red-200',
+  orange: 'bg-orange-100 text-orange-700 ring-orange-200',
+  amber: 'bg-amber-100 text-amber-700 ring-amber-200',
+  yellow: 'bg-yellow-100 text-yellow-700 ring-yellow-200',
+  lime: 'bg-lime-100 text-lime-700 ring-lime-200',
+  green: 'bg-green-100 text-green-700 ring-green-200',
+  emerald: 'bg-emerald-100 text-emerald-700 ring-emerald-200',
+  teal: 'bg-teal-100 text-teal-700 ring-teal-200',
+  cyan: 'bg-cyan-100 text-cyan-700 ring-cyan-200',
+  sky: 'bg-sky-100 text-sky-700 ring-sky-200',
+  blue: 'bg-blue-100 text-blue-700 ring-blue-200',
+  indigo: 'bg-indigo-100 text-indigo-700 ring-indigo-200',
+  violet: 'bg-violet-100 text-violet-700 ring-violet-200',
+  purple: 'bg-purple-100 text-purple-700 ring-purple-200',
+  fuchsia: 'bg-fuchsia-100 text-fuchsia-700 ring-fuchsia-200',
+  pink: 'bg-pink-100 text-pink-700 ring-pink-200',
+  rose: 'bg-rose-100 text-rose-700 ring-rose-200',
+  slate: 'bg-slate-100 text-slate-700 ring-slate-200',
+  gray: 'bg-gray-100 text-gray-700 ring-gray-200',
+  zinc: 'bg-zinc-100 text-zinc-700 ring-zinc-200',
+  neutral: 'bg-neutral-100 text-neutral-700 ring-neutral-200',
+  stone: 'bg-stone-100 text-stone-700 ring-stone-200',
+  white: 'bg-white text-gray-900 ring-stone-200',
+  black: 'bg-black text-white ring-stone-200',
+} as const;
+
+export type BadgeColorKey = keyof typeof BadgeColor;
