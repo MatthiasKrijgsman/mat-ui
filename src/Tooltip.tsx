@@ -21,6 +21,7 @@ export const Tooltip = (props: TooltipProps) => {
     delay = 300,
     maxWidth = 200
   } = props;
+  //TODO params above
   const [ open, setOpen ] = useState(false);
   const { anchorRef, Popover } = usePopover({})
   return (
