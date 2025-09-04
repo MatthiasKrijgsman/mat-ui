@@ -1,12 +1,19 @@
 import * as React from "react";
 import { classNames } from "@/util/classnames.util.ts";
 import { IconChevronDown } from "@tabler/icons-react";
+import { InputLabel } from "@/InputLabel.tsx";
+import { InputDescription } from "@/InputDescription.tsx";
+import { InputError } from "@/InputError.tsx";
+import { InputErrorIcon } from "@/InputErrorIcon.tsx";
+import { InputIconButton } from "@/InputIconButton.tsx";
+import { InputIconButtonTray } from "@/InputIconButtonTray.tsx";
 
 
 export type InputSelectNativeProps = React.InputHTMLAttributes<HTMLSelectElement> & {
   label?: string | React.ReactNode;
   description?: string | React.ReactNode;
   options?: OptionNative[];
+  error?: string | React.ReactNode;
 }
 
 export type OptionNative = {
@@ -23,6 +30,7 @@ export const InputSelectNative = (props: InputSelectNativeProps) => {
     label,
     description,
     options,
+    error,
     ...rest
   } = props;
 
@@ -32,9 +40,7 @@ export const InputSelectNative = (props: InputSelectNativeProps) => {
         'flex flex-col',
         className
       ) }>
-      { label && (
-        <label className={ 'text-gray-900 font-medium mb-1' }>{ label }</label>
-      ) }
+      <InputLabel>{ label }</InputLabel>
       <div className={ 'relative flex w-full flex-col' }>
         <select
           className={ `
@@ -67,11 +73,15 @@ export const InputSelectNative = (props: InputSelectNativeProps) => {
             >{ option.label }</option>
           )) }
         </select>
-        <IconChevronDown className={ 'h-4 w-4 absolute text-gray-900 top-4 right-4' }/>
+        <InputIconButtonTray>
+          { error && (
+            <InputErrorIcon/>
+          ) }
+          <InputIconButton Icon={ IconChevronDown }/>
+        </InputIconButtonTray>
       </div>
-      { description && (
-        <div className={ 'text-gray-500 text-sm font-medium mt-2' }>{ description }</div>
-      ) }
+      <InputDescription>{ description }</InputDescription>
+      <InputError>{ error }</InputError>
     </div>
   );
 };

@@ -1,10 +1,16 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { classNames } from "@/util/classnames.util.ts";
-import { IconChevronDown } from "@tabler/icons-react";
+import { IconChevronDown, IconX } from "@tabler/icons-react";
 import { InputSelectOption } from "@/InputSelectOption.tsx";
 import { usePopover } from "@/popover/use-popover.tsx";
 import { PopoverPanel } from "@/popover/PopoverPanel.tsx";
+import { InputLabel } from "@/InputLabel.tsx";
+import { InputErrorIcon } from "@/InputErrorIcon.tsx";
+import { InputIconButton } from "@/InputIconButton.tsx";
+import { InputIconButtonTray } from "@/InputIconButtonTray.tsx";
+import { InputDescription } from "@/InputDescription.tsx";
+import { InputError } from "@/InputError.tsx";
 
 
 export type InputSelectProps<T> = {
@@ -14,10 +20,11 @@ export type InputSelectProps<T> = {
   label?: string | React.ReactNode;
   description?: string | React.ReactNode;
   options: Option<T>[];
-  value: T;
-  onChange: (value: T) => void;
+  value: T | null;
+  onChange: (value: T | null) => void;
   placeholder?: string;
   maxHeight?: number;
+  error?: string | React.ReactNode;
 }
 
 export type Option<T> = {
@@ -37,7 +44,8 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
     onChange,
     value,
     placeholder,
-    maxHeight
+    maxHeight = 300,
+    error
   } = props;
 
   const [ open, setOpen ] = useState(false);
@@ -60,16 +68,18 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
         'flex flex-col',
         className
       ) }>
-      { label && (
-        <label className={ 'text-gray-900 font-medium mb-1' }>{ label }</label>
-      ) }
+      <InputLabel>{ label }</InputLabel>
 
       <div className={ 'relative flex w-full flex-col' } ref={ anchorRef }>
         <div
           ref={ ref }
           role={ 'button' }
           tabIndex={ 0 }
-          className={ 'flex flex-row items-center h-12 pl-4 pr-10 border border-gray-200 text-gray-900 placeholder:text-gray-400 bg-white transition-all duration-150 rounded-xl shadow-sm ring-0 ring-gray-900/10 focus:ring-4 focus:outline-none select-none' }
+          className={ classNames(
+            'flex flex-row items-center h-12 pl-4 pr-10 border border-gray-200 text-gray-900 placeholder:text-gray-400 bg-white transition-all duration-150 rounded-xl shadow-sm ring-0 ring-gray-900/10 focus:ring-4 focus:outline-none select-none',
+            error && 'border-red-600 ring-red-600/20 !pr-10',
+            open && 'ring-4',
+          ) }
           onKeyDown={ (e) => e.key === ' ' && setOpen(o => !o) }
           onClick={ () => setOpen(!open) }
         >
@@ -80,7 +90,15 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
             <span>{ placeholder }</span>
           ) }
         </div>
-        <IconChevronDown className={ 'h-4 w-4 absolute text-gray-900 top-4 right-4' }/>
+        <InputIconButtonTray>
+          { error && (
+            <InputErrorIcon/>
+          ) }
+          { !!value && (
+            <InputIconButton Icon={IconX} onClick={() => onChange(null)} />
+          ) }
+          <InputIconButton Icon={IconChevronDown} />
+        </InputIconButtonTray>
         <Popover open={ open }>
           <PopoverPanel className={ '!p-0' } style={ { maxHeight: maxHeight } }>
             <div className={ 'flex flex-col p-2 gap-1' }>
@@ -106,9 +124,8 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
           </PopoverPanel>
         </Popover>
       </div>
-      { description && (
-        <div className={ 'text-gray-500 text-sm font-medium mt-2' }>{ description }</div>
-      ) }
+      <InputDescription>{ description }</InputDescription>
+      <InputError>{ error }</InputError>
     </div>
   );
 };

@@ -1,50 +1,75 @@
 import { useState } from "react";
-import { InputPassword } from "@/InputPassword.tsx";
-import { Divider } from "@/Divider.tsx";
-import { Input } from "@/Input.tsx";
-import { InputRadio } from "@/InputRadio.tsx";
-import { IconMail } from "@tabler/icons-react";
+import { InputSelect } from "@/InputSelect.tsx";
+import { InputSelectSearchable } from "@/InputSelectSearchable.tsx";
+import { InputSelectSearchableAsync } from "@/InputSelectSearchableAsync.tsx";
+import { InputSelectNative } from "@/InputSelectNative.tsx";
+
+type Option<T> = {
+  label: string;
+  value: T;
+}
+
+const options: Option<string>[] = [
+  { label: 'Matthias Krijgsman', value: 'matthias-krijgsman' },
+  { label: 'Dennis Snijder', value: 'dennis-snijder' },
+  { label: 'Arco Krijgsman', value: 'arco-krijgsman' },
+  { label: 'Gerwin Krijgsman', value: 'gerwin-krijgsman' },
+  { label: 'Jonathan Krijgsman', value: 'jonathan-krijgsman' },
+  { label: 'Theo Krijgsman', value: 'theo-krijgsman' },
+  { label: 'Danny Mostert', value: 'danny-mostert' },
+  { label: 'Joeri Hackmann', value: 'joeri-hackmann' },
+  { label: 'Martijn Lammers', value: 'martijn-lammers' },
+]
+
+const handleOnSearch = (search: string) => {
+  return options.filter(option => option.label.toLowerCase().includes(search.toLowerCase()));
+}
+
+const handleFetchOptionsByQuery = async (query: string) => {
+  return new Promise<Option<string>[]>(resolve => {
+    setTimeout(() => {
+      resolve(options.filter(option => option.label.toLowerCase().includes(query.toLowerCase())));
+    }, 1000);
+  });
+}
+
+const handleFetchOptionByValue = async (value: string) => {
+  return new Promise<Option<string>>(resolve => {
+    setTimeout(() => {
+      const option = options.find(option => option.value === value) || null;
+      resolve(option);
+    }, 1000);
+  });
+}
 
 export const Test = () => {
 
-  const [ value, setValue ] = useState('');
+  const [ option1, setOption1 ] = useState<string>('');
+  const [ option2, setOption2 ] = useState<string | null>(null);
+  const [ option3, setOption3 ] = useState<string | null>('matthias-krijgsman');
 
   return (
     <div className={ 'flex flex-col gap-4' }>
-      <Input
-        label={ 'E-mailadres' }
-        Icon={ IconMail }
-        value={ value }
-        onChange={ (e) => setValue(e.target.value) }
+      <InputSelectNative
+        options={ options }
+        value={ option1 }
+        onChange={ o => setOption1(o.target.value) }
+        label={ 'InputSelect' }
       />
-      <InputPassword
-        label={ 'Password' }
-        value={ value }
-        onChange={ (e) => setValue(e.target.value) }
-        placeholder={ 'Enter your password' }
-        enableShowPasswordToggle={ true }
+      <InputSelectSearchable
+        options={ options }
+        value={ option2 }
+        onChange={ o => setOption2(o) }
+        label={ 'InputSelect Search' }
+        onSearch={ handleOnSearch }
       />
-      <Divider/>
-
-      <Divider/>
-      <div className={ 'flex flex-row items-center gap-4' }>
-        <div className={ 'flex flex-col flex-1' }>
-          <InputRadio
-            name={ 'option' }
-            id={ 'option1' }
-            label={ 'Option 1' }
-            value={ 'option1' }
-          />
-        </div>
-        <div className={ 'flex flex-col flex-1' }>
-          <InputRadio
-            name={ 'option' }
-            id={ 'option2' }
-            label={ 'Option 2' }
-            value={ 'option2' }
-          />
-        </div>
-      </div>
+      <InputSelectSearchableAsync
+        value={ option3 }
+        onChange={ o => setOption3(o) }
+        label={ 'InputSelect Search (Async)' }
+        fetchOptionsByQuery={ handleFetchOptionsByQuery }
+        fetchOptionByValue={ handleFetchOptionByValue }
+      />
     </div>
   );
 };

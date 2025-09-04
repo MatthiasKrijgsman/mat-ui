@@ -27,7 +27,7 @@ export const PopoverBase: React.FC<PopoverBaseProps> = React.memo(
         { open && (
           <>
             { onOutsideClick && <FloatingOverlay onClick={ onOutsideClick }/> }
-            <div ref={ setFloating } style={ floatingStyles }>
+            <div ref={ setFloating } style={ floatingStyles } className={'z-10'}>
               <motion.div
                 className={ className }
                 style={ { transformOrigin: placementOriginMap[placement] } }

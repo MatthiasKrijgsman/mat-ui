@@ -1,10 +1,16 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { classNames } from "@/util/classnames.util.ts";
-import { IconChevronDown, IconSearch, IconSearchOff } from "@tabler/icons-react";
+import { IconChevronDown, IconSearch, IconSearchOff, IconX } from "@tabler/icons-react";
 import { InputSelectOption } from "@/InputSelectOption.tsx";
 import { usePopover } from "@/popover/use-popover.tsx";
 import { PopoverPanel } from "@/popover/PopoverPanel.tsx";
+import { InputLabel } from "@/InputLabel.tsx";
+import { InputErrorIcon } from "@/InputErrorIcon.tsx";
+import { InputIconButton } from "@/InputIconButton.tsx";
+import { InputIconButtonTray } from "@/InputIconButtonTray.tsx";
+import { InputDescription } from "@/InputDescription.tsx";
+import { InputError } from "@/InputError.tsx";
 
 
 export type InputSelectSearchableProps<T> = {
@@ -14,11 +20,12 @@ export type InputSelectSearchableProps<T> = {
   label?: string | React.ReactNode;
   description?: string | React.ReactNode;
   options: Option<T>[];
-  onSearch: (search: string, options: Option<T>[]) => Option<T>[];
-  value: T;
-  onChange: (value: T) => void;
+  onSearch: (search: string) => Option<T>[];
+  value: T | null;
+  onChange: (value: T | null) => void;
   placeholder?: string;
   maxHeight?: number;
+  error?: string | React.ReactNode;
 }
 
 export type Option<T> = {
@@ -27,7 +34,6 @@ export type Option<T> = {
   disabled?: boolean;
 }
 
-//TODO Add remove value button
 export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>) => {
 
   const {
@@ -39,18 +45,21 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
     onSearch,
     value,
     placeholder,
-    maxHeight
+    maxHeight = 300,
+    error
   } = props;
 
   const [ open, setOpen ] = useState(false);
-  const ref = React.useRef<HTMLDivElement>(null);
-  const [ search, setSearch ] = useState('');
   const [ filteredOptions, setFilteredOptions ] = useState<Option<T>[]>(options);
-  const selectedOption = options?.find(option => option.value === value);
+  const [ search, setSearch ] = useState('');
+
+  const ref = React.useRef<HTMLDivElement>(null);
   const inputSearchRef = React.useRef<HTMLInputElement>(null);
 
+  const selectedOption = options?.find(option => option.value === value);
+
   useEffect(() => {
-    setFilteredOptions(onSearch(search, options));
+    setFilteredOptions(onSearch(search));
   }, [ search, options, onSearch ]);
 
   useEffect(() => {
@@ -71,9 +80,7 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
         'flex flex-col',
         className
       ) }>
-      { label && (
-        <label className={ 'text-gray-900 font-medium mb-1' }>{ label }</label>
-      ) }
+      <InputLabel>{ label }</InputLabel>
 
       <div className={ 'relative flex w-full flex-col' } ref={ anchorRef }>
         <div
@@ -82,7 +89,8 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
           tabIndex={ 0 }
           className={ classNames(
             'flex flex-row items-center h-12 pl-4 pr-10 border border-gray-200 text-gray-900 placeholder:text-gray-400 bg-white transition-all duration-150 rounded-xl shadow-sm ring-0 ring-gray-900/10 focus:ring-4 focus:outline-none select-none',
-            open && 'ring-4'
+            error && 'border-red-600 ring-red-600/20 !pr-10',
+            open && 'ring-4',
           ) }
           onKeyDown={ (e) => e.key === ' ' && setOpen(o => !o) }
           onClick={ () => setOpen(!open) }
@@ -94,7 +102,15 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
             <span>{ placeholder }</span>
           ) }
         </div>
-        <IconChevronDown className={ 'h-4 w-4 absolute text-gray-900 top-4 right-4' }/>
+        <InputIconButtonTray>
+          { error && (
+            <InputErrorIcon/>
+          ) }
+          { !!value && (
+            <InputIconButton Icon={IconX} onClick={() => onChange(null)} />
+          ) }
+          <InputIconButton Icon={IconChevronDown} />
+        </InputIconButtonTray>
         <Popover open={ open }>
           <PopoverPanel className={ 'gap-0 !p-0' } style={ { maxHeight: maxHeight } }>
             <div className={ 'sticky top-0 border-b border-b-gray-200 py-1 bg-white/50 backdrop-blur-sm' }>
@@ -161,9 +177,8 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
           </PopoverPanel>
         </Popover>
       </div>
-      { description && (
-        <div className={ 'text-gray-500 text-sm font-medium mt-2' }>{ description }</div>
-      ) }
+      <InputDescription>{ description }</InputDescription>
+      <InputError>{ error }</InputError>
     </div>
   );
 };
