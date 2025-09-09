@@ -1,6 +1,5 @@
 {
   "name": "mat-ui",
-  "private": true,
   "version": "0.0.0",
   "type": "module",
   "main": "./dist/mat-ui.umd.cjs",
@@ -12,12 +11,14 @@
       "import": "./dist/mat-ui.js",
       "require": "./dist/mat-ui.umd.cjs",
       "default": "./dist/mat-ui.js"
-    },
-    "./styles.css": "./dist/style.css"
+    }
   },
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "sideEffects": [
     "**/*.css"
   ],
@@ -25,6 +26,7 @@
     "dev": "vite",
     "build": "vite build && tsc -p tsconfig.build.json",
     "build:types": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "vite build && tsc -p tsconfig.build.json",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",

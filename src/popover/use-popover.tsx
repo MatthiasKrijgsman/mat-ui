@@ -24,7 +24,12 @@ export type PopoverBaseRefProps = {
   placement: Placement;
 }
 
-export const usePopover = (props: UsePopoverProps) => {
+export type UsePopoverResult = {
+  anchorRef: React.RefCallback<HTMLDivElement | null>;
+  Popover: React.ComponentType<PopoverRendererProps>;
+}
+
+export const usePopover = (props: UsePopoverProps): UsePopoverResult => {
   const { placement = "bottom", onOutsideClick, fullWidth, minWidth, maxWidth } = props;
 
   const middleware = React.useMemo(() => {
@@ -63,7 +68,7 @@ export const usePopover = (props: UsePopoverProps) => {
     placement,
   };
 
-  const Popover = React.useMemo(() => {
+  const Popover = React.useMemo<React.ComponentType<PopoverRendererProps>>(() => {
     const Renderer = (rendererProps: PopoverRendererProps) => {
       const { floatingStyles, setFloating, onOutsideClick, placement } = latest.current;
       const { className, open, children } = rendererProps;
