@@ -2,13 +2,14 @@ import * as React from "react";
 import { useState } from "react";
 import { usePopover } from "@/popover/use-popover.tsx";
 import { PopoverPanel } from "@/popover/PopoverPanel.tsx";
+import type { Placement } from "@floating-ui/react";
 
 export type TooltipProps = {
   children?: React.ReactNode;
   content: React.ReactNode;
   className?: string;
-  position?: 'top' | 'bottom' | 'left' | 'right';
-  delay?: number;
+  placement?: Placement;
+  minWidth?: number;
   maxWidth?: number;
 }
 
@@ -17,13 +18,17 @@ export const Tooltip = (props: TooltipProps) => {
     children,
     content,
     className,
-    position = 'top',
-    delay = 300,
+    placement = 'top',
+    minWidth = 100,
     maxWidth = 200
   } = props;
   //TODO params above
   const [ open, setOpen ] = useState(false);
-  const { anchorRef, Popover } = usePopover({})
+  const { anchorRef, Popover } = usePopover({
+    placement: placement,
+    minWidth: minWidth,
+    maxWidth: maxWidth,
+  })
   return (
     <span
       ref={ anchorRef }
@@ -31,7 +36,7 @@ export const Tooltip = (props: TooltipProps) => {
       onMouseEnter={ () => setOpen(true) }
       onMouseLeave={ () => setOpen(false) }
     >
-        { children }
+      { children }
       <Popover open={ open }>
         <PopoverPanel>
           { content }

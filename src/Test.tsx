@@ -1,74 +1,35 @@
-import { useState } from "react";
-import { InputSelect } from "@/InputSelect.tsx";
-import { InputSelectSearchable } from "@/InputSelectSearchable.tsx";
-import { InputSelectSearchableAsync } from "@/InputSelectSearchableAsync.tsx";
-import { InputSelectNative } from "@/InputSelectNative.tsx";
+import { Input } from "@/Input.tsx";
+import { Table } from "@/table/Table.tsx";
 
-type Option<T> = {
-  label: string;
-  value: T;
+type SampleRowType = {
+  id: number;
+  email: string;
+  firstname: string;
+  lastname: string;
+  status: 'active' | 'inactive';
 }
 
-const options: Option<string>[] = [
-  { label: 'Matthias Krijgsman', value: 'matthias-krijgsman' },
-  { label: 'Dennis Snijder', value: 'dennis-snijder' },
-  { label: 'Arco Krijgsman', value: 'arco-krijgsman' },
-  { label: 'Gerwin Krijgsman', value: 'gerwin-krijgsman' },
-  { label: 'Jonathan Krijgsman', value: 'jonathan-krijgsman' },
-  { label: 'Theo Krijgsman', value: 'theo-krijgsman' },
-  { label: 'Danny Mostert', value: 'danny-mostert' },
-  { label: 'Joeri Hackmann', value: 'joeri-hackmann' },
-  { label: 'Martijn Lammers', value: 'martijn-lammers' },
-]
+const sampleData: SampleRowType[] = [
+  { id: 1, email: 'matthiaskrijgsman@gmail.com', firstname: 'Matthias', lastname: 'Krijgsman', status: 'active' },
+  { id: 2, email: 'dennis@snijder.io', firstname: 'Dennis', lastname: 'Snijder', status: 'inactive' },
+  { id: 3, email: 'arcokrijgsman@gmail.com', firstname: 'Arco', lastname: 'Krijgsman', status: 'active' },
+];
 
-const handleOnSearch = (search: string) => {
-  return options.filter(option => option.label.toLowerCase().includes(search.toLowerCase()));
-}
-
-const handleFetchOptionsByQuery = async (query: string) => {
-  return new Promise<Option<string>[]>(resolve => {
-    setTimeout(() => {
-      resolve(options.filter(option => option.label.toLowerCase().includes(query.toLowerCase())));
-    }, 1000);
-  });
-}
-
-const handleFetchOptionByValue = async (value: string) => {
-  return new Promise<Option<string>>(resolve => {
-    setTimeout(() => {
-      const option = options.find(option => option.value === value) || null;
-      resolve(option);
-    }, 1000);
-  });
-}
+const sampleColumns = [
+  { id: 'id', header: 'ID', renderCell: (row: SampleRowType) => row.id },
+  { id: 'email', header: 'Email', renderCell: (row: SampleRowType) => row.email },
+  { id: 'firstname', header: 'First Name', renderCell: (row: SampleRowType) => row.firstname },
+  { id: 'lastname', header: 'Last Name', renderCell: (row: SampleRowType) => row.lastname },
+  { id: 'status', header: 'Status', renderCell: (row: SampleRowType) => row.status },
+];
 
 export const Test = () => {
-
-  const [ option1, setOption1 ] = useState<string>('');
-  const [ option2, setOption2 ] = useState<string | null>(null);
-  const [ option3, setOption3 ] = useState<string | null>('matthias-krijgsman');
-
   return (
-    <div className={ 'flex flex-col gap-4' }>
-      <InputSelectNative
-        options={ options }
-        value={ option1 }
-        onChange={ o => setOption1(o.target.value) }
-        label={ 'InputSelect' }
-      />
-      <InputSelectSearchable
-        options={ options }
-        value={ option2 }
-        onChange={ o => setOption2(o) }
-        label={ 'InputSelect Search' }
-        onSearch={ handleOnSearch }
-      />
-      <InputSelectSearchableAsync
-        value={ option3 }
-        onChange={ o => setOption3(o) }
-        label={ 'InputSelect Search (Async)' }
-        fetchOptionsByQuery={ handleFetchOptionsByQuery }
-        fetchOptionByValue={ handleFetchOptionByValue }
+    <div className={ 'flex flex-col gap-12' }>
+      <Input type={ 'text' } label={ 'Label' } description={ 'Description' } placeholder={ 'Enter something' }/>
+      <Table
+        columns={ sampleColumns }
+        rows={ sampleData }
       />
     </div>
   );

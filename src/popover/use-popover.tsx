@@ -8,6 +8,7 @@ export type UsePopoverProps = {
   onOutsideClick?: () => void;
   fullWidth?: boolean;
   minWidth?: number;
+  maxWidth?: number;
 };
 
 export type PopoverRendererProps = {
@@ -24,7 +25,7 @@ export type PopoverBaseRefProps = {
 }
 
 export const usePopover = (props: UsePopoverProps) => {
-  const { placement = "bottom", onOutsideClick, fullWidth, minWidth } = props;
+  const { placement = "bottom", onOutsideClick, fullWidth, minWidth, maxWidth } = props;
 
   const middleware = React.useMemo(() => {
     return [
@@ -35,6 +36,9 @@ export const usePopover = (props: UsePopoverProps) => {
           }
           if (minWidth) {
             elements.floating.style.minWidth = `${ minWidth }px`;
+          }
+          if (maxWidth) {
+            elements.floating.style.maxWidth = `${ maxWidth }px`;
           }
         },
       })
