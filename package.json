@@ -1,5 +1,5 @@
 {
-  "name": "mat-ui",
+  "name": "@matthiaskrijgsman/mat-ui",
   "version": "0.0.0",
   "type": "module",
   "main": "./dist/mat-ui.umd.cjs",
