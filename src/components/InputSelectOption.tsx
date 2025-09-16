@@ -2,7 +2,7 @@ import * as React from "react";
 import { classNames } from "@/util/classnames.util.ts";
 import { IconCheck } from "@tabler/icons-react";
 
-interface InputSelectOptionProps {
+export interface InputSelectOptionProps {
   children: React.ReactNode;
   selected: boolean;
   disabled?: boolean;

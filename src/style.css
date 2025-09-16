@@ -1,2 +1,30 @@
 @import "tailwindcss";
+
 @plugin "@tailwindcss/forms";
+
+:root {
+    --color-input-focus-ring: rgb(17 24 39 / 0.15);
+
+    --color-button-primary-bg: oklch(54.6% 0.245 262.881);
+    --color-button-primary-bg-active: oklch(48.8% 0.243 264.376);
+    --color-button-primary-border: oklch(54.6% 0.245 262.881);
+    --color-button-primary-border-active: oklch(48.8% 0.243 264.376);
+    --color-button-primary-text: #ffffff;
+    --color-button-primary-text-active: #ffffff;
+}
+
+.button-primary {
+    @apply bg-[var(--color-button-primary-bg)];
+    @apply border-[var(--color-button-primary-border)];
+    @apply text-[var(--color-button-primary-text)];
+}
+
+.button-primary:active {
+    @apply bg-[var(--color-button-primary-bg-active)];
+    @apply border-[var(--color-button-primary-border-active)];
+    @apply text-[var(--color-button-primary-text-active)];
+}
+
+.button-ring {
+    @apply ring-[var(--color-input-focus-ring)];
+}

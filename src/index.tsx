@@ -22,3 +22,6 @@ export {
   Divider,
   Test
 };
+
+// Re-export types in a single place
+export * from "./types.ts";

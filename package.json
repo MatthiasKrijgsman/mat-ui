@@ -12,6 +12,9 @@
       "require": "./dist/index.umd.cjs",
       "default": "./dist/index.js"
     },
+    "./types": {
+      "types": "./dist/types.d.ts"
+    },
     "./style": {
       "default": "./dist/style.css"
     },

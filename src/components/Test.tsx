@@ -1,5 +1,6 @@
 import { Input } from "@/components/Input.tsx";
 import { Table } from "@/table/Table.tsx";
+import { Button } from "@/components/Button.tsx";
 
 type SampleRowType = {
   id: number;
@@ -26,6 +27,7 @@ const sampleColumns = [
 export const Test = () => {
   return (
     <div className={ 'flex flex-col gap-12' }>
+      <Button variant={'primary'}>Test</Button>
       <Input type={ 'text' } label={ 'Label' } description={ 'Description' } placeholder={ 'Enter something' }/>
       <Table
         columns={ sampleColumns }
