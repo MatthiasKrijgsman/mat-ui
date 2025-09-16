@@ -1,7 +1,7 @@
 import * as React from "react";
 import { classNames } from "@/util/classnames.util.ts";
 
-export type Variant = 'primary' | 'white' | 'black' | 'transparent';
+export type Variant = 'primary' | 'secondary' | 'tertiary' | 'white' | 'black' | 'transparent';
 export type Size = 'sm' | 'md' | 'lg';
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -11,13 +11,15 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children?: React.ReactNode;
 }
 
-const base: string = `inline-flex flex-row items-center justify-center font-semibold ring-0 hover:ring-4 active:ring-1 rounded-xl cursor-pointer transition-all duration-150 select-none focus:outline-none focus:ring-4 button-ring`;
+const base: string = `inline-flex flex-row items-center button-ring justify-center font-semibold ring-0 hover:ring-4 active:ring-1 rounded-xl cursor-pointer transition-all duration-150 select-none focus:outline-none focus:ring-4 button-ring`;
 
 const variantClasses: Record<Variant, string> = {
-  primary: 'border button-primary button-ring shadow-sm',
-  white: 'border border-gray-200 text-gray-900 bg-white active:bg-gray-50 button-ring shadow-sm',
-  black: 'border border-gray-950 text-white bg-gray-950 active:bg-gray-800 active:border-gray-800 button-ring shadow-sm',
-  transparent: 'border border-transparent text-gray-900 bg-transparent button-ring'
+  primary: 'border button-primary shadow-sm',
+  secondary: 'border button-secondary shadow-sm',
+  tertiary: 'border button-tertiary',
+  white: 'border button-white shadow-sm',
+  black: 'border button-black shadow-sm',
+  transparent: 'border button-transparent'
 }
 
 const sizeClasses: Record<Size, string> = {
