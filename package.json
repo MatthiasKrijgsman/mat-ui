@@ -11,6 +11,12 @@
       "import": "./dist/mat-ui.js",
       "require": "./dist/mat-ui.umd.cjs",
       "default": "./dist/mat-ui.js"
+    },
+    "./style": {
+      "default": "./dist/style.css"
+    },
+    "./style.css": {
+      "default": "./dist/style.css"
     }
   },
   "files": [
@@ -24,9 +30,9 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build && tsc -p tsconfig.build.json",
+    "build": "vite build && vite build -c vite.style.config.ts && tsc -p tsconfig.build.json",
     "build:types": "tsc -p tsconfig.build.json",
-    "prepublishOnly": "vite build && tsc -p tsconfig.build.json",
+    "prepublishOnly": "vite build && vite build -c vite.style.config.ts && tsc -p tsconfig.build.json",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
