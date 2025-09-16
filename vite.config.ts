@@ -24,7 +24,7 @@ export default defineConfig({
       entry: path.resolve(dirname, 'src/index.tsx'), // your exports live here
       name: 'MatUI',                                 // UMD global name
       formats: ['es', 'umd'],
-      fileName: (format) => (format === 'es' ? 'mat-ui.js' : 'mat-ui.umd.cjs'),
+      fileName: (format) => (format === 'es' ? 'index.js' : 'index.umd.cjs'),
     },
     rollupOptions: {
       // don’t bundle react into your lib
