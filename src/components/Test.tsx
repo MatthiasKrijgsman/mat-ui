@@ -1,4 +1,4 @@
-import { Input } from "@/Input.tsx";
+import { Input } from "@/components/Input.tsx";
 import { Table } from "@/table/Table.tsx";
 
 type SampleRowType = {

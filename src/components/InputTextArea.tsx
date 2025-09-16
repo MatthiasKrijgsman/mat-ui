@@ -1,10 +1,10 @@
 import * as React from "react";
 import { classNames } from "@/util/classnames.util.ts";
-import { InputLabel } from "@/InputLabel.tsx";
-import { InputErrorIcon } from "@/InputErrorIcon.tsx";
-import { InputIconButtonTray } from "@/InputIconButtonTray.tsx";
-import { InputDescription } from "@/InputDescription.tsx";
-import { InputError } from "@/InputError.tsx";
+import { InputLabel } from "@/components/InputLabel.tsx";
+import { InputErrorIcon } from "@/components/InputErrorIcon.tsx";
+import { InputIconButtonTray } from "@/components/InputIconButtonTray.tsx";
+import { InputDescription } from "@/components/InputDescription.tsx";
+import { InputError } from "@/components/InputError.tsx";
 
 
 export type InputTextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {

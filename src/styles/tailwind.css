@@ -1,4 +1,0 @@
-@import "tailwindcss";
-@plugin "@tailwindcss/forms";
-/* Ensure Tailwind scans library sources when building the optional CSS */
-@source "../**/*.{js,jsx,ts,tsx}";

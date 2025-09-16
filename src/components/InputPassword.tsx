@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Input, type InputProps } from "@/Input.tsx";
+import { Input, type InputProps } from "@/components/Input.tsx";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
-import { InputIconButton } from "@/InputIconButton.tsx";
+import { InputIconButton } from "@/components/InputIconButton.tsx";
 
 
 export type InputPasswordProps = InputProps & {

@@ -2,7 +2,7 @@ import * as React from "react";
 import { FloatingOverlay, FloatingPortal } from '@floating-ui/react';
 import { AnimatePresence, motion } from "motion/react";
 import { classNames } from "@/util/classnames.util.ts";
-import { ButtonIconRound } from "@/ButtonIconRound.tsx";
+import { ButtonIconRound } from "@/components/ButtonIconRound.tsx";
 import { IconX } from "@tabler/icons-react";
 
 export type ModalProps = {

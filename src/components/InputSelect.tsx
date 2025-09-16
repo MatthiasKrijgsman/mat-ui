@@ -2,15 +2,15 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { classNames } from "@/util/classnames.util.ts";
 import { IconChevronDown, IconX } from "@tabler/icons-react";
-import { InputSelectOption } from "@/InputSelectOption.tsx";
+import { InputSelectOption } from "@/components/InputSelectOption.tsx";
 import { usePopover } from "@/popover/use-popover.tsx";
 import { PopoverPanel } from "@/popover/PopoverPanel.tsx";
-import { InputLabel } from "@/InputLabel.tsx";
-import { InputErrorIcon } from "@/InputErrorIcon.tsx";
-import { InputIconButton } from "@/InputIconButton.tsx";
-import { InputIconButtonTray } from "@/InputIconButtonTray.tsx";
-import { InputDescription } from "@/InputDescription.tsx";
-import { InputError } from "@/InputError.tsx";
+import { InputLabel } from "@/components/InputLabel.tsx";
+import { InputErrorIcon } from "@/components/InputErrorIcon.tsx";
+import { InputIconButton } from "@/components/InputIconButton.tsx";
+import { InputIconButtonTray } from "@/components/InputIconButtonTray.tsx";
+import { InputDescription } from "@/components/InputDescription.tsx";
+import { InputError } from "@/components/InputError.tsx";
 
 
 export type InputSelectProps<T> = {

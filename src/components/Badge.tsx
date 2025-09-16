@@ -1,6 +1,6 @@
 import * as React from "react";
 import { classNames } from "@/util/classnames.util.ts";
-import { BadgeColor, type BadgeColorKey } from "./BadgeColors";
+import { BadgeColor, type BadgeColorKey } from "./BadgeColors.tsx";
 import { IconX, type TablerIcon } from "@tabler/icons-react";
 
 export type BadgeProps = {
