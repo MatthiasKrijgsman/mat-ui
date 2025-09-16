@@ -1,3 +1,4 @@
+import "./style.css";
 import { Button } from "./components/Button.tsx";
 import { ButtonIconSquare } from "./components/ButtonIconSquare.tsx";
 import { ButtonIconRound } from "./components/ButtonIconRound.tsx";
