@@ -13,6 +13,7 @@ import { InputDescription } from "@/components/inputs/InputDescription.tsx";
 import { InputLabel } from "@/components/inputs/InputLabel.tsx";
 import { InputErrorIcon } from "@/components/inputs/InputErrorIcon.tsx";
 import { InputError } from "@/components/inputs/InputError.tsx";
+import { useDismiss } from "@/hooks/use-dismiss.ts";
 
 
 export type InputSelectSearchableAsyncProps<T> = {
@@ -61,6 +62,7 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
   const inputSearchRef = React.useRef<HTMLInputElement>(null);
   const [ isFetching, setIsFetching ] = useState(false);
   const [ isFetchingSelectedOption, setIsFetchingSelectedOption ] = useState(false);
+  useDismiss(open, () => setOpen(false));
 
   const debouncedQuery = useDebounce(search, onSearchDebounceMs); // wait 500ms
 

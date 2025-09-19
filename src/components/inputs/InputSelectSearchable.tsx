@@ -11,6 +11,7 @@ import { InputIconButton } from "@/components/inputs/InputIconButton.tsx";
 import { InputIconButtonTray } from "@/components/inputs/InputIconButtonTray.tsx";
 import { InputDescription } from "@/components/inputs/InputDescription.tsx";
 import { InputError } from "@/components/inputs/InputError.tsx";
+import { useDismiss } from "@/hooks/use-dismiss.ts";
 
 
 export type InputSelectSearchableProps<T> = {
@@ -57,6 +58,7 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
   const inputSearchRef = React.useRef<HTMLInputElement>(null);
 
   const selectedOption = options?.find(option => option.value === value);
+  useDismiss(open, () => setOpen(false));
 
   useEffect(() => {
     setFilteredOptions(onSearch(search));

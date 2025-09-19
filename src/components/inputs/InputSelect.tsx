@@ -11,6 +11,7 @@ import { InputIconButton } from "@/components/inputs/InputIconButton.tsx";
 import { InputIconButtonTray } from "@/components/inputs/InputIconButtonTray.tsx";
 import { InputDescription } from "@/components/inputs/InputDescription.tsx";
 import { InputError } from "@/components/inputs/InputError.tsx";
+import { useDismiss } from "@/hooks/use-dismiss.ts";
 
 
 export type InputSelectProps<T> = {
@@ -51,6 +52,7 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
   const [ open, setOpen ] = useState(false);
   const ref = React.useRef<HTMLDivElement>(null);
   const selectedOption = options?.find(option => option.value === value);
+  useDismiss(open, () => setOpen(false));
 
   useEffect(() => {
     if (open) ref.current?.focus({ preventScroll: true });

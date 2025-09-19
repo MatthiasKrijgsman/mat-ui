@@ -4,12 +4,15 @@ import { AnimatePresence, motion } from "motion/react";
 import { classNames } from "@/util/classnames.util.ts";
 import { ButtonIconRound } from "@/components/button-icon-round/ButtonIconRound.tsx";
 import { IconX } from "@tabler/icons-react";
+import { useDismiss } from "@/hooks/use-dismiss.ts";
 
 export type ModalProps = {
   open: boolean;
   className?: string;
-  onOutsideClick?: () => void;
-  onClose?: () => void;
+  onDismiss?: () => void;
+  enableDismissOnOutsideClick?: boolean,
+  enableDismissOnEscKey?: boolean,
+  enableDismissButton?: boolean,
   children?: React.ReactNode;
   maxWidth?: number;
 }
@@ -17,13 +20,16 @@ export type ModalProps = {
 export const Modal = (props: ModalProps) => {
   const {
     open,
-    onOutsideClick,
-    onClose,
+    onDismiss,
+    enableDismissOnOutsideClick,
+    enableDismissOnEscKey,
+    enableDismissButton,
     className,
     children,
     maxWidth = 600
   } = props;
 
+  useDismiss(!!enableDismissOnEscKey && open, onDismiss ? onDismiss : () => {});
 
   return (
     <AnimatePresence>
@@ -38,7 +44,7 @@ export const Modal = (props: ModalProps) => {
           >
             <FloatingOverlay
               className={ 'bg-gray-400/30 backdrop-blur-[1px]' }
-              onClick={ onOutsideClick }
+              onClick={ enableDismissOnOutsideClick ? onDismiss : undefined }
               lockScroll={ true }
             />
           </motion.div>
@@ -55,13 +61,13 @@ export const Modal = (props: ModalProps) => {
               exit={ { opacity: 0, scale: 0.98, translateY: 10 } }
               transition={ { duration: 0.15, ease: 'easeInOut' } }
             >
-              { onClose && (
+              { enableDismissButton && (
                 <ButtonIconRound
                   Icon={ IconX }
                   className={ 'absolute top-4 right-4' }
                   variant={ 'transparent' }
                   size={ 'sm' }
-                  onClick={ onClose }
+                  onClick={ onDismiss }
                 />
               ) }
               { children }
