@@ -1,0 +1,142 @@
+.button-primary {
+    @apply bg-[var(--color-button-primary-bg)];
+    @apply border-[var(--color-button-primary-border)];
+    @apply text-[var(--color-button-primary-text)];
+}
+
+.button-primary:hover {
+    @apply bg-[var(--color-button-primary-bg-hover)];
+    @apply border-[var(--color-button-primary-border-hover)];
+}
+
+.button-primary:active {
+    @apply bg-[var(--color-button-primary-bg-active)];
+    @apply border-[var(--color-button-primary-border-active)];
+    @apply text-[var(--color-button-primary-text-active)];
+}
+
+.button-primary:disabled {
+    @apply bg-[var(--color-button-primary-bg-disabled)];
+    @apply border-[var(--color-button-primary-border-disabled)];
+    @apply text-[var(--color-button-primary-text-disabled)];
+}
+
+.button-white {
+    @apply bg-[var(--color-button-white-bg)];
+    @apply border-[var(--color-button-white-border)];
+    @apply text-[var(--color-button-white-text)];
+}
+
+.button-white:hover {
+    @apply bg-[var(--color-button-white-bg-hover)];
+    @apply border-[var(--color-button-white-border-hover)];
+}
+
+.button-white:active {
+    @apply bg-[var(--color-button-white-bg-active)];
+    @apply border-[var(--color-button-white-border-active)];
+    @apply text-[var(--color-button-white-text-active)];
+}
+
+.button-white:disabled {
+    @apply bg-[var(--color-button-white-bg-disabled)];
+    @apply border-[var(--color-button-white-border-disabled)];
+    @apply text-[var(--color-button-white-text-disabled)];
+}
+
+.button-black {
+    @apply bg-[var(--color-button-black-bg)];
+    @apply border-[var(--color-button-black-border)];
+    @apply text-[var(--color-button-black-text)];
+}
+
+.button-black:hover {
+    @apply bg-[var(--color-button-black-bg-hover)];
+    @apply border-[var(--color-button-black-border-hover)];
+}
+
+.button-black:active {
+    @apply bg-[var(--color-button-black-bg-active)];
+    @apply border-[var(--color-button-black-border-active)];
+    @apply text-[var(--color-button-black-text-active)];
+}
+
+.button-black:disabled {
+    @apply bg-[var(--color-button-black-bg-disabled)];
+    @apply border-[var(--color-button-black-border-disabled)];
+    @apply text-[var(--color-button-black-text-disabled)];
+}
+
+.button-transparent {
+    @apply bg-[var(--color-button-transparent-bg)];
+    @apply border-[var(--color-button-transparent-border)];
+    @apply text-[var(--color-button-transparent-text)];
+}
+
+.button-transparent:hover {
+    @apply bg-[var(--color-button-transparent-bg-hover)];
+    @apply border-[var(--color-button-transparent-border-hover)];
+}
+
+.button-transparent:active {
+    @apply bg-[var(--color-button-transparent-bg-active)];
+    @apply border-[var(--color-button-transparent-border-active)];
+    @apply text-[var(--color-button-transparent-text-active)];
+}
+
+.button-transparent:disabled {
+    @apply bg-[var(--color-button-transparent-bg-disabled)];
+    @apply border-[var(--color-button-transparent-border-disabled)];
+    @apply text-[var(--color-button-transparent-text-disabled)];
+}
+
+.button-secondary {
+    @apply bg-[var(--color-button-secondary-bg)];
+    @apply border-[var(--color-button-secondary-border)];
+    @apply text-[var(--color-button-secondary-text)];
+}
+
+.button-secondary:hover {
+    @apply bg-[var(--color-button-secondary-bg-hover)];
+    @apply border-[var(--color-button-secondary-border-hover)];
+}
+
+.button-secondary:active {
+    @apply bg-[var(--color-button-secondary-bg-active)];
+    @apply border-[var(--color-button-secondary-border-active)];
+    @apply text-[var(--color-button-secondary-text-active)];
+}
+
+.button-secondary:disabled {
+    @apply bg-[var(--color-button-secondary-bg-disabled)];
+    @apply border-[var(--color-button-secondary-border-disabled)];
+    @apply text-[var(--color-button-secondary-text-disabled)];
+}
+
+.button-tertiary {
+    @apply bg-[var(--color-button-tertiary-bg)];
+    @apply border-[var(--color-button-tertiary-border)];
+    @apply text-[var(--color-button-tertiary-text)];
+}
+
+.button-tertiary:hover {
+    @apply bg-[var(--color-button-tertiary-bg-hover)];
+    @apply border-[var(--color-button-tertiary-border-hover)];
+}
+
+.button-tertiary:active {
+    @apply bg-[var(--color-button-tertiary-bg-active)];
+    @apply border-[var(--color-button-tertiary-border-active)];
+    @apply text-[var(--color-button-tertiary-text-active)];
+}
+
+.button-tertiary:disabled {
+    @apply bg-[var(--color-button-tertiary-bg-disabled)];
+    @apply border-[var(--color-button-tertiary-border-disabled)];
+    @apply text-[var(--color-button-tertiary-text-disabled)];
+}
+
+.button-ring {
+    @apply ring-[var(--color-input-focus-ring)];
+}
+

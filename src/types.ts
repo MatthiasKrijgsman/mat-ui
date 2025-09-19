@@ -1,9 +1,9 @@
 // Centralized type re-exports for all components
 
 // Buttons
-export type { ButtonProps, Variant as ButtonVariant, Size as ButtonSize } from "./components/Button.tsx";
-export type { ButtonIconSquareProps, Variant as ButtonIconSquareVariant, Size as ButtonIconSquareSize } from "./components/ButtonIconSquare.tsx";
-export type { ButtonIconRoundProps, Variant as ButtonIconRoundVariant, Size as ButtonIconRoundSize } from "./components/ButtonIconRound.tsx";
+export type { ButtonProps, Variant as ButtonVariant, Size as ButtonSize } from "./components/button/Button.tsx";
+export type { ButtonIconSquareProps, Variant as ButtonIconSquareVariant, Size as ButtonIconSquareSize } from "./components/button-icon-square/ButtonIconSquare.tsx";
+export type { ButtonIconRoundProps, Variant as ButtonIconRoundVariant, Size as ButtonIconRoundSize } from "./components/button-icon-round/ButtonIconRound.tsx";
 
 // Inputs
 export type { InputProps } from "./components/Input.tsx";

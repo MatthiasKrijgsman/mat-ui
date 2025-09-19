@@ -1,7 +1,7 @@
 import "./style.css";
-import { Button } from "./components/Button.tsx";
-import { ButtonIconSquare } from "./components/ButtonIconSquare.tsx";
-import { ButtonIconRound } from "./components/ButtonIconRound.tsx";
+import { Button } from "./components/button/Button.tsx";
+import { ButtonIconSquare } from "./components/button-icon-square/ButtonIconSquare.tsx";
+import { ButtonIconRound } from "./components/button-icon-round/ButtonIconRound.tsx";
 import { Input } from "./components/Input.tsx";
 import { InputCheck } from "./components/InputCheck.tsx";
 import { InputSelect } from "./components/InputSelect.tsx";

@@ -1,6 +1,6 @@
 import { Input } from "@/components/Input.tsx";
 import { Table } from "@/table/Table.tsx";
-import { Button } from "@/components/Button.tsx";
+import { Button } from "@/components/button/Button.tsx";
 
 type SampleRowType = {
   id: number;
@@ -29,6 +29,7 @@ export const Test = () => {
     <div className={ 'flex flex-col gap-12' }>
       <div className={'flex flex-col gap-6 mx-auto w-[300px]'}>
         <Button variant={'primary'} disabled={false}>Test</Button>
+        <Button variant={'primary'} disabled={true}>Test</Button>
         <Button variant={'primary'} disabled={true}>Test</Button>
         <Button variant={'primary'} size={'sm'} loading={true}>Test</Button>
         <Button variant={'primary'} loading={true}>Test</Button>
