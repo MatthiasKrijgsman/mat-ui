@@ -7,51 +7,81 @@
 
     /* Primary variant (brand color) */
     --color-button-primary-bg: oklch(54.6% 0.245 262.881);
+    --color-button-primary-bg-hover: oklch(54.6% 0.245 262.881);
     --color-button-primary-bg-active: oklch(48.8% 0.243 264.376);
     --color-button-primary-border: oklch(54.6% 0.245 262.881);
+    --color-button-primary-border-hover: oklch(54.6% 0.245 262.881);
     --color-button-primary-border-active: oklch(48.8% 0.243 264.376);
     --color-button-primary-text: #ffffff;
     --color-button-primary-text-active: #ffffff;
+    --color-button-primary-bg-disabled: #e5e7eb;
+    --color-button-primary-border-disabled: #e5e7eb;
+    --color-button-primary-text-disabled: #9ca3af;
 
     /* White variant */
     --color-button-white-bg: #ffffff;
+    --color-button-white-bg-hover: #ffffff;
     --color-button-white-bg-active: #f9fafb;
     --color-button-white-border: #e5e7eb;
+    --color-button-white-border-hover: #e5e7eb;
     --color-button-white-border-active: #e5e7eb;
     --color-button-white-text: #111827;
     --color-button-white-text-active: #111827;
+    --color-button-white-bg-disabled: #f3f4f6;
+    --color-button-white-border-disabled: #e5e7eb;
+    --color-button-white-text-disabled: #9ca3af;
 
     /* Black variant */
     --color-button-black-bg: #030712;
+    --color-button-black-bg-hover: #030712;
     --color-button-black-bg-active: #1f2937;
     --color-button-black-border: #030712;
+    --color-button-black-border-hover: #030712;
     --color-button-black-border-active: #1f2937;
     --color-button-black-text: #ffffff;
     --color-button-black-text-active: #ffffff;
+    --color-button-black-bg-disabled: #e5e7eb;
+    --color-button-black-border-disabled: #e5e7eb;
+    --color-button-black-text-disabled: #9ca3af;
 
     /* Transparent variant */
     --color-button-transparent-bg: transparent;
+    --color-button-transparent-bg-hover: transparent;
     --color-button-transparent-bg-active: transparent;
     --color-button-transparent-border: transparent;
+    --color-button-transparent-border-hover: transparent;
     --color-button-transparent-border-active: transparent;
     --color-button-transparent-text: #111827;
     --color-button-transparent-text-active: #111827;
+    --color-button-transparent-bg-disabled: transparent;
+    --color-button-transparent-border-disabled: transparent;
+    --color-button-transparent-text-disabled: #9ca3af;
 
     /* Secondary variant (neutral fill) */
     --color-button-secondary-bg: oklch(62.7% 0.194 149.214);
+    --color-button-secondary-bg-hover: oklch(62.7% 0.194 149.214);
     --color-button-secondary-bg-active: oklch(53.2% 0.157 131.589);
     --color-button-secondary-border: oklch(62.7% 0.194 149.214);
+    --color-button-secondary-border-hover: oklch(62.7% 0.194 149.214);
     --color-button-secondary-border-active: oklch(53.2% 0.157 131.589);
     --color-button-secondary-text: #ffffff;
     --color-button-secondary-text-active: #ffffff;
+    --color-button-secondary-bg-disabled: #e5e7eb;
+    --color-button-secondary-border-disabled: #e5e7eb;
+    --color-button-secondary-text-disabled: #9ca3af;
 
     /* Tertiary variant (subtle) */
     --color-button-tertiary-bg: oklch(44.4% 0.011 73.639);
+    --color-button-tertiary-bg-hover: oklch(44.4% 0.011 73.639);
     --color-button-tertiary-bg-active: oklch(37.4% 0.01 67.558);
     --color-button-tertiary-border: oklch(44.4% 0.011 73.639);
+    --color-button-tertiary-border-hover: oklch(44.4% 0.011 73.639);
     --color-button-tertiary-border-active: oklch(37.4% 0.01 67.558);
     --color-button-tertiary-text: #ffffff;
     --color-button-tertiary-text-active: #ffffff;
+    --color-button-tertiary-bg-disabled: #e5e7eb;
+    --color-button-tertiary-border-disabled: #e5e7eb;
+    --color-button-tertiary-text-disabled: #9ca3af;
 }
 
 .button-primary {
@@ -60,10 +90,21 @@
     @apply text-[var(--color-button-primary-text)];
 }
 
+.button-primary:hover {
+    @apply bg-[var(--color-button-primary-bg-hover)];
+    @apply border-[var(--color-button-primary-border-hover)];
+}
+
 .button-primary:active {
     @apply bg-[var(--color-button-primary-bg-active)];
     @apply border-[var(--color-button-primary-border-active)];
     @apply text-[var(--color-button-primary-text-active)];
+}
+
+.button-primary:disabled {
+    @apply bg-[var(--color-button-primary-bg-disabled)];
+    @apply border-[var(--color-button-primary-border-disabled)];
+    @apply text-[var(--color-button-primary-text-disabled)];
 }
 
 .button-white {
@@ -72,10 +113,21 @@
     @apply text-[var(--color-button-white-text)];
 }
 
+.button-white:hover {
+    @apply bg-[var(--color-button-white-bg-hover)];
+    @apply border-[var(--color-button-white-border-hover)];
+}
+
 .button-white:active {
     @apply bg-[var(--color-button-white-bg-active)];
     @apply border-[var(--color-button-white-border-active)];
     @apply text-[var(--color-button-white-text-active)];
+}
+
+.button-white:disabled {
+    @apply bg-[var(--color-button-white-bg-disabled)];
+    @apply border-[var(--color-button-white-border-disabled)];
+    @apply text-[var(--color-button-white-text-disabled)];
 }
 
 .button-black {
@@ -84,10 +136,21 @@
     @apply text-[var(--color-button-black-text)];
 }
 
+.button-black:hover {
+    @apply bg-[var(--color-button-black-bg-hover)];
+    @apply border-[var(--color-button-black-border-hover)];
+}
+
 .button-black:active {
     @apply bg-[var(--color-button-black-bg-active)];
     @apply border-[var(--color-button-black-border-active)];
     @apply text-[var(--color-button-black-text-active)];
+}
+
+.button-black:disabled {
+    @apply bg-[var(--color-button-black-bg-disabled)];
+    @apply border-[var(--color-button-black-border-disabled)];
+    @apply text-[var(--color-button-black-text-disabled)];
 }
 
 .button-transparent {
@@ -96,10 +159,21 @@
     @apply text-[var(--color-button-transparent-text)];
 }
 
+.button-transparent:hover {
+    @apply bg-[var(--color-button-transparent-bg-hover)];
+    @apply border-[var(--color-button-transparent-border-hover)];
+}
+
 .button-transparent:active {
     @apply bg-[var(--color-button-transparent-bg-active)];
     @apply border-[var(--color-button-transparent-border-active)];
     @apply text-[var(--color-button-transparent-text-active)];
+}
+
+.button-transparent:disabled {
+    @apply bg-[var(--color-button-transparent-bg-disabled)];
+    @apply border-[var(--color-button-transparent-border-disabled)];
+    @apply text-[var(--color-button-transparent-text-disabled)];
 }
 
 .button-secondary {
@@ -108,10 +182,21 @@
     @apply text-[var(--color-button-secondary-text)];
 }
 
+.button-secondary:hover {
+    @apply bg-[var(--color-button-secondary-bg-hover)];
+    @apply border-[var(--color-button-secondary-border-hover)];
+}
+
 .button-secondary:active {
     @apply bg-[var(--color-button-secondary-bg-active)];
     @apply border-[var(--color-button-secondary-border-active)];
     @apply text-[var(--color-button-secondary-text-active)];
+}
+
+.button-secondary:disabled {
+    @apply bg-[var(--color-button-secondary-bg-disabled)];
+    @apply border-[var(--color-button-secondary-border-disabled)];
+    @apply text-[var(--color-button-secondary-text-disabled)];
 }
 
 .button-tertiary {
@@ -120,10 +205,21 @@
     @apply text-[var(--color-button-tertiary-text)];
 }
 
+.button-tertiary:hover {
+    @apply bg-[var(--color-button-tertiary-bg-hover)];
+    @apply border-[var(--color-button-tertiary-border-hover)];
+}
+
 .button-tertiary:active {
     @apply bg-[var(--color-button-tertiary-bg-active)];
     @apply border-[var(--color-button-tertiary-border-active)];
     @apply text-[var(--color-button-tertiary-text-active)];
+}
+
+.button-tertiary:disabled {
+    @apply bg-[var(--color-button-tertiary-bg-disabled)];
+    @apply border-[var(--color-button-tertiary-border-disabled)];
+    @apply text-[var(--color-button-tertiary-text-disabled)];
 }
 
 .button-ring {

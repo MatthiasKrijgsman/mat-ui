@@ -1,5 +1,6 @@
 import * as React from "react";
 import { classNames } from "@/util/classnames.util.ts";
+import { Spinner } from "@/spinner/Spinner.tsx";
 
 export type Variant = 'primary' | 'secondary' | 'tertiary' | 'white' | 'black' | 'transparent';
 export type Size = 'sm' | 'md' | 'lg';
@@ -11,7 +12,11 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children?: React.ReactNode;
 }
 
-const base: string = `inline-flex flex-row items-center button-ring justify-center font-semibold ring-0 hover:ring-4 active:ring-1 rounded-xl cursor-pointer transition-all duration-150 select-none focus:outline-none focus:ring-4 button-ring`;
+const base: string = `
+  inline-flex flex-row items-center justify-center 
+  button-ring font-semibold ring-0 hover:ring-4 active:ring-1 rounded-xl cursor-pointer transition-all duration-150 select-none focus:outline-none focus:ring-4
+  disabled:cursor-default
+  `;
 
 const variantClasses: Record<Variant, string> = {
   primary: 'border button-primary shadow-sm',
@@ -35,6 +40,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
     size = 'md',
     className,
     children,
+    loading = false,
     ...rest
   } = props;
 
@@ -49,7 +55,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
       ) }
       { ...rest }
     >
-      { children }
+      { loading && <Spinner className={'h-5 w-5'} /> }
+      { !loading && (<>
+        { children }
+      </>) }
     </button>
   );
 });

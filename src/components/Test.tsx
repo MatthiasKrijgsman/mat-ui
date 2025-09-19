@@ -27,7 +27,12 @@ const sampleColumns = [
 export const Test = () => {
   return (
     <div className={ 'flex flex-col gap-12' }>
-      <Button variant={'primary'}>Test</Button>
+      <div className={'flex flex-col gap-6 mx-auto w-[300px]'}>
+        <Button variant={'primary'} disabled={false}>Test</Button>
+        <Button variant={'primary'} disabled={true}>Test</Button>
+        <Button variant={'primary'} size={'sm'} loading={true}>Test</Button>
+        <Button variant={'primary'} loading={true}>Test</Button>
+      </div>
       <Input type={ 'text' } label={ 'Label' } description={ 'Description' } placeholder={ 'Enter something' }/>
       <Table
         columns={ sampleColumns }
