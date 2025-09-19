@@ -1,5 +1,6 @@
 :root {
     --color-input-focus-ring: rgb(17 24 39 / 0.15);
+    --border-radius-input: var(--radius-xl);
 
     /* Primary variant (brand color) */
     --color-button-primary-bg: oklch(54.6% 0.245 262.881);

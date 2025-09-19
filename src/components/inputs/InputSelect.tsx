@@ -2,15 +2,15 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { classNames } from "@/util/classnames.util.ts";
 import { IconChevronDown, IconX } from "@tabler/icons-react";
-import { InputSelectOption } from "@/components/InputSelectOption.tsx";
+import { InputSelectOption } from "@/components/inputs/InputSelectOption.tsx";
 import { usePopover } from "@/popover/use-popover.tsx";
 import { PopoverPanel } from "@/popover/PopoverPanel.tsx";
-import { InputLabel } from "@/components/InputLabel.tsx";
-import { InputErrorIcon } from "@/components/InputErrorIcon.tsx";
-import { InputIconButton } from "@/components/InputIconButton.tsx";
-import { InputIconButtonTray } from "@/components/InputIconButtonTray.tsx";
-import { InputDescription } from "@/components/InputDescription.tsx";
-import { InputError } from "@/components/InputError.tsx";
+import { InputLabel } from "@/components/inputs/InputLabel.tsx";
+import { InputErrorIcon } from "@/components/inputs/InputErrorIcon.tsx";
+import { InputIconButton } from "@/components/inputs/InputIconButton.tsx";
+import { InputIconButtonTray } from "@/components/inputs/InputIconButtonTray.tsx";
+import { InputDescription } from "@/components/inputs/InputDescription.tsx";
+import { InputError } from "@/components/inputs/InputError.tsx";
 
 
 export type InputSelectProps<T> = {
@@ -87,7 +87,7 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
             <span>{ selectedOption.label }</span>
           ) }
           { !selectedOption && placeholder && (
-            <span>{ placeholder }</span>
+            <span className={'text-gray-500'}>{ placeholder }</span>
           ) }
         </div>
         <InputIconButtonTray>

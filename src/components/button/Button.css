@@ -1,3 +1,9 @@
+/* General */
+.button-ring {
+    @apply ring-[var(--color-input-focus-ring)];
+}
+
+/* Button Primary */
 .button-primary {
     @apply bg-[var(--color-button-primary-bg)];
     @apply border-[var(--color-button-primary-border)];
@@ -21,75 +27,7 @@
     @apply text-[var(--color-button-primary-text-disabled)];
 }
 
-.button-white {
-    @apply bg-[var(--color-button-white-bg)];
-    @apply border-[var(--color-button-white-border)];
-    @apply text-[var(--color-button-white-text)];
-}
-
-.button-white:hover {
-    @apply bg-[var(--color-button-white-bg-hover)];
-    @apply border-[var(--color-button-white-border-hover)];
-}
-
-.button-white:active {
-    @apply bg-[var(--color-button-white-bg-active)];
-    @apply border-[var(--color-button-white-border-active)];
-    @apply text-[var(--color-button-white-text-active)];
-}
-
-.button-white:disabled {
-    @apply bg-[var(--color-button-white-bg-disabled)];
-    @apply border-[var(--color-button-white-border-disabled)];
-    @apply text-[var(--color-button-white-text-disabled)];
-}
-
-.button-black {
-    @apply bg-[var(--color-button-black-bg)];
-    @apply border-[var(--color-button-black-border)];
-    @apply text-[var(--color-button-black-text)];
-}
-
-.button-black:hover {
-    @apply bg-[var(--color-button-black-bg-hover)];
-    @apply border-[var(--color-button-black-border-hover)];
-}
-
-.button-black:active {
-    @apply bg-[var(--color-button-black-bg-active)];
-    @apply border-[var(--color-button-black-border-active)];
-    @apply text-[var(--color-button-black-text-active)];
-}
-
-.button-black:disabled {
-    @apply bg-[var(--color-button-black-bg-disabled)];
-    @apply border-[var(--color-button-black-border-disabled)];
-    @apply text-[var(--color-button-black-text-disabled)];
-}
-
-.button-transparent {
-    @apply bg-[var(--color-button-transparent-bg)];
-    @apply border-[var(--color-button-transparent-border)];
-    @apply text-[var(--color-button-transparent-text)];
-}
-
-.button-transparent:hover {
-    @apply bg-[var(--color-button-transparent-bg-hover)];
-    @apply border-[var(--color-button-transparent-border-hover)];
-}
-
-.button-transparent:active {
-    @apply bg-[var(--color-button-transparent-bg-active)];
-    @apply border-[var(--color-button-transparent-border-active)];
-    @apply text-[var(--color-button-transparent-text-active)];
-}
-
-.button-transparent:disabled {
-    @apply bg-[var(--color-button-transparent-bg-disabled)];
-    @apply border-[var(--color-button-transparent-border-disabled)];
-    @apply text-[var(--color-button-transparent-text-disabled)];
-}
-
+/* Button Secondary */
 .button-secondary {
     @apply bg-[var(--color-button-secondary-bg)];
     @apply border-[var(--color-button-secondary-border)];
@@ -113,6 +51,7 @@
     @apply text-[var(--color-button-secondary-text-disabled)];
 }
 
+/* Button Tertiary */
 .button-tertiary {
     @apply bg-[var(--color-button-tertiary-bg)];
     @apply border-[var(--color-button-tertiary-border)];
@@ -136,7 +75,74 @@
     @apply text-[var(--color-button-tertiary-text-disabled)];
 }
 
-.button-ring {
-    @apply ring-[var(--color-input-focus-ring)];
+/* Button White */
+.button-white {
+    @apply bg-[var(--color-button-white-bg)];
+    @apply border-[var(--color-button-white-border)];
+    @apply text-[var(--color-button-white-text)];
 }
 
+.button-white:hover {
+    @apply bg-[var(--color-button-white-bg-hover)];
+    @apply border-[var(--color-button-white-border-hover)];
+}
+
+.button-white:active {
+    @apply bg-[var(--color-button-white-bg-active)];
+    @apply border-[var(--color-button-white-border-active)];
+    @apply text-[var(--color-button-white-text-active)];
+}
+
+.button-white:disabled {
+    @apply bg-[var(--color-button-white-bg-disabled)];
+    @apply border-[var(--color-button-white-border-disabled)];
+    @apply text-[var(--color-button-white-text-disabled)];
+}
+
+/* Button Black */
+.button-black {
+    @apply bg-[var(--color-button-black-bg)];
+    @apply border-[var(--color-button-black-border)];
+    @apply text-[var(--color-button-black-text)];
+}
+
+.button-black:hover {
+    @apply bg-[var(--color-button-black-bg-hover)];
+    @apply border-[var(--color-button-black-border-hover)];
+}
+
+.button-black:active {
+    @apply bg-[var(--color-button-black-bg-active)];
+    @apply border-[var(--color-button-black-border-active)];
+    @apply text-[var(--color-button-black-text-active)];
+}
+
+.button-black:disabled {
+    @apply bg-[var(--color-button-black-bg-disabled)];
+    @apply border-[var(--color-button-black-border-disabled)];
+    @apply text-[var(--color-button-black-text-disabled)];
+}
+
+/* Button Transparent */
+.button-transparent {
+    @apply bg-[var(--color-button-transparent-bg)];
+    @apply border-[var(--color-button-transparent-border)];
+    @apply text-[var(--color-button-transparent-text)];
+}
+
+.button-transparent:hover {
+    @apply bg-[var(--color-button-transparent-bg-hover)];
+    @apply border-[var(--color-button-transparent-border-hover)];
+}
+
+.button-transparent:active {
+    @apply bg-[var(--color-button-transparent-bg-active)];
+    @apply border-[var(--color-button-transparent-border-active)];
+    @apply text-[var(--color-button-transparent-text-active)];
+}
+
+.button-transparent:disabled {
+    @apply bg-[var(--color-button-transparent-bg-disabled)];
+    @apply border-[var(--color-button-transparent-border-disabled)];
+    @apply text-[var(--color-button-transparent-text-disabled)];
+}

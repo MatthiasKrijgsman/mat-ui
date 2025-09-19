@@ -1,44 +1,61 @@
-import { Input } from "@/components/Input.tsx";
-import { Table } from "@/table/Table.tsx";
+import { Input } from "@/components/inputs/Input.tsx";
 import { Button } from "@/components/button/Button.tsx";
+import { IconMailFilled } from "@tabler/icons-react";
+import { InputPassword } from "@/components/inputs/InputPassword.tsx";
+import { InputSelectNative } from "@/components/inputs/InputSelectNative.tsx";
+import { InputSelect } from "@/components/inputs/InputSelect.tsx";
+import { InputSelectSearchable } from "@/components/inputs/InputSelectSearchable.tsx";
 
-type SampleRowType = {
-  id: number;
-  email: string;
-  firstname: string;
-  lastname: string;
-  status: 'active' | 'inactive';
-}
-
-const sampleData: SampleRowType[] = [
-  { id: 1, email: 'matthiaskrijgsman@gmail.com', firstname: 'Matthias', lastname: 'Krijgsman', status: 'active' },
-  { id: 2, email: 'dennis@snijder.io', firstname: 'Dennis', lastname: 'Snijder', status: 'inactive' },
-  { id: 3, email: 'arcokrijgsman@gmail.com', firstname: 'Arco', lastname: 'Krijgsman', status: 'active' },
-];
-
-const sampleColumns = [
-  { id: 'id', header: 'ID', renderCell: (row: SampleRowType) => row.id },
-  { id: 'email', header: 'Email', renderCell: (row: SampleRowType) => row.email },
-  { id: 'firstname', header: 'First Name', renderCell: (row: SampleRowType) => row.firstname },
-  { id: 'lastname', header: 'Last Name', renderCell: (row: SampleRowType) => row.lastname },
-  { id: 'status', header: 'Status', renderCell: (row: SampleRowType) => row.status },
-];
 
 export const Test = () => {
+  const searchableSelectOptions = [
+    { label: 'Option 1', value: '1' },
+    { label: 'Option 2', value: '2' },
+    { label: 'Option 3', value: '3' },
+    { label: 'Option 4', value: '4' },
+    { label: 'Option 5', value: '5' },
+    { label: 'Option 6', value: '6' },
+    { label: 'Option 7', value: '7' },
+    { label: 'Option 8', value: '8' },
+    { label: 'Option 9', value: '9' },
+    { label: 'Option 10', value: '10' },
+  ];
   return (
-    <div className={ 'flex flex-col gap-12' }>
-      <div className={'flex flex-col gap-6 mx-auto w-[300px]'}>
-        <Button variant={'primary'} disabled={false}>Test</Button>
-        <Button variant={'primary'} disabled={true}>Test</Button>
-        <Button variant={'primary'} disabled={true}>Test</Button>
-        <Button variant={'primary'} size={'sm'} loading={true}>Test</Button>
-        <Button variant={'primary'} loading={true}>Test</Button>
+    <div className={ 'flex flex-col gap-6' }>
+      <div className={ 'flex flex-col gap-6 mx-auto w-[500px]' }>
+        <Button variant={ 'primary' } disabled={ false }>Test</Button>
+        <Button variant={ 'primary' } disabled={ true }>Test</Button>
+        <Button variant={ 'primary' } disabled={ true }>Test</Button>
+        <Button variant={ 'primary' } size={ 'sm' } loading={ true }>Test</Button>
+        <Button variant={ 'primary' } loading={ true }>Test</Button>
       </div>
-      <Input type={ 'text' } label={ 'Label' } description={ 'Description' } placeholder={ 'Enter something' }/>
-      <Table
-        columns={ sampleColumns }
-        rows={ sampleData }
-      />
+      <div className={ 'flex flex-col gap-6 mx-auto w-[500px]' }>
+        <Input Icon={ IconMailFilled } type={ 'text' } label={ 'Label' } placeholder={ 'Enter something' }/>
+        <Input type={ 'text' } label={ 'Label' } placeholder={ 'Enter something' }/>
+        <InputPassword label={ 'Password' }/>
+        <InputSelectNative label={ 'Select' } options={ [
+          { label: '- Select -', value: '', disabled: true },
+          { label: 'Option 1', value: '1' },
+          { label: 'Option 2', value: '2' },
+          { label: 'Option 3', value: '3' },
+        ] }/>
+        <InputSelect placeholder={'- Select -'} options={ [
+          { label: 'Option 1', value: '1' },
+          { label: 'Option 2', value: '2' },
+          { label: 'Option 3', value: '3' },
+        ] } value={ null } onChange={ () => {
+        } } label={ 'Select' }/>
+
+        <InputSelectSearchable
+          placeholder={'- Select -'}
+          options={searchableSelectOptions}
+          onSearch={(search) => searchableSelectOptions.filter(option => option.label.toLowerCase().includes(search.toLowerCase()))}
+          value={ null }
+          onChange={ () => {} }
+          label={ 'Select' }
+        />
+      </div>
+
     </div>
   );
 };

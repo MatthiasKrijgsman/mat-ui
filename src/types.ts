@@ -6,24 +6,24 @@ export type { ButtonIconSquareProps, Variant as ButtonIconSquareVariant, Size as
 export type { ButtonIconRoundProps, Variant as ButtonIconRoundVariant, Size as ButtonIconRoundSize } from "./components/button-icon-round/ButtonIconRound.tsx";
 
 // Inputs
-export type { InputProps } from "./components/Input.tsx";
-export type { InputPasswordProps } from "./components/InputPassword.tsx";
-export type { InputTextAreaProps } from "./components/InputTextArea.tsx";
-export type { InputRadioProps } from "./components/InputRadio.tsx";
-export type { InputToggleProps } from "./components/InputToggle.tsx";
-export type { InputCheckProps } from "./components/InputCheck.tsx";
-export type { InputLabelProps } from "./components/InputLabel.tsx";
-export type { InputDescriptionProps } from "./components/InputDescription.tsx";
-export type { InputErrorProps } from "./components/InputError.tsx";
-export type { InputIconButtonProps } from "./components/InputIconButton.tsx";
-export type { InputIconButtonTrayProps } from "./components/InputIconButtonTray.tsx";
+export type { InputProps } from "./components/inputs/Input.tsx";
+export type { InputPasswordProps } from "./components/inputs/InputPassword.tsx";
+export type { InputTextAreaProps } from "./components/inputs/InputTextArea.tsx";
+export type { InputRadioProps } from "./components/inputs/InputRadio.tsx";
+export type { InputToggleProps } from "./components/inputs/InputToggle.tsx";
+export type { InputCheckProps } from "./components/inputs/InputCheck.tsx";
+export type { InputLabelProps } from "./components/inputs/InputLabel.tsx";
+export type { InputDescriptionProps } from "./components/inputs/InputDescription.tsx";
+export type { InputErrorProps } from "./components/inputs/InputError.tsx";
+export type { InputIconButtonProps } from "./components/inputs/InputIconButton.tsx";
+export type { InputIconButtonTrayProps } from "./components/inputs/InputIconButtonTray.tsx";
 
 // Selects
-export type { InputSelectNativeProps, OptionNative } from "./components/InputSelectNative.tsx";
-export type { InputSelectProps, Option as InputSelectOptionType } from "./components/InputSelect.tsx";
-export type { InputSelectSearchableProps, Option as InputSelectSearchableOption } from "./components/InputSelectSearchable.tsx";
-export type { InputSelectSearchableAsyncProps, Option as InputSelectSearchableAsyncOption } from "./components/InputSelectSearchableAsync.tsx";
-export type { InputSelectOptionProps } from "./components/InputSelectOption.tsx";
+export type { InputSelectNativeProps, OptionNative } from "./components/inputs/InputSelectNative.tsx";
+export type { InputSelectProps, Option as InputSelectOptionType } from "./components/inputs/InputSelect.tsx";
+export type { InputSelectSearchableProps, Option as InputSelectSearchableOption } from "./components/inputs/InputSelectSearchable.tsx";
+export type { InputSelectSearchableAsyncProps, Option as InputSelectSearchableAsyncOption } from "./components/inputs/InputSelectSearchableAsync.tsx";
+export type { InputSelectOptionProps } from "./components/inputs/InputSelectOption.tsx";
 
 // Layout and feedback
 export type { PanelProps } from "./components/Panel.tsx";

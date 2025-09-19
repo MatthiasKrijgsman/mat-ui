@@ -12,7 +12,11 @@ export type ButtonIconRoundProps = React.ButtonHTMLAttributes<HTMLButtonElement>
   Icon: TablerIcon;
 }
 
-const base: string = `inline-flex flex-row items-center justify-center font-semibold ring-0 hover:ring-4 active:ring-1 rounded-full cursor-pointer transition-all duration-150 select-none focus:outline-none focus:ring-4 aspect-square button-ring`;
+const base: string = `
+  inline-flex flex-row items-center justify-center aspect-square 
+  button-ring font-semibold ring-0 disabled:hover:ring-0 hover:ring-4 active:ring-1 rounded-full cursor-pointer transition-all duration-150 select-none focus:outline-none focus:ring-4
+  disabled:cursor-default
+`;
 
 const variantClasses: Record<Variant, string> = {
   primary: 'border button-primary shadow-sm',

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { classNames } from "@/util/classnames.util.ts";
-import { InputDescription } from "@/components/InputDescription.tsx";
-import { InputError } from "@/components/InputError.tsx";
+import { InputDescription } from "@/components/inputs/InputDescription.tsx";
+import { InputError } from "@/components/inputs/InputError.tsx";
 
 export interface InputCheckProps extends React.HTMLAttributes<HTMLInputElement> {
   label?: string | React.ReactNode;
