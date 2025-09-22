@@ -34,7 +34,7 @@ const sampleColumns = [
   { id: 'firstname', header: 'First Name', renderCell: (row: SampleRowType) => row.firstname },
   { id: 'lastname', header: 'Last Name', renderCell: (row: SampleRowType) => row.lastname },
   {
-    id: 'status', header: 'Status', renderCell: (row: SampleRowType) => <BadgePopover/>
+    id: 'status', header: 'Status', renderCell: () => <BadgePopover/>
   },
 ];
 
