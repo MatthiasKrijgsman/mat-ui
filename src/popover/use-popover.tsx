@@ -1,5 +1,5 @@
 import * as React from "react";
-import { type Placement, size, useFloating } from "@floating-ui/react";
+import { autoUpdate, type Placement, size, useFloating } from "@floating-ui/react";
 import { PopoverBase } from "@/popover/PopoverBase.tsx";
 
 
@@ -48,11 +48,12 @@ export const usePopover = (props: UsePopoverProps): UsePopoverResult => {
         },
       })
     ];
-  }, [ fullWidth, minWidth ]);
+  }, [fullWidth, maxWidth, minWidth]);
 
   const { refs, floatingStyles } = useFloating({
     placement,
     middleware,
+    whileElementsMounted: autoUpdate,
   });
 
   const latest = React.useRef<PopoverBaseRefProps>({
