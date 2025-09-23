@@ -43,13 +43,13 @@ export const Modal = (props: ModalProps) => {
             transition={ { duration: 0.15, ease: "easeInOut" } }
           >
             <FloatingOverlay
-              className={ 'bg-gray-400/30 backdrop-blur-[1px]' }
+              className={ 'bg-gray-400/30 backdrop-blur-[1px] z-10' }
               onClick={ enableDismissOnOutsideClick ? onDismiss : undefined }
               lockScroll={ true }
             />
           </motion.div>
 
-          <div className={ 'fixed inset-0 flex flex-col items-center pointer-events-none p-4 lg:p-12 overflow-y-auto' }>
+          <div className={ 'fixed inset-0 flex flex-col items-center pointer-events-none p-4 lg:p-12 overflow-y-auto z-20' }>
             <motion.div
               className={ classNames(
                 'flex flex-col bg-white rounded-xl shadow-xl p-6 lg:p-12 pointer-events-auto w-full relative',
