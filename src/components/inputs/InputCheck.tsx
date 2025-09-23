@@ -3,7 +3,7 @@ import { classNames } from "@/util/classnames.util.ts";
 import { InputDescription } from "@/components/inputs/InputDescription.tsx";
 import { InputError } from "@/components/inputs/InputError.tsx";
 
-export interface InputCheckProps extends React.HTMLAttributes<HTMLInputElement> {
+export type InputCheckProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> & {
   label?: string | React.ReactNode;
   description?: string | React.ReactNode;
   error?: string | React.ReactNode;
