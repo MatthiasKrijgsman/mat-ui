@@ -29,6 +29,8 @@ export const Input = (props: InputProps) => {
     ...rest
   } = props;
 
+  //TODO: set htmlfor on label if id is provided in props
+
   return (
     <div
       className={ classNames(

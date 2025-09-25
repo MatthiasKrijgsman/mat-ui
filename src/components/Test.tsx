@@ -1,13 +1,15 @@
 import { Table } from "@/table/Table.tsx";
 import { ButtonIconSquare } from "@/components/button-icon-square/ButtonIconSquare.tsx";
-import { IconMailFilled, IconSearch, IconSettings } from "@tabler/icons-react";
+import { IconMailFilled, IconPlus, IconSearch, IconSettings, IconTrash } from "@tabler/icons-react";
 import { Input } from "@/components/inputs/Input.tsx";
 import { Badge } from "@/components/Badge.tsx";
 import { useState } from "react";
 import { usePopover } from "@/popover/use-popover.tsx";
-import { PopoverPanel } from "@/popover/PopoverPanel.tsx";
+import { DropdownPanel } from "@/components/dropdown-menu/DropdownPanel.tsx";
 import { InputSelect } from "@/components/inputs/InputSelect.tsx";
-import { PopoverButton } from "@/popover/PopoverButton.tsx";
+import { DropdownButton } from "@/components/dropdown-menu/DropdownButton.tsx";
+import { Button } from "@/components/button/Button.tsx";
+import { DropdownMenu } from "@/components/dropdown-menu/DropdownMenu.tsx";
 
 type SampleRowType = {
   id: number;
@@ -45,17 +47,26 @@ export const Test = () => {
       <div className={ 'flex flex-row items-center justify-start gap-3' }>
         <Input Icon={ IconSearch } placeholder={ 'Search...' }/>
         <ButtonIconSquare Icon={ IconSettings }/>
+        <Button Icon={ IconPlus }>New</Button>
+        <DropdownMenu
+          trigger={ <ButtonIconSquare Icon={ IconSettings }/> }
+        >
+          <DropdownButton dismissOnClick={ false } Icon={ IconPlus }>Add new</DropdownButton>
+          <DropdownButton Icon={ IconTrash }>Remove</DropdownButton>
+        </DropdownMenu>
       </div>
-      <Table
-        columns={ sampleColumns }
-        rows={ sampleData }
-      />
+
       <InputSelect options={ [
         { label: 'Option 1', value: 1 },
         { label: 'Option 2', value: 2 },
         { label: 'Option 3', value: 3 }
       ] } value={ null } onChange={ () => {
       } }/>
+
+      <Table
+        columns={ sampleColumns }
+        rows={ sampleData }
+      />
     </div>
   );
 };
@@ -72,11 +83,11 @@ const BadgePopover = () => {
     <Badge onClick={ () => setOpen(true) } ref={ anchorRef }>Test</Badge>
 
     <Popover open={ open }>
-      <PopoverPanel>
-        <PopoverButton>Option 1</PopoverButton>
-        <PopoverButton>Option 2</PopoverButton>
-        <PopoverButton>Option 3</PopoverButton>
-      </PopoverPanel>
+      <DropdownPanel>
+        <DropdownButton>Option 1</DropdownButton>
+        <DropdownButton>Option 2</DropdownButton>
+        <DropdownButton>Option 3</DropdownButton>
+      </DropdownPanel>
     </Popover>
   </>)
 }

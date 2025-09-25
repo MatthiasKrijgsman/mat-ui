@@ -1,4 +1,5 @@
 import * as React from "react";
+import { TableColumnHead } from "@/table/TableColumnHead.tsx";
 
 export type TableColumnDef<T> = {
   id: string;
@@ -18,46 +19,45 @@ export const Table = <T, >(props: TableProps<T>) => {
   } = props;
 
   return (
-    <div className={ 'border border-gray-200 rounded-xl shadow-sm overflow-hidden' }>
-      <table className={ 'table-fixed' }>
-        <colgroup>
-          { columns.map((column) => (
-            <col
-              key={ column.id }
-              width={ 250 }
-            />
-          )) }
-        </colgroup>
-        <thead>
-        <tr className={ 'divide-gray-200 divide-x text-left bg-gray-50 text-gray-400 border-b border-b-gray-200' }>
-          { columns.map((column) => (
-            <th key={ column.id } className={ 'font-medium h-[3rem] relative hover:bg-gray-100 cursor-pointer active:bg-gray-200 transition-colors duration-150' }>
-              <div className={ 'absolute inset-0' }>
-                <div className={ 'flex items-center h-full w-full px-4' }>
-                  { column.header }
-                </div>
-              </div>
-            </th>
-          )) }
-        </tr>
-        </thead>
+    <div
+      className={ 'flex flex-col relative min-h-[300px] overflow-hidden rounded-xl border border-gray-200 shadow-sm' }
+    >
 
-        <tbody className={ 'divide-y divide-gray-200' }>
-        { rows.map((row, rowIndex) => (
-          <tr key={ rowIndex } className={ 'divide-gray-200 divide-x' }>
-            { columns.map((column) => (
-              <td key={ column.id } className={ 'h-[3rem] relative' }>
-                <div className={ 'absolute inset-0 ' }>
-                  <div className={ 'flex items-center h-full w-full px-4' }>
-                    { column.renderCell(row) }
-                  </div>
-                </div>
-              </td>
-            )) }
-          </tr>
+      <div
+        className={ 'absolute left-0 right-0 border-b border-b-gray-200 z-10 bg-gray-50' }
+        style={ { height: 44 + 1 } }
+      />
+
+      {/* Head container */ }
+      <div className={ 'font-medium text-gray-800 absolute flex flex-row z-10' }>
+        { columns.map((column) => (
+          <TableColumnHead
+            key={ column.id }
+            column={ column }
+          />
         )) }
-        </tbody>
-      </table>
+      </div>
+
+      <div
+        className={ 'absolute left-0 right-0 bottom-0' }
+        style={ { top: 44 } }
+      >
+        {/* Row container */ }
+        <div className={ 'flex flex-col absolute' }>
+          { rows.map((row) => (
+            <div
+              key={ JSON.stringify(row) }
+              className={ 'flex flex-row border-b border-b-gray-200 hover:bg-gray-50 bg-white transition-all duration-100' }
+            >
+              { columns.map((column) => (
+                <div key={ column.id } className={ 'content-center px-4' } style={ { width: 250, height: 44 } }>
+                  { column.renderCell(row) }
+                </div>
+              )) }
+            </div>
+          )) }
+        </div>
+      </div>
     </div>
   );
 };

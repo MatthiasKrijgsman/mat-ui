@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { usePopover } from "@/popover/use-popover.tsx";
-import { PopoverPanel } from "@/popover/PopoverPanel.tsx";
+import { DropdownPanel } from "@/components/dropdown-menu/DropdownPanel.tsx";
 import type { Placement } from "@floating-ui/react";
 
 export type TooltipProps = {
@@ -38,9 +38,9 @@ export const Tooltip = (props: TooltipProps) => {
     >
       { children }
       <Popover open={ open }>
-        <PopoverPanel>
+        <DropdownPanel>
           { content }
-        </PopoverPanel>
+        </DropdownPanel>
       </Popover>
       </span>
   );

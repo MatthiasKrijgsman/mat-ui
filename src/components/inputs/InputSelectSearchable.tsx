@@ -4,7 +4,7 @@ import { classNames } from "@/util/classnames.util.ts";
 import { IconChevronDown, IconSearch, IconSearchOff, IconX } from "@tabler/icons-react";
 import { InputSelectOption } from "@/components/inputs/InputSelectOption.tsx";
 import { usePopover } from "@/popover/use-popover.tsx";
-import { PopoverPanel } from "@/popover/PopoverPanel.tsx";
+import { DropdownPanel } from "@/components/dropdown-menu/DropdownPanel.tsx";
 import { InputLabel } from "@/components/inputs/InputLabel.tsx";
 import { InputErrorIcon } from "@/components/inputs/InputErrorIcon.tsx";
 import { InputIconButton } from "@/components/inputs/InputIconButton.tsx";
@@ -114,7 +114,7 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
           <InputIconButton Icon={IconChevronDown} />
         </InputIconButtonTray>
         <Popover open={ open }>
-          <PopoverPanel className={ 'gap-0 !p-0' } style={ { maxHeight: maxHeight } }>
+          <DropdownPanel className={ 'gap-0 !p-0' } style={ { maxHeight: maxHeight } }>
             <div className={ 'sticky top-0 border-b border-b-gray-200 py-1 bg-white/50 backdrop-blur-sm' }>
               <input
                 ref={ inputSearchRef }
@@ -176,7 +176,7 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
                 }) }
               </>) }
             </div>
-          </PopoverPanel>
+          </DropdownPanel>
         </Popover>
       </div>
       <InputDescription>{ description }</InputDescription>

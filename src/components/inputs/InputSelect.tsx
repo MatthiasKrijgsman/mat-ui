@@ -4,7 +4,7 @@ import { classNames } from "@/util/classnames.util.ts";
 import { IconChevronDown, IconX } from "@tabler/icons-react";
 import { InputSelectOption } from "@/components/inputs/InputSelectOption.tsx";
 import { usePopover } from "@/popover/use-popover.tsx";
-import { PopoverPanel } from "@/popover/PopoverPanel.tsx";
+import { DropdownPanel } from "@/components/dropdown-menu/DropdownPanel.tsx";
 import { InputLabel } from "@/components/inputs/InputLabel.tsx";
 import { InputErrorIcon } from "@/components/inputs/InputErrorIcon.tsx";
 import { InputIconButton } from "@/components/inputs/InputIconButton.tsx";
@@ -102,7 +102,7 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
           <InputIconButton Icon={IconChevronDown} />
         </InputIconButtonTray>
         <Popover open={ open }>
-          <PopoverPanel className={ '!p-0' } style={ { maxHeight: maxHeight } }>
+          <DropdownPanel className={ '!p-0' } style={ { maxHeight: maxHeight } }>
             <div className={ 'flex flex-col p-2 gap-1' }>
               { options.map((option) => {
                 const isSelected = option.value === value;
@@ -123,7 +123,7 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
                 )
               }) }
             </div>
-          </PopoverPanel>
+          </DropdownPanel>
         </Popover>
       </div>
       <InputDescription>{ description }</InputDescription>

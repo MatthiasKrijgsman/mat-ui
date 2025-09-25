@@ -38,8 +38,8 @@ export type { SpinnerProps } from "./spinner/Spinner.tsx";
 export type { TableColumnDef, TableProps } from "./table/Table.tsx";
 
 // Popover suite
-export type { PopoverButtonProps } from "./popover/PopoverButton.tsx";
-export type { PopoverPanelProps } from "./popover/PopoverPanel.tsx";
+export type { DropdownButtonProps } from "./components/dropdown-menu/DropdownButton.tsx";
+export type { DropdownPanelProps } from "./components/dropdown-menu/DropdownPanel.tsx";
 export type { UsePopoverProps, PopoverRendererProps, PopoverBaseRefProps, UsePopoverResult } from "./popover/use-popover.tsx";
 export type { PopoverBaseProps } from "./popover/PopoverBase.tsx";
 
