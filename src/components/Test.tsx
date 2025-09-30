@@ -3,13 +3,11 @@ import { ButtonIconSquare } from "@/components/button-icon-square/ButtonIconSqua
 import { IconMailFilled, IconPlus, IconSearch, IconSettings, IconTrash } from "@tabler/icons-react";
 import { Input } from "@/components/inputs/Input.tsx";
 import { Badge } from "@/components/Badge.tsx";
-import { useState } from "react";
-import { usePopover } from "@/popover/use-popover.tsx";
-import { DropdownPanel } from "@/components/dropdown-menu/DropdownPanel.tsx";
 import { InputSelect } from "@/components/inputs/InputSelect.tsx";
 import { DropdownButton } from "@/components/dropdown-menu/DropdownButton.tsx";
 import { Button } from "@/components/button/Button.tsx";
 import { DropdownMenu } from "@/components/dropdown-menu/DropdownMenu.tsx";
+import { ScrollbarTest } from "@/components/ScrollbarTest.tsx";
 
 type SampleRowType = {
   id: number;
@@ -67,27 +65,26 @@ export const Test = () => {
         columns={ sampleColumns }
         rows={ sampleData }
       />
+
+      <ScrollbarTest/>
     </div>
   );
 };
 
 const BadgePopover = () => {
-  const [ open, setOpen ] = useState(false);
-  const { Popover, anchorRef } = usePopover({
-    fullWidth: true,
-    onOutsideClick: () => setOpen(false),
-    minWidth: 150
-  })
-
   return (<>
-    <Badge onClick={ () => setOpen(true) } ref={ anchorRef }>Test</Badge>
 
-    <Popover open={ open }>
-      <DropdownPanel>
-        <DropdownButton>Option 1</DropdownButton>
-        <DropdownButton>Option 2</DropdownButton>
-        <DropdownButton>Option 3</DropdownButton>
-      </DropdownPanel>
-    </Popover>
+    <DropdownMenu
+      placement={ 'bottom-end' }
+      className={ 'inline-block' }
+      trigger={
+        <Badge onClick={ () => {
+        } }>Test</Badge>
+      }
+    >
+      <DropdownButton>Option 1</DropdownButton>
+      <DropdownButton>Option 2</DropdownButton>
+      <DropdownButton>Option 3</DropdownButton>
+    </DropdownMenu>
   </>)
 }

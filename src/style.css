@@ -5,3 +5,13 @@
 @import "./components/button/Button.css";
 
 @plugin "@tailwindcss/forms";
+
+
+.mat-ui-hide-scrollbars {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.mat-ui-hide-scrollbars::-webkit-scrollbar {
+    display: none;
+}

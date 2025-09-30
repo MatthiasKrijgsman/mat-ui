@@ -10,11 +10,12 @@ export type DropdownMenuProps = {
   children?: React.ReactNode;
   placement?: Placement
   minWidth?: number;
+  className?: string;
 }
 
 
 export const DropdownMenu = (props: DropdownMenuProps) => {
-  const { trigger, children, placement = 'bottom-end', minWidth = 200 } = props;
+  const { trigger, children, placement = 'bottom-end', minWidth = 200, className } = props;
   const [ show, setShow ] = useState<boolean>(false);
 
   const { Popover, anchorRef } = usePopover({
@@ -25,7 +26,7 @@ export const DropdownMenu = (props: DropdownMenuProps) => {
 
   return (
     <>
-      <div ref={ anchorRef } onClick={ () => setShow(!show) }>
+      <div ref={ anchorRef } className={ className } onClick={ () => setShow(!show) }>
         { trigger }
       </div>
 
