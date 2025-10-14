@@ -18,9 +18,18 @@ type SampleRowType = {
 }
 
 const sampleData: SampleRowType[] = [
-  { id: 1, email: 'matthiaskrijgsman@gmail.com', firstname: 'Matthias', lastname: 'Krijgsman', status: 'active' },
-  { id: 2, email: 'dennis@snijder.io', firstname: 'Dennis', lastname: 'Snijder', status: 'inactive' },
-  { id: 3, email: 'arcokrijgsman@gmail.com', firstname: 'Arco', lastname: 'Krijgsman', status: 'active' },
+  { id: 1, email: 'sarah.jennings@example.com', firstname: 'Sarah', lastname: 'Jennings', status: 'active' },
+  { id: 2, email: 'liam.patel@outlook.com', firstname: 'Liam', lastname: 'Patel', status: 'inactive' },
+  { id: 3, email: 'emily.wong@gmail.com', firstname: 'Emily', lastname: 'Wong', status: 'active' },
+  { id: 4, email: 'noah.thompson@yahoo.com', firstname: 'Noah', lastname: 'Thompson', status: 'active' },
+  { id: 5, email: 'isabella.martin@protonmail.com', firstname: 'Isabella', lastname: 'Martin', status: 'active' },
+  { id: 6, email: 'ethan.ross@company.io', firstname: 'Ethan', lastname: 'Ross', status: 'inactive' },
+  { id: 7, email: 'olivia.nguyen@example.org', firstname: 'Olivia', lastname: 'Nguyen', status: 'active' },
+  { id: 8, email: 'lucas.henderson@gmail.com', firstname: 'Lucas', lastname: 'Henderson', status: 'inactive' },
+  { id: 9, email: 'mia.johnson@workmail.com', firstname: 'Mia', lastname: 'Johnson', status: 'active' },
+  { id: 10, email: 'jackson.rivera@outlook.com', firstname: 'Jackson', lastname: 'Rivera', status: 'active' },
+  { id: 11, email: 'ava.sanders@example.com', firstname: 'Ava', lastname: 'Sanders', status: 'active' },
+  { id: 12, email: 'logan.bennett@company.io', firstname: 'Logan', lastname: 'Bennett', status: 'inactive' },
 ];
 
 const sampleColumns = [
@@ -62,6 +71,7 @@ export const Test = () => {
       } }/>
 
       <Table
+        className={'h-[300px] w-[300px]'}
         columns={ sampleColumns }
         rows={ sampleData }
       />
