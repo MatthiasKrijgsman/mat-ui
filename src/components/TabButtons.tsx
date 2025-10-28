@@ -40,6 +40,9 @@ export const TabButtons = (props: TabButtonsProps) => {
               href={ tab.href }
               className={ tabClasses }
             >
+              { tab.Icon && (
+                <tab.Icon className={'h-5 w-5 shrink-0 mr-2 -ml-1'} />
+              ) }
               { tab.label }
             </a>
           )
@@ -50,6 +53,9 @@ export const TabButtons = (props: TabButtonsProps) => {
             className={ tabClasses }
             onClick={ tab.onClick }
           >
+            { tab.Icon && (
+              <tab.Icon className={'h-5 w-5 shrink-0 mr-2 -ml-1'} />
+            ) }
             { tab.label }
           </button>
         )

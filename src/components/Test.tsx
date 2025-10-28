@@ -1,6 +1,6 @@
 import { Table } from "@/table/Table.tsx";
 import { ButtonIconSquare } from "@/components/button-icon-square/ButtonIconSquare.tsx";
-import { IconMailFilled, IconPlus, IconSearch, IconSettings, IconTrash } from "@tabler/icons-react";
+import { IconList, IconMailFilled, IconPlus, IconSearch, IconSettings, IconTrash } from "@tabler/icons-react";
 import { Input } from "@/components/inputs/Input.tsx";
 import { Badge } from "@/components/Badge.tsx";
 import { InputSelect } from "@/components/inputs/InputSelect.tsx";
@@ -8,6 +8,7 @@ import { DropdownButton } from "@/components/dropdown-menu/DropdownButton.tsx";
 import { Button } from "@/components/button/Button.tsx";
 import { DropdownMenu } from "@/components/dropdown-menu/DropdownMenu.tsx";
 import { ScrollbarTest } from "@/components/ScrollbarTest.tsx";
+import { TabButtons } from "@/components/TabButtons.tsx";
 
 type SampleRowType = {
   id: number;
@@ -61,6 +62,20 @@ export const Test = () => {
           <DropdownButton dismissOnClick={ false } Icon={ IconPlus }>Add new</DropdownButton>
           <DropdownButton Icon={ IconTrash }>Remove</DropdownButton>
         </DropdownMenu>
+        <TabButtons tabs={ [
+          {
+            label: 'Tab 1', Icon: IconList, active: true, onClick: () => {
+            }
+          },
+          {
+            label: 'Tab 2', active: false, onClick: () => {
+            }
+          },
+          {
+            label: 'Tab 3', Icon: IconList, active: false, onClick: () => {
+            }
+          }
+        ] }/>
       </div>
 
       <InputSelect options={ [
@@ -71,7 +86,7 @@ export const Test = () => {
       } }/>
 
       <Table
-        className={'h-[300px] w-[300px]'}
+        className={ 'h-[300px] w-[300px]' }
         columns={ sampleColumns }
         rows={ sampleData }
       />
