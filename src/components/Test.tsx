@@ -9,6 +9,7 @@ import { Button } from "@/components/button/Button.tsx";
 import { DropdownMenu } from "@/components/dropdown-menu/DropdownMenu.tsx";
 import { ScrollbarTest } from "@/components/ScrollbarTest.tsx";
 import { TabButtons } from "@/components/TabButtons.tsx";
+import { DropdownButtonGroup } from "@/components/dropdown-menu/DropdownButtonGroup.tsx";
 
 type SampleRowType = {
   id: number;
@@ -61,6 +62,18 @@ export const Test = () => {
         >
           <DropdownButton dismissOnClick={ false } Icon={ IconPlus }>Add new</DropdownButton>
           <DropdownButton Icon={ IconTrash }>Remove</DropdownButton>
+          <DropdownButtonGroup label={'Test'} className={'mt-2'}>
+            <DropdownButton Icon={ IconTrash }>Utrechtse Horeca Groep / Restaurant Dengh</DropdownButton>
+            <DropdownButton Icon={ IconTrash }>Utrechtse Horeca Groep / Restaurant Dengh</DropdownButton>
+            <DropdownButton Icon={ IconTrash }>Remove</DropdownButton>
+            <DropdownButton Icon={ IconTrash }>Remove</DropdownButton>
+          </DropdownButtonGroup>
+          <DropdownButtonGroup label={'Test'} className={'mt-2'}>
+            <DropdownButton Icon={ IconTrash }>Remove</DropdownButton>
+            <DropdownButton Icon={ IconTrash }>Remove</DropdownButton>
+            <DropdownButton Icon={ IconTrash }>Remove</DropdownButton>
+            <DropdownButton Icon={ IconTrash }>Remove</DropdownButton>
+          </DropdownButtonGroup>
         </DropdownMenu>
         <TabButtons tabs={ [
           {
