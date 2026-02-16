@@ -62,17 +62,17 @@ export const Test = () => {
         >
           <DropdownButton dismissOnClick={ false } Icon={ IconPlus }>Add new</DropdownButton>
           <DropdownButton Icon={ IconTrash }>Remove</DropdownButton>
-          <DropdownButtonGroup label={'Test'} className={'mt-2'}>
-            <DropdownButton Icon={ IconTrash }>Utrechtse Horeca Groep / Restaurant Dengh</DropdownButton>
-            <DropdownButton Icon={ IconTrash }>Utrechtse Horeca Groep / Restaurant Dengh</DropdownButton>
-            <DropdownButton Icon={ IconTrash }>Remove</DropdownButton>
-            <DropdownButton Icon={ IconTrash }>Remove</DropdownButton>
+          <DropdownButtonGroup label={ 'Test' } className={ 'mt-2' }>
+            <DropdownButton>Item 1</DropdownButton>
+            <DropdownButton>Item 2</DropdownButton>
+            <DropdownButton>Item 3</DropdownButton>
+            <DropdownButton>Item 4</DropdownButton>
           </DropdownButtonGroup>
-          <DropdownButtonGroup label={'Test'} className={'mt-2'}>
-            <DropdownButton Icon={ IconTrash }>Remove</DropdownButton>
-            <DropdownButton Icon={ IconTrash }>Remove</DropdownButton>
-            <DropdownButton Icon={ IconTrash }>Remove</DropdownButton>
-            <DropdownButton Icon={ IconTrash }>Remove</DropdownButton>
+          <DropdownButtonGroup label={ 'Test' } className={ 'mt-2' }>
+            <DropdownButton>Item 1</DropdownButton>
+            <DropdownButton>Item 2</DropdownButton>
+            <DropdownButton>Item 3</DropdownButton>
+            <DropdownButton>Item 4</DropdownButton>
           </DropdownButtonGroup>
         </DropdownMenu>
         <TabButtons tabs={ [

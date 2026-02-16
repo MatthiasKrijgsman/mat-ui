@@ -31,7 +31,7 @@ export const TabButtons = (props: TabButtonsProps) => {
       { tabs.map((tab, i) => {
         const tabClasses = classNames(
           'shrink-0 px-4 h-full inline-flex flex-row items-center font-semibold rounded-xl cursor-pointer border border-transparent ing-0 hover:bg-gray-200 active:bg-gray-300/80 transition-all duration-150 select-none focus:outline-none focus:ring-0',
-          tab.active && 'bg-white shadow-sm !border-gray-300'
+          tab.active && 'bg-white shadow-sm !border-gray-200'
         )
         if (tab.href) {
           return (
