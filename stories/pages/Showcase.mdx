@@ -1,4 +1,5 @@
 import {Meta, Unstyled} from "@storybook/addon-docs/blocks";
+import {useState} from "react";
 import {
     Button,
     ButtonIconSquare,
@@ -19,11 +20,12 @@ import {
     Panel,
     Divider,
     Tooltip,
+    Modal,
     DropdownMenu,
     DropdownButton,
     DropdownButtonGroup,
 } from "@";
-import {Table} from "@/table/Table.tsx";
+import {ModalDemo} from "../components/ModalDemo.tsx";
 import {
     IconPlus,
     IconSettings,
@@ -365,12 +367,19 @@ export const asyncFetchByValue = (value) =>
 </section>
 
 <section className={'flex flex-col'} style={{gap: 24}}>
+<h2 className={'text-2xl font-bold text-gray-900'}>Modal</h2>
+
+<ModalDemo />
+
+</section>
+
+<section className={'flex flex-col'} style={{gap: 24}}>
 <h2 className={'text-2xl font-bold text-gray-900'}>Panel</h2>
 
 <div className={'flex flex-col gap-4'} style={{maxWidth: 400}}>
-    <Panel>
-        <div className={'text-gray-900 font-semibold'}>Panel title</div>
-        <div className={'text-gray-500 text-sm'}>This is a panel component that can contain any content. It provides a bordered card layout with padding and shadow.</div>
+    <Panel className={'gap-3!'}>
+        <div className={'text-[1.41rem] font-bold text-gray-900'}>Panel title</div>
+        <div className={'text-gray-500'}>This is a panel component that can contain any content. It provides a bordered card layout with padding and shadow.</div>
     </Panel>
 </div>
 </section>
