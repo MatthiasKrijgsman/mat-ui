@@ -65,9 +65,7 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
   }, [ search, options, onSearch ]);
 
   useEffect(() => {
-    if (open) {
-      inputSearchRef.current?.focus();
-    }
+    if (open) setTimeout(() => inputSearchRef.current?.focus(), 100);
   }, [ open ])
 
   const { anchorRef, Popover } = usePopover({

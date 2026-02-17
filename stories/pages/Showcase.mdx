@@ -11,6 +11,8 @@ import {
     InputToggle,
     InputSelectNative,
     InputSelect,
+    InputSelectSearchable,
+    InputSelectSearchableAsync,
     Badge,
     TabButtons,
     Spinner,
@@ -180,6 +182,26 @@ import './page.css';
 <section className={'flex flex-col'} style={{gap: 24}}>
 <h2 className={'text-2xl font-bold text-gray-900'}>Select Inputs</h2>
 
+export const selectOptions = [
+    {label: 'Apple', value: 'apple'},
+    {label: 'Banana', value: 'banana'},
+    {label: 'Cherry', value: 'cherry'},
+    {label: 'Grape', value: 'grape'},
+    {label: 'Mango', value: 'mango'},
+    {label: 'Orange', value: 'orange'},
+    {label: 'Peach', value: 'peach'},
+    {label: 'Strawberry', value: 'strawberry'},
+];
+
+export const searchFilter = (query) =>
+    selectOptions.filter(o => o.label.toLowerCase().includes(query.toLowerCase()));
+
+export const asyncFetchByQuery = (query) =>
+    new Promise(resolve => setTimeout(() => resolve(searchFilter(query)), 400));
+
+export const asyncFetchByValue = (value) =>
+    new Promise(resolve => setTimeout(() => resolve(selectOptions.find(o => o.value === value)), 200));
+
 <div className={'flex flex-col gap-4'} style={{maxWidth: 400}}>
     <InputSelectNative
         label="Native select"
@@ -191,22 +213,31 @@ import './page.css';
     />
     <InputSelect
         label="Custom select"
-        placeholder="Choose an option..."
-        options={[
-            {label: 'Option 1', value: 1},
-            {label: 'Option 2', value: 2},
-            {label: 'Option 3', value: 3},
-        ]}
+        placeholder="Choose a fruit..."
+        options={selectOptions}
+        value={null}
+        onChange={() => {}}
+    />
+    <InputSelectSearchable
+        label="Searchable select"
+        placeholder="Search for a fruit..."
+        options={selectOptions}
+        onSearch={searchFilter}
+        value={null}
+        onChange={() => {}}
+    />
+    <InputSelectSearchableAsync
+        label="Async searchable select"
+        placeholder="Search (async)..."
+        fetchOptionsByQuery={asyncFetchByQuery}
+        fetchOptionByValue={asyncFetchByValue}
         value={null}
         onChange={() => {}}
     />
     <InputSelect
         label="With error"
         placeholder="Choose an option..."
-        options={[
-            {label: 'Option 1', value: 1},
-            {label: 'Option 2', value: 2},
-        ]}
+        options={selectOptions}
         value={null}
         onChange={() => {}}
         error="Please select an option"
@@ -359,27 +390,6 @@ import './page.css';
     <div className={'text-sm text-gray-500'}>Right</div>
 </div>
 </section>
-
-<section className={'flex flex-col'} style={{gap: 24}}>
-<h2 className={'text-2xl font-bold text-gray-900'}>Table</h2>
-
-<Table
-    className={'h-[250px]'}
-    columns={[
-        {id: 'name', header: 'Name', renderCell: (row) => row.name},
-        {id: 'email', header: 'Email', renderCell: (row) => row.email},
-        {id: 'role', header: 'Role', renderCell: (row) => <Badge color={row.role === 'Admin' ? 'purple' : 'gray'}>{row.role}</Badge>},
-    ]}
-    rows={[
-        {name: 'Sarah Jennings', email: 'sarah@example.com', role: 'Admin'},
-        {name: 'Liam Patel', email: 'liam@example.com', role: 'User'},
-        {name: 'Emily Wong', email: 'emily@example.com', role: 'User'},
-        {name: 'Noah Thompson', email: 'noah@example.com', role: 'Admin'},
-        {name: 'Isabella Martin', email: 'isabella@example.com', role: 'User'},
-    ]}
-/>
-</section>
-
 </div>
 </div>
 </Unstyled>

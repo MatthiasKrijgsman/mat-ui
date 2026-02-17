@@ -99,7 +99,7 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
   }, [fetchOptionByValue, options, value]);
 
   useEffect(() => {
-    if (open) inputSearchRef.current?.focus();
+    if (open) setTimeout(() => inputSearchRef.current?.focus(), 100);
   }, [ open ])
 
   const { anchorRef, Popover } = usePopover({
