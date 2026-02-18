@@ -1,17 +1,40 @@
 @import "tailwindcss";
 
-/* Tokens and component styles */
+/* Tokens CSS Variables */
 @import "./styles/tokens.css";
+
+/* Component CSS Classes */
 @import "./components/button/Button.css";
 
 @plugin "@tailwindcss/forms";
 
+@layer utilities {
+    .mat-ui-hide-scrollbars {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
 
-.mat-ui-hide-scrollbars {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
+    .mat-ui-hide-scrollbars::-webkit-scrollbar {
+        display: none;
+    }
 
-.mat-ui-hide-scrollbars::-webkit-scrollbar {
-    display: none;
+    .mat-ui-scrollbar::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+    }
+    .mat-ui-scrollbar::-webkit-scrollbar-track {
+        border-radius: 100vh;
+        background: transparent;
+    }
+
+    .mat-ui-scrollbar::-webkit-scrollbar-thumb {
+        @apply bg-toppa-purple;
+        border-radius: 100vh;
+        border: 1px solid white;
+    }
+
+    .mat-ui-scrollbar::-webkit-scrollbar-thumb:hover {
+        @apply bg-toppa-purple/80;
+        cursor: pointer;
+    }
 }
