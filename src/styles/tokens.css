@@ -55,12 +55,12 @@
     --color-button-transparent-text-disabled: #9ca3af;
 
     /* Secondary variant (neutral fill) */
-    --color-button-secondary-bg: oklch(62.7% 0.194 149.214);
+    --color-button-secondary-bg: oklch(76.9% 0.188 70.08);
     --color-button-secondary-bg-hover: var(--color-button-secondary-bg);
-    --color-button-secondary-bg-active: oklch(53.2% 0.157 131.589);
-    --color-button-secondary-border: oklch(62.7% 0.194 149.214);
+    --color-button-secondary-bg-active: oklch(68.1% 0.162 75.834);
+    --color-button-secondary-border: oklch(76.9% 0.188 70.08);
     --color-button-secondary-border-hover: var(--color-button-secondary-bg);
-    --color-button-secondary-border-active: oklch(53.2% 0.157 131.589);
+    --color-button-secondary-border-active: oklch(68.1% 0.162 75.834);
     --color-button-secondary-text: #ffffff;
     --color-button-secondary-text-active: #ffffff;
     --color-button-secondary-bg-disabled: #e5e7eb;
@@ -68,12 +68,12 @@
     --color-button-secondary-text-disabled: #9ca3af;
 
     /* Tertiary variant (subtle) */
-    --color-button-tertiary-bg: oklch(44.4% 0.011 73.639);
+    --color-button-tertiary-bg: oklch(64.8% 0.2 131.684);
     --color-button-tertiary-bg-hover: var(--color-button-tertiary-bg);
-    --color-button-tertiary-bg-active: oklch(37.4% 0.01 67.558);
-    --color-button-tertiary-border: oklch(44.4% 0.011 73.639);
+    --color-button-tertiary-bg-active: oklch(53.2% 0.157 131.589);
+    --color-button-tertiary-border: oklch(64.8% 0.2 131.684);
     --color-button-tertiary-border-hover: var(--color-button-tertiary-bg);
-    --color-button-tertiary-border-active: oklch(37.4% 0.01 67.558);
+    --color-button-tertiary-border-active: oklch(53.2% 0.157 131.589);
     --color-button-tertiary-text: #ffffff;
     --color-button-tertiary-text-active: #ffffff;
     --color-button-tertiary-bg-disabled: #e5e7eb;
