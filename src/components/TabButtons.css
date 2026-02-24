@@ -1,5 +1,6 @@
 .tab-container {
     @apply bg-[var(--color-tab-container-bg)];
+    @apply text-[var(--color-tab-text)];
 }
 .tab-button {
     @apply hover:bg-[var(--color-tab-bg-hover)];

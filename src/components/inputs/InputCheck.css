@@ -1,4 +1,5 @@
 .check-base {
+    @apply bg-[var(--color-input-bg)];
     @apply border-[var(--color-check-border)];
     @apply ring-[var(--color-check-ring)];
 }

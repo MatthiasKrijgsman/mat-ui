@@ -133,6 +133,7 @@
     --color-dropdown-group-label: #6b7280;
 
     /* Tab buttons */
+    --color-tab-text: #111827;
     --color-tab-container-bg: #f3f4f6;
     --color-tab-bg-hover: #e5e7eb;
     --color-tab-bg-active: rgb(209 213 219 / 0.8);
@@ -309,6 +310,7 @@
     --color-dropdown-group-label: #9ca3af;
 
     /* Tab buttons */
+    --color-tab-text: #f3f4f6;
     --color-tab-container-bg: #1f2937;
     --color-tab-bg-hover: #374151;
     --color-tab-bg-active: rgb(75 85 99 / 0.8);
