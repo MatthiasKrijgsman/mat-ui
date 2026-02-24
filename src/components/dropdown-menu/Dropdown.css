@@ -1,6 +1,7 @@
 .dropdown-panel {
     @apply bg-[var(--color-dropdown-bg)];
     @apply border-[var(--color-dropdown-border)];
+    @apply text-[var(--color-dropdown-item-text)];
 }
 .dropdown-item {
     @apply text-[var(--color-dropdown-item-text)];

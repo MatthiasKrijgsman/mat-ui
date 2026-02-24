@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Badge,
     Button,
@@ -63,9 +63,13 @@ const asyncFetchByValue = (value: string) =>
 export const Showcase = () => {
     const [dark, setDark] = useState(false);
 
+    useEffect(() => {
+        document.documentElement.classList.toggle('dark', dark);
+        return () => { document.documentElement.classList.remove('dark'); };
+    }, [dark]);
+
     return (
-        <div className={dark ? 'dark' : ''}>
-            <div className={'flex flex-col bg-white dark:bg-gray-900 transition-colors duration-300 p-8 rounded-2xl'} style={{ gap: 48 }}>
+        <div className={'flex flex-col bg-white dark:bg-gray-900 transition-colors duration-300 p-8 rounded-2xl'} style={{ gap: 48 }}>
 
                 <div className={'flex flex-row items-center justify-between'}>
                     <div className={'text-[2rem] font-bold text-gray-900 dark:text-gray-100'}>MatUI Showcase</div>
@@ -420,6 +424,5 @@ export const Showcase = () => {
                     </div>
                 </section>
             </div>
-        </div>
     );
 };
