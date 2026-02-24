@@ -32,7 +32,7 @@ export type { TooltipProps } from "./components/Tooltip.tsx";
 export type { BadgeProps } from "./components/Badge.tsx";
 export type { BadgeColorKey } from "./components/BadgeColors.tsx";
 export type { TabButton, TabButtonsProps } from "./components/TabButtons.tsx";
-
+export type { ModalProps } from "./components/Modal.tsx";
 export type { SidebarModalProps } from "./components/SidebarModal.tsx";
 
 // Utilities / others
@@ -41,6 +41,8 @@ export type { TableColumnDef, TableProps } from "./table/Table.tsx";
 
 // Popover suite
 export type { DropdownButtonProps } from "./components/dropdown-menu/DropdownButton.tsx";
+export type { DropdownButtonGroupProps } from "./components/dropdown-menu/DropdownButtonGroup.tsx";
+export type { DropdownMenuProps } from "./components/dropdown-menu/DropdownMenu.tsx";
 export type { DropdownPanelProps } from "./components/dropdown-menu/DropdownPanel.tsx";
 export type { UsePopoverProps, PopoverRendererProps, PopoverBaseRefProps, UsePopoverResult } from "./popover/use-popover.tsx";
 export type { PopoverBaseProps } from "./popover/PopoverBase.tsx";
