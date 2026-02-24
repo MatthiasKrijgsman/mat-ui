@@ -2,4 +2,6 @@
     @apply bg-[var(--color-input-bg)];
     @apply border-[var(--color-check-border)];
     @apply ring-[var(--color-check-ring)];
+    @apply checked:bg-[var(--color-check-checked-bg)] checked:border-[var(--color-check-checked-bg)];
+    @apply checked:hover:bg-[var(--color-check-checked-bg)] checked:hover:border-[var(--color-check-checked-bg)];
 }

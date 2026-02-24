@@ -122,6 +122,7 @@
     /* Input check / radio */
     --color-check-border: var(--color-gray-300);
     --color-check-ring: color-mix(in srgb, var(--color-gray-900) 10%, transparent);
+    --color-check-checked-bg: var(--color-blue-600);
 
     /* Dropdown */
     --color-dropdown-bg: var(--color-white);
@@ -299,6 +300,7 @@
     /* Input check / radio */
     --color-check-border: var(--color-stone-600);
     --color-check-ring: color-mix(in srgb, var(--color-stone-100) 10%, transparent);
+    --color-check-checked-bg: var(--color-blue-500);
 
     /* Dropdown */
     --color-dropdown-bg: var(--color-stone-900);
