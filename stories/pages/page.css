@@ -71,3 +71,6 @@
 .storybook-page .tip-wrapper svg path {
     fill: #1ea7fd;
 }
+.dark .sbdocs-wrapper {
+    background-color: var(--color-stone-900) !important;
+}

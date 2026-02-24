@@ -69,7 +69,7 @@ export const Showcase = () => {
     }, [dark]);
 
     return (
-        <div className={'flex flex-col bg-white dark:bg-gray-900 transition-colors duration-300 p-8 rounded-2xl'} style={{ gap: 48 }}>
+        <div className={'flex flex-col transition-colors duration-300 p-8 rounded-2xl'} style={{ gap: 48 }}>
 
                 <div className={'flex flex-row items-center justify-between'}>
                     <div className={'text-[2rem] font-bold text-gray-900 dark:text-gray-100'}>MatUI Showcase</div>
