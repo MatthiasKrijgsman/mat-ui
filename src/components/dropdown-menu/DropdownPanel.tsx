@@ -8,7 +8,7 @@ export type DropdownPanelProps = React.HTMLProps<HTMLDivElement> & {
   padding?: Size;
 }
 
-const baseClassName: string = 'flex flex-col bg-white border mt-1 border-gray-200 rounded-xl shadow-lg overflow-y-auto relative space-y-1';
+const baseClassName: string = 'flex flex-col dropdown-panel border mt-1 rounded-xl shadow-lg overflow-y-auto relative space-y-1';
 
 const paddingClasses: Record<Size, string> = {
   sm: 'p-2',

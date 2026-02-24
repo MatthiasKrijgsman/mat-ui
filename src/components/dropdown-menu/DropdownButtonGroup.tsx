@@ -11,7 +11,7 @@ export const DropdownButtonGroup = (props: DropdownButtonGroupProps) => {
   const { label, children, className } = props;
   return (
     <div className={ classNames('flex flex-col dropdown-button-group', className) }>
-      { label && <div className={ 'mb-2 text-sm text-gray-500 font-semibold px-3' }>{ label }</div> }
+      { label && <div className={ 'mb-2 text-sm dropdown-group-label font-semibold px-3' }>{ label }</div> }
       { children }
     </div>
   );

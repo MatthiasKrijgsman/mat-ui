@@ -40,13 +40,13 @@ export const Input = (props: InputProps) => {
       <InputLabel>{ label }</InputLabel>
       <div className={ 'flex flex-col relative' }>
         { Icon && (
-          <Icon className={ 'h-5 w-5 text-gray-900/60 absolute left-4 top-1/2 -translate-y-1/2' }/>
+          <Icon className={ 'h-5 w-5 input-icon absolute left-4 top-1/2 -translate-y-1/2' }/>
         ) }
         <input
           className={ classNames(
-            'h-12 border border-gray-200 text-gray-900 placeholder:text-gray-400 bg-white transition-all duration-150 rounded-xl shadow-sm ring-0 ring-gray-900/10 focus:ring-4 focus:outline-none',
+            'h-12 border input-base transition-all duration-150 rounded-xl shadow-sm ring-0 focus:ring-4 focus:outline-none',
             Icon ? 'pl-12 pr-4' : 'px-4',
-            error && 'border-red-600 focus:ring-red-600/20 !pr-10',
+            error && 'input-error !pr-10',
           ) }
           { ...rest }
         />

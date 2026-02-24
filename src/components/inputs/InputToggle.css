@@ -1,0 +1,15 @@
+.toggle-input {
+    @apply border-[var(--color-check-border)];
+    @apply ring-[var(--color-check-ring)];
+}
+.toggle-track-on {
+    @apply bg-[var(--color-toggle-track-on-bg)];
+    @apply border-[var(--color-toggle-track-on-border)];
+}
+.toggle-track-off {
+    @apply bg-[var(--color-toggle-track-off-bg)];
+    @apply border-[var(--color-toggle-track-off-border)];
+}
+.toggle-thumb {
+    @apply bg-[var(--color-toggle-thumb-bg)];
+}

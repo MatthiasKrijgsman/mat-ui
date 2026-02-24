@@ -14,6 +14,6 @@ export const InputError = (props: InputErrorProps) => {
   }
 
   return (
-    <div className={ 'text-red-600 text-sm font-medium mt-2' }>{ children }</div>
+    <div className={ 'input-error-text text-sm font-medium mt-2' }>{ children }</div>
   );
 };

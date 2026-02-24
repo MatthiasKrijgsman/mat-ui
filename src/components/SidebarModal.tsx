@@ -43,7 +43,7 @@ export const SidebarModal = (props: SidebarModalProps) => {
             transition={ { duration: 0.15, ease: "easeInOut" } }
           >
             <FloatingOverlay
-              className={ 'bg-gray-400/30 backdrop-blur-[1px] z-10' }
+              className={ 'modal-overlay backdrop-blur-[1px] z-10' }
               onClick={ enableDismissOnOutsideClick ? onDismiss : undefined }
               lockScroll={ true }
             />
@@ -52,7 +52,7 @@ export const SidebarModal = (props: SidebarModalProps) => {
           <div className={ 'fixed inset-0 flex flex-row justify-end pointer-events-none z-20' }>
             <motion.div
               className={ classNames(
-                'flex flex-col bg-white shadow-xl p-6 lg:p-12 pointer-events-auto h-full w-full overflow-y-auto relative',
+                'flex flex-col modal-content shadow-xl p-6 lg:p-12 pointer-events-auto h-full w-full overflow-y-auto relative',
                 className
               ) }
               style={ { maxWidth: maxWidth } }

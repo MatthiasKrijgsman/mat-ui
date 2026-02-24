@@ -78,8 +78,8 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
           role={ 'button' }
           tabIndex={ 0 }
           className={ classNames(
-            'flex flex-row items-center h-12 pl-4 pr-10 border border-gray-200 text-gray-900 placeholder:text-gray-400 bg-white transition-all duration-150 rounded-xl shadow-sm ring-0 ring-gray-900/10 focus:ring-4 focus:outline-none select-none',
-            error && 'border-red-600 ring-red-600/20 !pr-10',
+            'flex flex-row items-center h-12 pl-4 pr-10 border select-trigger transition-all duration-150 rounded-xl shadow-sm ring-0 focus:ring-4 focus:outline-none select-none',
+            error && 'select-trigger-error !pr-10',
             open && 'ring-4',
           ) }
           onKeyDown={ (e) => e.key === ' ' && setOpen(o => !o) }
@@ -89,7 +89,7 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
             <span>{ selectedOption.label }</span>
           ) }
           { !selectedOption && placeholder && (
-            <span className={'text-gray-500'}>{ placeholder }</span>
+            <span className={'select-placeholder'}>{ placeholder }</span>
           ) }
         </div>
         <InputIconButtonTray>

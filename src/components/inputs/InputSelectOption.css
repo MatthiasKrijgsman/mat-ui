@@ -1,0 +1,12 @@
+.option-base {
+    @apply hover:bg-[var(--color-option-bg-hover)];
+    @apply active:bg-[var(--color-option-bg-active)];
+}
+.option-selected {
+    @apply bg-[var(--color-option-bg-selected)];
+    @apply hover:bg-[var(--color-option-bg-selected-hover)];
+    @apply active:bg-[var(--color-option-bg-selected-active)];
+}
+.option-disabled {
+    @apply text-[var(--color-option-text-disabled)];
+}

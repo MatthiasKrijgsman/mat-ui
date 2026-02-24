@@ -1,0 +1,18 @@
+.input-label {
+    @apply text-[var(--color-input-label-text)];
+}
+.input-description {
+    @apply text-[var(--color-input-description-text)];
+}
+.input-error-text {
+    @apply text-[var(--color-input-error-text)];
+}
+.input-error-icon {
+    @apply text-[var(--color-input-error-text)];
+}
+.input-icon-button-interactive {
+    @apply ring-[var(--color-input-icon-button-ring)];
+}
+.input-icon-button-icon {
+    @apply text-[var(--color-input-icon-button-icon)];
+}

@@ -5,6 +5,17 @@
 
 /* Component CSS Classes */
 @import "./components/button/Button.css";
+@import "./components/inputs/Input.css";
+@import "./components/inputs/InputSelect.css";
+@import "./components/inputs/InputSelectOption.css";
+@import "./components/inputs/InputToggle.css";
+@import "./components/inputs/InputCheck.css";
+@import "./components/inputs/InputShared.css";
+@import "./components/dropdown-menu/Dropdown.css";
+@import "./components/TabButtons.css";
+@import "./components/Panel.css";
+@import "./components/Modal.css";
+@import "./table/Table.css";
 
 @plugin "@tailwindcss/forms";
 

@@ -1,0 +1,4 @@
+.check-base {
+    @apply border-[var(--color-check-border)];
+    @apply ring-[var(--color-check-ring)];
+}

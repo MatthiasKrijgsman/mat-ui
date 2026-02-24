@@ -18,7 +18,7 @@ export const Panel = React.forwardRef<HTMLDivElement, PanelProps>((props, ref) =
     <div
       ref={ ref }
       className={ classNames(
-        'flex flex-col gap-6 border border-gray-200 rounded-2xl bg-white shadow-sm px-6 py-6',
+        'flex flex-col gap-6 border panel-base rounded-2xl shadow-sm px-6 py-6',
         className
       ) }
       { ...rest }

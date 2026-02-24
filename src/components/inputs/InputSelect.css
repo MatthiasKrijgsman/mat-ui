@@ -1,0 +1,20 @@
+.select-trigger {
+    @apply bg-[var(--color-input-bg)];
+    @apply border-[var(--color-input-border)];
+    @apply text-[var(--color-input-text)];
+    @apply ring-[var(--color-input-ring)];
+}
+.select-trigger-error {
+    @apply border-[var(--color-input-border-error)];
+    @apply ring-[var(--color-input-ring-error)];
+}
+.select-placeholder {
+    @apply text-[var(--color-input-select-placeholder)];
+}
+.select-search-bar {
+    @apply border-b-[var(--color-select-search-border)];
+    @apply bg-[var(--color-select-search-bg)];
+}
+.select-search-icon {
+    @apply text-[var(--color-select-search-icon)];
+}

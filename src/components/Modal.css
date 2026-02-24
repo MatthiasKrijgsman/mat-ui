@@ -1,0 +1,6 @@
+.modal-overlay {
+    @apply bg-[var(--color-modal-overlay)];
+}
+.modal-content {
+    @apply bg-[var(--color-modal-bg)];
+}

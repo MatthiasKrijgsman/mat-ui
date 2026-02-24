@@ -1,0 +1,4 @@
+.panel-base {
+    @apply bg-[var(--color-panel-bg)];
+    @apply border-[var(--color-panel-border)];
+}

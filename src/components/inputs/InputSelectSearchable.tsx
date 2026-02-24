@@ -88,8 +88,8 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
           role={ 'button' }
           tabIndex={ 0 }
           className={ classNames(
-            'flex flex-row items-center h-12 pl-4 pr-10 border border-gray-200 text-gray-900 placeholder:text-gray-400 bg-white transition-all duration-150 rounded-xl shadow-sm ring-0 ring-gray-900/10 focus:ring-4 focus:outline-none select-none',
-            error && 'border-red-600 ring-red-600/20 !pr-10',
+            'flex flex-row items-center h-12 pl-4 pr-10 border select-trigger transition-all duration-150 rounded-xl shadow-sm ring-0 focus:ring-4 focus:outline-none select-none',
+            error && 'select-trigger-error !pr-10',
             open && 'ring-4',
           ) }
           onKeyDown={ (e) => e.key === ' ' && setOpen(o => !o) }
@@ -99,7 +99,7 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
             <span>{ selectedOption.label }</span>
           ) }
           { !selectedOption && placeholder && (
-            <span className={'text-gray-500'}>{ placeholder }</span>
+            <span className={'select-placeholder'}>{ placeholder }</span>
           ) }
         </div>
         <InputIconButtonTray>
@@ -113,23 +113,23 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
         </InputIconButtonTray>
         <Popover open={ open }>
           <DropdownPanel className={ 'gap-0 !p-0' } style={ { maxHeight: maxHeight } }>
-            <div className={ 'sticky top-0 border-b border-b-gray-200 py-1 bg-white/50 backdrop-blur-sm' }>
+            <div className={ 'sticky top-0 border-b select-search-bar py-1 backdrop-blur-sm' }>
               <input
                 ref={ inputSearchRef }
                 type={ 'text' }
                 placeholder={ 'Search' }
                 value={ search }
-                className={ 'appearance-none border-none w-full bg-transparent rounded- pl-10 transition-all duration-150 focus:outline-none ring-0 placeholder:text-gray-400' }
+                className={ 'appearance-none border-none w-full bg-transparent rounded- pl-10 transition-all duration-150 focus:outline-none ring-0 placeholder:text-[var(--color-input-placeholder)]' }
                 onChange={ (e) => setSearch(e.target.value) }
               />
-              <IconSearch className={ 'absolute text-gray-500 left-4 top-4 h-4 w-4' }/>
+              <IconSearch className={ 'absolute select-search-icon left-4 top-4 h-4 w-4' }/>
             </div>
             <div className={ 'flex flex-col gap-1 p-2' }>
               { search !== '' && (
                 <>
                   { filteredOptions.length === 0 && (
                     <div className={ 'flex flex-col items-center justify-center py-6' }>
-                      <IconSearchOff className={ 'h-6 w-6 text-gray-900' }/>
+                      <IconSearchOff className={ 'h-6 w-6 text-[var(--color-input-text)]' }/>
                     </div>
                   ) }
                   { filteredOptions.map((option) => {

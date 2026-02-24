@@ -34,7 +34,7 @@ export const Table = <T, >(props: TableProps<T>) => {
       <div className={ 'relative h-[45px] w-full overflow-hidden' } ref={ headerRef }>
         <div className={ 'absolute' }>
           {/* Head container */ }
-          <div className={ 'font-medium text-gray-800 flex flex-row border-b border-b-gray-200' }>
+          <div className={ 'font-medium flex flex-row table-header' }>
             { columns.map((column) => (
               <TableColumnHead
                 key={ column.id }
@@ -51,7 +51,7 @@ export const Table = <T, >(props: TableProps<T>) => {
             { rows.map((row) => (
               <div
                 key={ JSON.stringify(row) }
-                className={ 'flex flex-row border-b border-b-gray-200 hover:bg-gray-50 bg-white transition-all duration-100' }
+                className={ 'flex flex-row table-row transition-all duration-100' }
               >
                 { columns.map((column) => (
                   <div key={ column.id } className={ 'flex-1 content-center px-4' }

@@ -14,6 +14,6 @@ export const InputDescription = (props: InputDescriptionProps) => {
   }
 
   return (
-    <div className={ 'text-gray-500 text-sm font-medium mt-2' }>{ children }</div>
+    <div className={ 'input-description text-sm font-medium mt-2' }>{ children }</div>
   );
 };

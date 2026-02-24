@@ -1,0 +1,13 @@
+.dropdown-panel {
+    @apply bg-[var(--color-dropdown-bg)];
+    @apply border-[var(--color-dropdown-border)];
+}
+.dropdown-item {
+    @apply text-[var(--color-dropdown-item-text)];
+    @apply hover:bg-[var(--color-dropdown-item-bg-hover)];
+    @apply active:bg-[var(--color-dropdown-item-bg-active)];
+    @apply ring-[var(--color-dropdown-item-ring)];
+}
+.dropdown-group-label {
+    @apply text-[var(--color-dropdown-group-label)];
+}

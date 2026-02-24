@@ -44,25 +44,22 @@ export const InputSelectNative = (props: InputSelectNativeProps) => {
       <div className={ 'relative flex w-full flex-col' }>
         <select
           className={ `
+
           appearance-none
-          h-12 
+          h-12
           pl-4
           pr-10
-          border 
-          border-gray-200 
-          text-gray-900
-          placeholder:text-gray-400
-          bg-white
+          border
+          input-base
           bg-none
-          transition-all 
+          transition-all
           duration-150
           rounded-xl
-          shadow-sm 
+          shadow-sm
           ring-0
-          ring-gray-900/10
           focus:ring-4
           focus:outline-none
-          ` }
+` }
           { ...rest }
         >
           { options && options.map((option, index) => (

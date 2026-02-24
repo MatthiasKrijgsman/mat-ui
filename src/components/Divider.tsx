@@ -14,7 +14,7 @@ export const Divider = (props: DividerProps) => {
   return (
     <div
       className={ classNames(
-        vertical ? 'w-px h-full bg-gray-200' : 'w-full h-px bg-gray-200',
+        vertical ? 'w-px h-full bg-[var(--color-divider)]' : 'w-full h-px bg-[var(--color-divider)]',
         className
       ) }
       { ...rest }

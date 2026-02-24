@@ -34,8 +34,8 @@ export const InputTextArea = (props: InputTextAreaProps) => {
       <div className={ 'flex flex-col relative' }>
         <textarea
           className={ classNames(
-            'px-4 py-2.5 min-h-12 border border-gray-200 text-gray-900 placeholder:text-gray-400 bg-white transition-all duration-150 rounded-xl shadow-sm ring-0 ring-gray-900/10 focus:ring-4 focus:outline-none',
-            error && 'border-red-600 focus:ring-red-600/20 !pr-10',
+            'px-4 py-2.5 min-h-12 border input-base transition-all duration-150 rounded-xl shadow-sm ring-0 focus:ring-4 focus:outline-none',
+            error && 'input-error !pr-10',
           ) }
           { ...rest }
         />

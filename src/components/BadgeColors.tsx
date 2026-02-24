@@ -21,8 +21,8 @@ export const BadgeColor = {
   zinc: 'bg-zinc-100 text-zinc-700 ring-zinc-200',
   neutral: 'bg-neutral-100 text-neutral-700 ring-neutral-200',
   stone: 'bg-stone-100 text-stone-700 ring-stone-200',
-  white: 'bg-white text-gray-900 ring-stone-200',
-  black: 'bg-black text-white ring-stone-200',
+  white: 'bg-[var(--color-badge-white-bg)] text-[var(--color-badge-white-text)] ring-[var(--color-badge-white-ring)]',
+  black: 'bg-[var(--color-badge-black-bg)] text-[var(--color-badge-black-text)] ring-[var(--color-badge-black-ring)]',
 } as const;
 
 export type BadgeColorKey = keyof typeof BadgeColor;

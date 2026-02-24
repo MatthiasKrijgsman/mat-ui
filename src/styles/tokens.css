@@ -79,5 +79,98 @@
     --color-button-tertiary-bg-disabled: #e5e7eb;
     --color-button-tertiary-border-disabled: #e5e7eb;
     --color-button-tertiary-text-disabled: #9ca3af;
+
+    /* Input */
+    --color-input-bg: #ffffff;
+    --color-input-border: #e5e7eb;
+    --color-input-text: #111827;
+    --color-input-placeholder: #9ca3af;
+    --color-input-ring: rgb(17 24 39 / 0.1);
+    --color-input-border-error: #dc2626;
+    --color-input-ring-error: rgb(220 38 38 / 0.2);
+    --color-input-icon: rgb(17 24 39 / 0.6);
+
+    /* Input label / description / error */
+    --color-input-label-text: #111827;
+    --color-input-description-text: #6b7280;
+    --color-input-error-text: #dc2626;
+
+    /* Input icon button */
+    --color-input-icon-button-ring: #e5e7eb;
+    --color-input-icon-button-icon: #6b7280;
+
+    /* Input select option */
+    --color-option-bg-hover: #f3f4f6;
+    --color-option-bg-active: #e5e7eb;
+    --color-option-bg-selected: #eff6ff;
+    --color-option-bg-selected-hover: #dbeafe;
+    --color-option-bg-selected-active: #dbeafe;
+    --color-option-text-disabled: #9ca3af;
+
+    /* Input select search bar */
+    --color-select-search-border: #e5e7eb;
+    --color-select-search-bg: rgb(255 255 255 / 0.5);
+    --color-select-search-icon: #6b7280;
+
+    /* Input toggle */
+    --color-toggle-track-on-bg: #2563eb;
+    --color-toggle-track-on-border: #2563eb;
+    --color-toggle-track-off-bg: #d1d5db;
+    --color-toggle-track-off-border: #d1d5db;
+    --color-toggle-thumb-bg: #ffffff;
+
+    /* Input check / radio */
+    --color-check-border: #d1d5db;
+    --color-check-ring: rgb(17 24 39 / 0.1);
+
+    /* Dropdown */
+    --color-dropdown-bg: #ffffff;
+    --color-dropdown-border: #e5e7eb;
+    --color-dropdown-item-bg-hover: #f3f4f6;
+    --color-dropdown-item-bg-active: #e5e7eb;
+    --color-dropdown-item-text: #111827;
+    --color-dropdown-item-ring: rgb(17 24 39 / 0.1);
+    --color-dropdown-group-label: #6b7280;
+
+    /* Tab buttons */
+    --color-tab-container-bg: #f3f4f6;
+    --color-tab-bg-hover: #e5e7eb;
+    --color-tab-bg-active: rgb(209 213 219 / 0.8);
+    --color-tab-active-bg: #ffffff;
+    --color-tab-active-border: #e5e7eb;
+
+    /* Panel */
+    --color-panel-bg: #ffffff;
+    --color-panel-border: #e5e7eb;
+
+    /* Modal */
+    --color-modal-overlay: rgb(156 163 175 / 0.3);
+    --color-modal-bg: #ffffff;
+
+    /* Table */
+    --color-table-header-text: #1f2937;
+    --color-table-header-bg: #f9fafb;
+    --color-table-header-bg-hover: #f3f4f6;
+    --color-table-header-bg-active: #e5e7eb;
+    --color-table-border: #e5e7eb;
+    --color-table-row-bg: #ffffff;
+    --color-table-row-bg-hover: #f9fafb;
+    --color-table-resize-handle: #e5e7eb;
+    --color-table-resize-handle-hover: #d1d5db;
+    --color-table-resize-handle-active: #2563eb;
+
+    /* Divider */
+    --color-divider: #e5e7eb;
+
+    /* Badge (white/black only) */
+    --color-badge-white-bg: #ffffff;
+    --color-badge-white-text: #111827;
+    --color-badge-white-ring: #d6d3d1;
+    --color-badge-black-bg: #000000;
+    --color-badge-black-text: #ffffff;
+    --color-badge-black-ring: #d6d3d1;
+
+    /* Select trigger placeholder */
+    --color-input-select-placeholder: #6b7280;
 }
 

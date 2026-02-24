@@ -1,0 +1,30 @@
+.table-header {
+    @apply text-[var(--color-table-header-text)];
+    @apply border-b-[var(--color-table-border)];
+}
+.table-header-cell {
+    @apply bg-[var(--color-table-header-bg)];
+}
+.table-header-cell:hover {
+    background-color: var(--color-table-header-bg-hover);
+}
+.table-header-cell:active {
+    background-color: var(--color-table-header-bg-active);
+}
+.table-row {
+    @apply bg-[var(--color-table-row-bg)];
+    @apply border-b-[var(--color-table-border)];
+}
+.table-row:hover {
+    background-color: var(--color-table-row-bg-hover);
+}
+.table-resize-handle {
+    @apply bg-[var(--color-table-header-bg)];
+}
+.table-resize-divider {
+    @apply bg-[var(--color-table-resize-handle)];
+}
+.table-resize-divider-hover {
+    @apply group-hover:bg-[var(--color-table-resize-handle-hover)];
+    @apply group-active:bg-[var(--color-table-resize-handle-active)];
+}

@@ -1,0 +1,11 @@
+.tab-container {
+    @apply bg-[var(--color-tab-container-bg)];
+}
+.tab-button {
+    @apply hover:bg-[var(--color-tab-bg-hover)];
+    @apply active:bg-[var(--color-tab-bg-active)];
+}
+.tab-button-active {
+    @apply bg-[var(--color-tab-active-bg)];
+    @apply border-[var(--color-tab-active-border)];
+}

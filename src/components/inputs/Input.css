@@ -1,0 +1,14 @@
+.input-base {
+    @apply bg-[var(--color-input-bg)];
+    @apply border-[var(--color-input-border)];
+    @apply text-[var(--color-input-text)];
+    @apply placeholder:text-[var(--color-input-placeholder)];
+    @apply ring-[var(--color-input-ring)];
+}
+.input-error {
+    @apply border-[var(--color-input-border-error)];
+    @apply focus:ring-[var(--color-input-ring-error)];
+}
+.input-icon {
+    @apply text-[var(--color-input-icon)];
+}
