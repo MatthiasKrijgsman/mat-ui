@@ -33,6 +33,8 @@ export type { BadgeProps } from "./components/Badge.tsx";
 export type { BadgeColorKey } from "./components/BadgeColors.tsx";
 export type { TabButton, TabButtonsProps } from "./components/TabButtons.tsx";
 
+export type { SidebarModalProps } from "./components/SidebarModal.tsx";
+
 // Utilities / others
 export type { SpinnerProps } from "./spinner/Spinner.tsx";
 export type { TableColumnDef, TableProps } from "./table/Table.tsx";

@@ -31,6 +31,7 @@ export { Panel } from "./components/Panel.tsx";
 export { Divider } from "./components/Divider.tsx";
 export { Tooltip } from "./components/Tooltip.tsx";
 export { Modal } from "./components/Modal.tsx";
+export { SidebarModal } from "./components/SidebarModal.tsx";
 export { Badge } from "./components/Badge.tsx";
 export { BadgeColor } from "./components/BadgeColors.tsx";
 export { TabButtons } from "./components/TabButtons.tsx";

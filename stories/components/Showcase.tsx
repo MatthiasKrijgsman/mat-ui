@@ -35,6 +35,7 @@ import {
     IconUser,
 } from "@tabler/icons-react";
 import { ModalDemo } from "./ModalDemo";
+import { SidebarModalDemo } from "./SidebarModalDemo";
 
 const selectOptions = [
     { label: 'Apple', value: 'apple' },
@@ -367,6 +368,12 @@ export const Showcase = () => {
                 <h2 className={'text-2xl font-bold text-gray-900'}>Modal</h2>
 
                 <ModalDemo/>
+            </section>
+
+            <section className={'flex flex-col'} style={{ gap: 24 }}>
+                <h2 className={'text-2xl font-bold text-gray-900'}>Sidebar Modal</h2>
+
+                <SidebarModalDemo/>
             </section>
 
             <section className={'flex flex-col'} style={{ gap: 24 }}>
