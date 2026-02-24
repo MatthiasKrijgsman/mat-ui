@@ -133,7 +133,7 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
             <span>{ selectedOption.label }</span>
           ) }
           { !isFetchingSelectedOption && !selectedOption && placeholder && (
-            <span>{ placeholder }</span>
+            <span className={'select-placeholder'}>{ placeholder }</span>
           ) }
           { isFetchingSelectedOption && (
             <Spinner className={ 'h-4 w-4 text-[var(--color-input-text)]' }/>
