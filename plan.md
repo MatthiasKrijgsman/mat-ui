@@ -1,397 +1,192 @@
-# Theming Plan: CSS Custom Properties for All Components
+# Dark Theme Implementation Plan
 
-## Pattern (established by Button)
+## Analysis
 
-The Button component demonstrates a three-tier theming approach:
+The codebase is already well-architected for theming. All color values flow through CSS custom properties defined in `src/styles/tokens.css`, and all component CSS files (`Button.css`, `Input.css`, `Modal.css`, etc.) reference these tokens exclusively via `var(--color-*)`. This means **dark mode can be implemented by redefining the token values alone** — no changes needed to any component CSS or TSX files.
 
-1. **`tokens.css`** — CSS custom properties (`:root`) defining every color/shadow value per state
-2. **`Component.css`** — CSS classes that map tokens to Tailwind `@apply` rules per state (`:hover`, `:active`, `:disabled`, etc.)
-3. **`Component.tsx`** — References the CSS class names instead of hardcoded Tailwind color utilities
+There is one exception: `BadgeColors.tsx` uses hardcoded Tailwind color classes (`bg-red-100 text-red-700 ring-red-200`, etc.) rather than tokens. This needs a separate approach.
 
-This plan applies that same pattern to every remaining component.
+## Strategy: CSS Custom Property Override via `.dark` Selector
 
----
+### Why `.dark` class (not `prefers-color-scheme` media query)
 
-## Shared Tokens (used across many components)
+Since this is a **component library**, not an application, we should not dictate how the consumer activates dark mode. A `.dark` class-based approach gives consumers full control:
 
-Before tackling individual components, define shared tokens that multiple components reference:
+- They can toggle it manually via JavaScript
+- They can wire it to `prefers-color-scheme` themselves
+- They can scope dark mode to a subtree (e.g., dark sidebar in a light app)
+- It's the standard convention (used by Tailwind, Radix, shadcn/ui, etc.)
+
+### Tailwind v4 Configuration
+
+Add a `@variant` rule in `src/style.css` so Tailwind's `dark:` utilities also use the class strategy (needed for BadgeColors):
 
 ```css
-/* tokens.css — shared */
---color-focus-ring: rgb(17 24 39 / 0.15);           /* already exists as --color-input-focus-ring */
---color-border: #e5e7eb;                              /* gray-200 — used by Panel, Input, Table, Dropdown, Tabs */
---color-bg-surface: #ffffff;                           /* white — primary surface bg */
---color-bg-surface-hover: #f9fafb;                     /* gray-50 */
---color-bg-surface-active: #f3f4f6;                    /* gray-100 */
---color-text-primary: #111827;                         /* gray-900 */
---color-text-secondary: #6b7280;                       /* gray-500 */
---color-text-placeholder: #9ca3af;                     /* gray-400 */
---color-text-disabled: #9ca3af;                        /* gray-400 */
---color-error: #dc2626;                                /* red-600 */
---color-error-ring: rgb(220 38 38 / 0.2);             /* red-600/20 */
---color-accent: #2563eb;                               /* blue-600 — toggles, selected options */
---color-accent-subtle: #eff6ff;                        /* blue-50 — selected option bg */
---color-accent-subtle-hover: #dbeafe;                  /* blue-100 */
---color-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);    /* shadow-sm equivalent */
---color-shadow-lg: ...;                                /* shadow-lg equivalent */
---color-shadow-xl: ...;                                /* shadow-xl equivalent */
---color-overlay: rgb(156 163 175 / 0.3);              /* gray-400/30 */
+@variant dark (&:where(.dark, .dark *));
 ```
 
-> **Note:** Shadow tokens may need to use `--shadow-*` naming since they're not colors. The `shadow-sm`/`shadow-lg`/`shadow-xl` Tailwind values can be referenced via `var()` in custom CSS or kept as Tailwind utilities if shadow theming isn't needed.
+## Implementation Steps
 
----
+### Step 1: Define dark token values in `tokens.css`
 
-## Component-by-Component Plan
+Add a `.dark` block after the existing `:root` block that redefines every token. The light values stay on `:root` (unchanged), dark overrides live under `.dark`:
 
-### Priority 1 — High-impact, many hardcoded colors
+```css
+:root { /* existing light tokens — untouched */ }
 
-#### 1. Input / InputTextArea / InputSelectNative
-
-**New file:** `src/components/inputs/Input.css`
-**Tokens needed:**
-
-| Token | Default | Used for |
-|-------|---------|----------|
-| `--color-input-bg` | `#ffffff` | Input background |
-| `--color-input-border` | `#e5e7eb` | Input border |
-| `--color-input-text` | `#111827` | Input text color |
-| `--color-input-placeholder` | `#9ca3af` | Placeholder text |
-| `--color-input-shadow` | shadow-sm | Box shadow |
-| `--color-input-ring` | `rgb(17 24 39 / 0.1)` | Focus ring color |
-| `--color-input-border-error` | `#dc2626` | Error border |
-| `--color-input-ring-error` | `rgb(220 38 38 / 0.2)` | Error focus ring |
-| `--color-input-icon` | `rgb(17 24 39 / 0.6)` | Left icon color |
-
-**CSS classes to create:**
-
-```
-.input-base        → bg, border, text, placeholder, shadow, ring color
-.input-base:focus  → ring-4 with ring color
-.input-error       → border-red, ring-red
-.input-icon        → text color for left icon
+.dark {
+    /* All tokens redefined with dark-appropriate values */
+}
 ```
 
-**TSX changes:** Replace hardcoded `border-gray-200 text-gray-900 placeholder:text-gray-400 bg-white ring-gray-900/10 shadow-sm` and error classes with `.input-base` / `.input-error`.
+#### Dark Color Palette Mapping
 
-**Applies to:** `Input.tsx`, `InputTextArea.tsx`, `InputSelectNative.tsx` (all share the same input styling).
+The light theme uses a **white-surface / dark-text** scheme built from Tailwind's gray scale. The dark theme inverts this:
 
----
+| Role | Light Value | Dark Value | Notes |
+|------|------------|------------|-------|
+| Surface / bg | `#ffffff` | `#111827` (gray-900) | Main backgrounds |
+| Elevated surface | `#f9fafb` (gray-50) | `#1f2937` (gray-800) | Table headers, subtle fills |
+| Subtle hover | `#f3f4f6` (gray-100) | `#1f2937` (gray-800) | Hover states |
+| Active press | `#e5e7eb` (gray-200) | `#374151` (gray-700) | Active/pressed states |
+| Border | `#e5e7eb` (gray-200) | `#374151` (gray-700) | All borders |
+| Softer border | `#d1d5db` (gray-300) | `#4b5563` (gray-600) | Toggle off, checkbox |
+| Secondary text | `#6b7280` (gray-500) | `#9ca3af` (gray-400) | Descriptions, icons |
+| Disabled text | `#9ca3af` (gray-400) | `#4b5563` (gray-600) | Disabled states |
+| Primary text | `#111827` (gray-900) | `#f3f4f6` (gray-100) | Body text, labels |
+| Heading text | `#1f2937` (gray-800) | `#e5e7eb` (gray-200) | Table headers |
+| Disabled bg | `#e5e7eb` (gray-200) | `#1f2937` (gray-800) | Disabled button backgrounds |
 
-#### 2. InputSelect / InputSelectSearchable / InputSelectSearchableAsync
+#### Accent / Brand Colors
 
-**New file:** `src/components/inputs/InputSelect.css`
-**Tokens needed:** Same as Input above (trigger div matches Input styling), plus:
+The primary (purple), secondary (amber), and tertiary (green) button variants use OKLCH colors. On dark backgrounds, these can stay largely the same since they're already vivid — they have sufficient contrast against a dark surface. Minor adjustments:
 
-| Token | Default | Used for |
-|-------|---------|----------|
-| `--color-select-search-border` | `#e5e7eb` | Search bar bottom border |
-| `--color-select-search-bg` | `rgb(255 255 255 / 0.5)` | Search bar backdrop |
-| `--color-select-search-icon` | `#6b7280` | Search icon |
+| Token | Light OKLCH | Dark OKLCH | Rationale |
+|-------|------------|------------|-----------|
+| primary bg | `oklch(54.6% 0.245 262.881)` | Keep same | Purple on dark bg has better contrast than on white |
+| primary active | `oklch(48.8% 0.243 264.376)` | `oklch(45% 0.243 264.376)` | Slightly darker press state |
+| secondary bg | `oklch(76.9% 0.188 70.08)` | `oklch(70% 0.188 70.08)` | Slightly reduced lightness so it doesn't glare |
+| tertiary bg | `oklch(64.8% 0.2 131.684)` | Keep same | Already mid-range lightness |
 
-**CSS classes:**
+The white button variant becomes the "surface" button in dark mode (dark bg, light text, subtle border) — essentially an inversion. The black button inverts symmetrically.
 
-```
-.select-trigger         → same as .input-base
-.select-trigger-open    → ring-4
-.select-trigger-error   → same as .input-error
-.select-search-bar      → border-b, bg, backdrop-blur
-.select-search-icon     → text color
-```
+#### Transparent Button
 
-**TSX changes:** Replace hardcoded Tailwind color classes in trigger div and search bar.
+In dark mode, `--color-button-transparent-text` flips from `#111827` to `#f3f4f6` so text remains visible on dark backgrounds.
 
----
+#### Focus Rings
 
-#### 3. InputSelectOption
+The focus ring uses `rgb(17 24 39 / 0.15)` — this is a dark-tinted semi-transparent ring that's visible on white backgrounds. In dark mode, switch to a lighter semi-transparent ring: `rgb(243 244 246 / 0.2)`.
 
-**New file:** Could share `InputSelect.css` or be in its own file.
-**Tokens needed:**
+Similarly, `--color-input-ring` changes from `rgb(17 24 39 / 0.1)` to `rgb(243 244 246 / 0.15)`.
 
-| Token | Default | Used for |
-|-------|---------|----------|
-| `--color-option-bg-hover` | `#f3f4f6` | Option hover bg (gray-100) |
-| `--color-option-bg-active` | `#e5e7eb` | Option active bg (gray-200) |
-| `--color-option-bg-selected` | `#eff6ff` | Selected option bg (blue-50) |
-| `--color-option-bg-selected-hover` | `#dbeafe` | Selected hover (blue-100) |
-| `--color-option-bg-selected-active` | `#dbeafe` | Selected active (blue-100) |
-| `--color-option-text-disabled` | `#9ca3af` | Disabled text |
+#### Error Colors
 
-**CSS classes:**
+Red error colors (`#dc2626`) can remain the same — red has sufficient contrast on both light and dark surfaces. The error ring opacity may need a slight bump: `rgb(220 38 38 / 0.3)` (from 0.2).
 
-```
-.option-base             → hover/active bg
-.option-selected         → selected bg + hover/active
-.option-disabled         → text color, cursor
-```
+#### Toggle & Checkbox
 
----
+- Toggle "on" blue (`#2563eb`) stays the same — works well on dark
+- Toggle "off" track changes from gray-300 to gray-600
+- Toggle thumb stays `#ffffff` (white dot on dark track)
+- Check border from gray-300 to gray-600
 
-#### 4. InputToggle
+#### Select Options (selected state)
 
-**Tokens needed:**
+The selected option uses blue-50/blue-100 backgrounds. In dark mode:
+- `--color-option-bg-selected`: `#1e3a5f` (dark blue tint)
+- `--color-option-bg-selected-hover`: `#1e40af` (slightly lighter dark blue)
 
-| Token | Default | Used for |
-|-------|---------|----------|
-| `--color-toggle-track-on` | `#2563eb` | Checked track bg (blue-600) |
-| `--color-toggle-track-on-border` | `#2563eb` | Checked track border |
-| `--color-toggle-track-off` | `#d1d5db` | Unchecked track bg (gray-300) |
-| `--color-toggle-track-off-border` | `#d1d5db` | Unchecked track border |
-| `--color-toggle-thumb` | `#ffffff` | Thumb bg |
-| `--color-toggle-ring` | `rgb(17 24 39 / 0.1)` | Focus ring |
+#### Modal Overlay
 
-**New file:** `src/components/inputs/InputToggle.css`
+The overlay uses `rgb(156 163 175 / 0.3)` (light gray tint). In dark mode, a darker overlay is more appropriate: `rgb(0 0 0 / 0.5)`.
 
-**CSS classes:**
+#### Tab Buttons
 
-```
-.toggle-track-on    → bg, border
-.toggle-track-off   → bg, border
-.toggle-thumb       → bg, shadow
-.toggle-ring        → ring color
-```
+The tab container background (`#f3f4f6`) becomes a darker recessed surface (`#0f172a` or `#1f2937`). The active tab surface (`#ffffff`) becomes the standard dark surface (`#111827`).
 
----
+#### Shadows
 
-#### 5. InputRadio / InputCheck
+Tailwind's shadow utilities (`shadow-sm`, `shadow-md`, `shadow-xl`) use a black-based shadow that's subtle on light backgrounds but invisible on dark backgrounds. This is a known issue. Two options:
 
-**Tokens needed:**
+- **Option A (recommended):** Accept that shadows are less visible in dark mode — this is normal UX behavior. The borders provide enough visual separation.
+- **Option B:** Override Tailwind's shadow color variables inside `.dark` to use a slightly more opaque shadow, or add a faint light glow. This adds complexity for minimal benefit.
 
-| Token | Default | Used for |
-|-------|---------|----------|
-| `--color-check-border` | `#d1d5db` | Border (gray-300) |
-| `--color-check-ring` | `rgb(17 24 39 / 0.1)` | Focus/hover ring |
-| `--color-check-shadow` | shadow-sm | Box shadow |
+### Step 2: Handle BadgeColors
 
-**New file:** `src/components/inputs/InputCheck.css` (shared by both)
+`BadgeColors.tsx` is the only file using hardcoded Tailwind color classes. Two options:
 
-**CSS classes:**
+**Option A: Add `dark:` variant classes** (recommended)
 
-```
-.check-base → border, ring color, shadow
+Since we're configuring `@variant dark` for the class strategy, we can append dark variants directly:
+
+```typescript
+red: 'bg-red-100 text-red-700 ring-red-200 dark:bg-red-950 dark:text-red-300 dark:ring-red-800',
 ```
 
----
+This is a single-file change, keeps the pattern readable, and works with Tailwind's built-in dark mode support.
 
-#### 6. InputLabel / InputDescription / InputError / InputErrorIcon / InputIconButton
+**Option B: Convert to CSS tokens**
 
-**Tokens needed:**
+Move all 22 badge color definitions to tokens. This is "purer" but adds ~66 new CSS variables (3 per color) and isn't necessary since the Tailwind classes already support dark mode natively.
 
-| Token | Default | Used for |
-|-------|---------|----------|
-| `--color-label-text` | `#111827` | Label text (gray-900) |
-| `--color-description-text` | `#6b7280` | Description text (gray-500) |
-| `--color-error-text` | `#dc2626` | Error text (red-600) |
-| `--color-icon-button-ring` | `#e5e7eb` | IconButton ring (gray-200) |
-| `--color-icon-button-icon` | `#6b7280` | IconButton icon (gray-500) |
+### Step 3: Configure Tailwind v4 dark variant
 
-These are small — could go in a shared `src/components/inputs/InputShared.css` or individual files per component.
+In `src/style.css`, add after the `@import "tailwindcss"` line:
 
-**CSS classes:**
-
-```
-.input-label        → text color, font-weight
-.input-description  → text color
-.input-error-text   → text color
-.input-error-icon   → text color
-.input-icon-button  → ring color, icon color
+```css
+@variant dark (&:where(.dark, .dark *));
 ```
 
----
+This ensures Tailwind's `dark:` utilities match when a `.dark` class is present on any ancestor element. This is needed for the BadgeColors dark variants to work.
 
-### Priority 2 — Medium complexity
+### Step 4: Storybook dark mode preview
 
-#### 7. Table / TableColumnHead
+Add a Storybook toolbar toggle (via `@storybook/addon-themes` or a simple decorator) that adds/removes the `.dark` class on the story root. This enables visual testing of both themes during development.
 
-**New file:** `src/table/Table.css`
-**Tokens needed:**
+## Files to Modify
 
-| Token | Default | Used for |
-|-------|---------|----------|
-| `--color-table-header-text` | `#1f2937` | Header text (gray-800) |
-| `--color-table-header-bg` | `#f9fafb` | Header cell bg (gray-50) |
-| `--color-table-header-bg-hover` | `#f3f4f6` | Header hover (gray-100) |
-| `--color-table-header-bg-active` | `#e5e7eb` | Header active (gray-200) |
-| `--color-table-border` | `#e5e7eb` | Row borders (gray-200) |
-| `--color-table-row-bg` | `#ffffff` | Row bg |
-| `--color-table-row-bg-hover` | `#f9fafb` | Row hover (gray-50) |
-| `--color-table-resize-handle` | `#e5e7eb` | Resize divider (gray-200) |
-| `--color-table-resize-handle-hover` | `#d1d5db` | Resize hover (gray-300) |
-| `--color-table-resize-handle-active` | `#2563eb` | Resize active (blue-600) |
+| File | Change |
+|------|--------|
+| `src/styles/tokens.css` | Add `.dark { }` block with all dark token values |
+| `src/style.css` | Add `@variant dark` configuration line |
+| `src/components/BadgeColors.tsx` | Add `dark:` Tailwind classes for each color |
+| `.storybook/preview.*` | Add dark mode toggle decorator (optional, for dev) |
 
-**CSS classes:**
+**No changes needed to:**
+- Any component `.tsx` files (except BadgeColors)
+- Any component `.css` files
+- `vite.config.ts`
+- `package.json`
 
-```
-.table-header      → text, border-b
-.table-header-cell → bg, hover bg, active bg
-.table-row         → bg, hover bg, border-b
-.table-resize      → bg, hover bg, active bg
-```
+## Consumer Usage
 
----
+After implementation, consumers activate dark mode by adding `class="dark"` to any ancestor element:
 
-#### 8. TabButtons
+```html
+<!-- Whole-page dark mode -->
+<html class="dark">
 
-**New file:** `src/components/TabButtons.css`
-**Tokens needed:**
-
-| Token | Default | Used for |
-|-------|---------|----------|
-| `--color-tab-container-bg` | `#f3f4f6` | Container bg (gray-100) |
-| `--color-tab-bg-hover` | `#e5e7eb` | Tab hover (gray-200) |
-| `--color-tab-bg-active` | `rgb(209 213 219 / 0.8)` | Tab press (gray-300/80) |
-| `--color-tab-active-bg` | `#ffffff` | Active tab bg |
-| `--color-tab-active-border` | `#e5e7eb` | Active tab border |
-| `--color-tab-active-shadow` | shadow-sm | Active tab shadow |
-
-**CSS classes:**
-
-```
-.tab-container    → bg
-.tab-button       → hover bg, active bg
-.tab-button-active → bg, border, shadow
+<!-- Or scoped to a section -->
+<div class="dark">
+  <Panel>This panel is dark</Panel>
+</div>
 ```
 
----
+To wire it to OS preference:
 
-#### 9. DropdownPanel / DropdownButton / DropdownButtonGroup
-
-**New file:** `src/components/dropdown-menu/Dropdown.css`
-**Tokens needed:**
-
-| Token | Default | Used for |
-|-------|---------|----------|
-| `--color-dropdown-bg` | `#ffffff` | Panel bg |
-| `--color-dropdown-border` | `#e5e7eb` | Panel border |
-| `--color-dropdown-shadow` | shadow-lg | Panel shadow |
-| `--color-dropdown-item-bg-hover` | `#f3f4f6` | Item hover (gray-100) |
-| `--color-dropdown-item-bg-active` | `#e5e7eb` | Item active (gray-200) |
-| `--color-dropdown-item-text` | `#111827` | Item text (gray-900) |
-| `--color-dropdown-group-label` | `#6b7280` | Group label (gray-500) |
-
-**CSS classes:**
-
-```
-.dropdown-panel       → bg, border, shadow
-.dropdown-item        → text, hover bg, active bg
-.dropdown-group-label → text color
+```javascript
+// In consumer's app
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+document.documentElement.classList.toggle('dark', prefersDark);
 ```
 
----
+## Complexity Assessment
 
-#### 10. Panel
+This implementation is **low-risk and low-effort** because:
 
-**New file:** `src/components/Panel.css`
-**Tokens needed:**
-
-| Token | Default | Used for |
-|-------|---------|----------|
-| `--color-panel-bg` | `#ffffff` | Panel bg |
-| `--color-panel-border` | `#e5e7eb` | Panel border |
-| `--color-panel-shadow` | shadow-sm | Panel shadow |
-
-**CSS classes:**
-
-```
-.panel-base → bg, border, shadow
-```
-
----
-
-#### 11. Modal / SidebarModal
-
-**New file:** `src/components/Modal.css`
-**Tokens needed:**
-
-| Token | Default | Used for |
-|-------|---------|----------|
-| `--color-modal-overlay` | `rgb(156 163 175 / 0.3)` | Backdrop bg (gray-400/30) |
-| `--color-modal-bg` | `#ffffff` | Content bg |
-| `--color-modal-shadow` | shadow-xl | Content shadow |
-
-**CSS classes:**
-
-```
-.modal-overlay → bg
-.modal-content → bg, shadow
-```
-
-Both Modal and SidebarModal share the same overlay and content surface styling.
-
----
-
-#### 12. Divider
-
-**Tokens needed:**
-
-| Token | Default | Used for |
-|-------|---------|----------|
-| `--color-divider` | `#e5e7eb` | Divider bg (gray-200) |
-
-Simplest change — replace `bg-gray-200` with `bg-[var(--color-divider)]` inline, or create a `.divider` class. Given it's a single property, inline `var()` is sufficient (no separate CSS file needed).
-
----
-
-#### 13. BadgeColor
-
-**Approach decision needed:** The badge has 24 color variants using Tailwind color utilities (`bg-red-100 text-red-700 ring-red-200`, etc.). Two options:
-
-**Option A — Token per badge color (comprehensive but verbose):**
-Define `--color-badge-{color}-bg`, `--color-badge-{color}-text`, `--color-badge-{color}-ring` for all 24 colors. Very verbose (72 tokens) but fully themeable.
-
-**Option B — Keep Tailwind colors, tokenize only white/black:**
-The color palette badges (red, blue, green, etc.) are inherently fixed semantic colors. Only tokenize `white` and `black` badge variants since those map to surface/text colors that change in dark mode or themes.
-
-**Recommendation:** Option B. Badge colors are semantic — a "red" badge should always be red. Only `white` and `black` need theming.
-
----
-
-### Priority 3 — No changes needed
-
-#### Spinner
-
-Already uses `currentColor` — fully themeable by parent context. No changes needed.
-
-#### PopoverBase
-
-No color styling — just positioning. No changes needed.
-
-#### Hooks (useDismiss, useDebounce, useDragX)
-
-No visual styling. No changes needed.
-
----
-
-## Implementation Order
-
-1. **Add shared tokens to `tokens.css`** — the common values used across multiple components
-2. **Input family** (Input, InputTextArea, InputSelectNative, InputSelect*, InputRadio, InputCheck, InputToggle + sub-components) — largest group, most impact
-3. **Dropdown system** (DropdownPanel, DropdownButton, DropdownButtonGroup)
-4. **Table** (Table, TableColumnHead)
-5. **TabButtons**
-6. **Panel**
-7. **Modal / SidebarModal**
-8. **Divider** (inline var, no CSS file)
-9. **BadgeColor** (white/black variants only)
-
-## File Changes Summary
-
-| New CSS file | Components it serves |
-|---|---|
-| `src/components/inputs/Input.css` | Input, InputTextArea, InputSelectNative |
-| `src/components/inputs/InputSelect.css` | InputSelect, InputSelectSearchable, InputSelectSearchableAsync, InputSelectOption |
-| `src/components/inputs/InputToggle.css` | InputToggle |
-| `src/components/inputs/InputCheck.css` | InputRadio, InputCheck |
-| `src/components/inputs/InputShared.css` | InputLabel, InputDescription, InputError, InputErrorIcon, InputIconButton |
-| `src/components/dropdown-menu/Dropdown.css` | DropdownPanel, DropdownButton, DropdownButtonGroup |
-| `src/components/TabButtons.css` | TabButtons |
-| `src/components/Panel.css` | Panel |
-| `src/components/Modal.css` | Modal, SidebarModal |
-| `src/table/Table.css` | Table, TableColumnHead |
-
-**Modified files:**
-- `src/styles/tokens.css` — all new tokens added here
-- `src/style.css` — import all new CSS files
-- Every component `.tsx` file listed above — swap hardcoded Tailwind color classes for CSS class names
-
-**Total:** ~10 new CSS files, ~1 modified CSS token file, ~1 modified style entry, ~25 modified TSX files.
+1. The token architecture was designed for exactly this kind of override
+2. Only 3-4 files need changes
+3. Zero breaking changes — light mode is completely untouched
+4. The dark values are a mechanical mapping of the existing gray scale
+5. No new dependencies required
