@@ -25,7 +25,7 @@ export const TabButtons = (props: TabButtonsProps) => {
   //TODO Add sizing
   return (
     <div className={ classNames(
-      'h-12 tab-container p-1 rounded-xl inline-flex flex-row space-x-1 overflow-x-auto',
+      'h-12 tab-container p-1 rounded-xl inline-flex flex-row space-x-1 overflow-x-auto mat-ui-hide-scrollbars',
       className
     ) }>
       { tabs.map((tab, i) => {
