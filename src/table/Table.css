@@ -1,6 +1,7 @@
 .table-header {
+    @apply bg-[var(--color-table-header-bg)];
     @apply text-[var(--color-table-header-text)];
-    @apply border-b-[var(--color-table-border)];
+    @apply border-b border-[var(--color-table-border)];
 }
 .table-header-cell {
     @apply bg-[var(--color-table-header-bg)];
@@ -11,11 +12,11 @@
 .table-header-cell:active {
     background-color: var(--color-table-header-bg-active);
 }
-.table-row {
+.table-body-row {
     @apply bg-[var(--color-table-row-bg)];
-    @apply border-b-[var(--color-table-border)];
+    @apply border-b border-[var(--color-table-border)];
 }
-.table-row:hover {
+.table-body-row:hover {
     background-color: var(--color-table-row-bg-hover);
 }
 .table-resize-handle {

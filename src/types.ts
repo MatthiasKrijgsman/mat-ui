@@ -37,7 +37,7 @@ export type { SidebarModalProps } from "./components/SidebarModal.tsx";
 
 // Utilities / others
 export type { SpinnerProps } from "./spinner/Spinner.tsx";
-export type { TableColumnDef, TableProps } from "./table/Table.tsx";
+export type { TableColumnDef, TableProps, TableSortDirection, TableSortState } from "./table/Table.tsx";
 
 // Popover suite
 export type { DropdownButtonProps } from "./components/dropdown-menu/DropdownButton.tsx";

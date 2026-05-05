@@ -102,6 +102,7 @@ export const Test = () => {
         className={ 'h-[300px] w-[300px]' }
         columns={ sampleColumns }
         rows={ sampleData }
+        getRowId={ (row) => row.id }
       />
 
       <ScrollbarTest/>

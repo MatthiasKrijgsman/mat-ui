@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
     Badge,
     Button,
@@ -23,6 +23,7 @@ import {
     TabButtons,
     Tooltip,
 } from "../../src";
+import { Table, type TableColumnDef, type TableSortState } from "../../src/table/Table";
 import {
     IconDownload,
     IconHeart,
@@ -60,8 +61,52 @@ const asyncFetchByQuery = (query: string) =>
 const asyncFetchByValue = (value: string) =>
     new Promise(resolve => setTimeout(() => resolve(selectOptions.find(o => o.value === value)), 200));
 
+type DemoUser = {
+    id: number;
+    name: string;
+    email: string;
+    role: 'Admin' | 'Editor' | 'Viewer';
+    status: 'active' | 'invited' | 'suspended';
+};
+
+const demoUsers: DemoUser[] = [
+    { id: 1, name: 'Ada Lovelace',     email: 'ada@example.com',     role: 'Admin',  status: 'active' },
+    { id: 2, name: 'Alan Turing',      email: 'alan@example.com',    role: 'Editor', status: 'active' },
+    { id: 3, name: 'Grace Hopper',     email: 'grace@example.com',   role: 'Admin',  status: 'invited' },
+    { id: 4, name: 'Linus Torvalds',   email: 'linus@example.com',   role: 'Editor', status: 'active' },
+    { id: 5, name: 'Margaret Hamilton',email: 'margaret@example.com',role: 'Viewer', status: 'suspended' },
+    { id: 6, name: 'Donald Knuth',     email: 'donald@example.com',  role: 'Viewer', status: 'active' },
+    { id: 7, name: 'Edsger Dijkstra',  email: 'edsger@example.com',  role: 'Editor', status: 'invited' },
+];
+
+const statusBadgeColor: Record<DemoUser['status'], 'green' | 'amber' | 'red'> = {
+    active: 'green',
+    invited: 'amber',
+    suspended: 'red',
+};
+
+const demoColumns: TableColumnDef<DemoUser>[] = [
+    { id: 'name',   header: 'Name',   sortable: true, defaultWidth: 220, renderCell: (row) => row.name },
+    { id: 'email',  header: 'Email',  sortable: true, defaultWidth: 280, renderCell: (row) => row.email },
+    { id: 'role',   header: 'Role',   sortable: true, defaultWidth: 140, renderCell: (row) => row.role },
+    { id: 'status', header: 'Status', sortable: true, defaultWidth: 140, renderCell: (row) => (
+        <Badge color={statusBadgeColor[row.status]}>{row.status}</Badge>
+    )},
+];
+
 export const Showcase = () => {
     const [dark, setDark] = useState(false);
+    const [tableSort, setTableSort] = useState<TableSortState | null>(null);
+
+    const sortedDemoUsers = useMemo(() => {
+        if (!tableSort) return demoUsers;
+        const { columnId, direction } = tableSort;
+        return [...demoUsers].sort((a, b) => {
+            const av = String((a as Record<string, unknown>)[columnId] ?? '');
+            const bv = String((b as Record<string, unknown>)[columnId] ?? '');
+            return direction === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+        });
+    }, [tableSort]);
 
     useEffect(() => {
         document.documentElement.classList.toggle('dark', dark);
@@ -444,6 +489,21 @@ export const Showcase = () => {
                                 provides a bordered card layout with padding and shadow.
                             </div>
                         </Panel>
+                    </div>
+                </section>
+
+                <section className={'flex flex-col'} style={{ gap: 24 }}>
+                    <h2 className={'text-2xl font-bold text-gray-900 dark:text-gray-100'}>Table</h2>
+
+                    <div style={{ height: 360 }}>
+                        <Table
+                            columns={demoColumns}
+                            rows={sortedDemoUsers}
+                            getRowId={(row) => row.id}
+                            onRowClick={(row) => console.log('row clicked', row)}
+                            sort={tableSort}
+                            onSortChange={setTableSort}
+                        />
                     </div>
                 </section>
 
