@@ -87,6 +87,19 @@ Define your overrides after importing the mat-ui stylesheet:
 | `--color-input-focus-ring` | Focus ring color for buttons and inputs | `rgb(17 24 39 / 0.15)` |
 | `--border-radius-input` | Border radius for inputs and selects | `var(--radius-xl)` |
 
+#### Control sizing
+
+`Button`, `ButtonIconSquare`, `ButtonIconRound`, `Input`, `InputTextArea`, `InputSelectNative`, `InputSelect`, `InputSelectSearchable`, and `InputSelectSearchableAsync` accept a `size?: 'sm' | 'md' | 'lg'` prop (default `'md'`) and read their dimensions from a single shared scale. Override these to adjust heights, padding, font size, and icon sizing consistently across all controls. Replace `{size}` with `sm`, `md`, or `lg`.
+
+| Token | Description | sm · md · lg defaults |
+|-------|-------------|------------------------|
+| `--control-size-{size}-height` | Control height (also width for square/round icon buttons) | `2.5rem` · `3rem` · `3.5rem` |
+| `--control-size-{size}-px` | Horizontal padding | `1rem` · `1rem` · `1.25rem` |
+| `--control-size-{size}-gap` | Gap between icon and label inside buttons | `0.5rem` · `0.5rem` · `0.75rem` |
+| `--control-size-{size}-font-size` | Text size | `1rem` · `1rem` · `1rem` |
+| `--control-size-{size}-icon` | Icon glyph size inside controls | `1rem` · `1.25rem` · `1.5rem` |
+| `--control-size-{size}-icon-offset` | Distance from the input edge to a leading icon (used when an `Icon` prop is set on `Input`) | `1rem` · `1rem` · `1.25rem` |
+
 #### Buttons
 
 Each button variant (`primary`, `white`, `black`, `transparent`, `secondary`, `tertiary`) uses the same set of tokens. Replace `{variant}` with the variant name.
