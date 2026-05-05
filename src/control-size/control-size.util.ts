@@ -51,18 +51,19 @@ export const sizePaddingRightWithTrayClasses: Record<ControlSize, string> = {
 };
 
 /* Left padding when an icon sits absolutely inside the input.
- * Layout reserves: base px + icon size + 0.75rem gap. */
+ * Layout reserves: icon-offset + icon size + 0.75rem gap. */
 export const sizePaddingLeftWithIconClasses: Record<ControlSize, string> = {
-  sm: 'pl-[calc(var(--control-size-sm-px)+var(--control-size-sm-icon)+0.75rem)]',
-  md: 'pl-[calc(var(--control-size-md-px)+var(--control-size-md-icon)+0.75rem)]',
-  lg: 'pl-[calc(var(--control-size-lg-px)+var(--control-size-lg-icon)+0.75rem)]',
+  sm: 'pl-[calc(var(--control-size-sm-icon-offset)+var(--control-size-sm-icon)+0.75rem)]',
+  md: 'pl-[calc(var(--control-size-md-icon-offset)+var(--control-size-md-icon)+0.75rem)]',
+  lg: 'pl-[calc(var(--control-size-lg-icon-offset)+var(--control-size-lg-icon)+0.75rem)]',
 };
 
-/* Absolute left position of a leading icon, aligned with the input's px. */
+/* Absolute left position of a leading icon, using the dedicated icon-offset
+ * token (tighter than the input's overall px). */
 export const sizeIconLeftPositionClasses: Record<ControlSize, string> = {
-  sm: 'left-[var(--control-size-sm-px)]',
-  md: 'left-[var(--control-size-md-px)]',
-  lg: 'left-[var(--control-size-lg-px)]',
+  sm: 'left-[var(--control-size-sm-icon-offset)]',
+  md: 'left-[var(--control-size-md-icon-offset)]',
+  lg: 'left-[var(--control-size-lg-icon-offset)]',
 };
 
 /* Absolute right position of an icon-button tray, aligned with the input's px. */
