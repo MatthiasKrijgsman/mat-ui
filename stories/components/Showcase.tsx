@@ -175,6 +175,15 @@ export const Showcase = () => {
                                description="This is a helpful description"/>
                         <Input label="Disabled" placeholder="Disabled input" disabled/>
                     </div>
+
+                    <div className={'flex flex-col gap-3'}>
+                        <div className={'text-sm font-semibold text-gray-500 dark:text-gray-400'}>Sizes</div>
+                        <div className={'flex flex-col gap-3'} style={{ maxWidth: 400 }}>
+                            <Input size="sm" label="Small" placeholder="Small input..." Icon={IconSearch}/>
+                            <Input size="md" label="Medium" placeholder="Medium input..." Icon={IconSearch}/>
+                            <Input size="lg" label="Large" placeholder="Large input..." Icon={IconSearch}/>
+                        </div>
+                    </div>
                 </section>
 
                 <section className={'flex flex-col'} style={{ gap: 24 }}>
@@ -261,6 +270,36 @@ export const Showcase = () => {
                             onChange={() => {}}
                             error="Please select an option"
                         />
+                    </div>
+
+                    <div className={'flex flex-col gap-3'}>
+                        <div className={'text-sm font-semibold text-gray-500 dark:text-gray-400'}>Sizes</div>
+                        <div className={'flex flex-col gap-3'} style={{ maxWidth: 400 }}>
+                            <InputSelect
+                                size="sm"
+                                label="Small"
+                                placeholder="Small select..."
+                                options={selectOptions}
+                                value={null}
+                                onChange={() => {}}
+                            />
+                            <InputSelect
+                                size="md"
+                                label="Medium"
+                                placeholder="Medium select..."
+                                options={selectOptions}
+                                value={null}
+                                onChange={() => {}}
+                            />
+                            <InputSelect
+                                size="lg"
+                                label="Large"
+                                placeholder="Large select..."
+                                options={selectOptions}
+                                value={null}
+                                onChange={() => {}}
+                            />
+                        </div>
                     </div>
                 </section>
 

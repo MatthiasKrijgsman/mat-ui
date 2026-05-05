@@ -6,9 +6,9 @@ export type { ButtonIconSquareProps, Variant as ButtonIconSquareVariant, Size as
 export type { ButtonIconRoundProps, Variant as ButtonIconRoundVariant, Size as ButtonIconRoundSize } from "./components/button-icon-round/ButtonIconRound.tsx";
 
 // Inputs
-export type { InputProps } from "./components/inputs/Input.tsx";
+export type { InputProps, Size as InputSize } from "./components/inputs/Input.tsx";
 export type { InputPasswordProps } from "./components/inputs/InputPassword.tsx";
-export type { InputTextAreaProps } from "./components/inputs/InputTextArea.tsx";
+export type { InputTextAreaProps, Size as InputTextAreaSize } from "./components/inputs/InputTextArea.tsx";
 export type { InputRadioProps } from "./components/inputs/InputRadio.tsx";
 export type { InputToggleProps } from "./components/inputs/InputToggle.tsx";
 export type { InputCheckProps } from "./components/inputs/InputCheck.tsx";
@@ -19,10 +19,10 @@ export type { InputIconButtonProps } from "./components/inputs/InputIconButton.t
 export type { InputIconButtonTrayProps } from "./components/inputs/InputIconButtonTray.tsx";
 
 // Selects
-export type { InputSelectNativeProps, OptionNative } from "./components/inputs/InputSelectNative.tsx";
-export type { InputSelectProps, Option as InputSelectOptionType } from "./components/inputs/InputSelect.tsx";
-export type { InputSelectSearchableProps, Option as InputSelectSearchableOption } from "./components/inputs/InputSelectSearchable.tsx";
-export type { InputSelectSearchableAsyncProps, Option as InputSelectSearchableAsyncOption } from "./components/inputs/InputSelectSearchableAsync.tsx";
+export type { InputSelectNativeProps, OptionNative, Size as InputSelectNativeSize } from "./components/inputs/InputSelectNative.tsx";
+export type { InputSelectProps, Option as InputSelectOptionType, Size as InputSelectSize } from "./components/inputs/InputSelect.tsx";
+export type { InputSelectSearchableProps, Option as InputSelectSearchableOption, Size as InputSelectSearchableSize } from "./components/inputs/InputSelectSearchable.tsx";
+export type { InputSelectSearchableAsyncProps, Option as InputSelectSearchableAsyncOption, Size as InputSelectSearchableAsyncSize } from "./components/inputs/InputSelectSearchableAsync.tsx";
 export type { InputSelectOptionProps } from "./components/inputs/InputSelectOption.tsx";
 
 // Layout and feedback

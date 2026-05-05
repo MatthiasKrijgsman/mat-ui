@@ -12,7 +12,16 @@ import { InputIconButtonTray } from "@/components/inputs/InputIconButtonTray.tsx
 import { InputDescription } from "@/components/inputs/InputDescription.tsx";
 import { InputError } from "@/components/inputs/InputError.tsx";
 import { useDismiss } from "@/hooks/use-dismiss.ts";
+import { ControlSizeContext } from "@/control-size/use-control-size.ts";
+import {
+  sizeFontClasses,
+  sizeHeightClasses,
+  sizePaddingLeftClasses,
+  sizePaddingRightWithTrayClasses,
+} from "@/control-size/control-size.util.ts";
 
+
+export type Size = 'sm' | 'md' | 'lg';
 
 export type InputSelectSearchableProps<T> = {
   name?: string;
@@ -27,6 +36,7 @@ export type InputSelectSearchableProps<T> = {
   placeholder?: string;
   maxHeight?: number;
   error?: string | React.ReactNode;
+  size?: Size;
 }
 
 export type Option<T> = {
@@ -47,7 +57,8 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
     value,
     placeholder,
     maxHeight = 300,
-    error
+    error,
+    size = 'md',
   } = props;
 
   const [ open, setOpen ] = useState(false);
@@ -75,64 +86,91 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
   })
 
   return (
-    <div
-      className={ classNames(
-        'flex flex-col',
-        className
-      ) }>
-      <InputLabel>{ label }</InputLabel>
+    <ControlSizeContext.Provider value={ size }>
+      <div
+        className={ classNames(
+          'flex flex-col',
+          className
+        ) }>
+        <InputLabel>{ label }</InputLabel>
 
-      <div className={ 'relative flex w-full flex-col' } ref={ anchorRef }>
-        <div
-          ref={ ref }
-          role={ 'button' }
-          tabIndex={ 0 }
-          className={ classNames(
-            'flex flex-row items-center h-12 pl-4 pr-10 border select-trigger transition-all duration-150 rounded-xl shadow-sm ring-0 focus:ring-4 focus:outline-none select-none',
-            error && 'select-trigger-error !pr-10',
-            open && 'ring-4',
-          ) }
-          onKeyDown={ (e) => e.key === ' ' && setOpen(o => !o) }
-          onClick={ () => setOpen(!open) }
-        >
-          { selectedOption && (
-            <span>{ selectedOption.label }</span>
-          ) }
-          { !selectedOption && placeholder && (
-            <span className={'select-placeholder'}>{ placeholder }</span>
-          ) }
-        </div>
-        <InputIconButtonTray>
-          { error && (
-            <InputErrorIcon/>
-          ) }
-          { !!value && (
-            <InputIconButton Icon={IconX} onClick={() => onChange(null)} />
-          ) }
-          <InputIconButton Icon={IconChevronDown} />
-        </InputIconButtonTray>
-        <Popover open={ open }>
-          <DropdownPanel className={ 'gap-0 !p-0' } style={ { maxHeight: maxHeight } }>
-            <div className={ 'sticky top-0 border-b select-search-bar py-1 backdrop-blur-sm' }>
-              <input
-                ref={ inputSearchRef }
-                type={ 'text' }
-                placeholder={ 'Search' }
-                value={ search }
-                className={ 'appearance-none border-none w-full bg-transparent rounded- pl-10 transition-all duration-150 focus:outline-none ring-0 placeholder:text-[var(--color-input-placeholder)]' }
-                onChange={ (e) => setSearch(e.target.value) }
-              />
-              <IconSearch className={ 'absolute select-search-icon left-4 top-4 h-4 w-4' }/>
-            </div>
-            <div className={ 'flex flex-col gap-1 p-2' }>
-              { search !== '' && (
-                <>
-                  { filteredOptions.length === 0 && (
-                    <div className={ 'flex flex-col items-center justify-center py-6' }>
-                      <IconSearchOff className={ 'h-6 w-6 text-[var(--color-input-text)]' }/>
-                    </div>
-                  ) }
-                  { filteredOptions.map((option) => {
+        <div className={ 'relative flex w-full flex-col' } ref={ anchorRef }>
+          <div
+            ref={ ref }
+            role={ 'button' }
+            tabIndex={ 0 }
+            className={ classNames(
+              'flex flex-row items-center border select-trigger transition-all duration-150 rounded-xl shadow-sm ring-0 focus:ring-4 focus:outline-none select-none',
+              sizeHeightClasses[size],
+              sizeFontClasses[size],
+              sizePaddingLeftClasses[size],
+              sizePaddingRightWithTrayClasses[size],
+              error && 'select-trigger-error',
+              open && 'ring-4',
+            ) }
+            onKeyDown={ (e) => e.key === ' ' && setOpen(o => !o) }
+            onClick={ () => setOpen(!open) }
+          >
+            { selectedOption && (
+              <span>{ selectedOption.label }</span>
+            ) }
+            { !selectedOption && placeholder && (
+              <span className={ 'select-placeholder' }>{ placeholder }</span>
+            ) }
+          </div>
+          <InputIconButtonTray>
+            { error && (
+              <InputErrorIcon/>
+            ) }
+            { !!value && (
+              <InputIconButton Icon={ IconX } onClick={ () => onChange(null) }/>
+            ) }
+            <InputIconButton Icon={ IconChevronDown }/>
+          </InputIconButtonTray>
+          <Popover open={ open }>
+            <DropdownPanel className={ 'gap-0 !p-0' } style={ { maxHeight: maxHeight } }>
+              <div className={ 'sticky top-0 border-b select-search-bar py-1 backdrop-blur-sm' }>
+                <input
+                  ref={ inputSearchRef }
+                  type={ 'text' }
+                  placeholder={ 'Search' }
+                  value={ search }
+                  className={ 'appearance-none border-none w-full bg-transparent rounded- pl-10 transition-all duration-150 focus:outline-none ring-0 placeholder:text-[var(--color-input-placeholder)]' }
+                  onChange={ (e) => setSearch(e.target.value) }
+                />
+                <IconSearch className={ 'absolute select-search-icon left-4 top-4 h-4 w-4' }/>
+              </div>
+              <div className={ 'flex flex-col gap-1 p-2' }>
+                { search !== '' && (
+                  <>
+                    { filteredOptions.length === 0 && (
+                      <div className={ 'flex flex-col items-center justify-center py-6' }>
+                        <IconSearchOff className={ 'h-6 w-6 text-[var(--color-input-text)]' }/>
+                      </div>
+                    ) }
+                    { filteredOptions.map((option) => {
+                      const isSelected = option.value === value;
+                      return (
+                        <InputSelectOption
+                          key={ String(option.value) }
+                          onClick={ () => {
+                            if (!option.disabled && !!onChange) {
+                              onChange(option.value)
+                              setOpen(false);
+                            }
+                          } }
+                          selected={ isSelected }
+                          disabled={ option.disabled }
+                        >
+                          { option.label }
+                        </InputSelectOption>
+                      )
+                    }) }
+                  </>
+                ) }
+
+                { search === '' && (<>
+                  { options.map((option) => {
                     const isSelected = option.value === value;
                     return (
                       <InputSelectOption
@@ -150,35 +188,14 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
                       </InputSelectOption>
                     )
                   }) }
-                </>
-              ) }
-
-              { search === '' && (<>
-                { options.map((option) => {
-                  const isSelected = option.value === value;
-                  return (
-                    <InputSelectOption
-                      key={ String(option.value) }
-                      onClick={ () => {
-                        if (!option.disabled && !!onChange) {
-                          onChange(option.value)
-                          setOpen(false);
-                        }
-                      } }
-                      selected={ isSelected }
-                      disabled={ option.disabled }
-                    >
-                      { option.label }
-                    </InputSelectOption>
-                  )
-                }) }
-              </>) }
-            </div>
-          </DropdownPanel>
-        </Popover>
+                </>) }
+              </div>
+            </DropdownPanel>
+          </Popover>
+        </div>
+        <InputDescription>{ description }</InputDescription>
+        <InputError>{ error }</InputError>
       </div>
-      <InputDescription>{ description }</InputDescription>
-      <InputError>{ error }</InputError>
-    </div>
+    </ControlSizeContext.Provider>
   );
 };

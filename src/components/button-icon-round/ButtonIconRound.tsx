@@ -1,9 +1,10 @@
 import * as React from "react";
 import { classNames } from "@/util/classnames.util.ts";
+import type { TablerIcon } from '@tabler/icons-react';
+import { sizeIconClasses, sizeSquareClasses } from "@/control-size/control-size.util.ts";
 
 export type Variant = 'primary' | 'secondary' | 'tertiary' | 'white' | 'black' | 'transparent';
 export type Size = 'sm' | 'md' | 'lg';
-import type { TablerIcon } from '@tabler/icons-react';
 
 export type ButtonIconRoundProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: Variant;
@@ -13,7 +14,7 @@ export type ButtonIconRoundProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 }
 
 const base: string = `
-  inline-flex flex-row items-center justify-center aspect-square 
+  inline-flex flex-row items-center justify-center
   button-ring font-semibold ring-0 disabled:hover:ring-0 hover:ring-4 active:ring-1 rounded-full cursor-pointer transition-all duration-150 select-none focus:outline-none focus:ring-4
   disabled:cursor-default
 `;
@@ -25,12 +26,6 @@ const variantClasses: Record<Variant, string> = {
   white: 'border button-white shadow-sm',
   black: 'border button-black shadow-sm',
   transparent: 'border button-transparent'
-}
-
-const sizeClasses: Record<Size, string> = {
-  sm: 'h-10 w-10',
-  md: 'h-12 w-12',
-  lg: 'h-14 w-14'
 }
 
 export const ButtonIconRound = React.forwardRef<HTMLButtonElement, ButtonIconRoundProps>((props, ref) => {
@@ -49,12 +44,12 @@ export const ButtonIconRound = React.forwardRef<HTMLButtonElement, ButtonIconRou
       className={ classNames(
         base,
         variantClasses[variant],
-        sizeClasses[size],
+        sizeSquareClasses[size],
         className
       ) }
       { ...rest }
     >
-      { <Icon className={'h-5 w-5'} /> }
+      { <Icon className={ sizeIconClasses[size] } /> }
     </button>
   );
 });
