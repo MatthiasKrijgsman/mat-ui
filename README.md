@@ -212,6 +212,7 @@ Each button variant (`primary`, `white`, `black`, `transparent`, `secondary`, `t
 |-------|-------------|---------------|
 | `--color-panel-bg` | Panel background | `#ffffff` |
 | `--color-panel-border` | Panel border | `#e5e7eb` |
+| `--color-panel-text` | Panel default text color (inherited by `PanelField`) | `#111827` |
 
 #### Modal & Sidebar modal
 
@@ -231,6 +232,7 @@ Each button variant (`primary`, `white`, `black`, `transparent`, `secondary`, `t
 | `--color-table-border` | Table border color | `#e5e7eb` |
 | `--color-table-row-bg` | Row background | `#ffffff` |
 | `--color-table-row-bg-hover` | Row background on hover | `#f9fafb` |
+| `--color-table-row-text` | Row text color | `#111827` |
 | `--color-table-resize-handle` | Column resize handle | `#e5e7eb` |
 | `--color-table-resize-handle-hover` | Resize handle on hover | `#d1d5db` |
 | `--color-table-resize-handle-active` | Resize handle while dragging | `#2563eb` |
@@ -253,3 +255,14 @@ Each button variant (`primary`, `white`, `black`, `transparent`, `secondary`, `t
 | `--color-badge-black-ring` | Black badge ring | `#d6d3d1` |
 
 > Colored badges (red, blue, green, etc.) use Tailwind color utility classes and are not token-based. They adapt to dark mode automatically via Tailwind's `dark:` variants.
+
+#### Status
+
+Shared color tokens for status/notification indicators. Currently used by `PanelLink`'s `status` prop, but available for any component.
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-status-error` | Error / destructive state | `#dc2626` |
+| `--color-status-warning` | Warning state | `#f59e0b` |
+| `--color-status-success` | Success state | `#16a34a` |
+| `--color-status-info` | Informational state | `#2563eb` |
