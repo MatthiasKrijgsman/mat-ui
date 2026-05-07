@@ -27,7 +27,10 @@ export { InputSelectSearchableAsync } from "./components/inputs/InputSelectSearc
 export { InputSelectOption } from "./components/inputs/InputSelectOption.tsx";
 
 // Layout and feedback
-export { Panel } from "./components/Panel.tsx";
+export { Panel } from "./components/panel/Panel.tsx";
+export { PanelStack } from "./components/panel/PanelStack.tsx";
+export { PanelField } from "./components/panel/PanelField.tsx";
+export { PanelLink } from "./components/panel/PanelLink.tsx";
 export { Divider } from "./components/Divider.tsx";
 export { Tooltip } from "./components/Tooltip.tsx";
 export { Modal } from "./components/Modal.tsx";

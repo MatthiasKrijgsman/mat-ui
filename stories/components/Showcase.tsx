@@ -19,6 +19,9 @@ import {
     InputTextArea,
     InputToggle,
     Panel,
+    PanelField,
+    PanelLink,
+    PanelStack,
     Spinner,
     TabButtons,
     Tooltip,
@@ -490,6 +493,36 @@ export const Showcase = () => {
                                 provides a bordered card layout with padding and shadow.
                             </div>
                         </Panel>
+                    </div>
+                </section>
+
+                <section className={'flex flex-col'} style={{ gap: 24 }}>
+                    <h2 className={'text-2xl font-bold text-gray-900 dark:text-gray-100'}>Panel Stack</h2>
+
+                    <div className={'flex flex-col gap-4'} style={{ maxWidth: 400 }}>
+                        <PanelStack>
+                            <PanelLink Icon={IconHome} href={'#home'}>Home of a very long name lorem ipsum dolor sit amet</PanelLink>
+                            <Divider/>
+                            <PanelLink Icon={IconUser} onClick={() => console.log('profile clicked')}>Profile</PanelLink>
+                            <Divider/>
+                            <PanelLink Icon={IconSettings} onClick={() => console.log('settings clicked')}>Settings</PanelLink>
+                            <Divider/>
+                            <PanelLink onClick={() => console.log('logout clicked')}>Sign out</PanelLink>
+                        </PanelStack>
+
+                        <PanelStack>
+                            <PanelField label={'Name'} orientation={'horizontal'}>Matthias Krijgsman</PanelField>
+                            <Divider/>
+                            <PanelField label={'Email'} orientation={'horizontal'}>matthiaskrijgsman@gmail.com</PanelField>
+                            <Divider/>
+                            <PanelField label={'A very long label that should clamp'} orientation={'horizontal'}>
+                                A correspondingly long value that should also clamp to a single line and break-all
+                            </PanelField>
+                            <Divider/>
+                            <PanelField label={'Bio'}>
+                                Vertical orientation puts the label on top and the value below.
+                            </PanelField>
+                        </PanelStack>
                     </div>
                 </section>
 

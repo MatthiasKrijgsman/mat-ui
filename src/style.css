@@ -15,7 +15,7 @@
 @import "./components/inputs/InputShared.css";
 @import "./components/dropdown-menu/Dropdown.css";
 @import "./components/TabButtons.css";
-@import "./components/Panel.css";
+@import "./components/panel/Panel.css";
 @import "./components/Modal.css";
 @import "./table/Table.css";
 

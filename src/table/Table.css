@@ -14,6 +14,7 @@
 }
 .table-body-row {
     @apply bg-[var(--color-table-row-bg)];
+    @apply text-[var(--color-table-row-text)];
     @apply border-b border-[var(--color-table-border)];
 }
 .table-body-row:hover {
