@@ -29,7 +29,7 @@ export type { InputSelectOptionProps } from "./components/inputs/InputSelectOpti
 export type { PanelProps } from "./components/panel/Panel.tsx";
 export type { PanelStackProps } from "./components/panel/PanelStack.tsx";
 export type { PanelFieldProps, PanelFieldOrientation } from "./components/panel/PanelField.tsx";
-export type { PanelLinkProps } from "./components/panel/PanelLink.tsx";
+export type { PanelLinkProps, PanelLinkStatus } from "./components/panel/PanelLink.tsx";
 export type { DividerProps } from "./components/Divider.tsx";
 export type { TooltipProps } from "./components/Tooltip.tsx";
 export type { BadgeProps } from "./components/Badge.tsx";

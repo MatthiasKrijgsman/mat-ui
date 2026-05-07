@@ -511,6 +511,16 @@ export const Showcase = () => {
                         </PanelStack>
 
                         <PanelStack>
+                            <PanelLink Icon={IconUser} status={'error'} onClick={() => {}}>Account verification failed</PanelLink>
+                            <Divider/>
+                            <PanelLink Icon={IconSettings} status={'warning'} onClick={() => {}}>Storage almost full</PanelLink>
+                            <Divider/>
+                            <PanelLink Icon={IconDownload} status={'success'} onClick={() => {}}>Backup complete</PanelLink>
+                            <Divider/>
+                            <PanelLink Icon={IconMail} status={'info'} onClick={() => {}}>3 unread messages</PanelLink>
+                        </PanelStack>
+
+                        <PanelStack>
                             <PanelField label={'Name'} orientation={'horizontal'}>Matthias Krijgsman</PanelField>
                             <Divider/>
                             <PanelField label={'Email'} orientation={'horizontal'}>matthiaskrijgsman@gmail.com</PanelField>

@@ -1,11 +1,35 @@
 import * as React from "react";
 import { classNames } from "@/util/classnames.util.ts";
-import { IconChevronRight, type TablerIcon } from "@tabler/icons-react";
+import {
+  IconAlertTriangleFilled,
+  IconChevronRight,
+  IconCircleCheckFilled,
+  IconExclamationCircleFilled,
+  IconInfoCircleFilled,
+  type TablerIcon,
+} from "@tabler/icons-react";
 
+
+export type PanelLinkStatus = 'error' | 'warning' | 'success' | 'info';
+
+const statusIcons: Record<PanelLinkStatus, TablerIcon> = {
+  error: IconExclamationCircleFilled,
+  warning: IconAlertTriangleFilled,
+  success: IconCircleCheckFilled,
+  info: IconInfoCircleFilled,
+};
+
+const statusColorClasses: Record<PanelLinkStatus, string> = {
+  error: 'text-[var(--color-status-error)]',
+  warning: 'text-[var(--color-status-warning)]',
+  success: 'text-[var(--color-status-success)]',
+  info: 'text-[var(--color-status-info)]',
+};
 
 type PanelLinkBaseProps = {
   Icon?: TablerIcon;
   children?: React.ReactNode;
+  status?: PanelLinkStatus;
 }
 
 type PanelLinkAnchorProps = PanelLinkBaseProps
@@ -26,8 +50,11 @@ export const PanelLink = (props: PanelLinkProps) => {
     className,
     children,
     Icon,
+    status,
     ...rest
   } = props;
+
+  const StatusIcon = status ? statusIcons[status] : null;
 
   const content = (
     <>
@@ -35,7 +62,12 @@ export const PanelLink = (props: PanelLinkProps) => {
         { Icon && <Icon className={ 'h-5 w-5 shrink-0' }/> }
         <span className={ 'truncate' }>{ children }</span>
       </span>
-      <IconChevronRight className={ 'h-5 w-5 shrink-0 text-[var(--color-input-icon-button-icon)]' }/>
+      <span className={ 'inline-flex flex-row items-center gap-2 shrink-0' }>
+        { StatusIcon && status && (
+          <StatusIcon className={ classNames('h-5 w-5', statusColorClasses[status]) }/>
+        ) }
+        <IconChevronRight className={ 'h-5 w-5 text-[var(--color-input-icon-button-icon)]' }/>
+      </span>
     </>
   );
 

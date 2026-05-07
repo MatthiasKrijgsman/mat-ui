@@ -193,6 +193,12 @@
     /* Divider */
     --color-divider: var(--color-gray-200);
 
+    /* Status (shared across components) */
+    --color-status-error: var(--color-red-600);
+    --color-status-warning: var(--color-amber-500);
+    --color-status-success: var(--color-green-600);
+    --color-status-info: var(--color-blue-600);
+
     /* Badge (white/black only) */
     --color-badge-white-bg: var(--color-white);
     --color-badge-white-text: var(--color-gray-900);
@@ -380,6 +386,12 @@
     --color-badge-black-bg: var(--color-stone-100);
     --color-badge-black-text: var(--color-stone-900);
     --color-badge-black-ring: var(--color-stone-700);
+
+    /* Status (shared across components) */
+    --color-status-error: var(--color-red-500);
+    --color-status-warning: var(--color-amber-400);
+    --color-status-success: var(--color-green-500);
+    --color-status-info: var(--color-blue-500);
 
     /* Select trigger placeholder */
     --color-input-select-placeholder: var(--color-stone-400);
