@@ -501,7 +501,7 @@ export const Showcase = () => {
 
                     <div className={'flex flex-col gap-4'} style={{ maxWidth: 400 }}>
                         <PanelStack>
-                            <PanelLink Icon={IconHome} href={'#home'}>Home of a very long name lorem ipsum dolor sit amet</PanelLink>
+                            <PanelLink Icon={IconHome} href={'#home'}>Home</PanelLink>
                             <Divider/>
                             <PanelLink Icon={IconUser} onClick={() => console.log('profile clicked')}>Profile</PanelLink>
                             <Divider/>
