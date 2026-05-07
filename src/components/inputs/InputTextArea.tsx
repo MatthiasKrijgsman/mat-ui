@@ -1,4 +1,5 @@
 import * as React from "react";
+import { mergeRefs } from "react-merge-refs";
 import { classNames } from "@/util/classnames.util.ts";
 import { InputLabel } from "@/components/inputs/InputLabel.tsx";
 import { InputErrorIcon } from "@/components/inputs/InputErrorIcon.tsx";
@@ -22,6 +23,8 @@ export type InputTextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElemen
   description?: string | React.ReactNode;
   error?: string | React.ReactNode;
   size?: Size;
+  autogrow?: boolean;
+  ref?: React.Ref<HTMLTextAreaElement>;
 }
 
 
@@ -33,8 +36,35 @@ export const InputTextArea = (props: InputTextAreaProps) => {
     description,
     error,
     size = 'md',
+    autogrow = false,
+    ref,
+    onChange,
     ...rest
   } = props;
+
+  const internalRef = React.useRef<HTMLTextAreaElement>(null);
+
+  const resize = React.useCallback(() => {
+    const el = internalRef.current;
+    if (!el) return;
+    el.style.height = 'auto';
+    el.style.height = `${ el.scrollHeight }px`;
+  }, []);
+
+  React.useLayoutEffect(() => {
+    if (!autogrow) {
+      if (internalRef.current) {
+        internalRef.current.style.height = '';
+      }
+      return;
+    }
+    resize();
+  }, [ autogrow, resize, props.value, props.defaultValue, size ]);
+
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    onChange?.(event);
+    if (autogrow) resize();
+  };
 
   return (
     <ControlSizeContext.Provider value={ size }>
@@ -46,6 +76,8 @@ export const InputTextArea = (props: InputTextAreaProps) => {
         <InputLabel>{ label }</InputLabel>
         <div className={ 'flex flex-col relative' }>
           <textarea
+            ref={ ref ? mergeRefs([ ref, internalRef ]) : internalRef }
+            onChange={ handleChange }
             className={ classNames(
               'py-2.5 border input-base transition-all duration-150 rounded-xl shadow-sm ring-0 focus:ring-4 focus:outline-none',
               sizeMinHeightClasses[size],
@@ -53,6 +85,7 @@ export const InputTextArea = (props: InputTextAreaProps) => {
               sizePaddingLeftClasses[size],
               error ? sizePaddingRightWithTrayClasses[size] : sizePaddingRightClasses[size],
               error && 'input-error',
+              autogrow && 'resize-none overflow-hidden',
             ) }
             { ...rest }
           />

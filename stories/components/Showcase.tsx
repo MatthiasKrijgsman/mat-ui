@@ -247,6 +247,7 @@ export const Showcase = () => {
                     <div className={'flex flex-col gap-4'} style={{ maxWidth: 400 }}>
                         <InputTextArea label="Default" placeholder="Enter text..."/>
                         <InputTextArea label="With error" placeholder="Enter text..." error="This field is required"/>
+                        <InputTextArea label="Autogrow" placeholder="Type to grow..." autogrow/>
                     </div>
                 </section>
 

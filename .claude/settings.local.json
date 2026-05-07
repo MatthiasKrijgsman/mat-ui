@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx storybook build:*)"
+      "Bash(npx storybook build:*)",
+      "Bash(pnpm lint *)",
+      "Bash(pnpm build *)"
     ]
   }
 }
