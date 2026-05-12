@@ -146,6 +146,16 @@ Each button variant (`primary`, `white`, `black`, `transparent`, `secondary`, `t
 | `--color-input-icon-button-ring` | Ring color for icon buttons inside inputs | `#e5e7eb` |
 | `--color-input-icon-button-icon` | Icon color for icon buttons inside inputs | `#6b7280` |
 
+#### File inputs
+
+`InputFileSingle` and `UploadFileTile` are composed from existing primitives (input tokens, `Button` for the inset "Choose" button, `ButtonIconSquare` for the remove (X) button) — no dedicated tokens of their own. `InputFileMultiple` adds:
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-input-file-icon-bg` | Background of the central icon frame inside `InputFileMultiple`'s dropzone | `#f3f4f6` |
+
+All three components also rely on the shared `--color-status-success` / `--color-status-error` tokens for the green check / red error icons in their upload-state slots.
+
 #### Select options
 
 | Token | Description | Light default |

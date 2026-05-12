@@ -2,6 +2,7 @@ import * as React from "react";
 import { IconCircleCheckFilled, IconExclamationCircleFilled, IconX } from "@tabler/icons-react";
 import { classNames } from "@/util/classnames.util.ts";
 import { Spinner } from "@/spinner/Spinner.tsx";
+import { ButtonIconSquare } from "@/components/button-icon-square/ButtonIconSquare.tsx";
 
 
 export type UploadFileTileProps = {
@@ -40,7 +41,7 @@ export const UploadFileTile = (props: UploadFileTileProps) => {
       className={ classNames(
         'flex flex-row items-center gap-3',
         'border input-base rounded-xl shadow-sm',
-        'px-4 py-2',
+        'pl-4 pr-1 py-1',
         error && 'input-error',
         className,
       ) }
@@ -66,18 +67,14 @@ export const UploadFileTile = (props: UploadFileTileProps) => {
       </div>
 
       { onRemove && (
-        <button
-          type={ 'button' }
+        <ButtonIconSquare
+          variant={ 'transparent' }
+          size={ 'sm' }
+          Icon={ IconX }
           onClick={ onRemove }
           aria-label={ 'Remove file' }
-          className={ classNames(
-            'shrink-0 h-9 w-9 rounded-lg flex items-center justify-center',
-            'cursor-pointer transition-colors duration-150',
-            'hover:bg-[var(--color-gray-100)] dark:hover:bg-[var(--color-stone-700)]',
-          ) }
-        >
-          <IconX className={ 'h-5 w-5 input-icon' }/>
-        </button>
+          className={ 'shrink-0' }
+        />
       ) }
     </div>
   );

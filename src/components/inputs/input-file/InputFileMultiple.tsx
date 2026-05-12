@@ -125,7 +125,7 @@ export const InputFileMultiple = (props: InputFileMultipleProps) => {
         { ...getRootProps({
           className: classNames(
             'flex flex-col items-center justify-center gap-1',
-            'border-2 border-dashed input-base rounded-xl',
+            'border-2 border-dashed input-base rounded-xl bg-transparent!',
             'py-10 px-6 cursor-pointer transition-all duration-150',
             'ring-0 focus:outline-none',
             (isFocused || isDragActive) && 'ring-4',
@@ -135,7 +135,7 @@ export const InputFileMultiple = (props: InputFileMultipleProps) => {
         }) }
       >
         <input { ...getInputProps() } />
-        <div className={ 'h-14 w-14 rounded-xl flex items-center justify-center bg-[var(--color-gray-100)] dark:bg-[var(--color-stone-700)] mb-2' }>
+        <div className={ 'h-14 w-14 rounded-xl flex items-center justify-center bg-[var(--color-input-file-icon-bg)] mb-2' }>
           <Icon className={ 'h-7 w-7 input-icon' }/>
         </div>
         <div className={ 'text-base font-semibold' }>

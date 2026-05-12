@@ -126,6 +126,9 @@
     --color-input-icon-button-ring: var(--color-gray-200);
     --color-input-icon-button-icon: var(--color-gray-500);
 
+    /* Input file (dropzone icon frame in InputFileMultiple) */
+    --color-input-file-icon-bg: var(--color-gray-100);
+
     /* Input select option */
     --color-option-bg-hover: var(--color-gray-100);
     --color-option-bg-active: var(--color-gray-200);
@@ -311,6 +314,9 @@
     /* Input icon button */
     --color-input-icon-button-ring: var(--color-stone-700);
     --color-input-icon-button-icon: var(--color-stone-400);
+
+    /* Input file (dropzone icon frame in InputFileMultiple) */
+    --color-input-file-icon-bg: var(--color-stone-700);
 
     /* Input select option */
     --color-option-bg-hover: var(--color-stone-800);
