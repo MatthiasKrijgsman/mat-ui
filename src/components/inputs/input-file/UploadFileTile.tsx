@@ -58,7 +58,7 @@ export const UploadFileTile = (props: UploadFileTileProps) => {
         </div>
       ) }
 
-      <div className={ 'flex-1 min-w-0 text-sm font-medium truncate' }>
+      <div className={ 'flex-1 min-w-0 font-medium truncate' }>
         { file.name }
       </div>
 
