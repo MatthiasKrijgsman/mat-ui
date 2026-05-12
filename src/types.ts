@@ -40,6 +40,7 @@ export type { BadgeColorKey } from "./components/BadgeColors.tsx";
 export type { TabButton, TabButtonsProps } from "./components/TabButtons.tsx";
 export type { ModalProps } from "./components/Modal.tsx";
 export type { SidebarModalProps } from "./components/SidebarModal.tsx";
+export type { AutoScrollProps } from "./components/AutoScroll.tsx";
 
 // Utilities / others
 export type { SpinnerProps } from "./spinner/Spinner.tsx";

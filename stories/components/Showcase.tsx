@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import {
+    AutoScroll,
     Badge,
     Button,
     ButtonIconRound,
@@ -106,6 +107,14 @@ export const Showcase = () => {
     const [resumeFileSm, setResumeFileSm] = useState<File | null>(null);
     const [resumeFileLg, setResumeFileLg] = useState<File | null>(null);
     const [uploadedUrls, setUploadedUrls] = useState<string[]>([]);
+    const [messages, setMessages] = useState<string[]>([
+        'Welcome to the AutoScroll demo.',
+        'Click the button below to add a new message.',
+    ]);
+
+    const handleAddMessage = () => {
+        setMessages((prev) => [...prev, `Message ${prev.length + 1} — ${new Date().toLocaleTimeString()}`]);
+    };
 
     const fakeUpload = (file: File) =>
         new Promise<void>((resolve) => {
@@ -652,6 +661,32 @@ export const Showcase = () => {
                             sort={tableSort}
                             onSortChange={setTableSort}
                         />
+                    </div>
+                </section>
+
+                <section className={'flex flex-col'} style={{ gap: 24 }}>
+                    <h2 className={'text-2xl font-bold text-gray-900 dark:text-gray-100'}>Auto Scroll</h2>
+
+                    <div className={'flex flex-col gap-4 h-[400px]'} style={{ maxWidth: 400 }}>
+                        <Panel className={'p-0! h-full! min-h-0'}>
+                            <AutoScroll
+                              className={'p-4 h-full mat-ui-hide-scrollbars'}
+                            >
+                                <div className={'flex flex-col gap-4'}>
+                                    {messages.map((message, index) => (
+                                      <div
+                                        key={index}
+                                        className={'text-sm text-stone-700 dark:text-stone-200 bg-stone-100 dark:bg-stone-800 rounded-md px-4 py-3'}
+                                      >
+                                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                      </div>
+                                    ))}
+                                </div>
+                            </AutoScroll>
+                        </Panel>
+                        <Button variant={'primary'} Icon={IconPlus} onClick={handleAddMessage}>
+                            Add message
+                        </Button>
                     </div>
                 </section>
 
