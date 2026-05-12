@@ -4,7 +4,7 @@
     @apply border-b border-[var(--color-table-border)];
 }
 .table-header-cell {
-    @apply bg-[var(--color-table-header-bg)];
+    @apply bg-[var(--color-table-header-bg)] text-sm font-medium;
 }
 .table-header-cell:hover {
     background-color: var(--color-table-header-bg-hover);
