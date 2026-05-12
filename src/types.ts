@@ -17,6 +17,7 @@ export type { InputDescriptionProps } from "./components/inputs/InputDescription
 export type { InputErrorProps } from "./components/inputs/InputError.tsx";
 export type { InputIconButtonProps } from "./components/inputs/InputIconButton.tsx";
 export type { InputIconButtonTrayProps } from "./components/inputs/InputIconButtonTray.tsx";
+export type { InputFileSingleProps, Size as InputFileSingleSize } from "./components/inputs/input-file/InputFileSingle.tsx";
 
 // Selects
 export type { InputSelectNativeProps, OptionNative, Size as InputSelectNativeSize } from "./components/inputs/InputSelectNative.tsx";

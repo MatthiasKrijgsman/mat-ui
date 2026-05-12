@@ -10,6 +10,7 @@ import {
     DropdownMenu,
     Input,
     InputCheck,
+    InputFileSingle,
     InputPassword,
     InputRadio,
     InputSelect,
@@ -100,6 +101,9 @@ const demoColumns: TableColumnDef<DemoUser>[] = [
 export const Showcase = () => {
     const [dark, setDark] = useState(false);
     const [tableSort, setTableSort] = useState<TableSortState | null>(null);
+    const [resumeFile, setResumeFile] = useState<File | null>(null);
+    const [resumeFileSm, setResumeFileSm] = useState<File | null>(null);
+    const [resumeFileLg, setResumeFileLg] = useState<File | null>(null);
 
     const sortedDemoUsers = useMemo(() => {
         if (!tableSort) return demoUsers;
@@ -251,6 +255,62 @@ export const Showcase = () => {
                         <InputTextArea label="Default" placeholder="Enter text..."/>
                         <InputTextArea label="With error" placeholder="Enter text..." error="This field is required"/>
                         <InputTextArea label="Autogrow" placeholder="Type to grow..." autogrow/>
+                    </div>
+                </section>
+
+                <section className={'flex flex-col'} style={{ gap: 24 }}>
+                    <h2 className={'text-2xl font-bold text-gray-900 dark:text-gray-100'}>File Input</h2>
+
+                    <div className={'flex flex-col gap-4'} style={{ maxWidth: 400 }}>
+                        <InputFileSingle
+                            label="Résumé"
+                            description="PDF or DOCX, up to 5 MB"
+                            accept={{
+                                'application/pdf': ['.pdf'],
+                                'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+                            }}
+                            maxSize={5 * 1024 * 1024}
+                            value={resumeFile}
+                            onChange={setResumeFile}
+                            isUploading={false}
+                            uploaded={true}
+                        />
+                        <InputFileSingle
+                            label="With error"
+                            value={null}
+                            onChange={() => {}}
+                            error="Please upload your résumé"
+                        />
+                        <InputFileSingle
+                            label="Disabled"
+                            value={null}
+                            onChange={() => {}}
+                            disabled
+                        />
+                    </div>
+
+                    <div className={'flex flex-col gap-3'}>
+                        <div className={'text-sm font-semibold text-gray-500 dark:text-gray-400'}>Sizes</div>
+                        <div className={'flex flex-col gap-3'} style={{ maxWidth: 400 }}>
+                            <InputFileSingle
+                                size="sm"
+                                label="Small"
+                                value={resumeFileSm}
+                                onChange={setResumeFileSm}
+                            />
+                            <InputFileSingle
+                                size="md"
+                                label="Medium"
+                                value={resumeFile}
+                                onChange={setResumeFile}
+                            />
+                            <InputFileSingle
+                                size="lg"
+                                label="Large"
+                                value={resumeFileLg}
+                                onChange={setResumeFileLg}
+                            />
+                        </div>
                     </div>
                 </section>
 

@@ -18,6 +18,7 @@ export { InputError } from "./components/inputs/InputError.tsx";
 export { InputErrorIcon } from "./components/inputs/InputErrorIcon.tsx";
 export { InputIconButton } from "./components/inputs/InputIconButton.tsx";
 export { InputIconButtonTray } from "./components/inputs/InputIconButtonTray.tsx";
+export { InputFileSingle } from "./components/inputs/input-file/InputFileSingle.tsx";
 
 // Selects
 export { InputSelectNative } from "./components/inputs/InputSelectNative.tsx";
