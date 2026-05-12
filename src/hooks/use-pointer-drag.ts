@@ -7,23 +7,29 @@ export const usePointerDrag = (
   onPosition: (clientX: number, clientY: number, rect: DOMRect) => void,
 ) => {
   const rectRef = React.useRef<DOMRect | null>(null);
+  const [isDragging, setIsDragging] = React.useState(false);
 
   const release = (e: React.PointerEvent) => {
     rectRef.current = null;
+    setIsDragging(false);
     (e.currentTarget as HTMLElement).releasePointerCapture?.(e.pointerId);
   };
 
   return {
-    onPointerDown: (e: React.PointerEvent) => {
-      const el = e.currentTarget as HTMLElement;
-      rectRef.current = el.getBoundingClientRect();
-      el.setPointerCapture?.(e.pointerId);
-      onPosition(e.clientX, e.clientY, rectRef.current);
+    isDragging,
+    bind: {
+      onPointerDown: (e: React.PointerEvent) => {
+        const el = e.currentTarget as HTMLElement;
+        rectRef.current = el.getBoundingClientRect();
+        el.setPointerCapture?.(e.pointerId);
+        setIsDragging(true);
+        onPosition(e.clientX, e.clientY, rectRef.current);
+      },
+      onPointerMove: (e: React.PointerEvent) => {
+        if (rectRef.current) onPosition(e.clientX, e.clientY, rectRef.current);
+      },
+      onPointerUp: release,
+      onPointerCancel: release,
     },
-    onPointerMove: (e: React.PointerEvent) => {
-      if (rectRef.current) onPosition(e.clientX, e.clientY, rectRef.current);
-    },
-    onPointerUp: release,
-    onPointerCancel: release,
   };
 };

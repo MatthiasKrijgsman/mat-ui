@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
 import { classNames } from "@/util/classnames.util.ts";
 import { formatHex, hexToHsv, hsvToHex, type HSV } from "@/util/color.util.ts";
 import { usePointerDrag } from "@/hooks/use-pointer-drag.ts";
@@ -37,9 +38,24 @@ export type InputColorProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 
 const HUE_GRADIENT = 'linear-gradient(to right, #f00 0%, #ff0 16.66%, #0f0 33.33%, #0ff 50%, #00f 66.66%, #f0f 83.33%, #f00 100%)';
 const SV_SATURATION_GRADIENT = 'linear-gradient(to right, #fff, rgba(255,255,255,0))';
 const SV_VALUE_GRADIENT = 'linear-gradient(to top, #000, rgba(0,0,0,0))';
-const THUMB_SHADOW = '0 0 0 1px rgba(0,0,0,0.4)';
+const THUMB_SHADOW = '0 0 0 1px rgba(0,0,0,0.15)';
 const THUMB_SIZE = 14;
-const THUMB_HALF = THUMB_SIZE / 2;
+const THUMB_SIZE_ACTIVE = 28;
+const THUMB_RADIUS = 6;
+const THUMB_RADIUS_ACTIVE = 8;
+const THUMB_SPRING = { type: 'spring', stiffness: 500, damping: 18, mass: 0.6 } as const;
+
+const thumbAnimate = (active: boolean) => {
+  const size = active ? THUMB_SIZE_ACTIVE : THUMB_SIZE;
+  const half = size / 2;
+  return {
+    width: size,
+    height: size,
+    marginLeft: -half,
+    marginTop: -half,
+    borderRadius: active ? THUMB_RADIUS_ACTIVE : THUMB_RADIUS,
+  };
+};
 
 const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
 
@@ -94,32 +110,38 @@ const ColorPicker = ({ value, onChange }: ColorPickerProps) => {
       onMouseDown={ (e) => e.preventDefault() }
     >
       <div
-        className={ 'relative w-full rounded-md overflow-hidden border color-picker-surface' }
+        className={ 'relative w-full' }
         style={ {
           height: 160,
-          backgroundColor: hueOnly,
           touchAction: 'none',
           cursor: 'crosshair',
         } }
-        { ...svDrag }
+        { ...svDrag.bind }
       >
         <div
-          className={ 'absolute inset-0 pointer-events-none' }
-          style={ { background: SV_SATURATION_GRADIENT } }
-        />
-        <div
-          className={ 'absolute inset-0 pointer-events-none' }
-          style={ { background: SV_VALUE_GRADIENT } }
-        />
-        <div
-          className={ 'absolute pointer-events-none rounded-full border-2 border-white' }
+          className={ 'absolute inset-0 rounded-md overflow-hidden border color-picker-surface' }
+          style={ { backgroundColor: hueOnly } }
+        >
+          <div
+            className={ 'absolute inset-0 pointer-events-none' }
+            style={ { background: SV_SATURATION_GRADIENT } }
+          />
+          <div
+            className={ 'absolute inset-0 pointer-events-none' }
+            style={ { background: SV_VALUE_GRADIENT } }
+          />
+        </div>
+        <motion.div
+          className={ 'absolute pointer-events-none border-1 border-white' }
           style={ {
-            width: THUMB_SIZE,
-            height: THUMB_SIZE,
-            left: `calc(${ s * 100 }% - ${ THUMB_HALF }px)`,
-            top: `calc(${ (1 - v) * 100 }% - ${ THUMB_HALF }px)`,
+            left: `${ s * 100 }%`,
+            top: `${ (1 - v) * 100 }%`,
             boxShadow: THUMB_SHADOW,
+            backgroundColor: currentColor,
           } }
+          initial={ thumbAnimate(false) }
+          animate={ thumbAnimate(svDrag.isDragging) }
+          transition={ THUMB_SPRING }
         />
       </div>
 
@@ -131,18 +153,19 @@ const ColorPicker = ({ value, onChange }: ColorPickerProps) => {
           touchAction: 'none',
           cursor: 'ew-resize',
         } }
-        { ...hueDrag }
+        { ...hueDrag.bind }
       >
-        <div
-          className={ 'absolute pointer-events-none rounded-full border-2 border-white' }
+        <motion.div
+          className={ 'absolute pointer-events-none border-1 border-white' }
           style={ {
-            width: THUMB_SIZE,
-            height: THUMB_SIZE,
-            top: -1,
-            left: `calc(${ (h / 360) * 100 }% - ${ THUMB_HALF }px)`,
+            top: '50%',
+            left: `${ (h / 360) * 100 }%`,
             backgroundColor: hueOnly,
             boxShadow: THUMB_SHADOW,
           } }
+          initial={ thumbAnimate(false) }
+          animate={ thumbAnimate(hueDrag.isDragging) }
+          transition={ THUMB_SPRING }
         />
       </div>
 
@@ -154,18 +177,19 @@ const ColorPicker = ({ value, onChange }: ColorPickerProps) => {
           touchAction: 'none',
           cursor: 'ew-resize',
         } }
-        { ...brightnessDrag }
+        { ...brightnessDrag.bind }
       >
-        <div
-          className={ 'absolute pointer-events-none rounded-full border-2 border-white' }
+        <motion.div
+          className={ 'absolute pointer-events-none border-1 border-white' }
           style={ {
-            width: THUMB_SIZE,
-            height: THUMB_SIZE,
-            top: -1,
-            left: `calc(${ v * 100 }% - ${ THUMB_HALF }px)`,
+            top: '50%',
+            left: `${ v * 100 }%`,
             backgroundColor: currentColor,
             boxShadow: THUMB_SHADOW,
           } }
+          initial={ thumbAnimate(false) }
+          animate={ thumbAnimate(brightnessDrag.isDragging) }
+          transition={ THUMB_SPRING }
         />
       </div>
     </div>
@@ -273,7 +297,7 @@ export const InputColor = (props: InputColorProps) => {
             { buttonTray }
           </InputIconButtonTray>
           <Popover open={ open }>
-            <DropdownPanel>
+            <DropdownPanel padding={ 'md' }>
               <ColorPicker value={ currentValue } onChange={ handlePickerChange }/>
             </DropdownPanel>
           </Popover>
