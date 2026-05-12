@@ -7,6 +7,7 @@ export { ButtonIconRound } from "./components/button-icon-round/ButtonIconRound.
 
 // Inputs
 export { Input } from "./components/inputs/Input.tsx";
+export { InputColor } from "./components/inputs/InputColor.tsx";
 export { InputPassword } from "./components/inputs/InputPassword.tsx";
 export { InputTextArea } from "./components/inputs/InputTextArea.tsx";
 export { InputRadio } from "./components/inputs/InputRadio.tsx";

@@ -11,6 +11,7 @@ import {
     DropdownMenu,
     Input,
     InputCheck,
+    InputColor,
     InputFileMultiple,
     InputFileSingle,
     InputPassword,
@@ -253,6 +254,28 @@ export const Showcase = () => {
                             <Input size="sm" label="Small" placeholder="Small input..." Icon={IconSearch}/>
                             <Input size="md" label="Medium" placeholder="Medium input..." Icon={IconSearch}/>
                             <Input size="lg" label="Large" placeholder="Large input..." Icon={IconSearch}/>
+                        </div>
+                    </div>
+                </section>
+
+                <section className={'flex flex-col'} style={{ gap: 24 }}>
+                    <h2 className={'text-2xl font-bold text-gray-900 dark:text-gray-100'}>Color Input</h2>
+
+                    <div className={'flex flex-col gap-4'} style={{ maxWidth: 400 }}>
+                        <InputColor label="Brand color" placeholder="#3b82f6" defaultValue="#3b82f6"/>
+                        <InputColor label="Empty (white fallback)" placeholder="Type a color..."/>
+                        <InputColor label="With error" placeholder="#ef4444" defaultValue="#ef4444" error="Invalid color"/>
+                        <InputColor label="With description" placeholder="#10b981" defaultValue="#10b981"
+                                    description="Pick the accent color for your brand"/>
+                        <InputColor label="Disabled" placeholder="#a3a3a3" defaultValue="#a3a3a3" disabled/>
+                    </div>
+
+                    <div className={'flex flex-col gap-3'}>
+                        <div className={'text-sm font-semibold text-gray-500 dark:text-gray-400'}>Sizes</div>
+                        <div className={'flex flex-col gap-3'} style={{ maxWidth: 400 }}>
+                            <InputColor size="sm" label="Small" placeholder="#FFFFFF" defaultValue="#f59e0b"/>
+                            <InputColor size="md" label="Medium" placeholder="#FFFFFF" defaultValue="#8b5cf6"/>
+                            <InputColor size="lg" label="Large" placeholder="#FFFFFF" defaultValue="#ec4899"/>
                         </div>
                     </div>
                 </section>

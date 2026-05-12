@@ -7,6 +7,7 @@ export type { ButtonIconRoundProps, Variant as ButtonIconRoundVariant, Size as B
 
 // Inputs
 export type { InputProps, Size as InputSize } from "./components/inputs/Input.tsx";
+export type { InputColorProps, Size as InputColorSize } from "./components/inputs/InputColor.tsx";
 export type { InputPasswordProps } from "./components/inputs/InputPassword.tsx";
 export type { InputTextAreaProps, Size as InputTextAreaSize } from "./components/inputs/InputTextArea.tsx";
 export type { InputRadioProps } from "./components/inputs/InputRadio.tsx";
