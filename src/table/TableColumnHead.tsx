@@ -51,7 +51,7 @@ export const TableColumnHead = <T, >(props: TableColumnHeadProps<T>) => {
       </div>
       <div
         { ...bind }
-        className={ 'cursor-ew-resize group py-2 table-resize-handle w-[8px]' }
+        className={ 'cursor-ew-resize group py-4 table-resize-handle w-[8px]' }
       >
         <div
           className={ 'w-0.5 h-full mx-auto table-resize-divider table-resize-divider-hover pointer-events-none' }/>
