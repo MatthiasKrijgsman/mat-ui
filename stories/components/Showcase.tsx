@@ -10,6 +10,7 @@ import {
     DropdownMenu,
     Input,
     InputCheck,
+    InputFileMultiple,
     InputFileSingle,
     InputPassword,
     InputRadio,
@@ -104,6 +105,15 @@ export const Showcase = () => {
     const [resumeFile, setResumeFile] = useState<File | null>(null);
     const [resumeFileSm, setResumeFileSm] = useState<File | null>(null);
     const [resumeFileLg, setResumeFileLg] = useState<File | null>(null);
+    const [uploadedUrls, setUploadedUrls] = useState<string[]>([]);
+
+    const fakeUpload = (file: File) =>
+        new Promise<void>((resolve) => {
+            setTimeout(() => {
+                setUploadedUrls((prev) => [...prev, `https://cdn.example.com/${file.name}`]);
+                resolve();
+            }, 1500);
+        });
 
     const sortedDemoUsers = useMemo(() => {
         if (!tableSort) return demoUsers;
@@ -273,7 +283,7 @@ export const Showcase = () => {
                             value={resumeFile}
                             onChange={setResumeFile}
                             isUploading={false}
-                            uploaded={true}
+                            isUploaded={true}
                         />
                         <InputFileSingle
                             label="With error"
@@ -311,6 +321,40 @@ export const Showcase = () => {
                                 onChange={setResumeFileLg}
                             />
                         </div>
+                    </div>
+                </section>
+
+                <section className={'flex flex-col'} style={{ gap: 24 }}>
+                    <h2 className={'text-2xl font-bold text-gray-900 dark:text-gray-100'}>File Input (Multiple)</h2>
+
+                    <div className={'flex flex-col gap-4'} style={{ maxWidth: 600 }}>
+                        <InputFileMultiple
+                            label="Attachments"
+                            hint="PNG, JPG, PDF, ZIP · up to 50.0 MB"
+                            accept={{
+                                'image/png': ['.png'],
+                                'image/jpeg': ['.jpg', '.jpeg'],
+                                'application/pdf': ['.pdf'],
+                                'application/zip': ['.zip'],
+                            }}
+                            maxSize={50 * 1024 * 1024}
+                            onUpload={fakeUpload}
+                            onFileRemoved={(file) =>
+                                setUploadedUrls((prev) =>
+                                    prev.filter((u) => u !== `https://cdn.example.com/${file.name}`),
+                                )
+                            }
+                        />
+
+                        <InputFileMultiple
+                            label="With error"
+                            error="At least one attachment is required"
+                        />
+
+                        <InputFileMultiple
+                            label="Disabled"
+                            disabled
+                        />
                     </div>
                 </section>
 

@@ -18,6 +18,8 @@ export type { InputErrorProps } from "./components/inputs/InputError.tsx";
 export type { InputIconButtonProps } from "./components/inputs/InputIconButton.tsx";
 export type { InputIconButtonTrayProps } from "./components/inputs/InputIconButtonTray.tsx";
 export type { InputFileSingleProps, Size as InputFileSingleSize } from "./components/inputs/input-file/InputFileSingle.tsx";
+export type { InputFileMultipleProps } from "./components/inputs/input-file/InputFileMultiple.tsx";
+export type { UploadFileTileProps } from "./components/inputs/input-file/UploadFileTile.tsx";
 
 // Selects
 export type { InputSelectNativeProps, OptionNative, Size as InputSelectNativeSize } from "./components/inputs/InputSelectNative.tsx";
