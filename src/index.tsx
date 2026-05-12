@@ -45,6 +45,8 @@ export { AutoScroll } from "./components/AutoScroll.tsx";
 
 // Data display
 export { Spinner } from "./spinner/Spinner.tsx";
+export { Table } from "./table/Table.tsx";
+export { TableColumnHead } from "./table/TableColumnHead.tsx";
 
 // Dropdown
 export { DropdownButton } from "./components/dropdown-menu/DropdownButton.tsx";

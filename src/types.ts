@@ -45,6 +45,7 @@ export type { AutoScrollProps } from "./components/AutoScroll.tsx";
 // Utilities / others
 export type { SpinnerProps } from "./spinner/Spinner.tsx";
 export type { TableColumnDef, TableProps, TableSortDirection, TableSortState } from "./table/Table.tsx";
+export type { TableColumnHeadProps } from "./table/TableColumnHead.tsx";
 
 // Popover suite
 export type { DropdownButtonProps } from "./components/dropdown-menu/DropdownButton.tsx";
