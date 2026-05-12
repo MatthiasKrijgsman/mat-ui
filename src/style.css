@@ -8,6 +8,7 @@
 /* Component CSS Classes */
 @import "./components/button/Button.css";
 @import "./components/inputs/Input.css";
+@import "./components/inputs/InputColor.css";
 @import "./components/inputs/InputSelect.css";
 @import "./components/inputs/InputSelectOption.css";
 @import "./components/inputs/InputToggle.css";

@@ -89,7 +89,7 @@ Define your overrides after importing the mat-ui stylesheet:
 
 #### Control sizing
 
-`Button`, `ButtonIconSquare`, `ButtonIconRound`, `Input`, `InputTextArea`, `InputSelectNative`, `InputSelect`, `InputSelectSearchable`, and `InputSelectSearchableAsync` accept a `size?: 'sm' | 'md' | 'lg'` prop (default `'md'`) and read their dimensions from a single shared scale. Override these to adjust heights, padding, font size, and icon sizing consistently across all controls. Replace `{size}` with `sm`, `md`, or `lg`.
+`Button`, `ButtonIconSquare`, `ButtonIconRound`, `Input`, `InputColor`, `InputTextArea`, `InputSelectNative`, `InputSelect`, `InputSelectSearchable`, and `InputSelectSearchableAsync` accept a `size?: 'sm' | 'md' | 'lg'` prop (default `'md'`) and read their dimensions from a single shared scale. Override these to adjust heights, padding, font size, and icon sizing consistently across all controls. Replace `{size}` with `sm`, `md`, or `lg`.
 
 | Token | Description | sm · md · lg defaults |
 |-------|-------------|------------------------|
@@ -155,6 +155,10 @@ Each button variant (`primary`, `white`, `black`, `transparent`, `secondary`, `t
 | `--color-input-file-icon-bg` | Background of the central icon frame inside `InputFileMultiple`'s dropzone | `#f3f4f6` |
 
 All three components also rely on the shared `--color-status-success` / `--color-status-error` tokens for the green check / red error icons in their upload-state slots.
+
+#### Color input
+
+`InputColor` reuses the standard input tokens — the color swatch in the field and the outline of the picker's saturation/value plane both derive from `--color-input-border`, and the field itself uses the same `--color-input-*` tokens as `Input`. The picker's hue/brightness gradients and indicator rings are intrinsic to the color-picking UI (not theme-based) and are intentionally not tokenized.
 
 #### Select options
 

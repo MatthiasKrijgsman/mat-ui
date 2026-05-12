@@ -1,0 +1,6 @@
+.color-swatch {
+    @apply border-[var(--color-input-border)];
+}
+.color-picker-surface {
+    @apply border-[var(--color-input-border)];
+}
