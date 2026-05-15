@@ -1,4 +1,4 @@
-name: Deploy Storybook
+name: Deploy Site
 
 on:
   push:
@@ -31,11 +31,13 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - run: pnpm build-storybook
+      - run: pnpm --filter @matthiaskrijgsman/mat-ui-site build
+
+      - run: touch site/out/.nojekyll
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: storybook-static
+          path: site/out
 
   deploy:
     needs: build

@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@import "@matthiaskrijgsman/mat-ui/style";
+
+html {
+    font-size: 14px;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+}
+
+body {
+    color: #333;
+}

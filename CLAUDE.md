@@ -6,12 +6,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 mat-ui (`@matthiaskrijgsman/mat-ui`) is a React component library published to npm. It provides UI primitives (buttons, inputs, selects, modals, tooltips, dropdowns, tables, etc.) built with React 19, Tailwind CSS v4, and Floating UI for positioning.
 
+## Repository layout
+
+This is a pnpm workspace (`pnpm-workspace.yaml`) with two packages:
+- **Root** (`@matthiaskrijgsman/mat-ui`) — the published component library, built with Vite from `src/`
+- **`site/`** (`@matthiaskrijgsman/mat-ui-site`, private) — the Next.js showcase app deployed to GitHub Pages, depends on the library via `workspace:*`
+
 ## Commands
 
-- **Build:** `pnpm build` (Vite library build + TypeScript declaration emit)
+- **Build (library):** `pnpm build` (Vite library build + TypeScript declaration emit)
 - **Lint:** `pnpm lint` (ESLint with typescript-eslint, react-hooks, react-refresh)
-- **Storybook:** `pnpm storybook` (dev server on port 6006)
-- **Tests:** `pnpm vitest` (Storybook-based browser tests via Playwright/Chromium)
+- **Showcase dev:** `pnpm site` (Next.js dev server on port 6006)
+- **Showcase build:** `pnpm site:build` (static export to `site/out`)
 
 ## Architecture
 
@@ -42,11 +48,13 @@ mat-ui (`@matthiaskrijgsman/mat-ui`) is a React component library published to n
 - `src/spinner/`, `src/table/` — standalone component modules
 - `src/util/classnames.util.ts` — className merging utility
 
-### Storybook
+### Showcase site
 
-- Stories live in `stories/` (not co-located with components)
-- Storybook 9 with `@storybook/react-vite`
-- Vitest integration via `@storybook/addon-vitest` runs story-based tests in a headless Chromium browser
+- Lives in `site/` as a separate workspace package
+- Next.js 15 App Router with static export (`output: 'export'`)
+- Tailwind v4 via `@tailwindcss/postcss`, imports the lib stylesheet from `@matthiaskrijgsman/mat-ui/style`
+- Pages: `site/app/page.tsx` (Showcase), `site/app/todo/page.tsx`; demo components in `site/app/_components/`
+- Deployed to GitHub Pages under `/mat-ui/` via [.github/workflows/deploy-site.yml](.github/workflows/deploy-site.yml)
 
 ### Key peer dependencies
 
@@ -223,7 +231,6 @@ Portal-based with two animation layers:
 | `vite` + `@vitejs/plugin-react` | Build tooling (ES + UMD library output) |
 | `tailwindcss` + `@tailwindcss/vite` + `@tailwindcss/forms` | Tailwind CSS v4 with form reset plugin |
 | `typescript ~5.8` | Type checking and declaration emit |
-| `storybook` + `@storybook/react-vite` | Component development and documentation |
-| `@storybook/addon-vitest` + `vitest` + `@vitest/browser` + `playwright` | Story-based browser testing |
+| `next` (in `site/`) | Showcase app — static export to GitHub Pages |
 | `eslint` + `typescript-eslint` + `eslint-plugin-react-hooks` + `eslint-plugin-react-refresh` | Linting |
 | `use-resize-observer` | Used internally for resize-aware components |

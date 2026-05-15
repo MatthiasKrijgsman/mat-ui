@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from "react";
-import { Button, Modal } from "../../src";
+import { Button, Modal } from "@matthiaskrijgsman/mat-ui";
 
 export const ModalDemo = () => {
   const [open, setOpen] = useState(false);

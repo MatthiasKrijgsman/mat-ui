@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from "react";
-import { Button, SidebarModal, Divider, Input, InputTextArea } from "../../src";
+import { Button, SidebarModal, Divider, Input, InputTextArea } from "@matthiaskrijgsman/mat-ui";
 
 export const SidebarModalDemo = () => {
   const [open, setOpen] = useState(false);

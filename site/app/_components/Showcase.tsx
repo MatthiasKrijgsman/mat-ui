@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useMemo, useState } from "react";
 import {
     AutoScroll,
@@ -28,9 +30,10 @@ import {
     PanelStack,
     Spinner,
     TabButtons,
+    Table,
     Tooltip,
-} from "../../src";
-import { Table, type TableColumnDef, type TableSortState } from "../../src/table/Table";
+} from "@matthiaskrijgsman/mat-ui";
+import type { TableColumnDef, TableSortState } from "@matthiaskrijgsman/mat-ui/types";
 import {
     IconDownload,
     IconHeart,
@@ -48,7 +51,9 @@ import {
 import { ModalDemo } from "./ModalDemo";
 import { SidebarModalDemo } from "./SidebarModalDemo";
 
-const selectOptions = [
+type FruitOption = { label: string; value: string };
+
+const selectOptions: FruitOption[] = [
     { label: 'Apple', value: 'apple' },
     { label: 'Banana', value: 'banana' },
     { label: 'Cherry', value: 'cherry' },
@@ -59,14 +64,19 @@ const selectOptions = [
     { label: 'Strawberry', value: 'strawberry' },
 ];
 
-const searchFilter = (query: string) =>
+const searchFilter = (query: string): FruitOption[] =>
     selectOptions.filter(o => o.label.toLowerCase().includes(query.toLowerCase()));
 
-const asyncFetchByQuery = (query: string) =>
+const asyncFetchByQuery = (query: string): Promise<FruitOption[]> =>
     new Promise(resolve => setTimeout(() => resolve(searchFilter(query)), 400));
 
-const asyncFetchByValue = (value: string) =>
-    new Promise(resolve => setTimeout(() => resolve(selectOptions.find(o => o.value === value)), 200));
+const asyncFetchByValue = (value: string): Promise<FruitOption> =>
+    new Promise((resolve, reject) =>
+        setTimeout(() => {
+            const found = selectOptions.find(o => o.value === value);
+            if (found) resolve(found);
+            else reject(new Error(`Option ${value} not found`));
+        }, 200));
 
 type DemoUser = {
     id: number;

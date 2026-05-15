@@ -23,10 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 
-*storybook.log
-storybook-static
-
-chromatic.config.json
+# Next.js (site)
+site/.next
+site/out
+site/next-env.d.ts
 
 # Claude Code local config
 .claude/settings.local.json

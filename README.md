@@ -2,8 +2,28 @@
 
 A React component library providing UI primitives built with React 19, Tailwind CSS v4, and Floating UI.
 
-## Storybook
-[View the components here](https://matthiaskrijgsman.github.io/mat-ui/?path=/docs/index--docs)
+## Showcase
+[View the components here](https://matthiaskrijgsman.github.io/mat-ui/)
+
+## Development
+
+The repo is a pnpm workspace with two packages: the library at the repository root and the showcase Next.js app in [`site/`](site).
+
+```bash
+# install workspace deps
+pnpm install
+
+# run the showcase against the local library
+pnpm site            # → http://localhost:6006
+
+# build the library
+pnpm build
+
+# build the showcase as a static site (outputs to site/out)
+pnpm site:build
+```
+
+The showcase pulls in the library via the workspace alias (`workspace:*`), so edits under `src/` are reflected on the next dev rebuild. Deployments to GitHub Pages happen via [.github/workflows/deploy-site.yml](.github/workflows/deploy-site.yml).
 
 ## Installation
 
