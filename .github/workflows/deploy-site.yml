@@ -31,6 +31,8 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      - run: pnpm build
+
       - run: pnpm --filter @matthiaskrijgsman/mat-ui-site build
 
       - run: touch site/out/.nojekyll
