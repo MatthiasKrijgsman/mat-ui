@@ -7,10 +7,11 @@ interface ShowcaseSectionProps {
   title: string;
   children?: React.ReactNode;
   layout?: 'horizontal' | 'vertical';
+  narrow?: boolean;
 }
 
 export const ShowcaseSection = (props: ShowcaseSectionProps) => {
-  const { title, children, layout = 'horizontal' } = props;
+  const { title, children, layout = 'horizontal', narrow = false } = props;
 
   return (
     <div className={ 'flex flex-col gap-3' }>
@@ -19,6 +20,7 @@ export const ShowcaseSection = (props: ShowcaseSectionProps) => {
         'flex gap-3',
         layout === 'horizontal' && 'flex-row items-center',
         layout === 'vertical' && 'flex-col items-start',
+        narrow && 'max-w-[430px]',
       ) }>
         { children }
       </div>

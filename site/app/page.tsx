@@ -324,13 +324,13 @@ export default function Page() {
             <div>Text, password, textarea and a hue/sat/value color picker — all share label, description, error and size.</div>
             <ShowcaseImportPath path={ `import { Input, InputPassword, InputTextArea, InputColor } from "@matthiaskrijgsman/mat-ui"` }/>
             <Panel>
-              <ShowcaseSection title={ 'Sizes' } layout={ 'vertical' }>
+              <ShowcaseSection title={ 'Sizes' } layout={ 'vertical' } narrow={ true }>
                 <Input size={ 'lg' } placeholder={ 'Large' } className={ 'w-full' }/>
                 <Input size={ 'md' } placeholder={ 'Medium' } className={ 'w-full' }/>
                 <Input size={ 'sm' } placeholder={ 'Small' } className={ 'w-full' }/>
               </ShowcaseSection>
               <Divider/>
-              <ShowcaseSection title={ 'With label, icon and helper text' } layout={ 'vertical' }>
+              <ShowcaseSection title={ 'With label, icon and helper text' } layout={ 'vertical' } narrow={ true }>
                 <Input
                   label={ 'Email' }
                   description={ "We'll never share it." }
@@ -342,7 +342,7 @@ export default function Page() {
                 />
               </ShowcaseSection>
               <Divider/>
-              <ShowcaseSection title={ 'Error state' } layout={ 'vertical' }>
+              <ShowcaseSection title={ 'Error state' } layout={ 'vertical' } narrow={ true }>
                 <Input
                   label={ 'Username' }
                   placeholder={ 'Your handle' }
@@ -352,7 +352,7 @@ export default function Page() {
                 />
               </ShowcaseSection>
               <Divider/>
-              <ShowcaseSection title={ 'Password' } layout={ 'vertical' }>
+              <ShowcaseSection title={ 'Password' } layout={ 'vertical' } narrow={ true }>
                 <InputPassword
                   label={ 'Password' }
                   description={ 'At least 8 characters.' }
@@ -361,7 +361,7 @@ export default function Page() {
                 />
               </ShowcaseSection>
               <Divider/>
-              <ShowcaseSection title={ 'Textarea' } layout={ 'vertical' }>
+              <ShowcaseSection title={ 'Textarea' } layout={ 'vertical' } narrow={ true }>
                 <InputTextArea
                   label={ 'Bio' }
                   description={ 'A short introduction. Autogrows as you type.' }
@@ -371,7 +371,7 @@ export default function Page() {
                 />
               </ShowcaseSection>
               <Divider/>
-              <ShowcaseSection title={ 'Color' } layout={ 'vertical' }>
+              <ShowcaseSection title={ 'Color' } layout={ 'vertical' } narrow={ true }>
                 <InputColor
                   label={ 'Brand color' }
                   description={ 'Click the input to open the HSV picker.' }
@@ -436,7 +436,7 @@ export default function Page() {
             <div>Four flavours: a native &lt;select&gt;, a styled popover select, a searchable variant, and an async-fetch variant.</div>
             <ShowcaseImportPath path={ `import { InputSelect, InputSelectNative, InputSelectSearchable, InputSelectSearchableAsync } from "@matthiaskrijgsman/mat-ui"` }/>
             <Panel>
-              <ShowcaseSection title={ 'Native' } layout={ 'vertical' }>
+              <ShowcaseSection title={ 'Native' } layout={ 'vertical' } narrow={ true }>
                 <InputSelectNative
                   label={ 'Framework' }
                   options={ FRAMEWORK_OPTIONS }
@@ -446,7 +446,7 @@ export default function Page() {
                 />
               </ShowcaseSection>
               <Divider/>
-              <ShowcaseSection title={ 'Popover' } layout={ 'vertical' }>
+              <ShowcaseSection title={ 'Popover' } layout={ 'vertical' } narrow={ true }>
                 <InputSelect
                   label={ 'Framework' }
                   description={ 'Click X to clear.' }
@@ -458,7 +458,7 @@ export default function Page() {
                 />
               </ShowcaseSection>
               <Divider/>
-              <ShowcaseSection title={ 'Searchable' } layout={ 'vertical' }>
+              <ShowcaseSection title={ 'Searchable' } layout={ 'vertical' } narrow={ true }>
                 <InputSelectSearchable
                   label={ 'Framework' }
                   placeholder={ 'Type to filter…' }
@@ -470,7 +470,7 @@ export default function Page() {
                 />
               </ShowcaseSection>
               <Divider/>
-              <ShowcaseSection title={ 'Searchable (async)' } layout={ 'vertical' }>
+              <ShowcaseSection title={ 'Searchable (async)' } layout={ 'vertical' } narrow={ true }>
                 <InputSelectSearchableAsync
                   label={ 'City' }
                   description={ 'Simulated 400ms fetch on each search.' }
@@ -491,7 +491,7 @@ export default function Page() {
             <div>Single-file picker styled like an input, or a drop-zone for multiple files with per-file tiles.</div>
             <ShowcaseImportPath path={ `import { InputFileSingle, InputFileMultiple } from "@matthiaskrijgsman/mat-ui"` }/>
             <Panel>
-              <ShowcaseSection title={ 'Single' } layout={ 'vertical' }>
+              <ShowcaseSection title={ 'Single' } layout={ 'vertical' } narrow={ true }>
                 <InputFileSingle
                   label={ 'Avatar' }
                   description={ 'PNG or JPG, up to 2 MB.' }
@@ -501,7 +501,7 @@ export default function Page() {
                 />
               </ShowcaseSection>
               <Divider/>
-              <ShowcaseSection title={ 'Multiple' } layout={ 'vertical' }>
+              <ShowcaseSection title={ 'Multiple' } layout={ 'vertical' } narrow={ true }>
                 <InputFileMultiple
                   label={ 'Attachments' }
                   hint={ 'or click to browse' }
@@ -659,7 +659,7 @@ export default function Page() {
 
             <div className={ 'grid grid-cols-1 lg:grid-cols-2 gap-6' }>
               <div className={ 'flex flex-col gap-3' }>
-                <div className={ 'text-sm text-stone-400' }>PanelStack with PanelField</div>
+                <div className={ 'text-sm text-stone-400' }>PanelField — horizontal</div>
                 <PanelStack>
                   <PanelField label={ 'Name' } orientation={ 'horizontal' }>Matthias Krijgsman</PanelField>
                   <Divider />
@@ -668,6 +668,21 @@ export default function Page() {
                   <PanelField label={ 'Role' } orientation={ 'horizontal' }>Admin</PanelField>
                   <Divider />
                   <PanelField label={ 'Plan' } orientation={ 'horizontal' }>
+                    <Badge color={ 'sky' }>Pro</Badge>
+                  </PanelField>
+                </PanelStack>
+              </div>
+
+              <div className={ 'flex flex-col gap-3' }>
+                <div className={ 'text-sm text-stone-400' }>PanelField — vertical</div>
+                <PanelStack>
+                  <PanelField label={ 'Name' } orientation={ 'vertical' }>Matthias Krijgsman</PanelField>
+                  <Divider />
+                  <PanelField label={ 'Email' } orientation={ 'vertical' }>matthias@example.com</PanelField>
+                  <Divider />
+                  <PanelField label={ 'Role' } orientation={ 'vertical' }>Admin</PanelField>
+                  <Divider />
+                  <PanelField label={ 'Plan' } orientation={ 'vertical' }>
                     <Badge color={ 'sky' }>Pro</Badge>
                   </PanelField>
                 </PanelStack>
