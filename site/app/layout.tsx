@@ -16,9 +16,7 @@ export const metadata = {
 
 const themeInitScript = `
 (function(){try{
-  var stored = localStorage.getItem('theme');
-  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  if (stored === 'dark' || (!stored && prefersDark)) {
+  if (localStorage.getItem('theme') === 'dark') {
     document.documentElement.classList.add('dark');
   }
 }catch(e){}})();
