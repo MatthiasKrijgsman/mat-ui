@@ -1,6 +1,13 @@
 import * as React from "react";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import { Nav } from "./_components/Nav";
+import { Nav } from "@/app/_components/Nav";
+
+const inter = Inter({
+  subsets: [ "latin" ],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const metadata = {
   title: "mat-ui",
@@ -9,13 +16,11 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-white dark:bg-stone-900">
-        <div className="flex flex-row">
-          <Nav />
-          <main className="flex-1 min-w-0">{children}</main>
-        </div>
-      </body>
+    <html lang="en" className={ inter.variable }>
+    <body className="min-h-screen bg-stone-100 dark:bg-stone-900 font-sans">
+    <Nav/>
+    { children }
+    </body>
     </html>
   );
 }

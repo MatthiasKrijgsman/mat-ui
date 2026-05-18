@@ -1,28 +1,24 @@
-import * as React from "react";
-import Link from "next/link";
+'use client'
 
-const links = [
-  { href: "/", label: "Showcase" },
-  { href: "/todo", label: "Todo" },
-];
+import { IconBrandGithubFilled, IconMoon } from "@tabler/icons-react";
+import { ButtonIconSquare } from "@matthiaskrijgsman/mat-ui";
 
 export const Nav = () => {
   return (
-    <aside className="w-56 shrink-0 border-r border-stone-200 dark:border-stone-800 min-h-screen p-4 sticky top-0">
-      <div className="text-base font-bold text-gray-900 dark:text-gray-100 px-2 mb-4">
-        mat-ui
+    <div className={ 'border-b border-stone-200 h-[70px] sticky top-0 bg-stone-100/50 backdrop-blur-xl' }>
+      <div className={'w-page-content flex flex-row w-full h-full items-center justify-between'}>
+        <div className={ 'flex flex-row items-center gap-3' }>
+          <div className={ 'h-8 w-8 rounded-xl bg-black text-white font-bold grid place-items-center' }>M</div>
+          <div className={ 'font-semibold' }>mat-ui</div>
+          <div className={ 'font-mono text-stone-600 rounded-full border text-sm border-stone-300 px-2 py-0.5' }>v0.0.18
+          </div>
+        </div>
+
+        <div className={ 'flex flex-row items-center gap-3' }>
+          <ButtonIconSquare variant={ 'transparent' } Icon={ IconBrandGithubFilled }/>
+          <ButtonIconSquare variant={ 'transparent' } Icon={ IconMoon }/>
+        </div>
       </div>
-      <nav className="flex flex-col gap-1">
-        {links.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className="px-2 py-1.5 rounded-md text-sm text-gray-700 dark:text-gray-300 hover:bg-stone-100 dark:hover:bg-stone-800"
-          >
-            {link.label}
-          </Link>
-        ))}
-      </nav>
-    </aside>
+    </div>
   );
 };

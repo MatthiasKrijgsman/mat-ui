@@ -1,11 +1,54 @@
 @import "tailwindcss";
 @import "@matthiaskrijgsman/mat-ui/style";
 
+@theme {
+    --font-sans: var(--font-inter), Helvetica, Arial, sans-serif;
+}
+
 html {
     font-size: 14px;
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
 }
 
 body {
     color: #333;
+}
+
+h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1.15;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+h5 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+h6 {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.w-page-content {
+    @apply w-full max-w-[1200px] mx-auto px-4;
 }
