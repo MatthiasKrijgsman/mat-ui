@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "@matthiaskrijgsman/mat-ui/style";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
     --font-sans: var(--font-inter), Helvetica, Arial, sans-serif;
 }
@@ -11,6 +13,10 @@ html {
 
 body {
     color: #333;
+}
+
+.dark body {
+    color: #e7e5e4;
 }
 
 h1 {

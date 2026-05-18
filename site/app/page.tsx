@@ -60,6 +60,7 @@ import {
   IconTrash,
   IconUser,
 } from "@tabler/icons-react";
+import { NavComponents } from "@/app/_components/NavComponents";
 import { ShowcaseImportPath } from "@/app/_components/ShowcaseImportPath";
 import { ShowcaseSection } from "@/app/_components/ShowcaseSection";
 
@@ -112,23 +113,6 @@ const STATUS_COLOR: Record<Person['status'], BadgeColorKey> = {
   invited: 'amber',
   inactive: 'stone',
 };
-
-type NavItem = { id: string; label: string };
-const NAV_ITEMS: NavItem[] = [
-  { id: 'buttons', label: 'Buttons' },
-  { id: 'icon-buttons', label: 'Icon buttons' },
-  { id: 'inputs', label: 'Inputs' },
-  { id: 'choices', label: 'Choices' },
-  { id: 'selects', label: 'Selects' },
-  { id: 'file', label: 'File upload' },
-  { id: 'badges', label: 'Badges' },
-  { id: 'tabs', label: 'Tabs' },
-  { id: 'tooltip-dropdown', label: 'Tooltip & Dropdown' },
-  { id: 'modals', label: 'Modals' },
-  { id: 'panels', label: 'Panels' },
-  { id: 'table', label: 'Table' },
-  { id: 'spinner', label: 'Spinner' },
-];
 
 export default function Page() {
   // Inputs
@@ -230,22 +214,7 @@ export default function Page() {
       <Divider/>
 
       <div className={ 'flex flex-row gap-12' }>
-        <div className={ 'w-[240px] shrink-0' }>
-          <div className={ 'sticky top-[86px] flex flex-col gap-1' }>
-            <div className={ 'font-mono text-stone-500 mb-2' }>Components</div>
-            { NAV_ITEMS.map(item => (
-              <DropdownButton
-                key={ item.id }
-                className={ 'w-full font-medium!' }
-                onClick={ () => {
-                  if (typeof window !== 'undefined') window.location.hash = item.id;
-                } }
-              >
-                { item.label }
-              </DropdownButton>
-            )) }
-          </div>
-        </div>
+        <NavComponents/>
 
         <div className={ 'flex flex-col gap-16 flex-1 min-w-0' }>
 
