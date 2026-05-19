@@ -335,7 +335,8 @@ export default function Page() {
                   label={ 'Bio' }
                   description={ 'A short introduction. Autogrows as you type.' }
                   placeholder={ 'Tell us about yourself…' }
-                  autogrow
+                  autogrow={true}
+                  maxRows={5}
                   className={ 'w-full' }
                 />
               </ShowcaseSection>

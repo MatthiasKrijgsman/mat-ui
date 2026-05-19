@@ -24,6 +24,7 @@ export type InputTextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElemen
   error?: string | React.ReactNode;
   size?: Size;
   autogrow?: boolean;
+  maxRows?: number;
   ref?: React.Ref<HTMLTextAreaElement>;
 }
 
@@ -37,6 +38,7 @@ export const InputTextArea = (props: InputTextAreaProps) => {
     error,
     size = 'md',
     autogrow = false,
+    maxRows,
     ref,
     onChange,
     ...rest
@@ -48,8 +50,22 @@ export const InputTextArea = (props: InputTextAreaProps) => {
     const el = internalRef.current;
     if (!el) return;
     el.style.height = 'auto';
-    el.style.height = `${ el.scrollHeight }px`;
-  }, []);
+
+    let targetHeight = el.scrollHeight;
+
+    if (maxRows) {
+      const styles = window.getComputedStyle(el);
+      const lineHeight = parseFloat(styles.lineHeight);
+      const paddingTop = parseFloat(styles.paddingTop);
+      const paddingBottom = parseFloat(styles.paddingBottom);
+      const borderTop = parseFloat(styles.borderTopWidth);
+      const borderBottom = parseFloat(styles.borderBottomWidth);
+      const maxHeight = lineHeight * maxRows + paddingTop + paddingBottom + borderTop + borderBottom;
+      targetHeight = Math.min(el.scrollHeight, maxHeight);
+    }
+
+    el.style.height = `${ targetHeight }px`;
+  }, [ maxRows ]);
 
   React.useLayoutEffect(() => {
     if (!autogrow) {
@@ -85,7 +101,9 @@ export const InputTextArea = (props: InputTextAreaProps) => {
               sizePaddingLeftClasses[size],
               error ? sizePaddingRightWithTrayClasses[size] : sizePaddingRightClasses[size],
               error && 'input-error',
-              autogrow && 'resize-none overflow-hidden',
+              autogrow && (maxRows
+                ? 'resize-none overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
+                : 'resize-none overflow-hidden'),
             ) }
             { ...rest }
           />
