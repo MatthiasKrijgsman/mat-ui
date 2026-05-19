@@ -123,7 +123,7 @@ export const Table = <T, >(props: TableProps<T>) => {
           users only scroll one container. */}
       <div
         ref={ headerScrollRef }
-        className={ 'overflow-hidden shrink-0' }
+        className={ 'overflow-hidden shrink-0 table-header-strip' }
         style={ { height: headerHeight } }
       >
         <div

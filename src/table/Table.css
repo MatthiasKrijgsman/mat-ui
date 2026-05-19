@@ -1,6 +1,8 @@
 .table-header {
     @apply bg-[var(--color-table-header-bg)];
     @apply text-[var(--color-table-header-text)];
+}
+.table-header-strip {
     @apply border-b border-[var(--color-table-border)];
 }
 .table-header-cell {

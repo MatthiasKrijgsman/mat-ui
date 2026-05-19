@@ -679,7 +679,7 @@ export default function Page() {
             <h2>Table</h2>
             <div>Column-defined, resizable headers and controlled sort state. The consumer is responsible for sorting rows.</div>
             <ShowcaseImportPath path={ `import { Table } from "@matthiaskrijgsman/mat-ui"` }/>
-            <Panel>
+            <Panel className={'p-0! overflow-hidden'}>
               <div style={ { height: 320 } }>
                 <Table
                   columns={ columns }
@@ -703,19 +703,6 @@ export default function Page() {
                 <Spinner className={ 'h-6 w-6 text-stone-500' }/>
                 <Spinner className={ 'h-8 w-8 text-stone-500' }/>
                 <Spinner className={ 'h-10 w-10 text-sky-500' }/>
-              </ShowcaseSection>
-              <Divider/>
-              <ShowcaseSection title={ 'In context' }>
-                <Button variant={ 'primary' } loading className={ 'w-32' }>Saving</Button>
-                <div className={ 'inline-flex flex-row items-center gap-2 text-stone-500' }>
-                  <Spinner className={ 'h-4 w-4' }/>
-                  Loading…
-                </div>
-                <Button variant={ 'white' } Icon={ IconArrowRight }>Continue</Button>
-                <ButtonIconRound variant={ 'transparent' } Icon={ IconBrandGithub }/>
-                <Tooltip content={ 'Pick a date' }>
-                  <ButtonIconSquare variant={ 'white' } Icon={ IconCalendar }/>
-                </Tooltip>
               </ShowcaseSection>
             </Panel>
           </section>

@@ -14,7 +14,9 @@ export const Nav = () => {
           <div className={ 'h-8 w-8 rounded-xl bg-black text-white font-bold grid place-items-center' }>M</div>
           <div className={ 'font-semibold' }>mat-ui</div>
           <div
-            className={ 'font-mono text-stone-600 dark:text-stone-300 rounded-full border text-sm border-stone-300 dark:border-stone-600 px-2 py-0.5' }>v0.0.26
+            className={ 'font-mono text-stone-600 dark:text-stone-300 rounded-full border text-sm border-stone-300 dark:border-stone-600 px-2 py-0.5' }
+          >
+            v0.0.27
           </div>
         </div>
 
