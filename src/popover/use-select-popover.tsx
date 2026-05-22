@@ -22,6 +22,7 @@ export type UseSelectPopoverProps = {
   activeIndex: number | null;
   onNavigate: (index: number | null) => void;
   loop?: boolean;
+  disabledIndices?: number[];
 };
 
 export type SelectPopoverRendererProps = {
@@ -58,6 +59,7 @@ export const useSelectPopover = (props: UseSelectPopoverProps): UseSelectPopover
     activeIndex,
     onNavigate,
     loop = true,
+    disabledIndices,
   } = props;
 
   const middleware = React.useMemo(() => {
@@ -93,6 +95,7 @@ export const useSelectPopover = (props: UseSelectPopoverProps): UseSelectPopover
     loop,
     virtual: true,
     focusItemOnOpen: false,
+    disabledIndices,
   });
 
   const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([listNavigation]);

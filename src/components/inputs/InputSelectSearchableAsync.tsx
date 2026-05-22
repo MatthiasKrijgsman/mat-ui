@@ -1,8 +1,10 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { classNames } from "@/util/classnames.util.ts";
 import { IconChevronDown, IconSearch, IconSearchOff, IconX } from "@tabler/icons-react";
 import { InputSelectOption } from "@/components/inputs/InputSelectOption.tsx";
+import { InputSelectGroupHeader } from "@/components/inputs/InputSelectGroupHeader.tsx";
+import { InputSelectDivider } from "@/components/inputs/InputSelectDivider.tsx";
 import { useSelectPopover } from "@/popover/use-select-popover.tsx";
 import { DropdownPanel } from "@/components/dropdown-menu/DropdownPanel.tsx";
 import { Spinner } from "@/spinner/Spinner.tsx";
@@ -15,6 +17,8 @@ import { InputErrorIcon } from "@/components/inputs/InputErrorIcon.tsx";
 import { InputError } from "@/components/inputs/InputError.tsx";
 import { useDismiss } from "@/hooks/use-dismiss.ts";
 import { ControlSizeContext } from "@/control-size/use-control-size.ts";
+import { isSelectOption, type Option, type SelectItem } from "@/components/inputs/select-item.ts";
+export type { Option } from "@/components/inputs/select-item.ts";
 import {
   sizeFontClasses,
   sizeHeightClasses,
@@ -31,7 +35,7 @@ export type InputSelectSearchableAsyncProps<T> = {
   className?: string;
   label?: string | React.ReactNode;
   description?: string | React.ReactNode;
-  fetchOptionsByQuery: (search: string) => Promise<Option<T>[]>;
+  fetchOptionsByQuery: (search: string) => Promise<SelectItem<T>[]>;
   fetchOptionByValue: (value: T) => Promise<Option<T>>;
   onSearchDebounceMs?: number;
   value: T | null;
@@ -40,12 +44,6 @@ export type InputSelectSearchableAsyncProps<T> = {
   maxHeight?: number;
   error?: string | React.ReactNode;
   size?: Size;
-}
-
-export type Option<T> = {
-  label: string | React.ReactNode;
-  value: T;
-  disabled?: boolean;
 }
 
 export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyncProps<T>) => {
@@ -68,13 +66,21 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
   const [ open, setOpen ] = useState(false);
   const ref = React.useRef<HTMLDivElement>(null);
   const [ search, setSearch ] = useState('');
-  const [ options, setOptions ] = useState<Option<T>[]>([]);
+  const [ options, setOptions ] = useState<SelectItem<T>[]>([]);
   const [ selectedOption, setSelectedOption ] = useState<Option<T> | null>(null);
   const inputSearchRef = React.useRef<HTMLInputElement>(null);
   const [ isFetching, setIsFetching ] = useState(false);
   const [ isFetchingSelectedOption, setIsFetchingSelectedOption ] = useState(false);
   const [ activeIndex, setActiveIndex ] = useState<number | null>(null);
   const listRef = React.useRef<Array<HTMLElement | null>>([]);
+
+  const disabledIndices = useMemo(
+    () => options
+      .map((item, i) => (!isSelectOption(item) || item.disabled) ? i : -1)
+      .filter(i => i !== -1),
+    [options],
+  );
+
   useDismiss(open, () => setOpen(false));
 
   const debouncedQuery = useDebounce(search, onSearchDebounceMs); // wait 500ms
@@ -96,7 +102,7 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
       return;
     }
 
-    const selectedFromOptions = options?.find(option => option.value === value);
+    const selectedFromOptions = options?.find((item): item is Option<T> => isSelectOption(item) && item.value === value);
 
     if (!selectedFromOptions) {
       const handleFetchOptionByValue = async () => {
@@ -121,7 +127,9 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
   }, [ open ])
 
   useEffect(() => {
-    if (open) setActiveIndex(options.length > 0 ? 0 : null);
+    if (!open) return;
+    const firstSelectable = options.findIndex(item => isSelectOption(item) && !item.disabled);
+    setActiveIndex(firstSelectable >= 0 ? firstSelectable : null);
   }, [ options, open ]);
 
   const { anchorRef, Popover, getReferenceProps, getItemProps } = useSelectPopover({
@@ -133,15 +141,18 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
     listRef,
     activeIndex,
     onNavigate: setActiveIndex,
+    disabledIndices,
   })
 
   const handleSelect = (idx: number) => {
-    const option = options[idx];
-    if (option && !option.disabled) {
-      onChange(option.value);
+    const item = options[idx];
+    if (item && isSelectOption(item) && !item.disabled) {
+      onChange(item.value);
       setOpen(false);
     }
   };
+
+  const hasSelectableVisible = options.some(item => isSelectOption(item));
 
   return (
     <ControlSizeContext.Provider value={ size }>
@@ -218,7 +229,7 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
                 <IconSearch className={ 'absolute select-search-icon left-4 top-4 h-4 w-4' }/>
               </div>
               <div className={ 'flex flex-col gap-1 p-2' }>
-                { !isFetching && options.length === 0 && (
+                { !isFetching && !hasSelectableVisible && (
                   <div className={ 'flex flex-col items-center justify-center py-6' }>
                     <IconSearchOff className={ 'h-6 w-6 text-[var(--color-input-text)]' }/>
                   </div>
@@ -228,27 +239,43 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
                     <Spinner className={ 'h-6 w-6 text-[var(--color-input-text)]' }/>
                   </div>
                 ) }
-                { !isFetching && (<>
-                  { options.map((option, i) => {
-                    const isSelected = option.value === value;
+                { !isFetching && options.map((item, i) => {
+                  if (!isSelectOption(item)) {
+                    if (item.kind === 'header') {
+                      return (
+                        <InputSelectGroupHeader
+                          key={ `header-${ i }` }
+                          ref={ (el) => { listRef.current[i] = el; } }
+                        >
+                          { item.label }
+                        </InputSelectGroupHeader>
+                      );
+                    }
                     return (
-                      <InputSelectOption
-                        key={ String(option.value) }
-                        { ...getItemProps({
-                          ref(el: HTMLElement | null) {
-                            listRef.current[i] = el;
-                          },
-                        }) }
-                        onClick={ () => handleSelect(i) }
-                        selected={ isSelected }
-                        active={ activeIndex === i }
-                        disabled={ option.disabled }
-                      >
-                        { option.label }
-                      </InputSelectOption>
-                    )
-                  }) }
-                </>) }
+                      <InputSelectDivider
+                        key={ `divider-${ i }` }
+                        ref={ (el) => { listRef.current[i] = el; } }
+                      />
+                    );
+                  }
+                  const isSelected = item.value === value;
+                  return (
+                    <InputSelectOption
+                      key={ String(item.value) }
+                      { ...getItemProps({
+                        ref(el: HTMLElement | null) {
+                          listRef.current[i] = el;
+                        },
+                      }) }
+                      onClick={ () => handleSelect(i) }
+                      selected={ isSelected }
+                      active={ activeIndex === i }
+                      disabled={ item.disabled }
+                    >
+                      { item.label }
+                    </InputSelectOption>
+                  )
+                }) }
               </div>
             </DropdownPanel>
           </Popover>

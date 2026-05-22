@@ -1,8 +1,11 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { classNames } from "@/util/classnames.util.ts";
 import { IconChevronDown, IconX } from "@tabler/icons-react";
 import { InputSelectOption } from "@/components/inputs/InputSelectOption.tsx";
+import { InputSelectGroupHeader } from "@/components/inputs/InputSelectGroupHeader.tsx";
+import { InputSelectDivider } from "@/components/inputs/InputSelectDivider.tsx";
+import { isSelectOption, type Option, type SelectItem } from "@/components/inputs/select-item.ts";
 import { useSelectPopover } from "@/popover/use-select-popover.tsx";
 import { DropdownPanel } from "@/components/dropdown-menu/DropdownPanel.tsx";
 import { InputLabel } from "@/components/inputs/InputLabel.tsx";
@@ -29,7 +32,7 @@ export type InputSelectProps<T> = {
   className?: string;
   label?: string | React.ReactNode;
   description?: string | React.ReactNode;
-  options: Option<T>[];
+  options: SelectItem<T>[];
   value: T | null;
   onChange: (value: T | null) => void;
   placeholder?: string;
@@ -38,11 +41,7 @@ export type InputSelectProps<T> = {
   size?: Size;
 }
 
-export type Option<T> = {
-  label: string | React.ReactNode;
-  value: T;
-  disabled?: boolean;
-}
+export type { Option, SelectGroupHeader, SelectDivider, SelectItem } from "@/components/inputs/select-item.ts";
 
 
 export const InputSelect = <T, >(props: InputSelectProps<T>) => {
@@ -64,14 +63,27 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
   const [ activeIndex, setActiveIndex ] = useState<number | null>(null);
   const ref = React.useRef<HTMLDivElement>(null);
   const listRef = React.useRef<Array<HTMLElement | null>>([]);
-  const selectedOption = options?.find(option => option.value === value);
+  const selectedOption = options?.find((item): item is Option<T> => isSelectOption(item) && item.value === value);
+
+  const disabledIndices = useMemo(
+    () => options
+      .map((item, i) => (!isSelectOption(item) || item.disabled) ? i : -1)
+      .filter(i => i !== -1),
+    [options],
+  );
+
   useDismiss(open, () => setOpen(false));
 
   useEffect(() => {
     if (open) {
       ref.current?.focus({ preventScroll: true });
-      const selectedIdx = options.findIndex(o => o.value === value);
-      setActiveIndex(selectedIdx >= 0 ? selectedIdx : 0);
+      const selectedIdx = options.findIndex(item => isSelectOption(item) && item.value === value);
+      if (selectedIdx >= 0) {
+        setActiveIndex(selectedIdx);
+      } else {
+        const firstSelectable = options.findIndex(item => isSelectOption(item) && !item.disabled);
+        setActiveIndex(firstSelectable >= 0 ? firstSelectable : null);
+      }
     } else {
       setActiveIndex(null);
     }
@@ -87,12 +99,13 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
     listRef,
     activeIndex,
     onNavigate: setActiveIndex,
+    disabledIndices,
   })
 
   const handleSelect = (idx: number) => {
-    const option = options[idx];
-    if (option && !option.disabled) {
-      onChange(option.value);
+    const item = options[idx];
+    if (item && isSelectOption(item) && !item.disabled) {
+      onChange(item.value);
       setOpen(false);
     }
   };
@@ -156,11 +169,29 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
           <Popover open={ open }>
             <DropdownPanel className={ '!p-0' } style={ { maxHeight: maxHeight } }>
               <div className={ 'flex flex-col p-2 gap-1' }>
-                { options.map((option, i) => {
-                  const isSelected = option.value === value;
+                { options.map((item, i) => {
+                  if (!isSelectOption(item)) {
+                    if (item.kind === 'header') {
+                      return (
+                        <InputSelectGroupHeader
+                          key={ `header-${ i }` }
+                          ref={ (el) => { listRef.current[i] = el; } }
+                        >
+                          { item.label }
+                        </InputSelectGroupHeader>
+                      );
+                    }
+                    return (
+                      <InputSelectDivider
+                        key={ `divider-${ i }` }
+                        ref={ (el) => { listRef.current[i] = el; } }
+                      />
+                    );
+                  }
+                  const isSelected = item.value === value;
                   return (
                     <InputSelectOption
-                      key={ String(option.value) }
+                      key={ String(item.value) }
                       { ...getItemProps({
                         ref(el: HTMLElement | null) {
                           listRef.current[i] = el;
@@ -169,9 +200,9 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
                       onClick={ () => handleSelect(i) }
                       selected={ isSelected }
                       active={ activeIndex === i }
-                      disabled={ option.disabled }
+                      disabled={ item.disabled }
                     >
-                      { option.label }
+                      { item.label }
                     </InputSelectOption>
                   )
                 }) }

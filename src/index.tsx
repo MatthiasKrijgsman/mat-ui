@@ -29,6 +29,10 @@ export { InputSelect } from "./components/inputs/InputSelect.tsx";
 export { InputSelectSearchable } from "./components/inputs/InputSelectSearchable.tsx";
 export { InputSelectSearchableAsync } from "./components/inputs/InputSelectSearchableAsync.tsx";
 export { InputSelectOption } from "./components/inputs/InputSelectOption.tsx";
+export { InputSelectGroupHeader } from "./components/inputs/InputSelectGroupHeader.tsx";
+export { InputSelectDivider } from "./components/inputs/InputSelectDivider.tsx";
+// eslint-disable-next-line react-refresh/only-export-components
+export { isSelectOption } from "./components/inputs/select-item.ts";
 
 // Layout and feedback
 export { Panel } from "./components/panel/Panel.tsx";

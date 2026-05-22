@@ -16,3 +16,9 @@
 .option-disabled {
     @apply text-[var(--color-option-text-disabled)];
 }
+.option-group-header {
+    @apply text-[var(--color-option-text-disabled)];
+}
+.option-divider {
+    @apply bg-[var(--color-option-text-disabled)] opacity-30;
+}

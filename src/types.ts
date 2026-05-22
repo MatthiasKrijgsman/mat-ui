@@ -24,7 +24,10 @@ export type { UploadFileTileProps } from "./components/inputs/input-file/UploadF
 
 // Selects
 export type { InputSelectNativeProps, OptionNative, Size as InputSelectNativeSize } from "./components/inputs/InputSelectNative.tsx";
-export type { InputSelectProps, Option as InputSelectOptionType, Size as InputSelectSize } from "./components/inputs/InputSelect.tsx";
+export type { InputSelectProps, Size as InputSelectSize } from "./components/inputs/InputSelect.tsx";
+export type { Option as InputSelectOptionType, SelectItem, SelectGroupHeader, SelectDivider } from "./components/inputs/select-item.ts";
+export type { InputSelectGroupHeaderProps } from "./components/inputs/InputSelectGroupHeader.tsx";
+export type { InputSelectDividerProps } from "./components/inputs/InputSelectDivider.tsx";
 export type { InputSelectSearchableProps, Option as InputSelectSearchableOption, Size as InputSelectSearchableSize } from "./components/inputs/InputSelectSearchable.tsx";
 export type { InputSelectSearchableAsyncProps, Option as InputSelectSearchableAsyncOption, Size as InputSelectSearchableAsyncSize } from "./components/inputs/InputSelectSearchableAsync.tsx";
 export type { InputSelectOptionProps } from "./components/inputs/InputSelectOption.tsx";

@@ -3,6 +3,8 @@ import { useEffect, useMemo, useState } from "react";
 import { classNames } from "@/util/classnames.util.ts";
 import { IconChevronDown, IconSearch, IconSearchOff, IconX } from "@tabler/icons-react";
 import { InputSelectOption } from "@/components/inputs/InputSelectOption.tsx";
+import { InputSelectGroupHeader } from "@/components/inputs/InputSelectGroupHeader.tsx";
+import { InputSelectDivider } from "@/components/inputs/InputSelectDivider.tsx";
 import { useSelectPopover } from "@/popover/use-select-popover.tsx";
 import { DropdownPanel } from "@/components/dropdown-menu/DropdownPanel.tsx";
 import { InputLabel } from "@/components/inputs/InputLabel.tsx";
@@ -13,6 +15,8 @@ import { InputDescription } from "@/components/inputs/InputDescription.tsx";
 import { InputError } from "@/components/inputs/InputError.tsx";
 import { useDismiss } from "@/hooks/use-dismiss.ts";
 import { ControlSizeContext } from "@/control-size/use-control-size.ts";
+import { isSelectOption, type Option, type SelectItem } from "@/components/inputs/select-item.ts";
+export type { Option } from "@/components/inputs/select-item.ts";
 import {
   sizeFontClasses,
   sizeHeightClasses,
@@ -29,20 +33,14 @@ export type InputSelectSearchableProps<T> = {
   className?: string;
   label?: string | React.ReactNode;
   description?: string | React.ReactNode;
-  options: Option<T>[];
-  onSearch: (search: string) => Option<T>[];
+  options: SelectItem<T>[];
+  onSearch: (search: string) => SelectItem<T>[];
   value: T | null;
   onChange: (value: T | null) => void;
   placeholder?: string;
   maxHeight?: number;
   error?: string | React.ReactNode;
   size?: Size;
-}
-
-export type Option<T> = {
-  label: string | React.ReactNode;
-  value: T;
-  disabled?: boolean;
 }
 
 export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>) => {
@@ -62,7 +60,7 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
   } = props;
 
   const [ open, setOpen ] = useState(false);
-  const [ filteredOptions, setFilteredOptions ] = useState<Option<T>[]>(options);
+  const [ filteredOptions, setFilteredOptions ] = useState<SelectItem<T>[]>(options);
   const [ search, setSearch ] = useState('');
   const [ activeIndex, setActiveIndex ] = useState<number | null>(null);
 
@@ -70,8 +68,15 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
   const inputSearchRef = React.useRef<HTMLInputElement>(null);
   const listRef = React.useRef<Array<HTMLElement | null>>([]);
 
-  const selectedOption = options?.find(option => option.value === value);
+  const selectedOption = options?.find((item): item is Option<T> => isSelectOption(item) && item.value === value);
   const visibleOptions = useMemo(() => search !== '' ? filteredOptions : options, [search, filteredOptions, options]);
+
+  const disabledIndices = useMemo(
+    () => visibleOptions
+      .map((item, i) => (!isSelectOption(item) || item.disabled) ? i : -1)
+      .filter(i => i !== -1),
+    [visibleOptions],
+  );
 
   useDismiss(open, () => setOpen(false));
 
@@ -82,8 +87,13 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
   useEffect(() => {
     if (open) {
       setTimeout(() => inputSearchRef.current?.focus(), 100);
-      const selectedIdx = options.findIndex(o => o.value === value);
-      setActiveIndex(selectedIdx >= 0 ? selectedIdx : 0);
+      const selectedIdx = options.findIndex(item => isSelectOption(item) && item.value === value);
+      if (selectedIdx >= 0) {
+        setActiveIndex(selectedIdx);
+      } else {
+        const firstSelectable = options.findIndex(item => isSelectOption(item) && !item.disabled);
+        setActiveIndex(firstSelectable >= 0 ? firstSelectable : null);
+      }
     } else {
       setActiveIndex(null);
       setSearch('');
@@ -92,8 +102,10 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
   }, [ open ])
 
   useEffect(() => {
-    if (open) setActiveIndex(visibleOptions.length > 0 ? 0 : null);
-  }, [ search, open, visibleOptions.length ]);
+    if (!open) return;
+    const firstSelectable = visibleOptions.findIndex(item => isSelectOption(item) && !item.disabled);
+    setActiveIndex(firstSelectable >= 0 ? firstSelectable : null);
+  }, [ search, open, visibleOptions ]);
 
   const { anchorRef, Popover, getReferenceProps, getItemProps } = useSelectPopover({
     placement: 'bottom',
@@ -104,15 +116,18 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
     listRef,
     activeIndex,
     onNavigate: setActiveIndex,
+    disabledIndices,
   })
 
   const handleSelect = (idx: number) => {
-    const option = visibleOptions[idx];
-    if (option && !option.disabled) {
-      onChange(option.value);
+    const item = visibleOptions[idx];
+    if (item && isSelectOption(item) && !item.disabled) {
+      onChange(item.value);
       setOpen(false);
     }
   };
+
+  const hasSelectableVisible = visibleOptions.some(item => isSelectOption(item));
 
   return (
     <ControlSizeContext.Provider value={ size }>
@@ -186,16 +201,34 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
                 <IconSearch className={ 'absolute select-search-icon left-4 top-4 h-4 w-4' }/>
               </div>
               <div className={ 'flex flex-col gap-1 p-2' }>
-                { search !== '' && visibleOptions.length === 0 && (
+                { search !== '' && !hasSelectableVisible && (
                   <div className={ 'flex flex-col items-center justify-center py-6' }>
                     <IconSearchOff className={ 'h-6 w-6 text-[var(--color-input-text)]' }/>
                   </div>
                 ) }
-                { visibleOptions.map((option, i) => {
-                  const isSelected = option.value === value;
+                { visibleOptions.map((item, i) => {
+                  if (!isSelectOption(item)) {
+                    if (item.kind === 'header') {
+                      return (
+                        <InputSelectGroupHeader
+                          key={ `header-${ i }` }
+                          ref={ (el) => { listRef.current[i] = el; } }
+                        >
+                          { item.label }
+                        </InputSelectGroupHeader>
+                      );
+                    }
+                    return (
+                      <InputSelectDivider
+                        key={ `divider-${ i }` }
+                        ref={ (el) => { listRef.current[i] = el; } }
+                      />
+                    );
+                  }
+                  const isSelected = item.value === value;
                   return (
                     <InputSelectOption
-                      key={ String(option.value) }
+                      key={ String(item.value) }
                       { ...getItemProps({
                         ref(el: HTMLElement | null) {
                           listRef.current[i] = el;
@@ -204,9 +237,9 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
                       onClick={ () => handleSelect(i) }
                       selected={ isSelected }
                       active={ activeIndex === i }
-                      disabled={ option.disabled }
+                      disabled={ item.disabled }
                     >
-                      { option.label }
+                      { item.label }
                     </InputSelectOption>
                   )
                 }) }

@@ -34,6 +34,7 @@ import {
   Table,
   Tooltip,
   type BadgeColorKey,
+  type SelectItem,
   type TableColumnDef,
   type TableSortState,
 } from "@matthiaskrijgsman/mat-ui";
@@ -76,6 +77,17 @@ const FRAMEWORK_OPTIONS = [
   { label: 'Svelte', value: 'svelte' },
   { label: 'Solid', value: 'solid' },
   { label: 'Angular', value: 'angular' },
+];
+
+const GROUPED_FRAMEWORK_OPTIONS: SelectItem<string>[] = [
+  { kind: 'header', label: 'Recommended' },
+  { label: 'React', value: 'react' },
+  { label: 'Vue', value: 'vue' },
+  { kind: 'divider' },
+  { kind: 'header', label: 'Other' },
+  { label: 'Svelte', value: 'svelte' },
+  { label: 'Solid', value: 'solid' },
+  { label: 'Angular (deprecated)', value: 'angular', disabled: true },
 ];
 
 const CITY_OPTIONS = [
@@ -126,6 +138,7 @@ export default function Page() {
 
   // Selects
   const [ framework, setFramework ] = useState<string | null>('react');
+  const [ frameworkGrouped, setFrameworkGrouped ] = useState<string | null>('react');
   const [ frameworkSearchable, setFrameworkSearchable ] = useState<string | null>(null);
   const [ city, setCity ] = useState<string | null>('berlin');
   const [ nativeFramework, setNativeFramework ] = useState('react');
@@ -424,6 +437,18 @@ export default function Page() {
                   options={ FRAMEWORK_OPTIONS }
                   value={ framework }
                   onChange={ setFramework }
+                  className={ 'w-full' }
+                />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Grouped' } layout={ 'vertical' } narrow={ true }>
+                <InputSelect
+                  label={ 'Framework' }
+                  description={ 'Headers, a divider, and a disabled item. Arrow keys skip non-selectable entries.' }
+                  placeholder={ 'Pick one…' }
+                  options={ GROUPED_FRAMEWORK_OPTIONS }
+                  value={ frameworkGrouped }
+                  onChange={ setFrameworkGrouped }
                   className={ 'w-full' }
                 />
               </ShowcaseSection>
