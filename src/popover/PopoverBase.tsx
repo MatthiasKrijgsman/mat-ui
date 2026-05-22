@@ -18,17 +18,19 @@ const placementOriginMap: Record<Placement, string> = {
   'left-end': 'bottom right',
 };
 
-export type PopoverBaseProps = PopoverRendererProps & PopoverBaseRefProps;
+export type PopoverBaseProps = PopoverRendererProps & PopoverBaseRefProps & {
+  floatingProps?: React.HTMLProps<HTMLDivElement>;
+};
 
 export const PopoverBase: React.FC<PopoverBaseProps> = React.memo(
-  ({ open, children, className, onOutsideClick, floatingStyles, setFloating, placement }) => {
+  ({ open, children, className, onOutsideClick, floatingStyles, setFloating, placement, floatingProps }) => {
     return (
       <FloatingPortal>
         <AnimatePresence>
           { open && (
             <>
               { onOutsideClick && <FloatingOverlay onClick={ onOutsideClick }/> }
-              <div ref={ setFloating } style={ floatingStyles } className={ 'z-50' }>
+              <div ref={ setFloating } style={ floatingStyles } className={ 'z-50' } { ...floatingProps }>
                 <motion.div
                   className={ className }
                   style={ { transformOrigin: placementOriginMap[placement] } }

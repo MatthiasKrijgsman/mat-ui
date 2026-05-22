@@ -57,6 +57,8 @@ export { DropdownMenu } from "./components/dropdown-menu/DropdownMenu.tsx";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export { usePopover } from "./popover/use-popover.tsx";
+// eslint-disable-next-line react-refresh/only-export-components
+export { useSelectPopover } from "./popover/use-select-popover.tsx";
 export { PopoverBase } from "./popover/PopoverBase.tsx";
 
 // Dev/test components (optional)

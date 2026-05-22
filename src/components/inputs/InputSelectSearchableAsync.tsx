@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { classNames } from "@/util/classnames.util.ts";
 import { IconChevronDown, IconSearch, IconSearchOff, IconX } from "@tabler/icons-react";
 import { InputSelectOption } from "@/components/inputs/InputSelectOption.tsx";
-import { usePopover } from "@/popover/use-popover.tsx";
+import { useSelectPopover } from "@/popover/use-select-popover.tsx";
 import { DropdownPanel } from "@/components/dropdown-menu/DropdownPanel.tsx";
 import { Spinner } from "@/spinner/Spinner.tsx";
 import { useDebounce } from "@/hooks/use-debounce.ts";
@@ -73,6 +73,8 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
   const inputSearchRef = React.useRef<HTMLInputElement>(null);
   const [ isFetching, setIsFetching ] = useState(false);
   const [ isFetchingSelectedOption, setIsFetchingSelectedOption ] = useState(false);
+  const [ activeIndex, setActiveIndex ] = useState<number | null>(null);
+  const listRef = React.useRef<Array<HTMLElement | null>>([]);
   useDismiss(open, () => setOpen(false));
 
   const debouncedQuery = useDebounce(search, onSearchDebounceMs); // wait 500ms
@@ -110,14 +112,36 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
   }, [fetchOptionByValue, options, value]);
 
   useEffect(() => {
-    if (open) setTimeout(() => inputSearchRef.current?.focus(), 100);
+    if (open) {
+      setTimeout(() => inputSearchRef.current?.focus(), 100);
+    } else {
+      setActiveIndex(null);
+      setSearch('');
+    }
   }, [ open ])
 
-  const { anchorRef, Popover } = usePopover({
+  useEffect(() => {
+    if (open) setActiveIndex(options.length > 0 ? 0 : null);
+  }, [ options, open ]);
+
+  const { anchorRef, Popover, getReferenceProps, getItemProps } = useSelectPopover({
     placement: 'bottom',
     fullWidth: true,
     onOutsideClick: () => setOpen(false),
+    open,
+    onOpenChange: setOpen,
+    listRef,
+    activeIndex,
+    onNavigate: setActiveIndex,
   })
+
+  const handleSelect = (idx: number) => {
+    const option = options[idx];
+    if (option && !option.disabled) {
+      onChange(option.value);
+      setOpen(false);
+    }
+  };
 
   return (
     <ControlSizeContext.Provider value={ size }>
@@ -130,9 +154,21 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
 
         <div className={ 'relative flex w-full flex-col' } ref={ anchorRef }>
           <div
-            ref={ ref }
-            role={ 'button' }
-            tabIndex={ 0 }
+            { ...getReferenceProps({
+              ref,
+              role: 'button',
+              tabIndex: 0,
+              onClick: () => setOpen(!open),
+              onKeyDown: (e) => {
+                if (e.key === ' ') {
+                  e.preventDefault();
+                  setOpen(o => !o);
+                } else if (e.key === 'Enter' && !open) {
+                  e.preventDefault();
+                  setOpen(true);
+                }
+              },
+            }) }
             className={ classNames(
               'flex flex-row items-center border select-trigger transition-all duration-150 rounded-xl shadow-sm ring-0 focus:ring-4 focus:outline-none select-none',
               sizeHeightClasses[size],
@@ -142,8 +178,6 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
               error && 'select-trigger-error',
               open && 'ring-4',
             ) }
-            onKeyDown={ (e) => e.key === ' ' && setOpen(o => !o) }
-            onClick={ () => setOpen(!open) }
           >
             { !isFetchingSelectedOption && selectedOption && (
               <span>{ selectedOption.label }</span>
@@ -174,6 +208,12 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
                   value={ search }
                   className={ 'appearance-none border-none w-full bg-transparent rounded- pl-10 transition-all duration-150 focus:outline-none ring-0 placeholder:text-[var(--color-input-placeholder)]' }
                   onChange={ (e) => setSearch(e.target.value) }
+                  onKeyDown={ (e) => {
+                    if (e.key === 'Enter' && activeIndex != null) {
+                      e.preventDefault();
+                      handleSelect(activeIndex);
+                    }
+                  } }
                 />
                 <IconSearch className={ 'absolute select-search-icon left-4 top-4 h-4 w-4' }/>
               </div>
@@ -189,18 +229,19 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
                   </div>
                 ) }
                 { !isFetching && (<>
-                  { options.map((option) => {
+                  { options.map((option, i) => {
                     const isSelected = option.value === value;
                     return (
                       <InputSelectOption
                         key={ String(option.value) }
-                        onClick={ () => {
-                          if (!option.disabled && !!onChange) {
-                            onChange(option.value)
-                            setOpen(false);
-                          }
-                        } }
+                        { ...getItemProps({
+                          ref(el: HTMLElement | null) {
+                            listRef.current[i] = el;
+                          },
+                        }) }
+                        onClick={ () => handleSelect(i) }
                         selected={ isSelected }
+                        active={ activeIndex === i }
                         disabled={ option.disabled }
                       >
                         { option.label }

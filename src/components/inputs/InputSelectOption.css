@@ -7,6 +7,12 @@
     @apply hover:bg-[var(--color-option-bg-selected-hover)];
     @apply active:bg-[var(--color-option-bg-selected-active)];
 }
+.option-active {
+    @apply bg-[var(--color-option-bg-hover)];
+}
+.option-selected.option-active {
+    @apply bg-[var(--color-option-bg-selected-hover)];
+}
 .option-disabled {
     @apply text-[var(--color-option-text-disabled)];
 }

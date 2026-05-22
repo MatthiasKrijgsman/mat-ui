@@ -1,0 +1,142 @@
+import * as React from "react";
+import {
+  autoUpdate,
+  type Placement,
+  size,
+  useFloating,
+  useInteractions,
+  useListNavigation,
+} from "@floating-ui/react";
+import { PopoverBase } from "@/popover/PopoverBase.tsx";
+
+
+export type UseSelectPopoverProps = {
+  placement?: Placement;
+  onOutsideClick?: () => void;
+  fullWidth?: boolean;
+  minWidth?: number;
+  maxWidth?: number;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  listRef: React.MutableRefObject<Array<HTMLElement | null>>;
+  activeIndex: number | null;
+  onNavigate: (index: number | null) => void;
+  loop?: boolean;
+};
+
+export type SelectPopoverRendererProps = {
+  open: boolean;
+  children: React.ReactNode;
+  className?: string;
+}
+
+type SelectPopoverBaseRefProps = {
+  onOutsideClick?: () => void;
+  floatingStyles: React.CSSProperties;
+  setFloating: React.RefCallback<HTMLDivElement>;
+  placement: Placement;
+  getFloatingProps: (userProps?: React.HTMLProps<HTMLElement>) => Record<string, unknown>;
+}
+
+export type UseSelectPopoverResult = {
+  anchorRef: React.RefCallback<HTMLDivElement | null>;
+  Popover: React.ComponentType<SelectPopoverRendererProps>;
+  getReferenceProps: (userProps?: React.HTMLProps<Element>) => Record<string, unknown>;
+  getItemProps: (userProps?: React.HTMLProps<HTMLElement>) => Record<string, unknown>;
+}
+
+export const useSelectPopover = (props: UseSelectPopoverProps): UseSelectPopoverResult => {
+  const {
+    placement = "bottom",
+    onOutsideClick,
+    fullWidth,
+    minWidth,
+    maxWidth,
+    open,
+    onOpenChange,
+    listRef,
+    activeIndex,
+    onNavigate,
+    loop = true,
+  } = props;
+
+  const middleware = React.useMemo(() => {
+    return [
+      size({
+        apply({ rects, elements }) {
+          if (fullWidth) {
+            elements.floating.style.width = `${ rects.reference.width }px`;
+          }
+          if (minWidth) {
+            elements.floating.style.minWidth = `${ minWidth }px`;
+          }
+          if (maxWidth) {
+            elements.floating.style.maxWidth = `${ maxWidth }px`;
+          }
+        },
+      })
+    ];
+  }, [fullWidth, maxWidth, minWidth]);
+
+  const { refs, floatingStyles, context } = useFloating({
+    placement,
+    open,
+    onOpenChange,
+    middleware,
+    whileElementsMounted: autoUpdate,
+  });
+
+  const listNavigation = useListNavigation(context, {
+    listRef,
+    activeIndex,
+    onNavigate,
+    loop,
+    virtual: true,
+    focusItemOnOpen: false,
+  });
+
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([listNavigation]);
+
+  const latest = React.useRef<SelectPopoverBaseRefProps>({
+    onOutsideClick,
+    floatingStyles,
+    setFloating: refs.setFloating,
+    placement,
+    getFloatingProps,
+  });
+  latest.current = {
+    onOutsideClick,
+    floatingStyles,
+    setFloating: refs.setFloating,
+    placement,
+    getFloatingProps,
+  };
+
+  const Popover = React.useMemo<React.ComponentType<SelectPopoverRendererProps>>(() => {
+    const Renderer = (rendererProps: SelectPopoverRendererProps) => {
+      const { floatingStyles, setFloating, onOutsideClick, placement, getFloatingProps } = latest.current;
+      const { className, open, children } = rendererProps;
+      return (
+        <PopoverBase
+          open={ open }
+          className={ className }
+          onOutsideClick={ onOutsideClick }
+          floatingStyles={ floatingStyles }
+          setFloating={ setFloating }
+          placement={ placement }
+          floatingProps={ getFloatingProps() as React.HTMLProps<HTMLDivElement> }
+        >
+          { children }
+        </PopoverBase>
+      );
+    };
+    return React.memo(Renderer);
+  }, []);
+
+  return {
+    anchorRef: refs.setReference,
+    Popover,
+    getReferenceProps,
+    getItemProps,
+  };
+};

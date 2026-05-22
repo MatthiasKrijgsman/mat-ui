@@ -1,9 +1,9 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { classNames } from "@/util/classnames.util.ts";
 import { IconChevronDown, IconSearch, IconSearchOff, IconX } from "@tabler/icons-react";
 import { InputSelectOption } from "@/components/inputs/InputSelectOption.tsx";
-import { usePopover } from "@/popover/use-popover.tsx";
+import { useSelectPopover } from "@/popover/use-select-popover.tsx";
 import { DropdownPanel } from "@/components/dropdown-menu/DropdownPanel.tsx";
 import { InputLabel } from "@/components/inputs/InputLabel.tsx";
 import { InputErrorIcon } from "@/components/inputs/InputErrorIcon.tsx";
@@ -64,11 +64,15 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
   const [ open, setOpen ] = useState(false);
   const [ filteredOptions, setFilteredOptions ] = useState<Option<T>[]>(options);
   const [ search, setSearch ] = useState('');
+  const [ activeIndex, setActiveIndex ] = useState<number | null>(null);
 
   const ref = React.useRef<HTMLDivElement>(null);
   const inputSearchRef = React.useRef<HTMLInputElement>(null);
+  const listRef = React.useRef<Array<HTMLElement | null>>([]);
 
   const selectedOption = options?.find(option => option.value === value);
+  const visibleOptions = useMemo(() => search !== '' ? filteredOptions : options, [search, filteredOptions, options]);
+
   useDismiss(open, () => setOpen(false));
 
   useEffect(() => {
@@ -76,14 +80,39 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
   }, [ search, options, onSearch ]);
 
   useEffect(() => {
-    if (open) setTimeout(() => inputSearchRef.current?.focus(), 100);
+    if (open) {
+      setTimeout(() => inputSearchRef.current?.focus(), 100);
+      const selectedIdx = options.findIndex(o => o.value === value);
+      setActiveIndex(selectedIdx >= 0 ? selectedIdx : 0);
+    } else {
+      setActiveIndex(null);
+      setSearch('');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ open ])
 
-  const { anchorRef, Popover } = usePopover({
+  useEffect(() => {
+    if (open) setActiveIndex(visibleOptions.length > 0 ? 0 : null);
+  }, [ search, open, visibleOptions.length ]);
+
+  const { anchorRef, Popover, getReferenceProps, getItemProps } = useSelectPopover({
     placement: 'bottom',
     fullWidth: true,
     onOutsideClick: () => setOpen(false),
+    open,
+    onOpenChange: setOpen,
+    listRef,
+    activeIndex,
+    onNavigate: setActiveIndex,
   })
+
+  const handleSelect = (idx: number) => {
+    const option = visibleOptions[idx];
+    if (option && !option.disabled) {
+      onChange(option.value);
+      setOpen(false);
+    }
+  };
 
   return (
     <ControlSizeContext.Provider value={ size }>
@@ -96,9 +125,21 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
 
         <div className={ 'relative flex w-full flex-col' } ref={ anchorRef }>
           <div
-            ref={ ref }
-            role={ 'button' }
-            tabIndex={ 0 }
+            { ...getReferenceProps({
+              ref,
+              role: 'button',
+              tabIndex: 0,
+              onClick: () => setOpen(!open),
+              onKeyDown: (e) => {
+                if (e.key === ' ') {
+                  e.preventDefault();
+                  setOpen(o => !o);
+                } else if (e.key === 'Enter' && !open) {
+                  e.preventDefault();
+                  setOpen(true);
+                }
+              },
+            }) }
             className={ classNames(
               'flex flex-row items-center border select-trigger transition-all duration-150 rounded-xl shadow-sm ring-0 focus:ring-4 focus:outline-none select-none',
               sizeHeightClasses[size],
@@ -108,8 +149,6 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
               error && 'select-trigger-error',
               open && 'ring-4',
             ) }
-            onKeyDown={ (e) => e.key === ' ' && setOpen(o => !o) }
-            onClick={ () => setOpen(!open) }
           >
             { selectedOption && (
               <span>{ selectedOption.label }</span>
@@ -137,58 +176,40 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
                   value={ search }
                   className={ 'appearance-none border-none w-full bg-transparent rounded- pl-10 transition-all duration-150 focus:outline-none ring-0 placeholder:text-[var(--color-input-placeholder)]' }
                   onChange={ (e) => setSearch(e.target.value) }
+                  onKeyDown={ (e) => {
+                    if (e.key === 'Enter' && activeIndex != null) {
+                      e.preventDefault();
+                      handleSelect(activeIndex);
+                    }
+                  } }
                 />
                 <IconSearch className={ 'absolute select-search-icon left-4 top-4 h-4 w-4' }/>
               </div>
               <div className={ 'flex flex-col gap-1 p-2' }>
-                { search !== '' && (
-                  <>
-                    { filteredOptions.length === 0 && (
-                      <div className={ 'flex flex-col items-center justify-center py-6' }>
-                        <IconSearchOff className={ 'h-6 w-6 text-[var(--color-input-text)]' }/>
-                      </div>
-                    ) }
-                    { filteredOptions.map((option) => {
-                      const isSelected = option.value === value;
-                      return (
-                        <InputSelectOption
-                          key={ String(option.value) }
-                          onClick={ () => {
-                            if (!option.disabled && !!onChange) {
-                              onChange(option.value)
-                              setOpen(false);
-                            }
-                          } }
-                          selected={ isSelected }
-                          disabled={ option.disabled }
-                        >
-                          { option.label }
-                        </InputSelectOption>
-                      )
-                    }) }
-                  </>
+                { search !== '' && visibleOptions.length === 0 && (
+                  <div className={ 'flex flex-col items-center justify-center py-6' }>
+                    <IconSearchOff className={ 'h-6 w-6 text-[var(--color-input-text)]' }/>
+                  </div>
                 ) }
-
-                { search === '' && (<>
-                  { options.map((option) => {
-                    const isSelected = option.value === value;
-                    return (
-                      <InputSelectOption
-                        key={ String(option.value) }
-                        onClick={ () => {
-                          if (!option.disabled && !!onChange) {
-                            onChange(option.value)
-                            setOpen(false);
-                          }
-                        } }
-                        selected={ isSelected }
-                        disabled={ option.disabled }
-                      >
-                        { option.label }
-                      </InputSelectOption>
-                    )
-                  }) }
-                </>) }
+                { visibleOptions.map((option, i) => {
+                  const isSelected = option.value === value;
+                  return (
+                    <InputSelectOption
+                      key={ String(option.value) }
+                      { ...getItemProps({
+                        ref(el: HTMLElement | null) {
+                          listRef.current[i] = el;
+                        },
+                      }) }
+                      onClick={ () => handleSelect(i) }
+                      selected={ isSelected }
+                      active={ activeIndex === i }
+                      disabled={ option.disabled }
+                    >
+                      { option.label }
+                    </InputSelectOption>
+                  )
+                }) }
               </div>
             </DropdownPanel>
           </Popover>
