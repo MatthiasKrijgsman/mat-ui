@@ -1,8 +1,9 @@
 import * as React from "react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { classNames } from "@/util/classnames.util.ts";
 import { IconChevronDown, IconSearch, IconSearchOff, IconX } from "@tabler/icons-react";
 import { Badge } from "@/components/Badge.tsx";
+import { type BadgeColorKey } from "@/components/BadgeColors.tsx";
 import { InputSelectOption } from "@/components/inputs/InputSelectOption.tsx";
 import { InputSelectGroupHeader } from "@/components/inputs/InputSelectGroupHeader.tsx";
 import { InputSelectDivider } from "@/components/inputs/InputSelectDivider.tsx";
@@ -20,14 +21,16 @@ import { isSelectOption, type Option, type SelectItem } from "@/components/input
 import {
   sizeFontClasses,
   sizeHeightClasses,
+  sizeMinHeightClasses,
   sizePaddingLeftClasses,
   sizePaddingRightWithTrayClasses,
+  sizePaddingRightWithTrayTwoClasses,
 } from "@/control-size/control-size.util.ts";
 
 
 export type Size = 'sm' | 'md' | 'lg';
 
-export type InputTagProps<T> = {
+export type InputSelectMultipleProps<T> = {
   name?: string;
   id?: string;
   className?: string;
@@ -41,9 +44,11 @@ export type InputTagProps<T> = {
   maxHeight?: number;
   error?: string | React.ReactNode;
   size?: Size;
+  singleLine?: boolean;
+  color?: BadgeColorKey;
 }
 
-export const InputTag = <T, >(props: InputTagProps<T>) => {
+export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => {
 
   const {
     className,
@@ -57,16 +62,21 @@ export const InputTag = <T, >(props: InputTagProps<T>) => {
     maxHeight = 300,
     error,
     size = 'md',
+    singleLine = false,
+    color = 'blue',
   } = props;
 
   const [ open, setOpen ] = useState(false);
   const [ filteredOptions, setFilteredOptions ] = useState<SelectItem<T>[]>(options);
   const [ search, setSearch ] = useState('');
   const [ activeIndex, setActiveIndex ] = useState<number | null>(null);
+  const [ visibleCount, setVisibleCount ] = useState<number>(0);
 
   const ref = React.useRef<HTMLDivElement>(null);
   const inputSearchRef = React.useRef<HTMLInputElement>(null);
   const listRef = React.useRef<Array<HTMLElement | null>>([]);
+  const measureRef = React.useRef<HTMLDivElement>(null);
+  const trayRef = React.useRef<HTMLDivElement>(null);
 
   const selectedOptions = useMemo(
     () => value
@@ -125,6 +135,72 @@ export const InputTag = <T, >(props: InputTagProps<T>) => {
     setActiveIndex(firstSelectable >= 0 ? firstSelectable : null);
   }, [ search, open, visibleOptions ]);
 
+  useLayoutEffect(() => {
+    if (!singleLine) return;
+    const trigger = ref.current;
+    const measure = measureRef.current;
+    if (!trigger || !measure) return;
+
+    const GAP = 4;
+
+    const compute = () => {
+      const N = selectedOptions.length;
+      if (N === 0) {
+        setVisibleCount(0);
+        return;
+      }
+      if (N === 1) {
+        setVisibleCount(1);
+        return;
+      }
+
+      const cs = window.getComputedStyle(trigger);
+      const paddingLeft = parseFloat(cs.paddingLeft || '0');
+      const triggerRect = trigger.getBoundingClientRect();
+      const contentLeft = triggerRect.left + paddingLeft;
+
+      let contentRight = triggerRect.right - parseFloat(cs.paddingRight || '0');
+      const trayEl = trayRef.current;
+      if (trayEl) {
+        const trayRect = trayEl.getBoundingClientRect();
+        if (trayRect.width > 0) {
+          contentRight = Math.min(contentRight, trayRect.left - GAP);
+        }
+      }
+      const available = Math.max(0, contentRight - contentLeft);
+
+      const children = Array.from(measure.children) as HTMLElement[];
+      if (children.length < N + 1) return;
+
+      let totalAll = 0;
+      for (let i = 0; i < N; i++) {
+        totalAll += children[i].offsetWidth + (i > 0 ? GAP : 0);
+      }
+      if (totalAll <= available) {
+        setVisibleCount(N);
+        return;
+      }
+
+      const moreWidth = children[N].offsetWidth;
+      let used = 0;
+      let count = 0;
+      for (let i = 0; i < N; i++) {
+        const w = children[i].offsetWidth;
+        const next = used + w + (i > 0 ? GAP : 0);
+        if (next + moreWidth + GAP > available) break;
+        used = next;
+        count++;
+      }
+      setVisibleCount(Math.max(1, count));
+    };
+
+    const ro = new ResizeObserver(compute);
+    ro.observe(trigger);
+    if (trayRef.current) ro.observe(trayRef.current);
+    compute();
+    return () => ro.disconnect();
+  }, [ singleLine, selectedOptions, error ]);
+
   const { anchorRef, Popover, getReferenceProps, getItemProps } = useSelectPopover({
     placement: 'bottom',
     fullWidth: true,
@@ -154,6 +230,10 @@ export const InputTag = <T, >(props: InputTagProps<T>) => {
 
   const hasSelectableVisible = visibleOptions.some(item => isSelectOption(item));
   const hasSelection = value.length > 0;
+
+  const displayedCount = singleLine ? visibleCount : selectedOptions.length;
+  const visibleBadges = selectedOptions.slice(0, displayedCount);
+  const hiddenCount = selectedOptions.length - displayedCount;
 
   return (
     <ControlSizeContext.Provider value={ size }>
@@ -185,35 +265,56 @@ export const InputTag = <T, >(props: InputTagProps<T>) => {
               },
             }) }
             className={ classNames(
-              'flex flex-row flex-wrap items-center gap-1 border select-trigger transition-all duration-150 rounded-xl shadow-sm ring-0 focus:ring-4 focus:outline-none select-none min-h-fit',
-              sizeHeightClasses[size],
+              'flex flex-row items-center gap-1 border select-trigger transition-all duration-150 rounded-xl shadow-sm ring-0 focus:ring-4 focus:outline-none select-none',
+              singleLine && classNames('flex-nowrap overflow-hidden', sizeHeightClasses[size]),
+              !singleLine && classNames('flex-wrap py-1.5', sizeMinHeightClasses[size]),
               sizeFontClasses[size],
               sizePaddingLeftClasses[size],
-              sizePaddingRightWithTrayClasses[size],
+              hasSelection ? sizePaddingRightWithTrayTwoClasses[size] : sizePaddingRightWithTrayClasses[size],
               error && 'select-trigger-error',
               open && 'ring-4',
-              hasSelection && 'py-1.5 h-auto',
             ) }
           >
-            { hasSelection && selectedOptions.map((opt) => (
-              <span
+            { hasSelection && visibleBadges.map((opt) => (
+              <Badge
                 key={ String(opt.value) }
-                onClick={ (e) => e.stopPropagation() }
-                onMouseDown={ (e) => e.stopPropagation() }
+                color={ color }
+                className={ classNames(
+                  singleLine && displayedCount > 1 && 'shrink-0',
+                  (!singleLine || displayedCount === 1) && 'max-w-full min-w-0',
+                ) }
               >
-                <Badge
-                  showCloseIcon
-                  onClick={ () => toggleValue(opt.value) }
-                >
-                  { opt.label }
-                </Badge>
-              </span>
+                { opt.label }
+              </Badge>
             )) }
+            { hasSelection && hiddenCount > 0 && (
+              <span className={ 'shrink-0 text-sm font-medium select-placeholder px-1' }>
+                +{ hiddenCount } more
+              </span>
+            ) }
             { !hasSelection && placeholder && (
               <span className={ 'select-placeholder' }>{ placeholder }</span>
             ) }
           </div>
-          <InputIconButtonTray>
+          { singleLine && (
+            <div
+              ref={ measureRef }
+              aria-hidden
+              className={ 'absolute top-0 left-0 invisible pointer-events-none flex flex-row flex-nowrap items-center gap-1 w-max' }
+            >
+              { selectedOptions.map((opt) => (
+                <Badge key={ String(opt.value) } color={ color }>
+                  { opt.label }
+                </Badge>
+              )) }
+              { selectedOptions.length > 0 && (
+                <span className={ 'text-sm font-medium px-1' }>
+                  +{ selectedOptions.length } more
+                </span>
+              ) }
+            </div>
+          ) }
+          <InputIconButtonTray ref={ trayRef }>
             { error && (
               <InputErrorIcon/>
             ) }

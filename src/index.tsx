@@ -22,13 +22,13 @@ export { InputIconButtonTray } from "./components/inputs/InputIconButtonTray.tsx
 export { InputFileSingle } from "./components/inputs/input-file/InputFileSingle.tsx";
 export { InputFileMultiple } from "./components/inputs/input-file/InputFileMultiple.tsx";
 export { UploadFileTile } from "./components/inputs/input-file/UploadFileTile.tsx";
-export { InputTag } from "./components/inputs/InputTag.tsx";
 
 // Selects
 export { InputSelectNative } from "./components/inputs/InputSelectNative.tsx";
 export { InputSelect } from "./components/inputs/InputSelect.tsx";
 export { InputSelectSearchable } from "./components/inputs/InputSelectSearchable.tsx";
 export { InputSelectSearchableAsync } from "./components/inputs/InputSelectSearchableAsync.tsx";
+export { InputSelectMultiple } from "./components/inputs/InputSelectMultiple.tsx";
 export { InputSelectOption } from "./components/inputs/InputSelectOption.tsx";
 export { InputSelectGroupHeader } from "./components/inputs/InputSelectGroupHeader.tsx";
 export { InputSelectDivider } from "./components/inputs/InputSelectDivider.tsx";

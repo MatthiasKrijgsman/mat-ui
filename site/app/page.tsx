@@ -21,7 +21,7 @@ import {
   InputSelectNative,
   InputSelectSearchable,
   InputSelectSearchableAsync,
-  InputTag,
+  InputSelectMultiple,
   InputTextArea,
   InputToggle,
   Modal,
@@ -78,6 +78,7 @@ const FRAMEWORK_OPTIONS = [
   { label: 'Svelte', value: 'svelte' },
   { label: 'Solid', value: 'solid' },
   { label: 'Angular', value: 'angular' },
+  { label: 'Een hele lange zin als waarde om te kijken wat dit component nu gaat doen als ik deze selecteer', value: 'lang' },
 ];
 
 const GROUPED_FRAMEWORK_OPTIONS: SelectItem<string>[] = [
@@ -89,6 +90,7 @@ const GROUPED_FRAMEWORK_OPTIONS: SelectItem<string>[] = [
   { label: 'Svelte', value: 'svelte' },
   { label: 'Solid', value: 'solid' },
   { label: 'Angular (deprecated)', value: 'angular', disabled: true },
+  { label: 'Een hele lange zin als waarde om te kijken wat dit component nu gaat doen als ik deze selecteer', value: 'lang' },
 ];
 
 const SKILL_OPTIONS = [
@@ -106,6 +108,17 @@ const SKILL_OPTIONS = [
   { label: 'Eenhelelangezinalswaardeomtekijkenwatditcomponentnugaatdoenalsikdezeselecteer', value: 'lang-2' },
 ];
 
+const RECIPIENT_OPTIONS = [
+  { label: 'alice.andersen@example.com', value: 'alice' },
+  { label: 'bram.bakker@example.com', value: 'bram' },
+  { label: 'chen.cao@example.com', value: 'chen' },
+  { label: 'daria.dvorak@example.com', value: 'daria' },
+  { label: 'eitan.eilon@example.com', value: 'eitan' },
+  { label: 'farah.fawzi@example.com', value: 'farah' },
+  { label: 'gabriel.garcia@example.com', value: 'gabriel' },
+  { label: 'haruki.hayashi@example.com', value: 'haruki' },
+];
+
 const CITY_OPTIONS = [
   { label: 'Amsterdam', value: 'amsterdam' },
   { label: 'Berlin', value: 'berlin' },
@@ -119,6 +132,7 @@ const CITY_OPTIONS = [
   { label: 'Kyoto', value: 'kyoto' },
   { label: 'Lisbon', value: 'lisbon' },
   { label: 'Madrid', value: 'madrid' },
+  { label: 'Een hele lange zin als waarde om te kijken wat dit component nu gaat doen als ik deze selecteer', value: 'lang' },
 ];
 
 type Person = {
@@ -160,7 +174,8 @@ export default function Page() {
   const [ nativeFramework, setNativeFramework ] = useState('react');
 
   // Tags
-  const [ skills, setSkills ] = useState<string[]>([ 'typescript', 'react' ]);
+  const [ skills, setSkills ] = useState<string[]>([ 'typescript', 'react', 'tailwind' ]);
+  const [ recipients, setRecipients ] = useState<string[]>([ 'alice', 'bram', 'chen', 'daria', 'eitan' ]);
 
   // File
   const [ singleFile, setSingleFile ] = useState<File | null>(null);
@@ -435,8 +450,8 @@ export default function Page() {
           {/* Selects */ }
           <section id={ 'selects' } className={ 'flex flex-col gap-6 scroll-mt-24' }>
             <h2>Selects</h2>
-            <div>Four flavours: a native &lt;select&gt;, a styled popover select, a searchable variant, and an async-fetch variant.</div>
-            <ShowcaseImportPath path={ `import { InputSelect, InputSelectNative, InputSelectSearchable, InputSelectSearchableAsync } from "@matthiaskrijgsman/mat-ui"` }/>
+            <div>Five flavours: a native &lt;select&gt;, a styled popover select, a searchable variant, an async-fetch variant, and a multi-select.</div>
+            <ShowcaseImportPath path={ `import { InputSelect, InputSelectNative, InputSelectSearchable, InputSelectSearchableAsync, InputSelectMultiple } from "@matthiaskrijgsman/mat-ui"` }/>
             <Panel>
               <ShowcaseSection title={ 'Native' } layout={ 'vertical' } narrow={ true }>
                 <InputSelectNative
@@ -497,14 +512,27 @@ export default function Page() {
                 />
               </ShowcaseSection>
               <Divider/>
-              <ShowcaseSection title={ 'Tags' } layout={ 'vertical' } narrow={ true }>
-                <InputTag
+              <ShowcaseSection title={ 'Multiple' } layout={ 'vertical' } narrow={ true }>
+                <InputSelectMultiple
                   label={ 'Skills' }
-                  description={ 'Pick any number. Click a tag or press Backspace to remove.' }
+                  description={ 'Wraps across multiple rows as more tags are added.' }
                   placeholder={ 'Add a skill…' }
                   options={ SKILL_OPTIONS }
                   value={ skills }
                   onChange={ setSkills }
+                  className={ 'w-full' }
+                />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Multiple (single line)' } layout={ 'vertical' } narrow={ true }>
+                <InputSelectMultiple
+                  label={ 'Send to' }
+                  description={ 'Trigger stays one line; overflow collapses into a "+N more" counter.' }
+                  placeholder={ 'Add a recipient…' }
+                  options={ RECIPIENT_OPTIONS }
+                  value={ recipients }
+                  onChange={ setRecipients }
+                  singleLine
                   className={ 'w-full' }
                 />
               </ShowcaseSection>

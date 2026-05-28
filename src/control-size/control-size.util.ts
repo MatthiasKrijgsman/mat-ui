@@ -50,6 +50,14 @@ export const sizePaddingRightWithTrayClasses: Record<ControlSize, string> = {
   lg: 'pr-[calc(var(--control-size-lg-px)+2rem)]',
 };
 
+/* Right padding when the icon-button tray holds two buttons.
+ * Layout reserves: base px + 24px + 4px gap + 24px + 8px gap. */
+export const sizePaddingRightWithTrayTwoClasses: Record<ControlSize, string> = {
+  sm: 'pr-[calc(var(--control-size-sm-px)+3.75rem)]',
+  md: 'pr-[calc(var(--control-size-md-px)+3.75rem)]',
+  lg: 'pr-[calc(var(--control-size-lg-px)+3.75rem)]',
+};
+
 /* Left padding when an icon sits absolutely inside the input.
  * Layout reserves: icon-offset + icon size + 0.75rem gap. */
 export const sizePaddingLeftWithIconClasses: Record<ControlSize, string> = {

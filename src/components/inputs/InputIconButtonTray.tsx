@@ -8,19 +8,21 @@ export type InputIconButtonTrayProps = {
   className?: string;
 }
 
-export const InputIconButtonTray = (props: InputIconButtonTrayProps) => {
+export const InputIconButtonTray = React.forwardRef<HTMLDivElement, InputIconButtonTrayProps>((props, ref) => {
   const {
     children,
     className
   } = props;
   const size = useControlSize();
   return (
-    <div className={ classNames(
-      'absolute top-1/2 -translate-y-1/2 flex flex-row items-center gap-1',
-      sizeTrayRightPositionClasses[size],
-      className
-    ) }>
+    <div
+      ref={ ref }
+      className={ classNames(
+        'absolute top-1/2 -translate-y-1/2 flex flex-row items-center gap-1',
+        sizeTrayRightPositionClasses[size],
+        className
+      ) }>
       { children }
     </div>
   );
-};
+});

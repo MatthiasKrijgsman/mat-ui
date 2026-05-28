@@ -24,6 +24,7 @@ import {
   sizeHeightClasses,
   sizePaddingLeftClasses,
   sizePaddingRightWithTrayClasses,
+  sizePaddingRightWithTrayTwoClasses,
 } from "@/control-size/control-size.util.ts";
 
 
@@ -185,16 +186,16 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
               sizeHeightClasses[size],
               sizeFontClasses[size],
               sizePaddingLeftClasses[size],
-              sizePaddingRightWithTrayClasses[size],
+              value ? sizePaddingRightWithTrayTwoClasses[size] : sizePaddingRightWithTrayClasses[size],
               error && 'select-trigger-error',
               open && 'ring-4',
             ) }
           >
             { !isFetchingSelectedOption && selectedOption && (
-              <span>{ selectedOption.label }</span>
+              <span className={ 'flex-1 min-w-0 break-all line-clamp-1 text-left' }>{ selectedOption.label }</span>
             ) }
             { !isFetchingSelectedOption && !selectedOption && placeholder && (
-              <span className={ 'select-placeholder' }>{ placeholder }</span>
+              <span className={ 'flex-1 min-w-0 break-all line-clamp-1 text-left select-placeholder' }>{ placeholder }</span>
             ) }
             { isFetchingSelectedOption && (
               <Spinner className={ 'h-4 w-4 text-[var(--color-input-text)]' }/>
