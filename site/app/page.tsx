@@ -102,6 +102,8 @@ const SKILL_OPTIONS = [
   { label: 'Docker', value: 'docker' },
   { label: 'Kubernetes', value: 'k8s' },
   { label: 'Figma', value: 'figma' },
+  { label: 'Een hele lange zin als waarde om te kijken wat dit component nu gaat doen als ik deze selecteer', value: 'lang' },
+  { label: 'Eenhelelangezinalswaardeomtekijkenwatditcomponentnugaatdoenalsikdezeselecteer', value: 'lang-2' },
 ];
 
 const CITY_OPTIONS = [

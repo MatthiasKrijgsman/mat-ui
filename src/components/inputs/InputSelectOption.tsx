@@ -34,7 +34,7 @@ export const InputSelectOption = React.forwardRef<HTMLDivElement, InputSelectOpt
         className,
       ) }
     >
-      <div className={ 'flex-1' }>{ children }</div>
+      <div className={ 'flex-1 min-w-0 break-all line-clamp-1' }>{ children }</div>
       { (selected && !disabled) && (
         <div className={ 'shrink-0' }>
           <IconCheck className={ 'h-5 w-5' }/>
