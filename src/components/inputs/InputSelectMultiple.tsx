@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { classNames } from "@/util/classnames.util.ts";
 import { IconChevronDown, IconSearch, IconSearchOff, IconX } from "@tabler/icons-react";
 import { Badge } from "@/components/Badge.tsx";
@@ -16,6 +16,7 @@ import { InputIconButtonTray } from "@/components/inputs/InputIconButtonTray.tsx
 import { InputDescription } from "@/components/inputs/InputDescription.tsx";
 import { InputError } from "@/components/inputs/InputError.tsx";
 import { useDismiss } from "@/hooks/use-dismiss.ts";
+import { useOverflowFit } from "@/hooks/use-overflow-fit.ts";
 import { ControlSizeContext } from "@/control-size/use-control-size.ts";
 import { isSelectOption, type Option, type SelectItem } from "@/components/inputs/select-item.ts";
 import {
@@ -70,7 +71,6 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
   const [ filteredOptions, setFilteredOptions ] = useState<SelectItem<T>[]>(options);
   const [ search, setSearch ] = useState('');
   const [ activeIndex, setActiveIndex ] = useState<number | null>(null);
-  const [ visibleCount, setVisibleCount ] = useState<number>(0);
 
   const ref = React.useRef<HTMLDivElement>(null);
   const inputSearchRef = React.useRef<HTMLInputElement>(null);
@@ -135,71 +135,14 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
     setActiveIndex(firstSelectable >= 0 ? firstSelectable : null);
   }, [ search, open, visibleOptions ]);
 
-  useLayoutEffect(() => {
-    if (!singleLine) return;
-    const trigger = ref.current;
-    const measure = measureRef.current;
-    if (!trigger || !measure) return;
-
-    const GAP = 4;
-
-    const compute = () => {
-      const N = selectedOptions.length;
-      if (N === 0) {
-        setVisibleCount(0);
-        return;
-      }
-      if (N === 1) {
-        setVisibleCount(1);
-        return;
-      }
-
-      const cs = window.getComputedStyle(trigger);
-      const paddingLeft = parseFloat(cs.paddingLeft || '0');
-      const triggerRect = trigger.getBoundingClientRect();
-      const contentLeft = triggerRect.left + paddingLeft;
-
-      let contentRight = triggerRect.right - parseFloat(cs.paddingRight || '0');
-      const trayEl = trayRef.current;
-      if (trayEl) {
-        const trayRect = trayEl.getBoundingClientRect();
-        if (trayRect.width > 0) {
-          contentRight = Math.min(contentRight, trayRect.left - GAP);
-        }
-      }
-      const available = Math.max(0, contentRight - contentLeft);
-
-      const children = Array.from(measure.children) as HTMLElement[];
-      if (children.length < N + 1) return;
-
-      let totalAll = 0;
-      for (let i = 0; i < N; i++) {
-        totalAll += children[i].offsetWidth + (i > 0 ? GAP : 0);
-      }
-      if (totalAll <= available) {
-        setVisibleCount(N);
-        return;
-      }
-
-      const moreWidth = children[N].offsetWidth;
-      let used = 0;
-      let count = 0;
-      for (let i = 0; i < N; i++) {
-        const w = children[i].offsetWidth;
-        const next = used + w + (i > 0 ? GAP : 0);
-        if (next + moreWidth + GAP > available) break;
-        used = next;
-        count++;
-      }
-      setVisibleCount(Math.max(1, count));
-    };
-
-    const ro = new ResizeObserver(compute);
-    ro.observe(trigger);
-    if (trayRef.current) ro.observe(trayRef.current);
-    compute();
-    return () => ro.disconnect();
-  }, [ singleLine, selectedOptions, error ]);
+  const visibleCount = useOverflowFit({
+    enabled: singleLine,
+    triggerRef: ref,
+    measureRef,
+    trayRef,
+    itemCount: selectedOptions.length,
+    deps: [ selectedOptions, error ],
+  });
 
   const { anchorRef, Popover, getReferenceProps, getItemProps } = useSelectPopover({
     placement: 'bottom',
