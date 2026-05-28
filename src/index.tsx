@@ -22,6 +22,7 @@ export { InputIconButtonTray } from "./components/inputs/InputIconButtonTray.tsx
 export { InputFileSingle } from "./components/inputs/input-file/InputFileSingle.tsx";
 export { InputFileMultiple } from "./components/inputs/input-file/InputFileMultiple.tsx";
 export { UploadFileTile } from "./components/inputs/input-file/UploadFileTile.tsx";
+export { InputTag } from "./components/inputs/InputTag.tsx";
 
 // Selects
 export { InputSelectNative } from "./components/inputs/InputSelectNative.tsx";

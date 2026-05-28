@@ -21,6 +21,7 @@ import {
   InputSelectNative,
   InputSelectSearchable,
   InputSelectSearchableAsync,
+  InputTag,
   InputTextArea,
   InputToggle,
   Modal,
@@ -90,6 +91,19 @@ const GROUPED_FRAMEWORK_OPTIONS: SelectItem<string>[] = [
   { label: 'Angular (deprecated)', value: 'angular', disabled: true },
 ];
 
+const SKILL_OPTIONS = [
+  { label: 'TypeScript', value: 'typescript' },
+  { label: 'React', value: 'react' },
+  { label: 'Next.js', value: 'nextjs' },
+  { label: 'Tailwind CSS', value: 'tailwind' },
+  { label: 'Node.js', value: 'node' },
+  { label: 'GraphQL', value: 'graphql' },
+  { label: 'PostgreSQL', value: 'postgres' },
+  { label: 'Docker', value: 'docker' },
+  { label: 'Kubernetes', value: 'k8s' },
+  { label: 'Figma', value: 'figma' },
+];
+
 const CITY_OPTIONS = [
   { label: 'Amsterdam', value: 'amsterdam' },
   { label: 'Berlin', value: 'berlin' },
@@ -142,6 +156,9 @@ export default function Page() {
   const [ frameworkSearchable, setFrameworkSearchable ] = useState<string | null>(null);
   const [ city, setCity ] = useState<string | null>('berlin');
   const [ nativeFramework, setNativeFramework ] = useState('react');
+
+  // Tags
+  const [ skills, setSkills ] = useState<string[]>([ 'typescript', 'react' ]);
 
   // File
   const [ singleFile, setSingleFile ] = useState<File | null>(null);
@@ -474,6 +491,18 @@ export default function Page() {
                   fetchOptionByValue={ fetchCityByValue }
                   value={ city }
                   onChange={ setCity }
+                  className={ 'w-full' }
+                />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Tags' } layout={ 'vertical' } narrow={ true }>
+                <InputTag
+                  label={ 'Skills' }
+                  description={ 'Pick any number. Click a tag or press Backspace to remove.' }
+                  placeholder={ 'Add a skill…' }
+                  options={ SKILL_OPTIONS }
+                  value={ skills }
+                  onChange={ setSkills }
                   className={ 'w-full' }
                 />
               </ShowcaseSection>
