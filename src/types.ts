@@ -22,6 +22,22 @@ export type { InputFileSingleProps, Size as InputFileSingleSize } from "./compon
 export type { InputFileMultipleProps } from "./components/inputs/input-file/InputFileMultiple.tsx";
 export type { UploadFileTileProps } from "./components/inputs/input-file/UploadFileTile.tsx";
 
+// Lexical rich text editor
+export type { InputLexicalProps, Size as InputLexicalSize, LexicalToolbarVariant } from "./components/inputs/input-lexical/InputLexical.tsx";
+export type { LexicalToolbarProps } from "./components/inputs/input-lexical/LexicalToolbar.tsx";
+export type { LexicalFloatingToolbarProps } from "./components/inputs/input-lexical/LexicalFloatingToolbar.tsx";
+export type { LexicalToolbarItemsProps } from "./components/inputs/input-lexical/LexicalToolbarItems.tsx";
+export type { LexicalToolbarButtonProps } from "./components/inputs/input-lexical/LexicalToolbarButton.tsx";
+export type { LexicalToolbarDividerProps } from "./components/inputs/input-lexical/LexicalToolbarDivider.tsx";
+export type {
+  LexicalBlockType,
+  LexicalToolbarState,
+  LexicalToolbarTone,
+  LexicalToolbarContextValue,
+  LexicalToolbarRender,
+  LexicalToolbarRenderContext,
+} from "./components/inputs/input-lexical/use-lexical-toolbar.ts";
+
 // Selects
 export type { InputSelectNativeProps, OptionNative, Size as InputSelectNativeSize } from "./components/inputs/InputSelectNative.tsx";
 export type { InputSelectProps, Size as InputSelectSize } from "./components/inputs/InputSelect.tsx";

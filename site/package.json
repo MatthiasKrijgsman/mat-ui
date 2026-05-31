@@ -10,9 +10,16 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@matthiaskrijgsman/mat-ui": "workspace:*",
     "@floating-ui/react": "^0.27.16",
+    "@lexical/link": "0.45.0",
+    "@lexical/list": "0.45.0",
+    "@lexical/react": "0.45.0",
+    "@lexical/rich-text": "0.45.0",
+    "@lexical/selection": "0.45.0",
+    "@lexical/utils": "0.45.0",
+    "@matthiaskrijgsman/mat-ui": "workspace:*",
     "@tabler/icons-react": "^3.34.1",
+    "lexical": "0.45.0",
     "motion": "^12.23.12",
     "next": "^15.1.0",
     "react": "^19.1.1",

@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "site",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [".claude/start-site.sh"],
+      "autoPort": true,
+      "port": 6006
+    }
+  ]
+}

@@ -23,6 +23,23 @@ export { InputFileSingle } from "./components/inputs/input-file/InputFileSingle.
 export { InputFileMultiple } from "./components/inputs/input-file/InputFileMultiple.tsx";
 export { UploadFileTile } from "./components/inputs/input-file/UploadFileTile.tsx";
 
+// Lexical rich text editor
+export { InputLexical } from "./components/inputs/input-lexical/InputLexical.tsx";
+export { LexicalToolbar, LexicalDefaultToolbarContent } from "./components/inputs/input-lexical/LexicalToolbar.tsx";
+export { LexicalFloatingToolbar } from "./components/inputs/input-lexical/LexicalFloatingToolbar.tsx";
+export { LexicalToolbarItems } from "./components/inputs/input-lexical/LexicalToolbarItems.tsx";
+export { LexicalToolbarButton } from "./components/inputs/input-lexical/LexicalToolbarButton.tsx";
+export { LexicalToolbarDivider } from "./components/inputs/input-lexical/LexicalToolbarDivider.tsx";
+export { LexicalBlockTypeSelect } from "./components/inputs/input-lexical/LexicalBlockTypeSelect.tsx";
+export { LexicalFormatButtons } from "./components/inputs/input-lexical/LexicalFormatButtons.tsx";
+export { LexicalListButtons } from "./components/inputs/input-lexical/LexicalListButtons.tsx";
+export { LexicalLinkButton } from "./components/inputs/input-lexical/LexicalLinkButton.tsx";
+export { LexicalHistoryButtons } from "./components/inputs/input-lexical/LexicalHistoryButtons.tsx";
+// eslint-disable-next-line react-refresh/only-export-components
+export { useLexicalToolbar, useLexicalToolbarState } from "./components/inputs/input-lexical/use-lexical-toolbar.ts";
+// eslint-disable-next-line react-refresh/only-export-components
+export { lexicalTheme, LEXICAL_NODES } from "./components/inputs/input-lexical/lexical-theme.ts";
+
 // Selects
 export { InputSelectNative } from "./components/inputs/InputSelectNative.tsx";
 export { InputSelect } from "./components/inputs/InputSelect.tsx";

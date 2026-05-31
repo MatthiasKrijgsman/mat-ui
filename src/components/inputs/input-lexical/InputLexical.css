@@ -1,0 +1,94 @@
+/* Editable surface */
+.lexical-content {
+    @apply text-[var(--color-lexical-content-text)];
+}
+.lexical-placeholder {
+    @apply text-[var(--color-lexical-placeholder)];
+}
+
+/* Node theme classes (kept in sync with the `theme` map in lexical-theme.ts) */
+.lexical-paragraph {
+    @apply mb-2 leading-[155%];
+}
+.lexical-paragraph:last-child {
+    @apply mb-0;
+}
+.lexical-h1 {
+    @apply text-2xl font-bold mb-2 leading-[135%];
+}
+.lexical-h2 {
+    @apply text-xl font-bold mb-2 leading-[135%];
+}
+.lexical-h3 {
+    @apply text-lg font-bold mb-2 leading-[135%];
+}
+.lexical-h4 {
+    @apply text-base font-bold mb-2 leading-[135%];
+}
+.lexical-ul {
+    @apply list-disc pl-6 mb-2;
+}
+.lexical-ol {
+    @apply list-decimal pl-6 mb-2;
+}
+.lexical-listitem {
+    @apply leading-[155%];
+}
+.lexical-listitem-nested {
+    @apply list-none;
+}
+.lexical-quote {
+    @apply border-l-4 border-[var(--color-divider)] pl-4 my-2 italic;
+}
+.lexical-link {
+    @apply text-[var(--color-lexical-link)] underline cursor-pointer;
+}
+.lexical-bold {
+    @apply font-bold;
+}
+.lexical-italic {
+    @apply italic;
+}
+.lexical-underline {
+    @apply underline;
+}
+
+/* Static toolbar (light, sits at the top of the input box) */
+.lexical-toolbar {
+    @apply border-b border-[var(--color-lexical-toolbar-border)];
+}
+
+/* Floating toolbar (dark bar anchored above the editor while focused) */
+.lexical-floating-toolbar {
+    @apply bg-[var(--color-lexical-floating-bg)] border border-[var(--color-lexical-floating-border)] shadow-lg;
+}
+
+/* Toolbar button — shared base, themed per tone. Ring + transition mirror the
+ * kit's Button / ButtonIconSquare (ring-0 → hover:ring-4 → active:ring-1). */
+.lexical-tb-btn {
+    @apply inline-flex items-center justify-center rounded-lg cursor-pointer select-none transition-all duration-150 ring-0 hover:ring-4 active:ring-1 focus:ring-4 disabled:hover:ring-0 focus:outline-none disabled:cursor-default disabled:opacity-40;
+}
+
+/* Light tone (static toolbar) */
+.lexical-tb-btn-light {
+    @apply text-[var(--color-lexical-toolbar-btn-icon)] ring-[var(--color-input-focus-ring)];
+}
+.lexical-tb-btn-light.lexical-tb-btn-active {
+    @apply bg-[var(--color-lexical-toolbar-btn-bg-active)] text-[var(--color-lexical-toolbar-btn-icon-active)];
+}
+
+/* Dark tone (floating toolbar) */
+.lexical-tb-btn-dark {
+    @apply text-[var(--color-lexical-floating-btn-icon)] ring-[var(--color-lexical-floating-btn-ring)];
+}
+.lexical-tb-btn-dark.lexical-tb-btn-active {
+    @apply bg-[var(--color-lexical-floating-btn-bg-active)] text-[var(--color-lexical-floating-btn-icon-active)];
+}
+
+/* Toolbar vertical divider, themed per tone */
+.lexical-tb-divider-light {
+    @apply bg-[var(--color-lexical-toolbar-border)];
+}
+.lexical-tb-divider-dark {
+    @apply bg-[var(--color-lexical-floating-divider)];
+}

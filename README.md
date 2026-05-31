@@ -49,6 +49,112 @@ function App() {
 }
 ```
 
+## Rich text editor (`InputLexical`)
+
+`InputLexical` is a [Lexical](https://lexical.dev)-powered rich text editor styled like the rest of the kit. It ships with two toolbar variants that share the exact same controls:
+
+- **`static`** (default) — a light toolbar fixed at the top of the editor.
+- **`floating`** — a dark bar that appears above the editor while it is focused, matching the editor width.
+
+Lexical and its plugins are **peer dependencies** — install them alongside the library:
+
+```bash
+pnpm add lexical @lexical/react @lexical/rich-text @lexical/list @lexical/link @lexical/selection @lexical/utils
+```
+
+### Basic usage
+
+The value is a **serialized Lexical editor state** (a JSON string). Pass the last `onChange` value back as `value` to restore content.
+
+```tsx
+import { useState } from "react";
+import { InputLexical } from "@matthiaskrijgsman/mat-ui";
+
+function Editor() {
+  const [value, setValue] = useState<string>();
+
+  return (
+    <InputLexical
+      label={"Description"}
+      placeholder={"Write something…"}
+      toolbar={"floating"}     // or "static" (default)
+      value={value}
+      onChange={setValue}
+      autogrow                 // grow with content…
+      minRows={4}              // …from a 4-row floor…
+      maxRows={12}             // …up to 12 rows, then scroll
+    />
+  );
+}
+```
+
+Sizing mirrors `InputTextArea`: `minRows` sets a height floor, `maxRows` caps the height (content beyond it scrolls), and `autogrow` lets the editor grow with its content between the two. Without `autogrow` the editor is fixed at `minRows`.
+
+### Extending the toolbar
+
+The toolbar is assembled from exported **building blocks**, so you can reorder, drop, or add controls via the `renderToolbar` slot. It receives `{ editor, state, tone }` and renders into whichever variant is active — the same render function drives both the static and floating bars.
+
+```tsx
+import {
+  InputLexical,
+  LexicalBlockTypeSelect,
+  LexicalFormatButtons,
+  LexicalListButtons,
+  LexicalLinkButton,
+  LexicalHistoryButtons,
+  LexicalToolbarDivider,
+} from "@matthiaskrijgsman/mat-ui";
+
+<InputLexical
+  renderToolbar={() => (
+    <>
+      <LexicalFormatButtons/>
+      <LexicalToolbarDivider/>
+      <LexicalListButtons/>
+      <LexicalLinkButton/>
+      <LexicalToolbarDivider/>
+      <LexicalHistoryButtons/>
+    </>
+  )}
+/>;
+```
+
+Building blocks read the active editor and formatting `state`/`tone` from context, so they work in either variant with no extra wiring. Dividers automatically flip orientation (and the whole toolbar collapses overflowing controls into a vertical `⋮` dropdown) when space runs out — return each control as a top-level child so it stays individually measurable.
+
+#### Custom controls
+
+Build your own control with `LexicalToolbarButton` plus Lexical's editor context. `useLexicalToolbar()` exposes the current `{ state, tone }`:
+
+```tsx
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { FORMAT_TEXT_COMMAND } from "lexical";
+import { IconStrikethrough } from "@tabler/icons-react";
+import { LexicalToolbarButton, useLexicalToolbar } from "@matthiaskrijgsman/mat-ui";
+
+const StrikethroughButton = () => {
+  const [editor] = useLexicalComposerContext();
+  const { tone } = useLexicalToolbar();
+  return (
+    <LexicalToolbarButton
+      Icon={IconStrikethrough}
+      tone={tone}
+      aria-label={"Strikethrough"}
+      onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, "strikethrough")}
+    />
+  );
+};
+```
+
+#### Registering extra Lexical nodes
+
+If a plugin needs additional nodes (tables, mentions, code blocks, …), pass them via the `nodes` prop — they are registered alongside the built-in set (headings, lists, links, quotes):
+
+```tsx
+import { CodeNode } from "@lexical/code";
+
+<InputLexical nodes={[CodeNode]} renderToolbar={/* … */} />;
+```
+
 ## Dark Theme
 
 mat-ui ships with built-in dark theme support. Add the `dark` class to the `<html>` element to activate it:

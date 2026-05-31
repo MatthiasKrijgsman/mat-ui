@@ -14,6 +14,7 @@
 @import "./components/inputs/InputToggle.css";
 @import "./components/inputs/InputCheck.css";
 @import "./components/inputs/InputShared.css";
+@import "./components/inputs/input-lexical/InputLexical.css";
 @import "./components/dropdown-menu/Dropdown.css";
 @import "./components/TabButtons.css";
 @import "./components/panel/Panel.css";

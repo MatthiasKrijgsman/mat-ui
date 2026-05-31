@@ -12,6 +12,7 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'inputs', label: 'Inputs' },
   { id: 'choices', label: 'Choices' },
   { id: 'selects', label: 'Selects' },
+  { id: 'rich-text', label: 'Rich text' },
   { id: 'file', label: 'File upload' },
   { id: 'badges', label: 'Badges' },
   { id: 'tabs', label: 'Tabs' },

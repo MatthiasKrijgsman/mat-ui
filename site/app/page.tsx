@@ -22,6 +22,7 @@ import {
   InputSelectSearchable,
   InputSelectSearchableAsync,
   InputSelectMultiple,
+  InputLexical,
   InputTextArea,
   InputToggle,
   Modal,
@@ -176,6 +177,10 @@ export default function Page() {
   // Tags
   const [ skills, setSkills ] = useState<string[]>([ 'typescript', 'react', 'tailwind' ]);
   const [ recipients, setRecipients ] = useState<string[]>([ 'alice', 'bram', 'chen', 'daria', 'eitan' ]);
+
+  // Rich text (serialized Lexical state as JSON)
+  const [ , setRichStatic ] = useState<string>('');
+  const [ , setRichFloating ] = useState<string>('');
 
   // File
   const [ singleFile, setSingleFile ] = useState<File | null>(null);
@@ -533,6 +538,38 @@ export default function Page() {
                   value={ recipients }
                   onChange={ setRecipients }
                   singleLine
+                  className={ 'w-full' }
+                />
+              </ShowcaseSection>
+            </Panel>
+          </section>
+
+          {/* Rich text */ }
+          <section id={ 'rich-text' } className={ 'flex flex-col gap-6 scroll-mt-24' }>
+            <h2>Rich text</h2>
+            <div>A Lexical-powered editor with two toolbar variants: a static bar fixed at the top, or a floating dark bar that appears above the editor while it is focused. Both share the same toolbar and an extensible set of building blocks, support minRows/maxRows/autogrow sizing, and collapse overflowing items into a dropdown.</div>
+            <ShowcaseImportPath path={ `import { InputLexical } from "@matthiaskrijgsman/mat-ui"` }/>
+            <Panel>
+              <ShowcaseSection title={ 'Static toolbar' } layout={ 'vertical' } narrow={ true }>
+                <InputLexical
+                  label={ 'About the role' }
+                  description={ 'Full toolbar: block type, formatting, lists, link and history. Grows up to 10 rows then scrolls.' }
+                  placeholder={ 'Write a description…' }
+                  autogrow={ true }
+                  minRows={ 4 }
+                  maxRows={ 10 }
+                  onChange={ setRichStatic }
+                  className={ 'w-full' }
+                />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Floating toolbar' } layout={ 'vertical' } narrow={ true }>
+                <InputLexical
+                  toolbar={ 'floating' }
+                  label={ 'Notes' }
+                  description={ 'The floating toolbar appears above the editor whenever it is focused.' }
+                  placeholder={ 'Focus to reveal the toolbar…' }
+                  onChange={ setRichFloating }
                   className={ 'w-full' }
                 />
               </ShowcaseSection>

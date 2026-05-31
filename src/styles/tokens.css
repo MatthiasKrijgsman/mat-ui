@@ -129,6 +129,28 @@
     /* Input file (dropzone icon frame in InputFileMultiple) */
     --color-input-file-icon-bg: var(--color-gray-100);
 
+    /* Lexical rich text editor — content */
+    --color-lexical-content-text: var(--color-input-text);
+    --color-lexical-placeholder: var(--color-input-placeholder);
+    --color-lexical-link: var(--color-sky-600);
+
+    /* Lexical static toolbar (sits inside the input box) */
+    --color-lexical-toolbar-border: var(--color-input-border);
+    --color-lexical-toolbar-btn-icon: var(--color-gray-600);
+    --color-lexical-toolbar-btn-bg-hover: var(--color-gray-100);
+    --color-lexical-toolbar-btn-bg-active: var(--color-gray-200);
+    --color-lexical-toolbar-btn-icon-active: var(--color-gray-900);
+
+    /* Lexical floating toolbar (dark pill anchored to the selection) */
+    --color-lexical-floating-bg: var(--color-stone-900);
+    --color-lexical-floating-border: var(--color-stone-700);
+    --color-lexical-floating-divider: var(--color-stone-700);
+    --color-lexical-floating-btn-icon: var(--color-stone-300);
+    --color-lexical-floating-btn-bg-hover: var(--color-stone-700);
+    --color-lexical-floating-btn-bg-active: var(--color-stone-700);
+    --color-lexical-floating-btn-icon-active: var(--color-white);
+    --color-lexical-floating-btn-ring: color-mix(in srgb, var(--color-stone-100) 20%, transparent);
+
     /* Input select option */
     --color-option-bg-hover: var(--color-gray-100);
     --color-option-bg-active: var(--color-gray-200);
@@ -317,6 +339,28 @@
 
     /* Input file (dropzone icon frame in InputFileMultiple) */
     --color-input-file-icon-bg: var(--color-stone-700);
+
+    /* Lexical rich text editor — content */
+    --color-lexical-content-text: var(--color-input-text);
+    --color-lexical-placeholder: var(--color-input-placeholder);
+    --color-lexical-link: var(--color-sky-400);
+
+    /* Lexical static toolbar (sits inside the input box) */
+    --color-lexical-toolbar-border: var(--color-input-border);
+    --color-lexical-toolbar-btn-icon: var(--color-stone-400);
+    --color-lexical-toolbar-btn-bg-hover: var(--color-stone-800);
+    --color-lexical-toolbar-btn-bg-active: var(--color-stone-700);
+    --color-lexical-toolbar-btn-icon-active: var(--color-stone-100);
+
+    /* Lexical floating toolbar (kept dark in both themes) */
+    --color-lexical-floating-bg: var(--color-stone-900);
+    --color-lexical-floating-border: var(--color-stone-700);
+    --color-lexical-floating-divider: var(--color-stone-700);
+    --color-lexical-floating-btn-icon: var(--color-stone-300);
+    --color-lexical-floating-btn-bg-hover: var(--color-stone-700);
+    --color-lexical-floating-btn-bg-active: var(--color-stone-700);
+    --color-lexical-floating-btn-icon-active: var(--color-white);
+    --color-lexical-floating-btn-ring: color-mix(in srgb, var(--color-stone-100) 20%, transparent);
 
     /* Input select option */
     --color-option-bg-hover: var(--color-stone-800);
