@@ -73,7 +73,7 @@ export const InputLexical = (props: InputLexicalProps) => {
     () => ({
       namespace,
       theme: lexicalTheme,
-      nodes: nodes ? [ ...LEXICAL_NODES, ...nodes ] : LEXICAL_NODES,
+      nodes: [ ...LEXICAL_NODES, ...(nodes ?? []) ],
       editorState: value ?? null,
       onError: (e: Error) => {
         throw e;

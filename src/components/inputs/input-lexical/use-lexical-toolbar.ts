@@ -66,43 +66,33 @@ export const useLexicalToolbarState = (): LexicalToolbarState => {
   const [state, setState] = useState<LexicalToolbarState>(DEFAULT_LEXICAL_TOOLBAR_STATE);
 
   useEffect(() => {
-    const readSelection = (activeEditor: LexicalEditor) => {
-      activeEditor.getEditorState().read(() => {
+    const readSelection = () => {
+      editor.getEditorState().read(() => {
         const selection = $getSelection();
         if (!$isRangeSelection(selection)) {
           return;
         }
 
         const anchorNode = selection.anchor.getNode();
+        const listNode = $getNearestNodeOfType<ListNode>(anchorNode, ListNode);
+        const listType = listNode && $isListNode(listNode) ? listNode.getListType() : null;
 
+        let blockType: LexicalBlockType = "paragraph";
+        if (!listType) {
+          const element =
+            anchorNode.getKey() === "root" ? anchorNode : anchorNode.getTopLevelElementOrThrow();
+          if ($isHeadingNode(element)) {
+            blockType = element.getTag() as LexicalBlockType;
+          }
+        }
+
+        // Read every node value here, inside the editor.read() context. Passing
+        // these accessors into the setState updater would run them later (during
+        // React render) outside the read, throwing Lexical error #195.
         const isBold = selection.hasFormat("bold");
         const isItalic = selection.hasFormat("italic");
         const isUnderline = selection.hasFormat("underline");
-
-        const parent = anchorNode.getParent();
-        const isLink = $isLinkNode(parent) || $isLinkNode(anchorNode);
-
-        const listNode = $getNearestNodeOfType<ListNode>(anchorNode, ListNode);
-        if (listNode && $isListNode(listNode)) {
-          const listType = listNode.getListType();
-          setState((prev) => ({
-            ...prev,
-            isBold,
-            isItalic,
-            isUnderline,
-            isLink,
-            isUnorderedList: listType === "bullet",
-            isOrderedList: listType === "number",
-            blockType: "paragraph",
-          }));
-          return;
-        }
-
-        const element =
-          anchorNode.getKey() === "root" ? anchorNode : anchorNode.getTopLevelElementOrThrow();
-        const blockType: LexicalBlockType = $isHeadingNode(element)
-          ? (element.getTag() as LexicalBlockType)
-          : "paragraph";
+        const isLink = $isLinkNode(anchorNode.getParent()) || $isLinkNode(anchorNode);
 
         setState((prev) => ({
           ...prev,
@@ -110,15 +100,15 @@ export const useLexicalToolbarState = (): LexicalToolbarState => {
           isItalic,
           isUnderline,
           isLink,
-          isUnorderedList: false,
-          isOrderedList: false,
+          isUnorderedList: listType === "bullet",
+          isOrderedList: listType === "number",
           blockType,
         }));
       });
     };
 
     return mergeRegister(
-      editor.registerUpdateListener(() => readSelection(editor)),
+      editor.registerUpdateListener(() => readSelection()),
       editor.registerCommand(
         CAN_UNDO_COMMAND,
         (payload: boolean) => {

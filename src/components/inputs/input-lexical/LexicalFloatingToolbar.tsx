@@ -49,11 +49,9 @@ export const LexicalFloatingToolbar = (props: LexicalFloatingToolbarProps) => {
   });
 
   useEffect(() => {
-    const root = editor.getRootElement();
-    if (root) refs.setReference(root);
-    return editor.registerRootListener((nextRoot) => {
-      refs.setReference(nextRoot ?? null);
-    });
+    // registerRootListener fires immediately with the current root, so this
+    // also covers the initial reference.
+    return editor.registerRootListener((root) => refs.setReference(root ?? null));
   }, [ editor, refs ]);
 
   useEffect(() => {
