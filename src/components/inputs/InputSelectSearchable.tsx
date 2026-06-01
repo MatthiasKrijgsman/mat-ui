@@ -115,6 +115,7 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
   const { anchorRef, Popover, getReferenceProps, getItemProps } = useSelectPopover({
     placement: 'bottom',
     fullWidth: true,
+    minWidth: 200,
     onOutsideClick: () => setOpen(false),
     open,
     onOpenChange: setOpen,
