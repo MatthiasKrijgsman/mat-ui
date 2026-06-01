@@ -16,7 +16,7 @@ export const Nav = () => {
           <div
             className={ 'font-mono text-stone-600 dark:text-stone-300 rounded-full border text-sm border-stone-300 dark:border-stone-600 px-2 py-0.5' }
           >
-            v0.0.33
+            v0.0.34
           </div>
         </div>
 
