@@ -9,7 +9,7 @@ import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-import type { EditorState, Klass, LexicalNode } from "lexical";
+import type { EditorState, EditorThemeClasses, Klass, LexicalNode } from "lexical";
 import { classNames } from "@/util/classnames.util.ts";
 import { InputLabel } from "@/components/inputs/InputLabel.tsx";
 import { InputDescription } from "@/components/inputs/InputDescription.tsx";
@@ -45,7 +45,11 @@ export type InputLexicalProps = {
   namespace?: string;
   /** Extra Lexical nodes to register alongside the built-in set. */
   nodes?: Array<Klass<LexicalNode>>;
+  /** Theme classes merged over the defaults (e.g. to style custom nodes). */
+  theme?: EditorThemeClasses;
   autoFocus?: boolean;
+  /** Extra Lexical plugins, mounted inside the editor alongside the built-ins. */
+  children?: React.ReactNode;
   className?: string;
 };
 
@@ -65,14 +69,16 @@ export const InputLexical = (props: InputLexicalProps) => {
     autogrow = false,
     namespace = "InputLexical",
     nodes,
+    theme,
     autoFocus = false,
+    children,
     className,
   } = props;
 
   const initialConfig = useMemo(
     () => ({
       namespace,
-      theme: lexicalTheme,
+      theme: theme ? { ...lexicalTheme, ...theme } : lexicalTheme,
       nodes: [ ...LEXICAL_NODES, ...(nodes ?? []) ],
       editorState: value ?? null,
       onError: (e: Error) => {
@@ -144,6 +150,7 @@ export const InputLexical = (props: InputLexicalProps) => {
             <LinkPlugin/>
             { autoFocus && <AutoFocusPlugin/> }
             { onChange && <OnChangePlugin onChange={ handleChange }/> }
+            { children }
             { toolbar === "floating" && <LexicalFloatingToolbar render={ renderToolbar }/> }
           </div>
         </LexicalComposer>

@@ -161,6 +161,29 @@ import { CodeNode } from "@lexical/code";
 
 > mat-ui does not bundle `lexical` or any `@lexical/*` package — they are peer dependencies, so a single shared copy is used. Only register a given node type once: don't pass a node that is already in the built-in set, or Lexical throws a duplicate-type error.
 
+#### Adding plugins (the `children` slot)
+
+A Lexical feature is usually a **node *plus* a plugin**. Register the node with `nodes`, then mount the plugin(s) as **children** — they run inside the editor alongside the built-ins (history, lists, links). Any `@lexical/react` plugin or your own works:
+
+```tsx
+import { TabIndentationPlugin } from "@lexical/react/LexicalTabIndentationPlugin";
+import { CodeHighlightPlugin } from "@lexical/react/LexicalCodeHighlightPlugin";
+
+<InputLexical nodes={[CodeNode]}>
+  <CodeHighlightPlugin />
+  <TabIndentationPlugin />
+  {/* …or your own plugin using useLexicalComposerContext() */}
+</InputLexical>;
+```
+
+Style custom nodes by merging theme classes over the defaults with the `theme` prop:
+
+```tsx
+<InputLexical nodes={[CodeNode]} theme={{ code: "my-code-block" }}>
+  <CodeHighlightPlugin />
+</InputLexical>;
+```
+
 ## Dark Theme
 
 mat-ui ships with built-in dark theme support. Add the `dark` class to the `<html>` element to activate it:

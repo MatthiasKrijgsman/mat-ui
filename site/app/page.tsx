@@ -63,6 +63,7 @@ import {
   IconTrash,
   IconUser,
 } from "@tabler/icons-react";
+import { TabIndentationPlugin } from "@lexical/react/LexicalTabIndentationPlugin";
 import { NavComponents } from "@/app/_components/NavComponents";
 import { ShowcaseImportPath } from "@/app/_components/ShowcaseImportPath";
 import { ShowcaseSection } from "@/app/_components/ShowcaseSection";
@@ -553,14 +554,16 @@ export default function Page() {
               <ShowcaseSection title={ 'Static toolbar' } layout={ 'vertical' } narrow={ true }>
                 <InputLexical
                   label={ 'About the role' }
-                  description={ 'Full toolbar: block type, formatting, lists, link and history. Grows up to 10 rows then scrolls.' }
+                  description={ 'Full toolbar + a custom plugin (Tab indents list items) dropped in via children.' }
                   placeholder={ 'Write a description…' }
                   autogrow={ true }
                   minRows={ 4 }
                   maxRows={ 10 }
                   onChange={ setRichStatic }
                   className={ 'w-full' }
-                />
+                >
+                  <TabIndentationPlugin/>
+                </InputLexical>
               </ShowcaseSection>
               <Divider/>
               <ShowcaseSection title={ 'Floating toolbar' } layout={ 'vertical' } narrow={ true }>
