@@ -40,6 +40,8 @@ export type InputSelectProps<T> = {
   maxHeight?: number;
   error?: string | React.ReactNode;
   size?: Size;
+  disabled?: boolean;
+  clearable?: boolean;
 }
 
 export type { Option, SelectGroupHeader, SelectDivider, SelectItem } from "@/components/inputs/select-item.ts";
@@ -58,6 +60,8 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
     maxHeight = 300,
     error,
     size = 'md',
+    disabled = false,
+    clearable = true,
   } = props;
 
   const [ open, setOpen ] = useState(false);
@@ -125,9 +129,11 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
             { ...getReferenceProps({
               ref,
               role: 'button',
-              tabIndex: 0,
-              onClick: () => setOpen(!open),
+              tabIndex: disabled ? -1 : 0,
+              'aria-disabled': disabled,
+              onClick: () => { if (!disabled) setOpen(!open); },
               onKeyDown: (e) => {
+                if (disabled) return;
                 if (e.key === ' ') {
                   e.preventDefault();
                   setOpen(o => !o);
@@ -146,9 +152,9 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
               sizeHeightClasses[size],
               sizeFontClasses[size],
               sizePaddingLeftClasses[size],
-              value ? sizePaddingRightWithTrayTwoClasses[size] : sizePaddingRightWithTrayClasses[size],
-              error && 'select-trigger-error',
-              open && 'ring-4',
+              clearable && value ? sizePaddingRightWithTrayTwoClasses[size] : sizePaddingRightWithTrayClasses[size],
+              disabled ? 'select-trigger-disabled' : error && 'select-trigger-error',
+              !disabled && open && 'ring-4',
             ) }
           >
             { selectedOption && (
@@ -159,10 +165,10 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
             ) }
           </div>
           <InputIconButtonTray>
-            { error && (
+            { !disabled && error && (
               <InputErrorIcon/>
             ) }
-            { !!value && (
+            { clearable && !!value && !disabled && (
               <InputIconButton Icon={ IconX } onClick={ () => onChange(null) }/>
             ) }
             <InputIconButton Icon={ IconChevronDown }/>

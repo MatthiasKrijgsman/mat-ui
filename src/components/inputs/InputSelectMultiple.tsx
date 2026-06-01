@@ -47,6 +47,8 @@ export type InputSelectMultipleProps<T> = {
   size?: Size;
   singleLine?: boolean;
   color?: BadgeColorKey;
+  disabled?: boolean;
+  clearable?: boolean;
 }
 
 export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => {
@@ -65,6 +67,8 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
     size = 'md',
     singleLine = false,
     color = 'blue',
+    disabled = false,
+    clearable = true,
   } = props;
 
   const [ open, setOpen ] = useState(false);
@@ -192,9 +196,11 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
             { ...getReferenceProps({
               ref,
               role: 'button',
-              tabIndex: 0,
-              onClick: () => setOpen(!open),
+              tabIndex: disabled ? -1 : 0,
+              'aria-disabled': disabled,
+              onClick: () => { if (!disabled) setOpen(!open); },
               onKeyDown: (e) => {
+                if (disabled) return;
                 if (e.key === ' ') {
                   e.preventDefault();
                   setOpen(o => !o);
@@ -213,9 +219,9 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
               !singleLine && classNames('flex-wrap py-1.5', sizeMinHeightClasses[size]),
               sizeFontClasses[size],
               sizePaddingLeftClasses[size],
-              hasSelection ? sizePaddingRightWithTrayTwoClasses[size] : sizePaddingRightWithTrayClasses[size],
-              error && 'select-trigger-error',
-              open && 'ring-4',
+              clearable && hasSelection ? sizePaddingRightWithTrayTwoClasses[size] : sizePaddingRightWithTrayClasses[size],
+              disabled ? 'select-trigger-disabled' : error && 'select-trigger-error',
+              !disabled && open && 'ring-4',
             ) }
           >
             { hasSelection && visibleBadges.map((opt) => (
@@ -258,10 +264,10 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
             </div>
           ) }
           <InputIconButtonTray ref={ trayRef }>
-            { error && (
+            { !disabled && error && (
               <InputErrorIcon/>
             ) }
-            { hasSelection && (
+            { clearable && hasSelection && !disabled && (
               <InputIconButton Icon={ IconX } onClick={ () => onChange([]) }/>
             ) }
             <InputIconButton Icon={ IconChevronDown }/>

@@ -8,6 +8,10 @@
     @apply border-[var(--color-input-border-error)];
     @apply ring-[var(--color-input-ring-error)];
 }
+.select-trigger-disabled {
+    @apply cursor-not-allowed;
+    @apply focus:ring-0;
+}
 .select-placeholder {
     @apply text-[var(--color-input-select-placeholder)];
 }

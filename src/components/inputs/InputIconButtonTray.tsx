@@ -18,7 +18,7 @@ export const InputIconButtonTray = React.forwardRef<HTMLDivElement, InputIconBut
     <div
       ref={ ref }
       className={ classNames(
-        'absolute top-1/2 -translate-y-1/2 flex flex-row items-center gap-1',
+        'absolute top-1/2 -translate-y-1/2 flex flex-row items-center gap-1 pointer-events-none',
         sizeTrayRightPositionClasses[size],
         className
       ) }>

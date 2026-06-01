@@ -354,6 +354,7 @@ export default function Page() {
               <Divider/>
               <ShowcaseSection title={ 'With label, icon and helper text' } layout={ 'vertical' } narrow={ true }>
                 <Input
+                  disabled={true}
                   label={ 'Email' }
                   description={ "We'll never share it." }
                   placeholder={ 'you@example.com' }
@@ -539,6 +540,47 @@ export default function Page() {
                   value={ recipients }
                   onChange={ setRecipients }
                   singleLine
+                  className={ 'w-full' }
+                />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Not clearable' } layout={ 'vertical' } narrow={ true }>
+                <InputSelect
+                  label={ 'Framework' }
+                  placeholder={ 'Pick one…' }
+                  options={ FRAMEWORK_OPTIONS }
+                  value={ framework }
+                  onChange={ setFramework }
+                  clearable={ false }
+                  className={ 'w-full' }
+                />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Disabled' } layout={ 'vertical' } narrow={ true }>
+                <InputSelect
+                  label={ 'Framework (empty)' }
+                  placeholder={ 'Pick one…' }
+                  options={ FRAMEWORK_OPTIONS }
+                  value={ null }
+                  onChange={ () => {} }
+                  disabled
+                  className={ 'w-full' }
+                />
+                <InputSelect
+                  label={ 'Framework (with value)' }
+                  options={ FRAMEWORK_OPTIONS }
+                  value={ 'react' }
+                  onChange={ () => {} }
+                  disabled
+                  className={ 'w-full' }
+                />
+                <InputSelectMultiple
+                  label={ 'Skills (disabled)' }
+                  placeholder={ 'Add a skill…' }
+                  options={ SKILL_OPTIONS }
+                  value={ ['typescript', 'react'] }
+                  onChange={ () => {} }
+                  disabled
                   className={ 'w-full' }
                 />
               </ShowcaseSection>
