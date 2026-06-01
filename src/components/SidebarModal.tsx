@@ -36,6 +36,7 @@ export const SidebarModal = (props: SidebarModalProps) => {
       { open && (
         <FloatingPortal>
           <motion.div
+            className={ 'z-40' }
             style={ { transformOrigin: 'center' } }
             initial={ { opacity: 0 } }
             animate={ { opacity: 1 } }
@@ -43,13 +44,13 @@ export const SidebarModal = (props: SidebarModalProps) => {
             transition={ { duration: 0.15, ease: "easeInOut" } }
           >
             <FloatingOverlay
-              className={ 'modal-overlay backdrop-blur-[1px] z-10' }
+              className={ 'modal-overlay backdrop-blur-[1px]' }
               onClick={ enableDismissOnOutsideClick ? onDismiss : undefined }
               lockScroll={ true }
             />
           </motion.div>
 
-          <div className={ 'fixed inset-0 flex flex-row justify-end pointer-events-none z-20' }>
+          <div className={ 'fixed inset-0 flex flex-row justify-end pointer-events-none z-50' }>
             <motion.div
               className={ classNames(
                 'flex flex-col modal-content shadow-xl p-6 lg:p-12 pointer-events-auto h-full w-full overflow-y-auto relative',

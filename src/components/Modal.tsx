@@ -36,6 +36,7 @@ export const Modal = (props: ModalProps) => {
       { open && (
         <FloatingPortal>
           <motion.div
+            className={ 'z-40' }
             style={ { transformOrigin: 'center' } }
             initial={ { opacity: 0 } }
             animate={ { opacity: 1 } }
@@ -43,13 +44,13 @@ export const Modal = (props: ModalProps) => {
             transition={ { duration: 0.15, ease: "easeInOut" } }
           >
             <FloatingOverlay
-              className={ 'modal-overlay backdrop-blur-[1px] z-10' }
+              className={ 'modal-overlay backdrop-blur-[1px]' }
               onClick={ enableDismissOnOutsideClick ? onDismiss : undefined }
               lockScroll={ true }
             />
           </motion.div>
 
-          <div className={ 'fixed inset-0 flex flex-col items-center pointer-events-none p-4 lg:p-12 overflow-y-auto z-20' }>
+          <div className={ 'fixed inset-0 flex flex-col items-center pointer-events-none p-4 lg:p-12 overflow-y-auto z-50' }>
             <motion.div
               className={ classNames(
                 'flex flex-col modal-content rounded-2xl shadow-xl p-6 lg:p-12 pointer-events-auto w-full relative',
