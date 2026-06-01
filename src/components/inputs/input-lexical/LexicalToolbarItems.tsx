@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { IconDotsVertical } from "@tabler/icons-react";
+import { IconDots } from "@tabler/icons-react";
 import { classNames } from "@/util/classnames.util.ts";
 import { DropdownMenu } from "@/components/dropdown-menu/DropdownMenu.tsx";
 import {
@@ -120,7 +120,7 @@ export const LexicalToolbarItems = (props: LexicalToolbarItemsProps) => {
                 tone === "dark" ? "lexical-tb-btn-dark" : "lexical-tb-btn-light",
               ) }
             >
-              <IconDotsVertical className={ "h-[18px] w-[18px]" }/>
+              <IconDots className={ "h-[18px] w-[18px]" }/>
             </button>
           }
         >
