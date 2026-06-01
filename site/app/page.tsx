@@ -47,6 +47,7 @@ import {
   IconBrandGithub,
   IconCalendar,
   IconCheck,
+  IconChevronDown,
   IconCopy,
   IconDownload,
   IconHeart,
@@ -690,6 +691,15 @@ export default function Page() {
                   </DropdownButtonGroup>
                   <DropdownButtonGroup label={ 'Danger zone' }>
                     <DropdownButton Icon={ IconTrash } className={ 'text-red-600' }>Delete</DropdownButton>
+                  </DropdownButtonGroup>
+                </DropdownMenu>
+                <DropdownMenu
+                  trigger={ <Button variant={ 'white' } IconRight={ IconChevronDown }>Options</Button> }
+                  placement={'bottom-start'}
+                >
+                  <DropdownButtonGroup label={ 'Sort by' }>
+                    <DropdownButton Icon={ IconCalendar }>Date</DropdownButton>
+                    <DropdownButton Icon={ IconStar }>Rating</DropdownButton>
                   </DropdownButtonGroup>
                 </DropdownMenu>
               </ShowcaseSection>

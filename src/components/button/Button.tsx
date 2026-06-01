@@ -19,6 +19,7 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   loading?: boolean;
   children?: React.ReactNode;
   Icon?: TablerIcon;
+  IconRight?: TablerIcon;
 }
 
 const base: string = `
@@ -47,6 +48,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
     children,
     loading = false,
     Icon,
+    IconRight,
     ...rest
   } = props;
 
@@ -68,6 +70,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
       { !loading && (<>
         { Icon && <Icon className={ classNames(sizeIconClasses[size], '-ml-1') }/> }
         { children }
+        { IconRight && <IconRight className={ classNames(sizeIconClasses[size], '-mr-1') }/> }
       </>) }
     </button>
   );
