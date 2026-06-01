@@ -18,7 +18,7 @@ import { InputError } from "@/components/inputs/InputError.tsx";
 import { useDismiss } from "@/hooks/use-dismiss.ts";
 import { useOverflowFit } from "@/hooks/use-overflow-fit.ts";
 import { ControlSizeContext } from "@/control-size/use-control-size.ts";
-import { isSelectOption, type Option, type SelectItem } from "@/components/inputs/select-item.ts";
+import { isSelectOption, selectValueEquals, type Option, type SelectItem } from "@/components/inputs/select-item.ts";
 import {
   sizeFontClasses,
   sizeHeightClasses,
@@ -84,7 +84,7 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
 
   const selectedOptions = useMemo(
     () => value
-      .map(v => options.find((item): item is Option<T> => isSelectOption(item) && item.value === v))
+      .map(v => options.find((item): item is Option<T> => isSelectOption(item) && selectValueEquals(item.value, v)))
       .filter((item): item is Option<T> => item !== undefined),
     [ value, options ],
   );
@@ -162,8 +162,8 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
   });
 
   const toggleValue = (v: T) => {
-    if (value.includes(v)) {
-      onChange(value.filter(item => item !== v));
+    if (value.some(item => selectValueEquals(item, v))) {
+      onChange(value.filter(item => !selectValueEquals(item, v)));
     } else {
       onChange([ ...value, v ]);
     }
@@ -225,9 +225,9 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
               !disabled && open && 'ring-4',
             ) }
           >
-            { hasSelection && visibleBadges.map((opt) => (
+            { hasSelection && visibleBadges.map((opt, i) => (
               <Badge
-                key={ String(opt.value) }
+                key={ `badge-${ i }` }
                 color={ color }
                 className={ classNames(
                   singleLine && displayedCount > 1 && 'shrink-0',
@@ -252,8 +252,8 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
               aria-hidden
               className={ 'absolute top-0 left-0 invisible pointer-events-none flex flex-row flex-nowrap items-center gap-1 w-max' }
             >
-              { selectedOptions.map((opt) => (
-                <Badge key={ String(opt.value) } color={ color }>
+              { selectedOptions.map((opt, i) => (
+                <Badge key={ `measure-${ i }` } color={ color }>
                   { opt.label }
                 </Badge>
               )) }
@@ -320,10 +320,10 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
                       />
                     );
                   }
-                  const isSelected = value.includes(item.value);
+                  const isSelected = value.some(v => selectValueEquals(v, item.value));
                   return (
                     <InputSelectOption
-                      key={ String(item.value) }
+                      key={ `option-${ i }` }
                       { ...getItemProps({
                         ref(el: HTMLElement | null) {
                           listRef.current[i] = el;

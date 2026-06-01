@@ -5,7 +5,7 @@ import { IconChevronDown, IconX } from "@tabler/icons-react";
 import { InputSelectOption } from "@/components/inputs/InputSelectOption.tsx";
 import { InputSelectGroupHeader } from "@/components/inputs/InputSelectGroupHeader.tsx";
 import { InputSelectDivider } from "@/components/inputs/InputSelectDivider.tsx";
-import { isSelectOption, type Option, type SelectItem } from "@/components/inputs/select-item.ts";
+import { isSelectOption, selectValueEquals, type Option, type SelectItem } from "@/components/inputs/select-item.ts";
 import { useSelectPopover } from "@/popover/use-select-popover.tsx";
 import { DropdownPanel } from "@/components/dropdown-menu/DropdownPanel.tsx";
 import { InputLabel } from "@/components/inputs/InputLabel.tsx";
@@ -68,7 +68,7 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
   const [ activeIndex, setActiveIndex ] = useState<number | null>(null);
   const ref = React.useRef<HTMLDivElement>(null);
   const listRef = React.useRef<Array<HTMLElement | null>>([]);
-  const selectedOption = options?.find((item): item is Option<T> => isSelectOption(item) && item.value === value);
+  const selectedOption = options?.find((item): item is Option<T> => isSelectOption(item) && selectValueEquals(item.value, value));
 
   const disabledIndices = useMemo(
     () => options
@@ -82,7 +82,7 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
   useEffect(() => {
     if (open) {
       ref.current?.focus({ preventScroll: true });
-      const selectedIdx = options.findIndex(item => isSelectOption(item) && item.value === value);
+      const selectedIdx = options.findIndex(item => isSelectOption(item) && selectValueEquals(item.value, value));
       if (selectedIdx >= 0) {
         setActiveIndex(selectedIdx);
       } else {
@@ -196,10 +196,10 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
                       />
                     );
                   }
-                  const isSelected = item.value === value;
+                  const isSelected = selectValueEquals(item.value, value);
                   return (
                     <InputSelectOption
-                      key={ String(item.value) }
+                      key={ `option-${ i }` }
                       { ...getItemProps({
                         ref(el: HTMLElement | null) {
                           listRef.current[i] = el;

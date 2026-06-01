@@ -15,7 +15,7 @@ import { InputDescription } from "@/components/inputs/InputDescription.tsx";
 import { InputError } from "@/components/inputs/InputError.tsx";
 import { useDismiss } from "@/hooks/use-dismiss.ts";
 import { ControlSizeContext } from "@/control-size/use-control-size.ts";
-import { isSelectOption, type Option, type SelectItem } from "@/components/inputs/select-item.ts";
+import { isSelectOption, selectValueEquals, type Option, type SelectItem } from "@/components/inputs/select-item.ts";
 export type { Option } from "@/components/inputs/select-item.ts";
 import {
   sizeFontClasses,
@@ -73,7 +73,7 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
   const inputSearchRef = React.useRef<HTMLInputElement>(null);
   const listRef = React.useRef<Array<HTMLElement | null>>([]);
 
-  const selectedOption = options?.find((item): item is Option<T> => isSelectOption(item) && item.value === value);
+  const selectedOption = options?.find((item): item is Option<T> => isSelectOption(item) && selectValueEquals(item.value, value));
   const visibleOptions = useMemo(() => search !== '' ? filteredOptions : options, [search, filteredOptions, options]);
 
   const disabledIndices = useMemo(
@@ -92,7 +92,7 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
   useEffect(() => {
     if (open) {
       setTimeout(() => inputSearchRef.current?.focus(), 100);
-      const selectedIdx = options.findIndex(item => isSelectOption(item) && item.value === value);
+      const selectedIdx = options.findIndex(item => isSelectOption(item) && selectValueEquals(item.value, value));
       if (selectedIdx >= 0) {
         setActiveIndex(selectedIdx);
       } else {
@@ -233,10 +233,10 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
                       />
                     );
                   }
-                  const isSelected = item.value === value;
+                  const isSelected = selectValueEquals(item.value, value);
                   return (
                     <InputSelectOption
-                      key={ String(item.value) }
+                      key={ `option-${ i }` }
                       { ...getItemProps({
                         ref(el: HTMLElement | null) {
                           listRef.current[i] = el;
