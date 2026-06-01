@@ -147,13 +147,19 @@ const StrikethroughButton = () => {
 
 #### Registering extra Lexical nodes
 
-If a plugin needs additional nodes (tables, mentions, code blocks, …), pass them via the `nodes` prop — they are registered alongside the built-in set (headings, lists, links, quotes):
+The built-in set covers headings, lists, links, and quotes. For anything else (tables, mentions, code blocks, …) install the node's package yourself and pass the node via the `nodes` prop — it is registered alongside the built-in set:
+
+```bash
+pnpm add @lexical/code
+```
 
 ```tsx
 import { CodeNode } from "@lexical/code";
 
 <InputLexical nodes={[CodeNode]} renderToolbar={/* … */} />;
 ```
+
+> mat-ui does not bundle `lexical` or any `@lexical/*` package — they are peer dependencies, so a single shared copy is used. Only register a given node type once: don't pass a node that is already in the built-in set, or Lexical throws a duplicate-type error.
 
 ## Dark Theme
 
