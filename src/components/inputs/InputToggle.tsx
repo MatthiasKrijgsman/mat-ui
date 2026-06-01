@@ -28,11 +28,11 @@ export const InputToggle = (props: InputToggleProps) => {
         <div className={'relative shrink-0 h-6 w-10'}>
           <input
             type={ 'checkbox' }
-            className={ 'appearance-none h-6 w-10 rounded-full checked:bg-transparent border toggle-input ring-0 hover:ring-4 focus:ring-4 ring-offset-0 focus:outline-0 transition-all duration-150' }
+            className={ 'appearance-none absolute inset-0 h-6 w-10 rounded-full checked:bg-transparent border-0 toggle-input ring-0 hover:ring-4 focus:ring-4 ring-offset-0 focus:outline-0 transition-all duration-150' }
             { ...rest }
           />
           <div className={classNames(
-            'rounded-full absolute border inset-0 mt-[2px] pointer-events-none transition-colors duration-150 ',
+            'rounded-full absolute border inset-0 pointer-events-none transition-colors duration-150 ',
             props.checked ? 'toggle-track-on' : 'toggle-track-off'
           )}>
             <div className={classNames(
