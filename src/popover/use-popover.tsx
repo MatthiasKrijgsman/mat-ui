@@ -1,5 +1,5 @@
 import * as React from "react";
-import { autoUpdate, type Placement, size, useFloating } from "@floating-ui/react";
+import { autoUpdate, flip, type Placement, shift, size, useFloating } from "@floating-ui/react";
 import { PopoverBase } from "@/popover/PopoverBase.tsx";
 
 
@@ -34,6 +34,8 @@ export const usePopover = (props: UsePopoverProps): UsePopoverResult => {
 
   const middleware = React.useMemo(() => {
     return [
+      flip({ padding: 8 }),
+      shift({ padding: 8 }),
       size({
         apply({ rects, elements }) {
           if (fullWidth) {
@@ -50,7 +52,7 @@ export const usePopover = (props: UsePopoverProps): UsePopoverResult => {
     ];
   }, [fullWidth, maxWidth, minWidth]);
 
-  const { refs, floatingStyles } = useFloating({
+  const { refs, floatingStyles, placement: resolvedPlacement } = useFloating({
     placement,
     middleware,
     whileElementsMounted: autoUpdate,
@@ -66,7 +68,7 @@ export const usePopover = (props: UsePopoverProps): UsePopoverResult => {
     onOutsideClick,
     floatingStyles,
     setFloating: refs.setFloating,
-    placement,
+    placement: resolvedPlacement,
   };
 
   const Popover = React.useMemo<React.ComponentType<PopoverRendererProps>>(() => {

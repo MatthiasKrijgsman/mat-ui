@@ -1,7 +1,9 @@
 import * as React from "react";
 import {
   autoUpdate,
+  flip,
   type Placement,
+  shift,
   size,
   useFloating,
   useInteractions,
@@ -64,6 +66,8 @@ export const useSelectPopover = (props: UseSelectPopoverProps): UseSelectPopover
 
   const middleware = React.useMemo(() => {
     return [
+      flip({ padding: 8 }),
+      shift({ padding: 8 }),
       size({
         apply({ rects, elements }) {
           if (fullWidth) {
@@ -80,7 +84,7 @@ export const useSelectPopover = (props: UseSelectPopoverProps): UseSelectPopover
     ];
   }, [fullWidth, maxWidth, minWidth]);
 
-  const { refs, floatingStyles, context } = useFloating({
+  const { refs, floatingStyles, context, placement: resolvedPlacement } = useFloating({
     placement,
     open,
     onOpenChange,
@@ -111,7 +115,7 @@ export const useSelectPopover = (props: UseSelectPopoverProps): UseSelectPopover
     onOutsideClick,
     floatingStyles,
     setFloating: refs.setFloating,
-    placement,
+    placement: resolvedPlacement,
     getFloatingProps,
   };
 
