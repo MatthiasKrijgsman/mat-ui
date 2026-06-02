@@ -227,7 +227,8 @@ export const InputColor = (props: InputColorProps) => {
 
   const { anchorRef, Popover } = usePopover({
     placement: 'bottom-start',
-    onOutsideClick: () => setOpen(false),
+    open,
+    onOpenChange: setOpen,
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -141,7 +141,6 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
     placement: 'bottom',
     fullWidth: true,
     minWidth: 200,
-    onOutsideClick: () => setOpen(false),
     open,
     onOpenChange: setOpen,
     listRef,

@@ -34,6 +34,8 @@ export type TableProps<T> = {
   className?: string;
   rowHeight?: number;
   headerHeight?: number;
+  /** Rendered in the scroll body (with the header still visible) when `rows` is empty. */
+  emptyState?: React.ReactNode;
 }
 
 const DEFAULT_COLUMN_WIDTH = 200;
@@ -58,6 +60,7 @@ export const Table = <T, >(props: TableProps<T>) => {
     className,
     rowHeight = 44,
     headerHeight = 44,
+    emptyState,
   } = props;
 
   // Lazy init — runs once on the server and once on hydration with the same
@@ -148,6 +151,11 @@ export const Table = <T, >(props: TableProps<T>) => {
         className={ 'flex-1 overflow-auto' }
         onScroll={ handleBodyScroll }
       >
+        { rows.length === 0 && emptyState ? (
+          <div className={ 'flex h-full min-w-full items-center justify-center p-8' }>
+            { emptyState }
+          </div>
+        ) : (
         <div
           className={ 'flex flex-col' }
           style={ { width: totalWidth, minWidth: '100%' } }
@@ -178,6 +186,7 @@ export const Table = <T, >(props: TableProps<T>) => {
             </div>
           )) }
         </div>
+        ) }
       </div>
     </div>
   );

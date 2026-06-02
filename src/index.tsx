@@ -70,6 +70,7 @@ export { AutoScroll } from "./components/AutoScroll.tsx";
 export { Spinner } from "./spinner/Spinner.tsx";
 export { Table } from "./table/Table.tsx";
 export { TableColumnHead } from "./table/TableColumnHead.tsx";
+export { TableEmpty } from "./table/TableEmpty.tsx";
 
 // Dropdown
 export { DropdownButton } from "./components/dropdown-menu/DropdownButton.tsx";

@@ -20,7 +20,8 @@ export const DropdownMenu = (props: DropdownMenuProps) => {
 
   const { Popover, anchorRef } = usePopover({
     placement: placement,
-    onOutsideClick: () => setShow(false),
+    open: show,
+    onOpenChange: setShow,
     minWidth: minWidth,
   })
 

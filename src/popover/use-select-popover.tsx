@@ -5,6 +5,7 @@ import {
   type Placement,
   shift,
   size,
+  useDismiss,
   useFloating,
   useInteractions,
   useListNavigation,
@@ -14,7 +15,6 @@ import { PopoverBase } from "@/popover/PopoverBase.tsx";
 
 export type UseSelectPopoverProps = {
   placement?: Placement;
-  onOutsideClick?: () => void;
   fullWidth?: boolean;
   minWidth?: number;
   maxWidth?: number;
@@ -34,7 +34,6 @@ export type SelectPopoverRendererProps = {
 }
 
 type SelectPopoverBaseRefProps = {
-  onOutsideClick?: () => void;
   floatingStyles: React.CSSProperties;
   setFloating: React.RefCallback<HTMLDivElement>;
   placement: Placement;
@@ -51,7 +50,6 @@ export type UseSelectPopoverResult = {
 export const useSelectPopover = (props: UseSelectPopoverProps): UseSelectPopoverResult => {
   const {
     placement = "bottom",
-    onOutsideClick,
     fullWidth,
     minWidth,
     maxWidth,
@@ -102,17 +100,20 @@ export const useSelectPopover = (props: UseSelectPopoverProps): UseSelectPopover
     disabledIndices,
   });
 
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([listNavigation]);
+  const dismiss = useDismiss(context, {
+    outsidePress: true,
+    escapeKey: false,
+  });
+
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([listNavigation, dismiss]);
 
   const latest = React.useRef<SelectPopoverBaseRefProps>({
-    onOutsideClick,
     floatingStyles,
     setFloating: refs.setFloating,
     placement,
     getFloatingProps,
   });
   latest.current = {
-    onOutsideClick,
     floatingStyles,
     setFloating: refs.setFloating,
     placement: resolvedPlacement,
@@ -121,13 +122,12 @@ export const useSelectPopover = (props: UseSelectPopoverProps): UseSelectPopover
 
   const Popover = React.useMemo<React.ComponentType<SelectPopoverRendererProps>>(() => {
     const Renderer = (rendererProps: SelectPopoverRendererProps) => {
-      const { floatingStyles, setFloating, onOutsideClick, placement, getFloatingProps } = latest.current;
+      const { floatingStyles, setFloating, placement, getFloatingProps } = latest.current;
       const { className, open, children } = rendererProps;
       return (
         <PopoverBase
           open={ open }
           className={ className }
-          onOutsideClick={ onOutsideClick }
           floatingStyles={ floatingStyles }
           setFloating={ setFloating }
           placement={ placement }

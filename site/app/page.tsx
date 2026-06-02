@@ -34,6 +34,7 @@ import {
   Spinner,
   TabButtons,
   Table,
+  TableEmpty,
   Tooltip,
   type BadgeColorKey,
   type SelectItem,
@@ -812,7 +813,7 @@ export default function Page() {
           {/* Table */ }
           <section id={ 'table' } className={ 'flex flex-col gap-6 scroll-mt-24' }>
             <h2>Table</h2>
-            <div>Column-defined, resizable headers and controlled sort state. The consumer is responsible for sorting rows.</div>
+            <div>Column-defined, resizable headers and controlled sort state. The consumer is responsible for sorting rows. Pass <code className={ 'font-mono text-sm' }>emptyState</code> to render a custom placeholder when there are no rows.</div>
             <ShowcaseImportPath path={ `import { Table } from "@matthiaskrijgsman/mat-ui"` }/>
             <Panel className={'p-0! overflow-hidden'}>
               <div style={ { height: 320 } }>
@@ -822,6 +823,28 @@ export default function Page() {
                   getRowId={ (row) => row.id }
                   sort={ sort }
                   onSortChange={ setSort }
+                />
+              </div>
+            </Panel>
+
+            <div className={ 'text-sm text-stone-400' }>Empty state</div>
+            <Panel className={'p-0! overflow-hidden'}>
+              <div style={ { height: 320 } }>
+                <Table
+                  columns={ columns }
+                  rows={ [] }
+                  getRowId={ (row) => row.id }
+                  sort={ sort }
+                  onSortChange={ setSort }
+                  emptyState={
+                    <TableEmpty
+                      Icon={ IconUser }
+                      title={ 'No people yet' }
+                      description={ 'Invite teammates and they will show up here.' }
+                    >
+                      <Button variant={ 'primary' } size={ 'sm' } Icon={ IconPlus }>Invite people</Button>
+                    </TableEmpty>
+                  }
                 />
               </div>
             </Panel>
