@@ -20,6 +20,7 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'modals', label: 'Modals' },
   { id: 'panels', label: 'Panels' },
   { id: 'table', label: 'Table' },
+  { id: 'auto-scroll', label: 'Auto scroll' },
   { id: 'spinner', label: 'Spinner' },
 ];
 

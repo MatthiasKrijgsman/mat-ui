@@ -1,7 +1,8 @@
 'use client'
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  AutoScroll,
   Badge,
   Button,
   ButtonIconRound,
@@ -231,6 +232,25 @@ export default function Page() {
       ),
     },
   ], []);
+
+  // Auto scroll
+  const [ logLines, setLogLines ] = useState<string[]>(() =>
+    Array.from({ length: 8 }, (_, i) => `Line ${ i + 1 } — initial log output`),
+  );
+  const [ streaming, setStreaming ] = useState(false);
+  const [ following, setFollowing ] = useState(true);
+  const logCounter = useRef(8);
+
+  const addLogLine = (suffix: string) => {
+    logCounter.current += 1;
+    setLogLines(prev => [ ...prev, `Line ${ logCounter.current } — ${ suffix }` ]);
+  };
+
+  useEffect(() => {
+    if (!streaming) return;
+    const id = setInterval(() => addLogLine('streamed log output'), 600);
+    return () => clearInterval(id);
+  }, [ streaming ]);
 
   // Async select — fake fetch
   const fetchCitiesByQuery = async (search: string) => {
@@ -847,6 +867,47 @@ export default function Page() {
                   }
                 />
               </div>
+            </Panel>
+          </section>
+
+          {/* Auto scroll */ }
+          <section id={ 'auto-scroll' } className={ 'flex flex-col gap-6 scroll-mt-24' }>
+            <h2>Auto scroll</h2>
+            <div>Sticks to the bottom as content grows. With <code className={ 'font-mono text-sm' }>pauseOnScroll</code>, scrolling away from the bottom pauses auto-scroll so you keep your place — scroll back to the bottom and it resumes.</div>
+            <ShowcaseImportPath path={ `import { AutoScroll } from "@matthiaskrijgsman/mat-ui"` }/>
+            <Panel>
+              <ShowcaseSection title={ 'Streaming log' } layout={ 'vertical' }>
+                <div className={ 'flex flex-row items-center gap-3' }>
+                  <Button
+                    size={ 'sm' }
+                    variant={ 'white' }
+                    Icon={ IconPlus }
+                    onClick={ () => addLogLine('manual entry') }
+                  >
+                    Add line
+                  </Button>
+                  <InputToggle
+                    id={ 'autoscroll-stream' }
+                    label={ 'Stream' }
+                    checked={ streaming }
+                    onChange={ (e) => setStreaming(e.target.checked) }
+                  />
+                  <Badge color={ following ? 'green' : 'amber' }>
+                    { following ? 'Following' : 'Paused' }
+                  </Badge>
+                </div>
+                <AutoScroll
+                  pauseOnScroll
+                  onPinnedChange={ setFollowing }
+                  className={ 'h-60 w-full rounded-xl border border-stone-200 dark:border-stone-700 bg-[var(--color-table-header-bg)] p-4 font-mono text-sm' }
+                >
+                  <div className={ 'flex flex-col gap-1' }>
+                    { logLines.map((line, i) => (
+                      <div key={ i } className={ 'text-[var(--color-input-text)]' }>{ line }</div>
+                    )) }
+                  </div>
+                </AutoScroll>
+              </ShowcaseSection>
             </Panel>
           </section>
 
