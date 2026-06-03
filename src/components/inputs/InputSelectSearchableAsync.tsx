@@ -65,7 +65,7 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
     error,
     size = 'md',
     disabled = false,
-    clearable = true,
+    clearable = false,
   } = props;
 
   const [ open, setOpen ] = useState(false);

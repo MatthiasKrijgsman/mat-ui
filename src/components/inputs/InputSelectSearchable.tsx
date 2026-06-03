@@ -61,7 +61,7 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
     error,
     size = 'md',
     disabled = false,
-    clearable = true,
+    clearable = false,
   } = props;
 
   const [ open, setOpen ] = useState(false);

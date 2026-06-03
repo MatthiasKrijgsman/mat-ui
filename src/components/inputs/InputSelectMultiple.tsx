@@ -68,7 +68,7 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
     singleLine = false,
     color = 'blue',
     disabled = false,
-    clearable = true,
+    clearable = false,
   } = props;
 
   const [ open, setOpen ] = useState(false);

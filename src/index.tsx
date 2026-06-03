@@ -77,6 +77,7 @@ export { DropdownButton } from "./components/dropdown-menu/DropdownButton.tsx";
 export { DropdownButtonGroup } from "./components/dropdown-menu/DropdownButtonGroup.tsx";
 export { DropdownPanel } from "./components/dropdown-menu/DropdownPanel.tsx";
 export { DropdownMenu } from "./components/dropdown-menu/DropdownMenu.tsx";
+export { useDropdownDismiss, DropdownDismissContext } from "./components/dropdown-menu/use-dropdown-dismiss.ts";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export { usePopover } from "./popover/use-popover.tsx";
