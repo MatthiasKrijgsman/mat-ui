@@ -28,22 +28,22 @@ export const InputToggle = (props: InputToggleProps) => {
         <div className={'relative shrink-0 h-6 w-10'}>
           <input
             type={ 'checkbox' }
-            className={ 'appearance-none absolute inset-0 h-6 w-10 rounded-full checked:bg-transparent border-0 toggle-input ring-0 hover:ring-4 focus:ring-4 ring-offset-0 focus:outline-0 transition-all duration-150' }
+            className={ 'appearance-none absolute inset-0 h-6 w-10 rounded-full checked:bg-transparent border-0 toggle-input ring-0 hover:ring-[length:var(--control-ring-width)] focus:ring-[length:var(--control-ring-width)] ring-offset-0 focus:outline-0 transition-all duration-[var(--control-transition-duration)]' }
             { ...rest }
           />
           <div className={classNames(
-            'rounded-full absolute border inset-0 pointer-events-none transition-colors duration-150 ',
+            'rounded-full absolute border inset-0 pointer-events-none transition-colors duration-[var(--control-transition-duration)] ',
             props.checked ? 'toggle-track-on' : 'toggle-track-off'
           )}>
             <div className={classNames(
-              'absolute top-1/2 -translate-y-1/2 left-1 h-4 w-4 rounded-full toggle-thumb shadow-md transition-all duration-150',
+              'absolute top-1/2 -translate-y-1/2 left-1 h-4 w-4 rounded-full toggle-thumb shadow-md transition-all duration-[var(--control-transition-duration)]',
               props.checked && 'translate-x-3.5 '
             )}/>
           </div>
         </div>
         { label && (
           <label htmlFor={ props.id } className={ classNames(
-            'input-label font-medium mb-1',
+            'input-label font-[number:var(--font-weight-input-option-label)] mb-1',
             props.id && 'cursor-pointer'
           ) }>{ label }</label>
         ) }

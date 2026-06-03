@@ -22,7 +22,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>((props: BadgeP
     color = 'gray',
   } = props;
   const classes = classNames(
-    'inline-flex align-top items-center gap-2 px-3 h-7 rounded-lg font-semibold',
+    'inline-flex align-top items-center gap-2 px-3 h-7 rounded-[var(--border-radius-badge)] font-[number:var(--font-weight-badge)] font-[family-name:var(--font-family-base)]',
     BadgeColor[color],
     className
   )
@@ -30,7 +30,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>((props: BadgeP
     return (
       <div ref={ ref }>
         <button
-          className={ classNames('cursor-pointer ring-0 hover:ring-4 active:ring-1 transition-all duration-100 select-none focus:outline-none focus:ring-4', classes) }
+          className={ classNames('cursor-pointer ring-0 hover:ring-[length:var(--control-ring-width)] active:ring-[length:var(--control-ring-width-active)] transition-all duration-[var(--control-transition-duration-fast)] select-none focus:outline-none focus:ring-[length:var(--control-ring-width)]', classes) }
           onClick={ onClick }
         >
           { Icon && <Icon className={ 'h-4 w-4 shrink-0' }/> }

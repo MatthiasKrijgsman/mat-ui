@@ -214,14 +214,14 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
               },
             }) }
             className={ classNames(
-              'flex flex-row items-center gap-1 border select-trigger transition-all duration-150 rounded-xl shadow-sm ring-0 focus:ring-4 focus:outline-none select-none',
+              'flex flex-row items-center gap-1 border-[length:var(--border-width-input)] select-trigger transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] shadow-[var(--shadow-control)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none select-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
               singleLine && classNames('flex-nowrap overflow-hidden', sizeHeightClasses[size]),
               !singleLine && classNames('flex-wrap py-1.5', sizeMinHeightClasses[size]),
               sizeFontClasses[size],
               sizePaddingLeftClasses[size],
               clearable && hasSelection ? sizePaddingRightWithTrayTwoClasses[size] : sizePaddingRightWithTrayClasses[size],
               disabled ? 'select-trigger-disabled' : error && 'select-trigger-error',
-              !disabled && open && 'ring-4',
+              !disabled && open && 'ring-[length:var(--control-ring-width)]',
             ) }
           >
             { hasSelection && visibleBadges.map((opt, i) => (
@@ -237,7 +237,7 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
               </Badge>
             )) }
             { hasSelection && hiddenCount > 0 && (
-              <span className={ 'shrink-0 text-sm font-medium select-placeholder px-1' }>
+              <span className={ 'shrink-0 text-sm font-[number:var(--font-weight-input-option-label)] select-placeholder px-1' }>
                 +{ hiddenCount } more
               </span>
             ) }
@@ -257,7 +257,7 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
                 </Badge>
               )) }
               { selectedOptions.length > 0 && (
-                <span className={ 'text-sm font-medium px-1' }>
+                <span className={ 'text-sm font-[number:var(--font-weight-input-option-label)] px-1' }>
                   +{ selectedOptions.length } more
                 </span>
               ) }
@@ -280,7 +280,7 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
                   type={ 'text' }
                   placeholder={ 'Search' }
                   value={ search }
-                  className={ 'appearance-none border-none w-full bg-transparent rounded- pl-10 transition-all duration-150 focus:outline-none ring-0 placeholder:text-[var(--color-input-placeholder)]' }
+                  className={ 'appearance-none border-none w-full bg-transparent rounded- pl-10 transition-all duration-[var(--control-transition-duration)] focus:outline-none ring-0 placeholder:text-[var(--color-input-placeholder)]' }
                   onChange={ (e) => setSearch(e.target.value) }
                   onKeyDown={ (e) => {
                     if (e.key === 'Enter' && activeIndex != null) {

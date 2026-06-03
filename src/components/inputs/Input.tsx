@@ -66,7 +66,7 @@ export const Input = (props: InputProps) => {
           ) }
           <input
             className={ classNames(
-              'border input-base transition-all duration-150 rounded-xl shadow-sm ring-0 focus:ring-4 focus:outline-none',
+              'border-[length:var(--border-width-input)] input-base transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] shadow-[var(--shadow-control)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
               sizeHeightClasses[size],
               sizeFontClasses[size],
               Icon ? sizePaddingLeftWithIconClasses[size] : sizePaddingLeftClasses[size],

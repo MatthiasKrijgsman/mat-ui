@@ -25,13 +25,13 @@ export const TabButtons = (props: TabButtonsProps) => {
   //TODO Add sizing
   return (
     <div className={ classNames(
-      'h-12 tab-container p-1 rounded-xl inline-flex flex-row space-x-1 overflow-x-auto mat-ui-hide-scrollbars',
+      'h-12 tab-container p-1 rounded-[var(--border-radius-tab)] inline-flex flex-row space-x-1 overflow-x-auto mat-ui-hide-scrollbars',
       className
     ) }>
       { tabs.map((tab, i) => {
         const tabClasses = classNames(
-          'shrink-0 px-4 h-full inline-flex flex-row items-center font-semibold rounded-xl cursor-pointer border border-transparent ing-0 tab-button transition-all duration-150 select-none focus:outline-none focus:ring-0',
-          tab.active && 'tab-button-active shadow-sm'
+          'shrink-0 px-4 h-full inline-flex flex-row items-center font-[number:var(--font-weight-tab)] font-[family-name:var(--font-family-base)] rounded-[var(--border-radius-tab)] cursor-pointer border border-transparent ing-0 tab-button transition-all duration-[var(--control-transition-duration)] select-none focus:outline-none focus:ring-0',
+          tab.active && 'tab-button-active shadow-[var(--shadow-control)]'
         )
         if (tab.href) {
           return (

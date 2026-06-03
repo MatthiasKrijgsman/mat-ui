@@ -40,7 +40,7 @@ export const UploadFileTile = (props: UploadFileTileProps) => {
     <div
       className={ classNames(
         'flex flex-row items-center gap-3',
-        'border input-base rounded-xl shadow-sm',
+        'border-[length:var(--border-width-input)] input-base rounded-[var(--border-radius-input)] shadow-[var(--shadow-control)]',
         'pl-4 pr-1 py-1',
         error && 'input-error',
         className,
@@ -58,7 +58,7 @@ export const UploadFileTile = (props: UploadFileTileProps) => {
         </div>
       ) }
 
-      <div className={ 'flex-1 min-w-0 font-medium truncate' }>
+      <div className={ 'flex-1 min-w-0 font-[number:var(--font-weight-input-option-label)] truncate' }>
         { file.name }
       </div>
 

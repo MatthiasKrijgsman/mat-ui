@@ -53,7 +53,7 @@ export const SidebarModal = (props: SidebarModalProps) => {
           <div className={ 'fixed inset-0 flex flex-row justify-end pointer-events-none z-50' }>
             <motion.div
               className={ classNames(
-                'flex flex-col modal-content shadow-xl p-6 lg:p-12 pointer-events-auto h-full w-full overflow-y-auto relative',
+                'flex flex-col modal-content shadow-[var(--shadow-overlay)] p-6 lg:p-12 pointer-events-auto h-full w-full overflow-y-auto relative',
                 className
               ) }
               style={ { maxWidth: maxWidth } }

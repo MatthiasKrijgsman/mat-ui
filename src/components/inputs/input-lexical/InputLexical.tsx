@@ -113,7 +113,7 @@ export const InputLexical = (props: InputLexicalProps) => {
         <LexicalComposer initialConfig={ initialConfig }>
           <div
             className={ classNames(
-              "relative flex flex-col border input-base rounded-xl shadow-sm overflow-hidden transition-all duration-150 ring-0 focus-within:ring-4 focus-within:outline-none",
+              "relative flex flex-col border-[length:var(--border-width-input)] input-base rounded-[var(--border-radius-input)] shadow-[var(--shadow-control)] overflow-hidden transition-all duration-[var(--control-transition-duration)] ring-0 focus-within:ring-[length:var(--control-ring-width)] focus-within:outline-none font-[family-name:var(--font-family-base)]",
               hasError && "input-error",
             ) }
           >

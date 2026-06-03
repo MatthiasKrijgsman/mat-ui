@@ -18,14 +18,14 @@ export const TableEmpty = (props: TableEmptyProps) => {
   return (
     <div className={ classNames('flex flex-col items-center gap-3 text-center', className) }>
       { Icon && (
-        <div className={ 'flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--color-table-header-bg)]' }>
+        <div className={ 'flex h-14 w-14 items-center justify-center rounded-[var(--border-radius-panel)] bg-[var(--color-table-header-bg)]' }>
           <Icon className={ 'h-6 w-6 text-[var(--color-input-icon)]' }/>
         </div>
       ) }
       { (title || description) && (
         <div className={ 'flex flex-col gap-1' }>
           { title && (
-            <div className={ 'font-medium text-[var(--color-input-text)]' }>{ title }</div>
+            <div className={ 'font-[number:var(--font-weight-table-header)] text-[var(--color-input-text)]' }>{ title }</div>
           ) }
           { description && (
             <div className={ 'text-sm text-[var(--color-input-description-text)]' }>{ description }</div>

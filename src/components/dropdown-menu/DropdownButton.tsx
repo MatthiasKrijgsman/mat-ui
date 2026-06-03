@@ -11,7 +11,7 @@ export type DropdownButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> 
   dismissOnClick?: boolean;
 }
 
-const base: string = `inline-flex flex-row items-center gap-3 h-10 px-3 font-semibold ring-0 dropdown-item rounded-lg cursor-pointer transition-all duration-150 select-none focus:outline-none focus:ring-0 border border-transparent bg-transparent`;
+const base: string = `inline-flex flex-row items-center gap-3 h-10 px-3 font-[number:var(--font-weight-dropdown-item)] font-[family-name:var(--font-family-base)] ring-0 dropdown-item rounded-[var(--border-radius-menu-item)] cursor-pointer transition-all duration-[var(--control-transition-duration)] select-none focus:outline-none focus:ring-0 border border-transparent bg-transparent`;
 
 export const DropdownButton = React.forwardRef<HTMLButtonElement, DropdownButtonProps>((props, ref) => {
   const {

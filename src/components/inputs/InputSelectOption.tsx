@@ -27,7 +27,7 @@ export const InputSelectOption = React.forwardRef<HTMLDivElement, InputSelectOpt
       { ...rest }
       onClick={ () => !disabled && onClick && onClick() }
       className={ classNames(
-        'option-base px-4 py-2 rounded-xl cursor-pointer transition-all duration-150 select-none flex flex-row gap-3 items-center',
+        'option-base px-4 py-2 rounded-[var(--border-radius-option)] cursor-pointer transition-all duration-[var(--control-transition-duration)] select-none flex flex-row gap-3 items-center',
         (selected && !disabled) && 'option-selected',
         (active && !disabled) && 'option-active',
         disabled && 'option-disabled cursor-not-allowed hover:bg-transparent active:bg-transparent',

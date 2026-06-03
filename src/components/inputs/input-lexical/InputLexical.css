@@ -60,13 +60,13 @@
 
 /* Floating toolbar (dark bar anchored above the editor while focused) */
 .lexical-floating-toolbar {
-    @apply bg-[var(--color-lexical-floating-bg)] border border-[var(--color-lexical-floating-border)] shadow-lg;
+    @apply bg-[var(--color-lexical-floating-bg)] border border-[var(--color-lexical-floating-border)] shadow-[var(--shadow-dropdown)];
 }
 
 /* Toolbar button — shared base, themed per tone. Ring + transition mirror the
- * kit's Button / ButtonIconSquare (ring-0 → hover:ring-4 → active:ring-1). */
+ * kit's Button / ButtonIconSquare (ring-0 → hover:ring-[length:var(--control-ring-width)] → active:ring-[length:var(--control-ring-width-active)]). */
 .lexical-tb-btn {
-    @apply inline-flex items-center justify-center rounded-lg cursor-pointer select-none transition-all duration-150 ring-0 hover:ring-4 active:ring-1 focus:ring-4 disabled:hover:ring-0 focus:outline-none disabled:cursor-default disabled:opacity-40;
+    @apply inline-flex items-center justify-center rounded-[var(--border-radius-menu-item)] cursor-pointer select-none transition-all duration-[var(--control-transition-duration)] ring-0 hover:ring-[length:var(--control-ring-width)] active:ring-[length:var(--control-ring-width-active)] focus:ring-[length:var(--control-ring-width)] disabled:hover:ring-0 focus:outline-none disabled:cursor-default disabled:opacity-40;
 }
 
 /* Light tone (static toolbar) */

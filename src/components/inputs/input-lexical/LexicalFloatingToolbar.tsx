@@ -82,7 +82,7 @@ export const LexicalFloatingToolbar = (props: LexicalFloatingToolbarProps) => {
           { open && (
             <div ref={ refs.setFloating } style={ floatingStyles } className={ "z-50" }>
               <motion.div
-                className={ "lexical-floating-toolbar flex w-full flex-row items-center p-1 rounded-xl" }
+                className={ "lexical-floating-toolbar flex w-full flex-row items-center p-1 rounded-[var(--border-radius-dropdown)]" }
                 initial={ { opacity: 0, y: 4 } }
                 animate={ { opacity: 1, y: 0 } }
                 exit={ { opacity: 0, y: 4 } }

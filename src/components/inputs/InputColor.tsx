@@ -119,7 +119,7 @@ const ColorPicker = ({ value, onChange }: ColorPickerProps) => {
         { ...svDrag.bind }
       >
         <div
-          className={ 'absolute inset-0 rounded-md overflow-hidden border color-picker-surface' }
+          className={ 'absolute inset-0 rounded-[var(--border-radius-control-inner)] overflow-hidden border-[length:var(--border-width-input)] color-picker-surface' }
           style={ { backgroundColor: hueOnly } }
         >
           <div
@@ -146,7 +146,7 @@ const ColorPicker = ({ value, onChange }: ColorPickerProps) => {
       </div>
 
       <div
-        className={ 'relative w-full rounded-md' }
+        className={ 'relative w-full rounded-[var(--border-radius-control-inner)]' }
         style={ {
           height: 12,
           background: HUE_GRADIENT,
@@ -170,7 +170,7 @@ const ColorPicker = ({ value, onChange }: ColorPickerProps) => {
       </div>
 
       <div
-        className={ 'relative w-full rounded-md' }
+        className={ 'relative w-full rounded-[var(--border-radius-control-inner)]' }
         style={ {
           height: 12,
           background: `linear-gradient(to right, #000, ${ brightnessMax })`,
@@ -268,7 +268,7 @@ export const InputColor = (props: InputColorProps) => {
         <div className={ 'flex flex-col relative' } ref={ anchorRef }>
           <div
             className={ classNames(
-              'absolute top-1/2 -translate-y-1/2 rounded-md border color-swatch',
+              'absolute top-1/2 -translate-y-1/2 rounded-[var(--border-radius-control-inner)] border-[length:var(--border-width-input)] color-swatch',
               sizeIconClasses[size],
               sizeIconLeftPositionClasses[size],
             ) }
@@ -277,7 +277,7 @@ export const InputColor = (props: InputColorProps) => {
           <input
             ref={ inputRef }
             className={ classNames(
-              'border input-base transition-all duration-150 rounded-xl shadow-sm ring-0 focus:ring-4 focus:outline-none',
+              'border-[length:var(--border-width-input)] input-base transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] shadow-[var(--shadow-control)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
               sizeHeightClasses[size],
               sizeFontClasses[size],
               sizePaddingLeftWithIconClasses[size],

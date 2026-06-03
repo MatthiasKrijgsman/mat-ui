@@ -10,7 +10,7 @@ export type PanelFieldProps = React.HTMLAttributes<HTMLDivElement> & {
   orientation?: PanelFieldOrientation;
 }
 
-const labelClasses: string = 'input-description text-sm font-medium';
+const labelClasses: string = 'input-description text-[length:var(--font-size-description)] font-[number:var(--font-weight-panel-field)]';
 
 export const PanelField = (props: PanelFieldProps) => {
 

@@ -14,6 +14,6 @@ export const InputLabel = (props: InputLabelProps) => {
   }
 
   return (
-    <label className={ 'input-label font-medium mb-1' }>{ children }</label>
+    <label className={ 'input-label font-[number:var(--font-weight-input-label)] mb-1' }>{ children }</label>
   );
 };

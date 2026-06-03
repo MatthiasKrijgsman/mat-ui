@@ -112,9 +112,9 @@ export const InputFileSingle = (props: InputFileSingleProps) => {
           { ...getRootProps({
             className: classNames(
               'flex flex-row items-center',
-              'border input-base rounded-xl shadow-sm transition-all duration-150',
+              'border-[length:var(--border-width-input)] input-base rounded-[var(--border-radius-input)] shadow-[var(--shadow-control)] transition-all duration-[var(--control-transition-duration)]',
               'ring-0 focus:outline-none',
-              (isFocused || isDragActive) && 'ring-4',
+              (isFocused || isDragActive) && 'ring-[length:var(--control-ring-width)]',
               error && 'input-error',
               disabled && 'opacity-60 cursor-not-allowed',
               sizeHeightClasses[size],
@@ -156,9 +156,9 @@ export const InputFileSingle = (props: InputFileSingleProps) => {
             } }
             className={ classNames(
               'inline-flex flex-row items-center justify-center shrink-0',
-              'border button-white shadow-sm rounded-[calc(var(--border-radius-input)-0.25rem)]',
-              'font-semibold cursor-pointer select-none transition-all duration-150',
-              'button-ring ring-0 hover:ring-4 active:ring-1 focus:outline-none focus:ring-4',
+              'border-[length:var(--border-width-input)] button-white shadow-[var(--shadow-control)] rounded-[calc(var(--border-radius-button)-0.25rem)]',
+              'font-[number:var(--font-weight-button)] font-[family-name:var(--font-family-base)] cursor-pointer select-none transition-all duration-[var(--control-transition-duration)]',
+              'button-ring ring-0 hover:ring-[length:var(--control-ring-width)] active:ring-[length:var(--control-ring-width-active)] focus:outline-none focus:ring-[length:var(--control-ring-width)]',
               'disabled:cursor-default',
               'mr-1.5',
               chooseButtonHeightClasses[size],

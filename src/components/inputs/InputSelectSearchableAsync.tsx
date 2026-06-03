@@ -188,13 +188,13 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
               },
             }) }
             className={ classNames(
-              'flex flex-row items-center border select-trigger transition-all duration-150 rounded-xl shadow-sm ring-0 focus:ring-4 focus:outline-none select-none',
+              'flex flex-row items-center border-[length:var(--border-width-input)] select-trigger transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] shadow-[var(--shadow-control)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none select-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
               sizeHeightClasses[size],
               sizeFontClasses[size],
               sizePaddingLeftClasses[size],
               clearable && value ? sizePaddingRightWithTrayTwoClasses[size] : sizePaddingRightWithTrayClasses[size],
               disabled ? 'select-trigger-disabled' : error && 'select-trigger-error',
-              !disabled && open && 'ring-4',
+              !disabled && open && 'ring-[length:var(--control-ring-width)]',
             ) }
           >
             { !isFetchingSelectedOption && selectedOption && (
@@ -224,7 +224,7 @@ export const InputSelectSearchableAsync = <T, >(props: InputSelectSearchableAsyn
                   type={ 'text' }
                   placeholder={ 'Search' }
                   value={ search }
-                  className={ 'appearance-none border-none w-full bg-transparent rounded- pl-10 transition-all duration-150 focus:outline-none ring-0 placeholder:text-[var(--color-input-placeholder)]' }
+                  className={ 'appearance-none border-none w-full bg-transparent rounded- pl-10 transition-all duration-[var(--control-transition-duration)] focus:outline-none ring-0 placeholder:text-[var(--color-input-placeholder)]' }
                   onChange={ (e) => setSearch(e.target.value) }
                   onKeyDown={ (e) => {
                     if (e.key === 'Enter' && activeIndex != null) {

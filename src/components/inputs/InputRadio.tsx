@@ -28,12 +28,12 @@ export const InputRadio = (props: InputRadioProps) => {
       <div className={ 'flex flex-row gap-3' }>
         <input
           type={ 'radio' }
-          className={ 'h-6 w-6 shrink-0 rounded-full border check-base shadow-sm ring-0 hover:ring-4 focus:ring-4 ring-offset-0 focus:outline-0 transition-all duration-150' }
+          className={ 'h-6 w-6 shrink-0 rounded-full border-[length:var(--border-width-input)] check-base shadow-[var(--shadow-control)] ring-0 hover:ring-[length:var(--control-ring-width)] focus:ring-[length:var(--control-ring-width)] ring-offset-0 focus:outline-0 transition-all duration-[var(--control-transition-duration)]' }
           { ...rest }
         />
         { label && (
           <label htmlFor={ props.id } className={ classNames(
-            'input-label font-medium mb-1',
+            'input-label font-[number:var(--font-weight-input-option-label)] mb-1',
             props.id && 'cursor-pointer'
           ) }>{ label }</label>
         ) }

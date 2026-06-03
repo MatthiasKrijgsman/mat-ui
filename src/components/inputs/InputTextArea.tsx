@@ -95,7 +95,7 @@ export const InputTextArea = (props: InputTextAreaProps) => {
             ref={ ref ? mergeRefs([ ref, internalRef ]) : internalRef }
             onChange={ handleChange }
             className={ classNames(
-              'py-2.5 border input-base transition-all duration-150 rounded-xl shadow-sm ring-0 focus:ring-4 focus:outline-none',
+              'py-2.5 border-[length:var(--border-width-input)] input-base transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] shadow-[var(--shadow-control)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
               sizeMinHeightClasses[size],
               sizeFontClasses[size],
               sizePaddingLeftClasses[size],

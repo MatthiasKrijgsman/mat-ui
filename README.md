@@ -33,7 +33,7 @@ pnpm install @matthiaskrijgsman/mat-ui
 
 ### Styles
 
-Import the mat-ui stylesheet in your CSS entry file:
+Import the mat-ui stylesheet in your CSS entry file. Be sure to do this **after** the Tailwind import.
 
 ```css
 @import "@matthiaskrijgsman/mat-ui/style";
@@ -48,6 +48,361 @@ function App() {
   return <Button variant={'primary'}>Click me</Button>;
 }
 ```
+
+## Dark Theme
+
+mat-ui ships with built-in dark theme support. Add the `dark` class to the `<html>` element to activate it:
+
+```html
+<html class="dark">
+```
+
+Toggle it with JavaScript:
+
+```ts
+// Manual toggle
+document.documentElement.classList.toggle('dark');
+
+// Follow OS preference
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+document.documentElement.classList.toggle('dark', prefersDark);
+```
+
+All components adapt automatically — no additional props or configuration needed.
+
+## Theming with design tokens
+
+Every visual property in mat-ui — color, shape, type, elevation and size — is driven by CSS custom properties (design tokens) defined on `:root`. There is no Tailwind config to fork and no component props to thread: you retheme the whole kit by overriding tokens in your own CSS, after importing the stylesheet.
+
+```css
+@import "@matthiaskrijgsman/mat-ui/style";
+
+:root {
+  --color-button-primary-bg: #0ea5e9;   /* brand color */
+  --border-radius-input: 0px;            /* square corners everywhere */
+  --font-weight-button: 700;             /* bolder buttons */
+}
+```
+
+### How the tokens are organised
+
+Tokens fall into three families:
+
+- **Structure** — typography (family, weight, size), border radius, border width, shadow, ring (focus/hover) width and transition timing. Theme-independent.
+- **Sizing** — the shared `sm | md | lg` control scale (height, padding, gap, icon size).
+- **Color** — every surface, border, text and state color. Defined on `:root` (light) and overridden under `.dark`.
+
+**Structure** and **color** tokens use a two-tier model:
+
+1. **Base scales** — a small set of primitives (e.g. `--font-weight-strong`, `--radius-xl`). Change one to shift the whole kit at once.
+2. **Semantic aliases** — per-component tokens that point at the base scale by default (e.g. `--font-weight-button: var(--font-weight-strong)`, `--border-radius-dropdown: var(--radius-xl)`). Override one to retheme a single component without touching anything else.
+
+So `--font-weight-strong: 700` makes every emphasised element heavier, while `--font-weight-button: 700` changes only buttons. Pick the tier that matches how broad your change is.
+
+> Dark mode: add the `dark` class to `<html>` (see [Dark Theme](#dark-theme)). Only **color** tokens differ between themes — structure and sizing are shared, so you never duplicate them under `.dark`.
+
+### Worked examples
+
+Square, flat, heavier — in four tokens:
+
+```css
+:root {
+  --border-radius-input: 0px;       /* inputs, selects, buttons */
+  --border-radius-panel: 0.25rem;   /* panels, modals */
+  --border-width-input: 2px;        /* all control & surface borders */
+  --font-weight-strong: 700;        /* buttons, badges, tabs, dropdown items… */
+}
+```
+
+Set the kit's typeface in one place:
+
+```css
+:root {
+  --font-family-base: "Inter", system-ui, sans-serif;
+}
+```
+
+---
+
+## Token reference
+
+### Structure — typography
+
+Font weights resolve through a three-step base scale; the semantic tokens below point at it by default.
+
+| Base token | Default |
+|------------|---------|
+| `--font-weight-normal` | `400` |
+| `--font-weight-medium` | `500` |
+| `--font-weight-strong` | `600` |
+
+| Semantic token | Applies to | Default |
+|----------------|-----------|---------|
+| `--font-weight-input-text` | Text typed into inputs, selects, textareas | `--font-weight-normal` |
+| `--font-weight-button` | `Button`, `ButtonIconSquare`, `ButtonIconRound`, file-input action text | `--font-weight-strong` |
+| `--font-weight-badge` | `Badge` | `--font-weight-strong` |
+| `--font-weight-tab` | `TabButtons` | `--font-weight-strong` |
+| `--font-weight-input-label` | `InputLabel` (label above inputs) | `--font-weight-medium` |
+| `--font-weight-input-description` | `InputDescription` | `--font-weight-medium` |
+| `--font-weight-input-error` | `InputError` | `--font-weight-medium` |
+| `--font-weight-input-option-label` | Inline labels on `InputCheck` / `InputRadio` / `InputToggle`, file tile names | `--font-weight-medium` |
+| `--font-weight-dropdown-item` | `DropdownButton`, `PanelLink` | `--font-weight-strong` |
+| `--font-weight-group-header` | Dropdown group labels, select group headers | `--font-weight-strong` |
+| `--font-weight-panel-field` | `PanelField` label | `--font-weight-medium` |
+| `--font-weight-panel-link` | `PanelLink` | `--font-weight-strong` |
+| `--font-weight-table-header` | `Table` header cells, `TableEmpty` title | `--font-weight-medium` |
+| `--font-weight-table-cell` | `Table` body cells | `--font-weight-normal` |
+
+| Token | Description | Default |
+|-------|-------------|---------|
+| `--font-family-base` | Typeface for all kit text (defaults to the host font) | `inherit` |
+| `--font-size-label` | Dropdown / select group label size | `var(--text-sm)` |
+| `--font-size-description` | `InputDescription` and `PanelField` label size | `var(--text-sm)` |
+| `--font-size-error` | `InputError` size | `var(--text-sm)` |
+
+> The text size of the input/button itself comes from the **control sizing** scale below (`--control-size-{size}-font-size`), not from these tokens.
+
+### Structure — border radius
+
+Semantic radius tokens map onto Tailwind's radius scale. Override a token to change one group; override the underlying `--radius-*` to change several at once.
+
+| Token | Applies to | Default |
+|-------|-----------|---------|
+| `--border-radius-input` | Text inputs, selects, textareas, file inputs, the Lexical editor box | `var(--radius-xl)` |
+| `--border-radius-button` | `Button`, `ButtonIconSquare` (and the file-input "Choose" button) | `var(--border-radius-input)` |
+| `--border-radius-panel` | `Panel`, `PanelStack`, `Modal`, `TableEmpty` icon frame | `var(--radius-2xl)` |
+| `--border-radius-dropdown` | `DropdownPanel`, Lexical floating toolbar | `var(--radius-xl)` |
+| `--border-radius-option` | Select option rows | `var(--radius-xl)` |
+| `--border-radius-menu-item` | `DropdownButton`, `PanelLink`, Lexical toolbar buttons | `var(--radius-lg)` |
+| `--border-radius-badge` | `Badge` | `var(--radius-lg)` |
+| `--border-radius-tab` | `TabButtons` container and pills | `var(--radius-xl)` |
+| `--border-radius-checkbox` | `InputCheck` box | `var(--radius-lg)` |
+| `--border-radius-control-inner` | Color swatch and picker bars in `InputColor` | `var(--radius-md)` |
+
+> `ButtonIconRound`, the toggle track/thumb, and radio dots are intentionally fully round (`rounded-full`) and are not tokenized.
+
+### Structure — border width & shadow
+
+| Token | Applies to | Default |
+|-------|-----------|---------|
+| `--border-width-input` | Border width of inputs, selects, buttons, panels, dropdowns, modals, check/radio | `1px` |
+| `--shadow-control` | Resting elevation of buttons, inputs, panels, tabs | `var(--shadow-sm)` |
+| `--shadow-dropdown` | `DropdownPanel` and the Lexical floating toolbar | `var(--shadow-lg)` |
+| `--shadow-overlay` | `Modal` and `SidebarModal` | `var(--shadow-xl)` |
+
+### Structure — ring & transition
+
+Controls share a consistent interaction model: a focus/hover "glow" ring, a thinner inset ring on press, and a single transition duration. The ring **color** comes from the per-component `--color-*-ring` tokens (see the color sections); these set its **width** and the animation timing.
+
+| Token | Applies to | Default |
+|-------|-----------|---------|
+| `--control-ring-width` | Ring width on hover, focus, focus-within, and the select/dropzone open state | `4px` |
+| `--control-ring-width-active` | Ring width on press (`:active`) | `1px` |
+| `--control-transition-duration` | Duration of hover/focus/press transitions on buttons, inputs, selects, the icon-button press scale, etc. | `150ms` |
+| `--control-transition-duration-fast` | Quicker color-only transitions (table row/header hover, clickable `Badge`) | `100ms` |
+
+> The resting state is always ringless (`ring-0`) and a few elements opt out of a focus ring entirely (dropdown items, tabs) — these are intentional and not tokenized.
+
+### Control sizing
+
+`Button`, `ButtonIconSquare`, `ButtonIconRound`, `Input`, `InputColor`, `InputTextArea`, `InputSelectNative`, `InputSelect`, `InputSelectSearchable`, and `InputSelectSearchableAsync` accept a `size?: 'sm' | 'md' | 'lg'` prop (default `'md'`) and read their dimensions from a single shared scale. Override these to adjust heights, padding, font size, and icon sizing consistently across all controls. Replace `{size}` with `sm`, `md`, or `lg`.
+
+| Token | Description | sm · md · lg defaults |
+|-------|-------------|------------------------|
+| `--control-size-{size}-height` | Control height (also width for square/round icon buttons) | `2.5rem` · `3rem` · `3.5rem` |
+| `--control-size-{size}-px` | Horizontal padding | `1rem` · `1rem` · `1.25rem` |
+| `--control-size-{size}-gap` | Gap between icon and label inside buttons | `0.5rem` · `0.5rem` · `0.75rem` |
+| `--control-size-{size}-font-size` | Text size | `1rem` · `1rem` · `1rem` |
+| `--control-size-{size}-icon` | Icon glyph size inside controls | `1rem` · `1.25rem` · `1.5rem` |
+| `--control-size-{size}-icon-offset` | Distance from the input edge to a leading icon (used when an `Icon` prop is set on `Input`) | `1rem` · `1rem` · `1.25rem` |
+
+### Color — focus ring
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-input-focus-ring` | Focus ring color for buttons and inputs | `rgb(17 24 39 / 0.15)` |
+
+### Color — buttons
+
+Each button variant (`primary`, `white`, `black`, `transparent`, `secondary`, `tertiary`) uses the same set of tokens. Replace `{variant}` with the variant name.
+
+| Token | Description |
+|-------|-------------|
+| `--color-button-{variant}-bg` | Background color |
+| `--color-button-{variant}-bg-hover` | Background on hover |
+| `--color-button-{variant}-bg-active` | Background on press |
+| `--color-button-{variant}-border` | Border color |
+| `--color-button-{variant}-border-hover` | Border on hover |
+| `--color-button-{variant}-border-active` | Border on press |
+| `--color-button-{variant}-text` | Text color |
+| `--color-button-{variant}-text-active` | Text color on press |
+| `--color-button-{variant}-bg-disabled` | Background when disabled |
+| `--color-button-{variant}-border-disabled` | Border when disabled |
+| `--color-button-{variant}-text-disabled` | Text color when disabled |
+
+### Color — inputs
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-input-bg` | Input background | `#ffffff` |
+| `--color-input-border` | Input border | `#e5e7eb` |
+| `--color-input-text` | Input text color | `#111827` |
+| `--color-input-placeholder` | Placeholder text color | `#9ca3af` |
+| `--color-input-ring` | Ring color on hover | `rgb(17 24 39 / 0.1)` |
+| `--color-input-border-error` | Border color in error state | `#dc2626` |
+| `--color-input-ring-error` | Ring color in error state | `rgb(220 38 38 / 0.2)` |
+| `--color-input-icon` | Leading icon color | `rgb(17 24 39 / 0.6)` |
+
+### Color — input labels, descriptions & errors
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-input-label-text` | Label text color | `#111827` |
+| `--color-input-description-text` | Description text color | `#6b7280` |
+| `--color-input-error-text` | Error message text color | `#dc2626` |
+
+### Color — input icon buttons
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-input-icon-button-ring` | Ring color for icon buttons inside inputs | `#e5e7eb` |
+| `--color-input-icon-button-icon` | Icon color for icon buttons inside inputs | `#6b7280` |
+
+### Color — file inputs
+
+`InputFileSingle` and `UploadFileTile` are composed from existing primitives (input tokens, `Button` for the inset "Choose" button, `ButtonIconSquare` for the remove (X) button) — no dedicated color tokens of their own. `InputFileMultiple` adds:
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-input-file-icon-bg` | Background of the central icon frame inside `InputFileMultiple`'s dropzone | `#f3f4f6` |
+
+All three components also rely on the shared `--color-status-success` / `--color-status-error` tokens for the green check / red error icons in their upload-state slots.
+
+### Color — color input
+
+`InputColor` reuses the standard input tokens — the color swatch in the field and the outline of the picker's saturation/value plane both derive from `--color-input-border`, and the field itself uses the same `--color-input-*` tokens as `Input`. The picker's hue/brightness gradients and indicator rings are intrinsic to the color-picking UI (not theme-based) and are intentionally not tokenized.
+
+### Color — select options
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-option-bg-hover` | Option background on hover | `#f3f4f6` |
+| `--color-option-bg-active` | Option background on press | `#e5e7eb` |
+| `--color-option-bg-selected` | Selected option background | `#eff6ff` |
+| `--color-option-bg-selected-hover` | Selected option background on hover | `#dbeafe` |
+| `--color-option-bg-selected-active` | Selected option background on press | `#dbeafe` |
+| `--color-option-text-disabled` | Disabled option text color | `#9ca3af` |
+| `--color-input-select-placeholder` | Select placeholder text color | `#6b7280` |
+
+### Color — select search bar
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-select-search-border` | Search input border | `#e5e7eb` |
+| `--color-select-search-bg` | Search input background | `rgb(255 255 255 / 0.5)` |
+| `--color-select-search-icon` | Search icon color | `#6b7280` |
+
+### Color — toggle
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-toggle-track-on-bg` | Track background when on | `#2563eb` |
+| `--color-toggle-track-on-border` | Track border when on | `#2563eb` |
+| `--color-toggle-track-off-bg` | Track background when off | `#d1d5db` |
+| `--color-toggle-track-off-border` | Track border when off | `#d1d5db` |
+| `--color-toggle-thumb-bg` | Thumb background | `#ffffff` |
+
+### Color — checkbox & radio
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-check-border` | Checkbox/radio border | `#d1d5db` |
+| `--color-check-ring` | Checkbox/radio focus ring | `rgb(17 24 39 / 0.1)` |
+| `--color-check-checked-bg` | Checkbox/radio fill when checked | `#2563eb` |
+
+### Color — dropdown menu
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-dropdown-bg` | Dropdown panel background | `#ffffff` |
+| `--color-dropdown-border` | Dropdown panel border | `#e5e7eb` |
+| `--color-dropdown-item-bg-hover` | Item background on hover | `#f3f4f6` |
+| `--color-dropdown-item-bg-active` | Item background on press | `#e5e7eb` |
+| `--color-dropdown-item-text` | Item text color | `#111827` |
+| `--color-dropdown-item-ring` | Item focus ring | `rgb(17 24 39 / 0.1)` |
+| `--color-dropdown-group-label` | Group label text color | `#6b7280` |
+
+### Color — tab buttons
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-tab-text` | Tab text and icon color | `#111827` |
+| `--color-tab-container-bg` | Tab bar background | `#f3f4f6` |
+| `--color-tab-bg-hover` | Tab background on hover | `#e5e7eb` |
+| `--color-tab-bg-active` | Tab background on press | `rgb(209 213 219 / 0.8)` |
+| `--color-tab-active-bg` | Active tab background | `#ffffff` |
+| `--color-tab-active-border` | Active tab border | `#e5e7eb` |
+
+### Color — panel
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-panel-bg` | Panel background | `#ffffff` |
+| `--color-panel-border` | Panel border | `#e5e7eb` |
+| `--color-panel-text` | Panel default text color (inherited by `PanelField`) | `#111827` |
+
+### Color — modal & sidebar modal
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-modal-overlay` | Backdrop overlay color | `rgb(156 163 175 / 0.3)` |
+| `--color-modal-bg` | Modal content background | `#ffffff` |
+
+### Color — table
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-table-header-text` | Header text color | `#1f2937` |
+| `--color-table-header-bg` | Header background | `#f9fafb` |
+| `--color-table-header-bg-hover` | Header background on hover | `#f3f4f6` |
+| `--color-table-header-bg-active` | Header background on press | `#e5e7eb` |
+| `--color-table-border` | Table border color | `#e5e7eb` |
+| `--color-table-row-bg` | Row background | `#ffffff` |
+| `--color-table-row-bg-hover` | Row background on hover | `#f9fafb` |
+| `--color-table-row-text` | Row text color | `#111827` |
+| `--color-table-resize-handle` | Column resize handle | `#e5e7eb` |
+| `--color-table-resize-handle-hover` | Resize handle on hover | `#d1d5db` |
+| `--color-table-resize-handle-active` | Resize handle while dragging | `#2563eb` |
+
+### Color — divider
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-divider` | Divider line color | `#e5e7eb` |
+
+### Color — badge
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-badge-white-bg` | White badge background | `#ffffff` |
+| `--color-badge-white-text` | White badge text | `#111827` |
+| `--color-badge-white-ring` | White badge ring | `#d6d3d1` |
+| `--color-badge-black-bg` | Black badge background | `#000000` |
+| `--color-badge-black-text` | Black badge text | `#ffffff` |
+| `--color-badge-black-ring` | Black badge ring | `#d6d3d1` |
+
+> Colored badges (red, blue, green, etc.) use Tailwind color utility classes and are not token-based. They adapt to dark mode automatically via Tailwind's `dark:` variants.
+
+### Color — status
+
+Shared color tokens for status/notification indicators. Currently used by `PanelLink`'s `status` prop, but available for any component.
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-status-error` | Error / destructive state | `#dc2626` |
+| `--color-status-warning` | Warning state | `#f59e0b` |
+| `--color-status-success` | Success state | `#16a34a` |
+| `--color-status-info` | Informational state | `#2563eb` |
 
 ## Rich text editor (`InputLexical`)
 
@@ -184,254 +539,3 @@ Style custom nodes by merging theme classes over the defaults with the `theme` p
 </InputLexical>;
 ```
 
-## Dark Theme
-
-mat-ui ships with built-in dark theme support. Add the `dark` class to the `<html>` element to activate it:
-
-```html
-<html class="dark">
-```
-
-Toggle it with JavaScript:
-
-```ts
-// Manual toggle
-document.documentElement.classList.toggle('dark');
-
-// Follow OS preference
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-document.documentElement.classList.toggle('dark', prefersDark);
-```
-
-All components adapt automatically — no additional props or configuration needed.
-
-## CSS Design Tokens
-
-mat-ui uses CSS custom properties (design tokens) for all component colors. These are defined on `:root` for light mode and overridden under `.dark` for dark mode. You can customize the look of any component by overriding these tokens in your own CSS.
-
-### Overriding tokens
-
-Define your overrides after importing the mat-ui stylesheet:
-
-```css
-@import "@matthiaskrijgsman/mat-ui/style";
-
-:root {
-  /* Change the primary button to your brand color */
-  --color-button-primary-bg: #0ea5e9;
-  --color-button-primary-border: #0ea5e9;
-  --color-button-primary-bg-active: #0284c7;
-  --color-button-primary-border-active: #0284c7;
-}
-
-/* Override dark theme values too */
-.dark {
-  --color-button-primary-bg: #38bdf8;
-  --color-button-primary-border: #38bdf8;
-  --color-button-primary-bg-active: #0ea5e9;
-  --color-button-primary-border-active: #0ea5e9;
-}
-```
-
-### Token reference
-
-#### General
-
-| Token | Description | Light default |
-|-------|-------------|---------------|
-| `--color-input-focus-ring` | Focus ring color for buttons and inputs | `rgb(17 24 39 / 0.15)` |
-| `--border-radius-input` | Border radius for inputs and selects | `var(--radius-xl)` |
-
-#### Control sizing
-
-`Button`, `ButtonIconSquare`, `ButtonIconRound`, `Input`, `InputColor`, `InputTextArea`, `InputSelectNative`, `InputSelect`, `InputSelectSearchable`, and `InputSelectSearchableAsync` accept a `size?: 'sm' | 'md' | 'lg'` prop (default `'md'`) and read their dimensions from a single shared scale. Override these to adjust heights, padding, font size, and icon sizing consistently across all controls. Replace `{size}` with `sm`, `md`, or `lg`.
-
-| Token | Description | sm · md · lg defaults |
-|-------|-------------|------------------------|
-| `--control-size-{size}-height` | Control height (also width for square/round icon buttons) | `2.5rem` · `3rem` · `3.5rem` |
-| `--control-size-{size}-px` | Horizontal padding | `1rem` · `1rem` · `1.25rem` |
-| `--control-size-{size}-gap` | Gap between icon and label inside buttons | `0.5rem` · `0.5rem` · `0.75rem` |
-| `--control-size-{size}-font-size` | Text size | `1rem` · `1rem` · `1rem` |
-| `--control-size-{size}-icon` | Icon glyph size inside controls | `1rem` · `1.25rem` · `1.5rem` |
-| `--control-size-{size}-icon-offset` | Distance from the input edge to a leading icon (used when an `Icon` prop is set on `Input`) | `1rem` · `1rem` · `1.25rem` |
-
-#### Buttons
-
-Each button variant (`primary`, `white`, `black`, `transparent`, `secondary`, `tertiary`) uses the same set of tokens. Replace `{variant}` with the variant name.
-
-| Token | Description |
-|-------|-------------|
-| `--color-button-{variant}-bg` | Background color |
-| `--color-button-{variant}-bg-hover` | Background on hover |
-| `--color-button-{variant}-bg-active` | Background on press |
-| `--color-button-{variant}-border` | Border color |
-| `--color-button-{variant}-border-hover` | Border on hover |
-| `--color-button-{variant}-border-active` | Border on press |
-| `--color-button-{variant}-text` | Text color |
-| `--color-button-{variant}-text-active` | Text color on press |
-| `--color-button-{variant}-bg-disabled` | Background when disabled |
-| `--color-button-{variant}-border-disabled` | Border when disabled |
-| `--color-button-{variant}-text-disabled` | Text color when disabled |
-
-#### Inputs
-
-| Token | Description | Light default |
-|-------|-------------|---------------|
-| `--color-input-bg` | Input background | `#ffffff` |
-| `--color-input-border` | Input border | `#e5e7eb` |
-| `--color-input-text` | Input text color | `#111827` |
-| `--color-input-placeholder` | Placeholder text color | `#9ca3af` |
-| `--color-input-ring` | Ring color on hover | `rgb(17 24 39 / 0.1)` |
-| `--color-input-border-error` | Border color in error state | `#dc2626` |
-| `--color-input-ring-error` | Ring color in error state | `rgb(220 38 38 / 0.2)` |
-| `--color-input-icon` | Leading icon color | `rgb(17 24 39 / 0.6)` |
-
-#### Input labels, descriptions & errors
-
-| Token | Description | Light default |
-|-------|-------------|---------------|
-| `--color-input-label-text` | Label text color | `#111827` |
-| `--color-input-description-text` | Description text color | `#6b7280` |
-| `--color-input-error-text` | Error message text color | `#dc2626` |
-
-#### Input icon buttons
-
-| Token | Description | Light default |
-|-------|-------------|---------------|
-| `--color-input-icon-button-ring` | Ring color for icon buttons inside inputs | `#e5e7eb` |
-| `--color-input-icon-button-icon` | Icon color for icon buttons inside inputs | `#6b7280` |
-
-#### File inputs
-
-`InputFileSingle` and `UploadFileTile` are composed from existing primitives (input tokens, `Button` for the inset "Choose" button, `ButtonIconSquare` for the remove (X) button) — no dedicated tokens of their own. `InputFileMultiple` adds:
-
-| Token | Description | Light default |
-|-------|-------------|---------------|
-| `--color-input-file-icon-bg` | Background of the central icon frame inside `InputFileMultiple`'s dropzone | `#f3f4f6` |
-
-All three components also rely on the shared `--color-status-success` / `--color-status-error` tokens for the green check / red error icons in their upload-state slots.
-
-#### Color input
-
-`InputColor` reuses the standard input tokens — the color swatch in the field and the outline of the picker's saturation/value plane both derive from `--color-input-border`, and the field itself uses the same `--color-input-*` tokens as `Input`. The picker's hue/brightness gradients and indicator rings are intrinsic to the color-picking UI (not theme-based) and are intentionally not tokenized.
-
-#### Select options
-
-| Token | Description | Light default |
-|-------|-------------|---------------|
-| `--color-option-bg-hover` | Option background on hover | `#f3f4f6` |
-| `--color-option-bg-active` | Option background on press | `#e5e7eb` |
-| `--color-option-bg-selected` | Selected option background | `#eff6ff` |
-| `--color-option-bg-selected-hover` | Selected option background on hover | `#dbeafe` |
-| `--color-option-bg-selected-active` | Selected option background on press | `#dbeafe` |
-| `--color-option-text-disabled` | Disabled option text color | `#9ca3af` |
-| `--color-input-select-placeholder` | Select placeholder text color | `#6b7280` |
-
-#### Select search bar
-
-| Token | Description | Light default |
-|-------|-------------|---------------|
-| `--color-select-search-border` | Search input border | `#e5e7eb` |
-| `--color-select-search-bg` | Search input background | `rgb(255 255 255 / 0.5)` |
-| `--color-select-search-icon` | Search icon color | `#6b7280` |
-
-#### Toggle
-
-| Token | Description | Light default |
-|-------|-------------|---------------|
-| `--color-toggle-track-on-bg` | Track background when on | `#2563eb` |
-| `--color-toggle-track-on-border` | Track border when on | `#2563eb` |
-| `--color-toggle-track-off-bg` | Track background when off | `#d1d5db` |
-| `--color-toggle-track-off-border` | Track border when off | `#d1d5db` |
-| `--color-toggle-thumb-bg` | Thumb background | `#ffffff` |
-
-#### Checkbox & Radio
-
-| Token | Description | Light default |
-|-------|-------------|---------------|
-| `--color-check-border` | Checkbox/radio border | `#d1d5db` |
-| `--color-check-ring` | Checkbox/radio focus ring | `rgb(17 24 39 / 0.1)` |
-
-#### Dropdown menu
-
-| Token | Description | Light default |
-|-------|-------------|---------------|
-| `--color-dropdown-bg` | Dropdown panel background | `#ffffff` |
-| `--color-dropdown-border` | Dropdown panel border | `#e5e7eb` |
-| `--color-dropdown-item-bg-hover` | Item background on hover | `#f3f4f6` |
-| `--color-dropdown-item-bg-active` | Item background on press | `#e5e7eb` |
-| `--color-dropdown-item-text` | Item text color | `#111827` |
-| `--color-dropdown-item-ring` | Item focus ring | `rgb(17 24 39 / 0.1)` |
-| `--color-dropdown-group-label` | Group label text color | `#6b7280` |
-
-#### Tab buttons
-
-| Token | Description | Light default |
-|-------|-------------|---------------|
-| `--color-tab-text` | Tab text and icon color | `#111827` |
-| `--color-tab-container-bg` | Tab bar background | `#f3f4f6` |
-| `--color-tab-bg-hover` | Tab background on hover | `#e5e7eb` |
-| `--color-tab-bg-active` | Tab background on press | `rgb(209 213 219 / 0.8)` |
-| `--color-tab-active-bg` | Active tab background | `#ffffff` |
-| `--color-tab-active-border` | Active tab border | `#e5e7eb` |
-
-#### Panel
-
-| Token | Description | Light default |
-|-------|-------------|---------------|
-| `--color-panel-bg` | Panel background | `#ffffff` |
-| `--color-panel-border` | Panel border | `#e5e7eb` |
-| `--color-panel-text` | Panel default text color (inherited by `PanelField`) | `#111827` |
-
-#### Modal & Sidebar modal
-
-| Token | Description | Light default |
-|-------|-------------|---------------|
-| `--color-modal-overlay` | Backdrop overlay color | `rgb(156 163 175 / 0.3)` |
-| `--color-modal-bg` | Modal content background | `#ffffff` |
-
-#### Table
-
-| Token | Description | Light default |
-|-------|-------------|---------------|
-| `--color-table-header-text` | Header text color | `#1f2937` |
-| `--color-table-header-bg` | Header background | `#f9fafb` |
-| `--color-table-header-bg-hover` | Header background on hover | `#f3f4f6` |
-| `--color-table-header-bg-active` | Header background on press | `#e5e7eb` |
-| `--color-table-border` | Table border color | `#e5e7eb` |
-| `--color-table-row-bg` | Row background | `#ffffff` |
-| `--color-table-row-bg-hover` | Row background on hover | `#f9fafb` |
-| `--color-table-row-text` | Row text color | `#111827` |
-| `--color-table-resize-handle` | Column resize handle | `#e5e7eb` |
-| `--color-table-resize-handle-hover` | Resize handle on hover | `#d1d5db` |
-| `--color-table-resize-handle-active` | Resize handle while dragging | `#2563eb` |
-
-#### Divider
-
-| Token | Description | Light default |
-|-------|-------------|---------------|
-| `--color-divider` | Divider line color | `#e5e7eb` |
-
-#### Badge
-
-| Token | Description | Light default |
-|-------|-------------|---------------|
-| `--color-badge-white-bg` | White badge background | `#ffffff` |
-| `--color-badge-white-text` | White badge text | `#111827` |
-| `--color-badge-white-ring` | White badge ring | `#d6d3d1` |
-| `--color-badge-black-bg` | Black badge background | `#000000` |
-| `--color-badge-black-text` | Black badge text | `#ffffff` |
-| `--color-badge-black-ring` | Black badge ring | `#d6d3d1` |
-
-> Colored badges (red, blue, green, etc.) use Tailwind color utility classes and are not token-based. They adapt to dark mode automatically via Tailwind's `dark:` variants.
-
-#### Status
-
-Shared color tokens for status/notification indicators. Currently used by `PanelLink`'s `status` prop, but available for any component.
-
-| Token | Description | Light default |
-|-------|-------------|---------------|
-| `--color-status-error` | Error / destructive state | `#dc2626` |
-| `--color-status-warning` | Warning state | `#f59e0b` |
-| `--color-status-success` | Success state | `#16a34a` |
-| `--color-status-info` | Informational state | `#2563eb` |

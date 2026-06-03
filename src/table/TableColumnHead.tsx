@@ -36,7 +36,7 @@ export const TableColumnHead = <T, >(props: TableColumnHeadProps<T>) => {
     >
       <div
         className={ classNames(
-          'flex-1 min-w-0 px-4 table-header-cell transition-colors duration-100 flex flex-row items-center gap-2',
+          'flex-1 min-w-0 px-4 table-header-cell transition-colors duration-[var(--control-transition-duration-fast)] flex flex-row items-center gap-2',
           sortable && 'cursor-pointer',
         ) }
         onClick={ sortable ? onSortClick : undefined }

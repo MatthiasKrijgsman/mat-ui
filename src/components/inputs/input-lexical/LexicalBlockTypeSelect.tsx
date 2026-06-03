@@ -48,7 +48,7 @@ export const LexicalBlockTypeSelect = () => {
           type={ "button" }
           onMouseDown={ (event) => event.preventDefault() }
           className={ classNames(
-            "lexical-tb-btn h-8 px-2 gap-1 text-sm font-medium",
+            "lexical-tb-btn h-8 px-2 gap-1 text-sm font-[number:var(--font-weight-input-option-label)]",
             tone === "dark" ? "lexical-tb-btn-dark" : "lexical-tb-btn-light",
           ) }
         >

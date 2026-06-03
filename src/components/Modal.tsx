@@ -53,7 +53,7 @@ export const Modal = (props: ModalProps) => {
           <div className={ 'fixed inset-0 flex flex-col items-center pointer-events-none p-4 lg:p-12 overflow-y-auto z-50' }>
             <motion.div
               className={ classNames(
-                'flex flex-col modal-content rounded-2xl shadow-xl p-6 lg:p-12 pointer-events-auto w-full relative',
+                'flex flex-col modal-content rounded-[var(--border-radius-panel)] shadow-[var(--shadow-overlay)] p-6 lg:p-12 pointer-events-auto w-full relative',
                 className
               ) }
               style={ { transformOrigin: 'bottom', maxWidth: maxWidth } }

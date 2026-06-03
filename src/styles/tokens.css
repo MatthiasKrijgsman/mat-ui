@@ -1,6 +1,76 @@
 :root {
     --color-input-focus-ring: color-mix(in srgb, var(--color-gray-900) 15%, transparent);
+
+    /* ─────────────────────────────────────────────────────────────
+     * STRUCTURE — typography, radius, border width, shadow.
+     * These are theme-independent (no .dark overrides needed).
+     *
+     * Two tiers:
+     *   1. Base scales (coarse) — change one to shift the whole kit.
+     *   2. Semantic aliases (fine) — point at the base scale by
+     *      default; override one to retheme a single component.
+     * ───────────────────────────────────────────────────────────── */
+
+    /* Font family — single typographic knob (defaults to host font) */
+    --font-family-base: inherit;
+
+    /* Font weight — base scale */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-strong: 600;
+
+    /* Font size — secondary text (the control's own text size lives in
+     * the control-size tokens below). Map to Tailwind's text scale. */
+    --font-size-label: var(--text-sm);
+    --font-size-description: var(--text-sm);
+    --font-size-error: var(--text-sm);
+
+    /* Font weight — semantic */
+    --font-weight-input-text: var(--font-weight-normal);
+    --font-weight-button: var(--font-weight-strong);
+    --font-weight-badge: var(--font-weight-strong);
+    --font-weight-tab: var(--font-weight-strong);
+    --font-weight-input-label: var(--font-weight-medium);
+    --font-weight-input-description: var(--font-weight-medium);
+    --font-weight-input-error: var(--font-weight-medium);
+    --font-weight-input-option-label: var(--font-weight-medium);
+    --font-weight-dropdown-item: var(--font-weight-strong);
+    --font-weight-group-header: var(--font-weight-strong);
+    --font-weight-panel-field: var(--font-weight-medium);
+    --font-weight-panel-link: var(--font-weight-strong);
+    --font-weight-table-header: var(--font-weight-medium);
+    --font-weight-table-cell: var(--font-weight-normal);
+
+    /* Border radius — semantic (map to Tailwind's radius scale) */
     --border-radius-input: var(--radius-xl);
+    --border-radius-button: var(--border-radius-input);
+    --border-radius-panel: var(--radius-2xl);
+    --border-radius-dropdown: var(--radius-xl);
+    --border-radius-badge: var(--radius-lg);
+    --border-radius-menu-item: var(--radius-lg);
+    --border-radius-option: var(--radius-xl);
+    --border-radius-tab: var(--radius-xl);
+    --border-radius-checkbox: var(--radius-lg);
+    --border-radius-control-inner: var(--radius-md);
+
+    /* Border width */
+    --border-width-input: 1px;
+
+    /* Shadow — map to Tailwind's shadow scale for exact parity */
+    --shadow-control: var(--shadow-sm);
+    --shadow-dropdown: var(--shadow-lg);
+    --shadow-overlay: var(--shadow-xl);
+
+    /* Ring — the focus/hover "glow" and the active/press inset. Color comes
+     * from the per-component --color-*-ring tokens; these set the width. */
+    --control-ring-width: 4px;
+    --control-ring-width-active: 1px;
+
+    /* Transition — duration for control hover/focus/press animations.
+     * `-fast` is the quicker variant used for color-only transitions
+     * (table row/header hover, clickable badge). */
+    --control-transition-duration: 150ms;
+    --control-transition-duration-fast: 100ms;
 
     /* Control sizing — shared across buttons and inputs */
     --control-size-sm-height: 2.5rem;

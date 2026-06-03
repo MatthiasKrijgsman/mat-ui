@@ -42,7 +42,7 @@ type PanelLinkButtonProps = PanelLinkBaseProps
 
 export type PanelLinkProps = PanelLinkAnchorProps | PanelLinkButtonProps;
 
-const base: string = `inline-flex flex-row gap-3 items-center justify-between h-10 px-3 font-semibold ring-0 dropdown-item rounded-lg cursor-pointer transition-all duration-150 select-none focus:outline-none focus:ring-0 border border-transparent bg-transparent`;
+const base: string = `inline-flex flex-row gap-3 items-center justify-between h-10 px-3 font-[number:var(--font-weight-panel-link)] font-[family-name:var(--font-family-base)] ring-0 dropdown-item rounded-[var(--border-radius-menu-item)] cursor-pointer transition-all duration-[var(--control-transition-duration)] select-none focus:outline-none focus:ring-0 border border-transparent bg-transparent`;
 
 export const PanelLink = (props: PanelLinkProps) => {
 

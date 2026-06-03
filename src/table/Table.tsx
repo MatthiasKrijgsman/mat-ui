@@ -130,7 +130,7 @@ export const Table = <T, >(props: TableProps<T>) => {
         style={ { height: headerHeight } }
       >
         <div
-          className={ 'flex flex-row table-header font-medium' }
+          className={ 'flex flex-row table-header font-[number:var(--font-weight-table-header)]' }
           style={ { width: totalWidth, minWidth: '100%' } }
         >
           { columns.map((col) => (
@@ -164,7 +164,7 @@ export const Table = <T, >(props: TableProps<T>) => {
             <div
               key={ getRowId(row, rowIndex) }
               className={ classNames(
-                'flex flex-row table-body-row transition-colors duration-100',
+                'flex flex-row table-body-row transition-colors duration-[var(--control-transition-duration-fast)]',
                 onRowClick && 'cursor-pointer',
               ) }
               onClick={ onRowClick ? () => onRowClick(row, rowIndex) : undefined }
@@ -178,7 +178,7 @@ export const Table = <T, >(props: TableProps<T>) => {
                     height: rowHeight,
                   } }
                 >
-                  <div className={'break-all line-clamp-1'}>
+                  <div className={'break-all line-clamp-1 font-[number:var(--font-weight-table-cell)]'}>
                     { col.renderCell(row, rowIndex) }
                   </div>
                 </div>

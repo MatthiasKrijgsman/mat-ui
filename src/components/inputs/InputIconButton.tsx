@@ -16,10 +16,10 @@ export const InputIconButton = (props: InputIconButtonProps) => {
       onClick={ onClick }
       className={ classNames(
         'h-6 w-6 select-none rounded-full p-0.5',
-        onClick && 'ring-0 transition-all duration-150 input-icon-button-interactive active:ring-2 cursor-pointer hover:ring-4 group pointer-events-auto'
+        onClick && 'ring-0 transition-all duration-[var(--control-transition-duration)] input-icon-button-interactive active:ring-[length:var(--control-ring-width-active)] cursor-pointer hover:ring-[length:var(--control-ring-width)] group pointer-events-auto'
       ) }
     >
-      <Icon className={ classNames('h-5 w-5 input-icon-button-icon', onClick && 'group-active:scale-[0.8] transition-transform origin-center') }/>
+      <Icon className={ classNames('h-5 w-5 input-icon-button-icon', onClick && 'group-active:scale-[0.8] transition-transform duration-[var(--control-transition-duration)] origin-center') }/>
     </div>
   );
 };

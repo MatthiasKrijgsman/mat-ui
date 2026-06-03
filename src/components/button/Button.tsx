@@ -24,19 +24,19 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const base: string = `
   inline-flex flex-row items-center justify-center
-  button-ring font-semibold ring-0 disabled:hover:ring-0 hover:ring-4 active:ring-1
-  rounded-[var(--border-radius-input)]
-  cursor-pointer transition-all duration-150 select-none focus:outline-none focus:ring-4
+  button-ring font-[number:var(--font-weight-button)] font-[family-name:var(--font-family-base)] ring-0 disabled:hover:ring-0 hover:ring-[length:var(--control-ring-width)] active:ring-[length:var(--control-ring-width-active)]
+  rounded-[var(--border-radius-button)]
+  cursor-pointer transition-all duration-[var(--control-transition-duration)] select-none focus:outline-none focus:ring-[length:var(--control-ring-width)]
   disabled:cursor-default
   `;
 
 const variantClasses: Record<Variant, string> = {
-  primary: 'border button-primary shadow-sm',
-  secondary: 'border button-secondary shadow-sm',
-  tertiary: 'border button-tertiary',
-  white: 'border button-white shadow-sm',
-  black: 'border button-black shadow-sm',
-  transparent: 'border button-transparent'
+  primary: 'border-[length:var(--border-width-input)] button-primary shadow-[var(--shadow-control)]',
+  secondary: 'border-[length:var(--border-width-input)] button-secondary shadow-[var(--shadow-control)]',
+  tertiary: 'border-[length:var(--border-width-input)] button-tertiary',
+  white: 'border-[length:var(--border-width-input)] button-white shadow-[var(--shadow-control)]',
+  black: 'border-[length:var(--border-width-input)] button-black shadow-[var(--shadow-control)]',
+  transparent: 'border-[length:var(--border-width-input)] button-transparent'
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
