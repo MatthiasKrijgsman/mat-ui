@@ -55,6 +55,7 @@ This is a pnpm workspace (`pnpm-workspace.yaml`) with two packages:
 - Next.js 15 App Router with static export (`output: 'export'`)
 - Tailwind v4 via `@tailwindcss/postcss`, imports the lib stylesheet from `@matthiaskrijgsman/mat-ui/style`
 - Pages: `site/app/page.tsx` (Showcase); demo/layout components in `site/app/_components/`
+- **Version display is automated** — do NOT hardcode it. `site/next.config.ts` reads `version` from the root `package.json` at build time and injects it as `NEXT_PUBLIC_LIB_VERSION`, which `site/app/_components/Nav.tsx` renders. Bump the root `package.json` only; the showcase follows automatically. (Read at build time, so a running dev server needs a restart to pick up a bump.)
 - Deployed to GitHub Pages under `/mat-ui/` via [.github/workflows/deploy-site.yml](.github/workflows/deploy-site.yml)
 
 ### Key peer dependencies
