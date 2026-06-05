@@ -10,3 +10,11 @@
     @apply bg-[var(--color-tab-active-bg)];
     @apply border-[var(--color-tab-active-border)];
 }
+.tab-button-count {
+    @apply bg-[var(--color-tab-count-bg)];
+    @apply text-[var(--color-tab-count-text)];
+}
+.tab-button-count-active {
+    @apply bg-[var(--color-tab-active-count-bg)];
+    @apply text-[var(--color-tab-active-count-text)];
+}

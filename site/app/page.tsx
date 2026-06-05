@@ -679,6 +679,43 @@ export default function Page() {
                   ] }
                 />
               </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'With counts' } layout={ 'vertical' }>
+                <TabButtons
+                  tabs={ [
+                    { label: 'Inbox', count: 12, active: tab === 'overview', onClick: () => setTab('overview') },
+                    { label: 'Drafts', count: 3, active: tab === 'activity', onClick: () => setTab('activity') },
+                    { label: 'Archived', count: 0, active: tab === 'settings', onClick: () => setTab('settings') },
+                  ] }
+                />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Sizes' } layout={ 'vertical' }>
+                <TabButtons
+                  size={ 'sm' }
+                  tabs={ [
+                    { label: 'Inbox', count: 12, active: tab === 'overview', onClick: () => setTab('overview') },
+                    { label: 'Drafts', count: 3, active: tab === 'activity', onClick: () => setTab('activity') },
+                    { label: 'Archived', count: 0, active: tab === 'settings', onClick: () => setTab('settings') },
+                  ] }
+                />
+                <TabButtons
+                  size={ 'md' }
+                  tabs={ [
+                    { label: 'Inbox', count: 12, active: tab === 'overview', onClick: () => setTab('overview') },
+                    { label: 'Drafts', count: 3, active: tab === 'activity', onClick: () => setTab('activity') },
+                    { label: 'Archived', count: 0, active: tab === 'settings', onClick: () => setTab('settings') },
+                  ] }
+                />
+                <TabButtons
+                  size={ 'lg' }
+                  tabs={ [
+                    { label: 'Inbox', count: 12, active: tab === 'overview', onClick: () => setTab('overview') },
+                    { label: 'Drafts', count: 3, active: tab === 'activity', onClick: () => setTab('activity') },
+                    { label: 'Archived', count: 0, active: tab === 'settings', onClick: () => setTab('settings') },
+                  ] }
+                />
+              </ShowcaseSection>
             </Panel>
           </section>
 

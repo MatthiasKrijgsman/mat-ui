@@ -24,12 +24,14 @@
     --font-size-label: var(--text-sm);
     --font-size-description: var(--text-sm);
     --font-size-error: var(--text-sm);
+    --font-size-tab-count: var(--text-xs);
 
     /* Font weight — semantic */
     --font-weight-input-text: var(--font-weight-normal);
     --font-weight-button: var(--font-weight-strong);
     --font-weight-badge: var(--font-weight-strong);
     --font-weight-tab: var(--font-weight-strong);
+    --font-weight-tab-count: var(--font-weight-strong);
     --font-weight-input-label: var(--font-weight-medium);
     --font-weight-input-description: var(--font-weight-medium);
     --font-weight-input-error: var(--font-weight-medium);
@@ -262,6 +264,10 @@
     --color-tab-bg-active: color-mix(in srgb, var(--color-gray-300) 80%, transparent);
     --color-tab-active-bg: var(--color-white);
     --color-tab-active-border: var(--color-gray-200);
+    --color-tab-count-bg: var(--color-gray-200);
+    --color-tab-count-text: var(--color-gray-700);
+    --color-tab-active-count-bg: var(--color-gray-900);
+    --color-tab-active-count-text: var(--color-white);
 
     /* Panel */
     --color-panel-bg: var(--color-white);
@@ -473,6 +479,10 @@
     --color-tab-bg-active: color-mix(in srgb, var(--color-stone-600) 80%, transparent);
     --color-tab-active-bg: var(--color-stone-900);
     --color-tab-active-border: var(--color-stone-700);
+    --color-tab-count-bg: var(--color-stone-700);
+    --color-tab-count-text: var(--color-stone-200);
+    --color-tab-active-count-bg: var(--color-stone-100);
+    --color-tab-active-count-text: var(--color-stone-900);
 
     /* Panel */
     --color-panel-bg: var(--color-stone-900);

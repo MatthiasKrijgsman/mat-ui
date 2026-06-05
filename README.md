@@ -142,6 +142,7 @@ Font weights resolve through a three-step base scale; the semantic tokens below 
 | `--font-weight-button` | `Button`, `ButtonIconSquare`, `ButtonIconRound`, file-input action text | `--font-weight-strong` |
 | `--font-weight-badge` | `Badge` | `--font-weight-strong` |
 | `--font-weight-tab` | `TabButtons` | `--font-weight-strong` |
+| `--font-weight-tab-count` | `TabButtons` count chip | `--font-weight-strong` |
 | `--font-weight-input-label` | `InputLabel` (label above inputs) | `--font-weight-medium` |
 | `--font-weight-input-description` | `InputDescription` | `--font-weight-medium` |
 | `--font-weight-input-error` | `InputError` | `--font-weight-medium` |
@@ -159,6 +160,7 @@ Font weights resolve through a three-step base scale; the semantic tokens below 
 | `--font-size-label` | Dropdown / select group label size | `var(--text-sm)` |
 | `--font-size-description` | `InputDescription` and `PanelField` label size | `var(--text-sm)` |
 | `--font-size-error` | `InputError` size | `var(--text-sm)` |
+| `--font-size-tab-count` | `TabButtons` count chip size | `var(--text-xs)` |
 
 > The text size of the input/button itself comes from the **control sizing** scale below (`--control-size-{size}-font-size`), not from these tokens.
 
@@ -342,6 +344,10 @@ All three components also rely on the shared `--color-status-success` / `--color
 | `--color-tab-bg-active` | Tab background on press | `rgb(209 213 219 / 0.8)` |
 | `--color-tab-active-bg` | Active tab background | `#ffffff` |
 | `--color-tab-active-border` | Active tab border | `#e5e7eb` |
+| `--color-tab-count-bg` | Count chip background (inactive tab) | `#e5e7eb` |
+| `--color-tab-count-text` | Count chip text (inactive tab) | `#374151` |
+| `--color-tab-active-count-bg` | Count chip background (active tab) | `#111827` |
+| `--color-tab-active-count-text` | Count chip text (active tab) | `#ffffff` |
 
 ### Color — panel
 
