@@ -36,15 +36,16 @@ This is a pnpm workspace (`pnpm-workspace.yaml`) with two packages:
 ### Styling
 
 - Tailwind CSS v4 with `@tailwindcss/forms` plugin, integrated via `@tailwindcss/vite`
-- Design tokens (CSS custom properties) for button variants live in `src/styles/tokens.css`
+- Design tokens (CSS custom properties) for **all** colors and structure (typography, radius, border, shadow, ring, transition) live in `src/styles/tokens.css` — see the Design tokens section under Code Style
 - Component-specific CSS in co-located files (e.g., `src/components/button/Button.css`)
 - Global styles entry: `src/style.css` (imports Tailwind, tokens, and component CSS)
 
 ### Component organization
 
-- `src/components/` — most UI components; some grouped in subdirectories (`button/`, `inputs/`, `dropdown-menu/`, etc.)
-- `src/popover/` — popover system using Floating UI (`usePopover` hook + `PopoverBase`)
-- `src/hooks/` — shared hooks (`use-debounce`, `use-dismiss`, `use-drag-x`)
+- `src/components/` — most UI components; some grouped in subdirectories (`button/`, `inputs/`, `dropdown-menu/`, `panel/`, `inputs/input-file/`, `inputs/input-lexical/`, etc.)
+- `src/control-size/` — the shared `sm | md | lg` control sizing system (`control-size.util.ts` class maps + `use-control-size.ts` `ControlSizeContext`)
+- `src/popover/` — popover system using Floating UI (`use-popover.tsx` for generic popovers/`PopoverBase`, `use-select-popover.tsx` for keyboard-navigable select lists)
+- `src/hooks/` — shared hooks (`use-debounce`, `use-dismiss`, `use-drag-x`, `use-pointer-drag`, `use-overflow-fit`)
 - `src/spinner/`, `src/table/` — standalone component modules
 - `src/util/classnames.util.ts` — className merging utility
 
@@ -53,7 +54,7 @@ This is a pnpm workspace (`pnpm-workspace.yaml`) with two packages:
 - Lives in `site/` as a separate workspace package
 - Next.js 15 App Router with static export (`output: 'export'`)
 - Tailwind v4 via `@tailwindcss/postcss`, imports the lib stylesheet from `@matthiaskrijgsman/mat-ui/style`
-- Pages: `site/app/page.tsx` (Showcase), `site/app/todo/page.tsx`; demo components in `site/app/_components/`
+- Pages: `site/app/page.tsx` (Showcase); demo/layout components in `site/app/_components/`
 - Deployed to GitHub Pages under `/mat-ui/` via [.github/workflows/deploy-site.yml](.github/workflows/deploy-site.yml)
 
 ### Key peer dependencies
@@ -113,13 +114,13 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 ### forwardRef
 
-Used for components that consumers need to attach refs to (Button, ButtonIconSquare, ButtonIconRound, Badge, Panel):
+Used for components that consumers need to attach refs to — e.g. `Button`, `ButtonIconSquare`, `ButtonIconRound`, `Badge`, `Panel`, `PanelStack`, `DropdownButton`, and several select sub-components (`InputSelectOption`, `InputSelectGroupHeader`, `InputSelectDivider`, `InputIconButtonTray`):
 
 ```typescript
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => { ... });
 ```
 
-Not used for simpler/composite components (Input, Modal, Tooltip, etc.).
+Not used for the larger composite components (Input, Modal, Tooltip, etc.). Note: some newer components instead accept a `ref` prop directly (React 19 style, e.g. `InputTextArea`).
 
 ### className merging
 
@@ -129,23 +130,65 @@ Not used for simpler/composite components (Input, Modal, Tooltip, etc.).
 export const classNames = (...classes: any[]) => classes.filter(Boolean).join(' ')
 ```
 
-Components build class strings from `base` + `variantClasses[variant]` + `sizeClasses[size]` + user `className`:
+Components build class strings from `base` + `variantClasses[variant]` + size maps (from `control-size.util.ts`) + user `className`. Structural values are token-bound arbitrary classes (see Design tokens), not hardcoded utilities:
 
 ```typescript
-const base = `inline-flex flex-row items-center ...`;
-const variantClasses: Record<Variant, string> = { primary: 'border button-primary shadow-sm', ... };
-className={classNames(base, variantClasses[variant], sizeClasses[size], className)}
+const base = `inline-flex flex-row items-center ... rounded-[var(--border-radius-button)] font-[number:var(--font-weight-button)]`;
+const variantClasses: Record<Variant, string> = { primary: 'border-[length:var(--border-width-input)] button-primary shadow-[var(--shadow-control)]', ... };
+className={classNames(base, variantClasses[variant], sizeHeightClasses[size], sizePaddingXClasses[size], className)}
 ```
 
 ### Styling layers
 
 Three-tier approach for theming components like buttons:
 
-1. **CSS custom properties** in `src/styles/tokens.css` — colors per variant/state (uses OKLCH color format)
-2. **Component CSS** in co-located `.css` files — maps tokens to CSS classes using `@apply` with `var()` references
-3. **Tailwind utility classes** inline in JSX — layout, spacing, typography, transitions
+1. **CSS custom properties (design tokens)** in `src/styles/tokens.css` — colors *and* structure (typography, radius, border, shadow, ring, transition). See the Design tokens section below.
+2. **Component CSS** in co-located `.css` files — maps tokens to CSS classes using `@apply` with `var()` references (mainly for color/state variants).
+3. **Tailwind utility classes** inline in JSX — layout and spacing, plus token-bound arbitrary values for everything themeable.
 
 For simpler components (inputs, modals, panels), Tailwind classes are used directly without a CSS file.
+
+### Design tokens (how to tokenize a new component)
+
+**The goal:** a consumer can completely retheme the kit by overriding CSS variables — they never fork Tailwind config or pass styling props. So **nothing visual is hardcoded**. When you build a component, every color, weight, radius, border width, shadow, ring and transition must resolve to a token.
+
+All tokens live in [`src/styles/tokens.css`](src/styles/tokens.css). They split into three families:
+
+- **Structure** (typography, radius, border width, shadow, ring width, transition duration) — defined **once** under `:root`. Theme-independent; do **not** duplicate under `.dark`.
+- **Sizing** — the shared `sm | md | lg` control scale (`--control-size-{size}-*`).
+- **Color** — defined under `:root` (light) **and** overridden under `.dark`. Every color needs both.
+
+**Two-tier model.** Structure and color tokens come in:
+1. **Base scales** — primitives (`--font-weight-strong`, `--radius-xl`, Tailwind's `--shadow-*`).
+2. **Semantic aliases** — per-component tokens that point at a base scale by default, e.g. `--font-weight-button: var(--font-weight-strong)`, `--border-radius-dropdown: var(--radius-xl)`.
+
+When adding a component, **reuse an existing semantic token if one fits the category**; otherwise **add a new semantic alias that defaults to a base scale** (so global theming still cascades). Pick a default that exactly matches the current visual — never change appearance while tokenizing.
+
+**How to apply tokens** — Tailwind arbitrary values bound to vars, in JSX. **The type hints are mandatory** — without them Tailwind misreads a `var()` (e.g. `font-[var(...)]` becomes font-*family*, `border-[var(...)]` becomes border-*color*):
+
+| Property | Pattern | Example token |
+|----------|---------|---------------|
+| font-weight | `font-[number:var(--…)]` | `--font-weight-button` |
+| font-family | `font-[family-name:var(--font-family-base)]` | `--font-family-base` |
+| font-size (secondary text) | `text-[length:var(--…)]` | `--font-size-description` |
+| border-radius | `rounded-[var(--…)]` | `--border-radius-input` |
+| border-width | `border-[length:var(--…)]` | `--border-width-input` |
+| shadow | `shadow-[var(--…)]` | `--shadow-control` |
+| ring width | `ring-[length:var(--…)]` (with `hover:`/`focus:`/`active:`) | `--control-ring-width` |
+| transition duration | `duration-[var(--…)]` | `--control-transition-duration` |
+| color | component CSS class `@apply …-[var(--color-…)]`, or inline `bg-[var(--color-…)]` / `text-[…]` / `ring-[…]` | `--color-input-border` |
+
+**Sizing:** if the component is a sizable control, import the maps from [`src/control-size/control-size.util.ts`](src/control-size/control-size.util.ts) (`sizeHeightClasses`, `sizePaddingXClasses`, `sizeFontClasses`, `sizeIconClasses`, …) keyed by the `size` prop, and wrap children in `ControlSizeContext.Provider`. The control's own text size comes from `--control-size-{size}-font-size`, **not** the `--font-size-*` tokens (those are for labels/descriptions/errors).
+
+**Color tokens:** add `--color-<component>-<part>` entries under **both** `:root` and `.dark`, defaulting to the Tailwind palette vars (`var(--color-gray-200)`, etc.). Reference them via a co-located `.css` class (`@apply text-[var(--color-…)]`) or inline arbitrary classes.
+
+**Checklist for a new component:**
+1. No raw `font-semibold` / `rounded-xl` / `shadow-sm` / `border` / `ring-4` / `duration-150` / hardcoded hex — each maps to a token.
+2. New semantic tokens default to a base scale or Tailwind theme var, and preserve current visuals.
+3. Color tokens added under both `:root` and `.dark`.
+4. Document new tokens in the README "Token reference" section.
+
+**Intentional exceptions (leave hardcoded):** fully-round shapes (`rounded-full` on avatars, toggle/radio dots, round icon buttons), the resting `ring-0`, deliberate focus-ring opt-outs (`focus:ring-0` on dropdown items/tabs), transparent layout borders, rich-text semantics (`font-bold` on Lexical headings/bold), and the toggle thumb's internal `shadow-md`.
 
 ### Animations
 
@@ -186,18 +229,19 @@ These sub-components (`InputLabel`, `InputDescription`, `InputError`, `InputIcon
 
 ### Select/dropdown components
 
-Select components manage their own `open` state and use `usePopover` for positioning:
+Select components manage their own `open` state and use `useSelectPopover` (in `src/popover/`) for positioning + keyboard list navigation:
 - `useDismiss(open, () => setOpen(false))` for Escape key handling
-- `usePopover({ placement: 'bottom', fullWidth: true, onOutsideClick: ... })` for the dropdown
-- Options render inside `<Popover open={open}><DropdownPanel>...</DropdownPanel></Popover>`
+- `useSelectPopover({ placement: 'bottom', fullWidth: true, minWidth, open, onOpenChange, listRef, activeIndex, onNavigate, disabledIndices })` returns `{ anchorRef, Popover, getReferenceProps, getItemProps }`
+- Options render inside `<Popover open={open}><DropdownPanel>...</DropdownPanel></Popover>`, sized via `ControlSizeContext`
 - Generic `<T>` type parameter flows through `Option<T>` to `onChange: (value: T | null) => void`
+- (Simpler popovers — `InputColor`, tooltips — use `usePopover` instead, which returns `{ anchorRef, Popover }`.)
 
 ### Dropdown menu system
 
 - `DropdownMenu` — orchestrator component managing open state
 - `DropdownPanel` — styled container for dropdown content
 - `DropdownButton` / `DropdownButtonGroup` — menu items
-- `DropdownDismissContext` — React context that provides a dismiss callback to child buttons
+- `DropdownDismissContext` (in `use-dropdown-dismiss.ts`) — React context providing a dismiss callback to child buttons, consumed via the `useDropdownDismiss()` hook
 
 ### Modal
 
@@ -233,4 +277,4 @@ Portal-based with two animation layers:
 | `typescript ~5.8` | Type checking and declaration emit |
 | `next` (in `site/`) | Showcase app — static export to GitHub Pages |
 | `eslint` + `typescript-eslint` + `eslint-plugin-react-hooks` + `eslint-plugin-react-refresh` | Linting |
-| `use-resize-observer` | Used internally for resize-aware components |
+| `use-resize-observer` | Only used by the internal `ScrollbarTest` scratch component; production resize logic (`use-overflow-fit`) uses the native `ResizeObserver` |
