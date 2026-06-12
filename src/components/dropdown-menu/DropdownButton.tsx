@@ -40,7 +40,7 @@ export const DropdownButton = React.forwardRef<HTMLButtonElement, DropdownButton
       onClick={ handleOnClick }
       { ...rest }
     >
-      { Icon && <Icon className={ 'h-5 w-5' }/> }
+      { Icon && <Icon className={ 'h-5 w-5 shrink-0' }/> }
       { children }
     </button>
   );

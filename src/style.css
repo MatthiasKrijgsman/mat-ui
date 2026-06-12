@@ -17,6 +17,7 @@
 @import "./components/inputs/input-lexical/InputLexical.css";
 @import "./components/dropdown-menu/Dropdown.css";
 @import "./components/TabButtons.css";
+@import "./components/Tabs.css";
 @import "./components/panel/Panel.css";
 @import "./components/Modal.css";
 @import "./table/Table.css";

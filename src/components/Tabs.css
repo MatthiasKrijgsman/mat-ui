@@ -1,0 +1,20 @@
+.tabs-container {
+    @apply border-[var(--color-tabs-border)];
+}
+.tabs-tab {
+    @apply text-[var(--color-tabs-text)];
+    @apply hover:text-[var(--color-tabs-text-hover)];
+}
+.tabs-tab-active {
+    @apply text-[var(--color-tabs-active-text)];
+    @apply hover:text-[var(--color-tabs-active-text)];
+    @apply border-[var(--color-tabs-active-indicator)];
+}
+.tabs-tab-count {
+    @apply bg-[var(--color-tabs-count-bg)];
+    @apply text-[var(--color-tabs-count-text)];
+}
+.tabs-tab-count-active {
+    @apply bg-[var(--color-tabs-active-count-bg)];
+    @apply text-[var(--color-tabs-active-count-text)];
+}

@@ -142,7 +142,8 @@ Font weights resolve through a three-step base scale; the semantic tokens below 
 | `--font-weight-button` | `Button`, `ButtonIconSquare`, `ButtonIconRound`, file-input action text | `--font-weight-strong` |
 | `--font-weight-badge` | `Badge` | `--font-weight-strong` |
 | `--font-weight-tab` | `TabButtons` | `--font-weight-strong` |
-| `--font-weight-tab-count` | `TabButtons` count chip | `--font-weight-strong` |
+| `--font-weight-tab-count` | `TabButtons` / `Tabs` count chip | `--font-weight-strong` |
+| `--font-weight-tabs` | `Tabs` (underline) tab labels | `--font-weight-strong` |
 | `--font-weight-input-label` | `InputLabel` (label above inputs) | `--font-weight-medium` |
 | `--font-weight-input-description` | `InputDescription` | `--font-weight-medium` |
 | `--font-weight-input-error` | `InputError` | `--font-weight-medium` |
@@ -160,7 +161,7 @@ Font weights resolve through a three-step base scale; the semantic tokens below 
 | `--font-size-label` | Dropdown / select group label size | `var(--text-sm)` |
 | `--font-size-description` | `InputDescription` and `PanelField` label size | `var(--text-sm)` |
 | `--font-size-error` | `InputError` size | `var(--text-sm)` |
-| `--font-size-tab-count` | `TabButtons` count chip size | `var(--text-xs)` |
+| `--font-size-tab-count` | `TabButtons` / `Tabs` count chip size | `var(--text-xs)` |
 
 > The text size of the input/button itself comes from the **control sizing** scale below (`--control-size-{size}-font-size`), not from these tokens.
 
@@ -187,7 +188,8 @@ Semantic radius tokens map onto Tailwind's radius scale. Override a token to cha
 
 | Token | Applies to | Default |
 |-------|-----------|---------|
-| `--border-width-input` | Border width of inputs, selects, buttons, panels, dropdowns, modals, check/radio | `1px` |
+| `--border-width-input` | Border width of inputs, selects, buttons, panels, dropdowns, modals, check/radio, the `Tabs` bottom rule | `1px` |
+| `--border-width-tabs-indicator` | Active-tab underline in `Tabs` | `2px` |
 | `--shadow-control` | Resting elevation of buttons, inputs, panels, tabs | `var(--shadow-sm)` |
 | `--shadow-dropdown` | `DropdownPanel` and the Lexical floating toolbar | `var(--shadow-lg)` |
 | `--shadow-overlay` | `Modal` and `SidebarModal` | `var(--shadow-xl)` |
@@ -348,6 +350,20 @@ All three components also rely on the shared `--color-status-success` / `--color
 | `--color-tab-count-text` | Count chip text (inactive tab) | `#374151` |
 | `--color-tab-active-count-bg` | Count chip background (active tab) | `#111827` |
 | `--color-tab-active-count-text` | Count chip text (active tab) | `#ffffff` |
+
+### Color — tabs (underline)
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-tabs-text` | Inactive tab text and icon color | `#6b7280` |
+| `--color-tabs-text-hover` | Inactive tab text on hover | `#374151` |
+| `--color-tabs-active-text` | Active tab text and icon color | `#111827` |
+| `--color-tabs-border` | Bottom rule under the tab list | `#e5e7eb` |
+| `--color-tabs-active-indicator` | Active tab underline | `#111827` |
+| `--color-tabs-count-bg` | Count chip background | `#f3f4f6` |
+| `--color-tabs-count-text` | Count chip text | `#4b5563` |
+| `--color-tabs-active-count-bg` | Count chip background (active tab) | `var(--color-tabs-count-bg)` |
+| `--color-tabs-active-count-text` | Count chip text (active tab) | `var(--color-tabs-count-text)` |
 
 ### Color — panel
 

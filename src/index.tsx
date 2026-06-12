@@ -64,6 +64,7 @@ export { SidebarModal } from "./components/SidebarModal.tsx";
 export { Badge } from "./components/Badge.tsx";
 export { BadgeColor } from "./components/BadgeColors.tsx";
 export { TabButtons } from "./components/TabButtons.tsx";
+export { Tabs } from "./components/Tabs.tsx";
 export { AutoScroll } from "./components/AutoScroll.tsx";
 
 // Data display

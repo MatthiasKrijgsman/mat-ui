@@ -34,6 +34,7 @@ import {
   SidebarModal,
   Spinner,
   TabButtons,
+  Tabs,
   Table,
   TableEmpty,
   Tooltip,
@@ -708,6 +709,66 @@ export default function Page() {
                   ] }
                 />
                 <TabButtons
+                  size={ 'lg' }
+                  tabs={ [
+                    { label: 'Inbox', count: 12, active: tab === 'overview', onClick: () => setTab('overview') },
+                    { label: 'Drafts', count: 3, active: tab === 'activity', onClick: () => setTab('activity') },
+                    { label: 'Archived', count: 0, active: tab === 'settings', onClick: () => setTab('settings') },
+                  ] }
+                />
+              </ShowcaseSection>
+            </Panel>
+            <div>An underline variant for page-level navigation. Same tab descriptors as <code>TabButtons</code>.</div>
+            <ShowcaseImportPath path={ `import { Tabs } from "@matthiaskrijgsman/mat-ui"` }/>
+            <Panel>
+              <ShowcaseSection title={ 'Basic' } layout={ 'vertical' }>
+                <Tabs
+                  tabs={ [
+                    { label: 'Overview', active: tab === 'overview', onClick: () => setTab('overview') },
+                    { label: 'Activity', active: tab === 'activity', onClick: () => setTab('activity') },
+                    { label: 'Settings', active: tab === 'settings', onClick: () => setTab('settings') },
+                  ] }
+                />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'With icons' } layout={ 'vertical' }>
+                <Tabs
+                  tabs={ [
+                    { label: 'Profile', Icon: IconUser, active: tab === 'overview', onClick: () => setTab('overview') },
+                    { label: 'Notifications', Icon: IconBell, active: tab === 'activity', onClick: () => setTab('activity') },
+                    { label: 'Security', Icon: IconShieldLock, active: tab === 'settings', onClick: () => setTab('settings') },
+                  ] }
+                />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'With counts' } layout={ 'vertical' }>
+                <Tabs
+                  tabs={ [
+                    { label: 'Inbox', count: 12, active: tab === 'overview', onClick: () => setTab('overview') },
+                    { label: 'Drafts', count: 3, active: tab === 'activity', onClick: () => setTab('activity') },
+                    { label: 'Archived', count: 0, active: tab === 'settings', onClick: () => setTab('settings') },
+                  ] }
+                />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Sizes' } layout={ 'vertical' }>
+                <Tabs
+                  size={ 'sm' }
+                  tabs={ [
+                    { label: 'Inbox', count: 12, active: tab === 'overview', onClick: () => setTab('overview') },
+                    { label: 'Drafts', count: 3, active: tab === 'activity', onClick: () => setTab('activity') },
+                    { label: 'Archived', count: 0, active: tab === 'settings', onClick: () => setTab('settings') },
+                  ] }
+                />
+                <Tabs
+                  size={ 'md' }
+                  tabs={ [
+                    { label: 'Inbox', count: 12, active: tab === 'overview', onClick: () => setTab('overview') },
+                    { label: 'Drafts', count: 3, active: tab === 'activity', onClick: () => setTab('activity') },
+                    { label: 'Archived', count: 0, active: tab === 'settings', onClick: () => setTab('settings') },
+                  ] }
+                />
+                <Tabs
                   size={ 'lg' }
                   tabs={ [
                     { label: 'Inbox', count: 12, active: tab === 'overview', onClick: () => setTab('overview') },

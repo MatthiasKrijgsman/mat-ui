@@ -59,6 +59,7 @@ export type { TooltipProps } from "./components/Tooltip.tsx";
 export type { BadgeProps } from "./components/Badge.tsx";
 export type { BadgeColorKey } from "./components/BadgeColors.tsx";
 export type { TabButton, TabButtonsProps } from "./components/TabButtons.tsx";
+export type { TabsProps, Size as TabsSize } from "./components/Tabs.tsx";
 export type { ModalProps } from "./components/Modal.tsx";
 export type { SidebarModalProps } from "./components/SidebarModal.tsx";
 export type { AutoScrollProps } from "./components/AutoScroll.tsx";
