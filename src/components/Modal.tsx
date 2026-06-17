@@ -36,7 +36,7 @@ export const Modal = (props: ModalProps) => {
       { open && (
         <FloatingPortal>
           <motion.div
-            className={ 'z-40' }
+            className={ 'fixed inset-0 z-40' }
             style={ { transformOrigin: 'center' } }
             initial={ { opacity: 0 } }
             animate={ { opacity: 1 } }
