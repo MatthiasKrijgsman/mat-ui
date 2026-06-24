@@ -26,6 +26,13 @@ export type InputFileMultipleProps = {
   title?: string;
   hint?: React.ReactNode;
   Icon?: TablerIcon;
+  /**
+   * Files that are already uploaded when the component mounts — shown as
+   * completed tiles. Read once on mount (uncontrolled, like `defaultValue`);
+   * later changes are ignored, and `onUpload` is never called for them.
+   * Useful for restoring the list after the field unmounts and remounts.
+   */
+  defaultFiles?: File[];
   onUpload?: (file: File) => Promise<void> | void;
   onFileRemoved?: (file: File) => void;
   onDropRejected?: (fileRejections: FileRejection[]) => void;
@@ -48,6 +55,7 @@ export const InputFileMultiple = (props: InputFileMultipleProps) => {
     title = 'Drop files here',
     hint,
     Icon = IconCloudUpload,
+    defaultFiles,
     onUpload,
     onFileRemoved,
     onDropRejected,
@@ -60,8 +68,14 @@ export const InputFileMultiple = (props: InputFileMultipleProps) => {
     className,
   } = props;
 
-  const [ entries, setEntries ] = useState<UploadEntry[]>([]);
   const idCounter = useRef(0);
+  const [ entries, setEntries ] = useState<UploadEntry[]>(() =>
+    (defaultFiles ?? []).map((file) => ({
+      id: String(++idCounter.current),
+      file,
+      status: 'uploaded' as UploadStatus,
+    })),
+  );
 
   const updateEntry = (id: string, patch: Partial<UploadEntry>) => {
     setEntries((prev) => prev.map((e) => (e.id === id ? { ...e, ...patch } : e)));
