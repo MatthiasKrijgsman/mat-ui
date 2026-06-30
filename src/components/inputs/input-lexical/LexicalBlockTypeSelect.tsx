@@ -52,8 +52,8 @@ export const LexicalBlockTypeSelect = () => {
             tone === "dark" ? "lexical-tb-btn-dark" : "lexical-tb-btn-light",
           ) }
         >
-          { current.label }
-          <IconChevronDown className={ "h-4 w-4" }/>
+          <span className={ "break-all line-clamp-1" }>{ current.label }</span>
+          <IconChevronDown className={ "h-4 w-4 shrink-0" }/>
         </button>
       }
     >
