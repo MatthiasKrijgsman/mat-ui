@@ -76,6 +76,7 @@ export type { DropdownButtonGroupProps } from "./components/dropdown-menu/Dropdo
 export type { DropdownMenuProps } from "./components/dropdown-menu/DropdownMenu.tsx";
 export type { DropdownPanelProps } from "./components/dropdown-menu/DropdownPanel.tsx";
 export type { DropdownDrilldownProps } from "./components/dropdown-menu/DropdownDrilldown.tsx";
+export type { DropdownSubMenuProps } from "./components/dropdown-menu/DropdownSubMenu.tsx";
 export type { DropdownNavigatorProps } from "./components/dropdown-menu/DropdownNavigator.tsx";
 export type { DropdownDismissContextType } from "./components/dropdown-menu/use-dropdown-dismiss.ts";
 export type { DropdownDrilldownContextType, DropdownDrilldownLevel } from "./components/dropdown-menu/use-dropdown-drilldown.ts";

@@ -11,6 +11,7 @@ import {
   DropdownButton,
   DropdownButtonGroup,
   DropdownDrilldown,
+  DropdownSubMenu,
   DropdownMenu,
   Input,
   InputCheck,
@@ -785,7 +786,7 @@ export default function Page() {
           <section id={ 'tooltip-dropdown' } className={ 'flex flex-col gap-6 scroll-mt-24' }>
             <h2>Tooltip & Dropdown</h2>
             <div>Both built on the same Floating UI popover. Tooltip is hover-only; DropdownMenu is click-and-dismiss.</div>
-            <ShowcaseImportPath path={ `import { Tooltip, DropdownMenu, DropdownButton, DropdownButtonGroup, DropdownDrilldown } from "@matthiaskrijgsman/mat-ui"` }/>
+            <ShowcaseImportPath path={ `import { Tooltip, DropdownMenu, DropdownButton, DropdownButtonGroup, DropdownDrilldown, DropdownSubMenu } from "@matthiaskrijgsman/mat-ui"` }/>
             <Panel>
               <ShowcaseSection title={ 'Tooltip' }>
                 <Tooltip content={ 'Copy to clipboard' }>
@@ -835,6 +836,21 @@ export default function Page() {
                       <DropdownButton Icon={ IconShieldLock }>Require sign-in</DropdownButton>
                     </DropdownDrilldown>
                   </DropdownDrilldown>
+                </DropdownMenu>
+                <DropdownMenu
+                  trigger={ <Button variant={ 'white' } Icon={ IconSettings }>Flyout</Button> }
+                  placement={ 'bottom-start' }
+                >
+                  <DropdownButton Icon={ IconPencil }>Rename</DropdownButton>
+                  <DropdownSubMenu label={ 'Move to…' } Icon={ IconArchive }>
+                    <DropdownButton>Project Alpha</DropdownButton>
+                    <DropdownButton>Project Beta</DropdownButton>
+                    <DropdownSubMenu label={ 'Archived' } Icon={ IconArchive }>
+                      <DropdownButton>2023 archive</DropdownButton>
+                      <DropdownButton>2022 archive</DropdownButton>
+                    </DropdownSubMenu>
+                  </DropdownSubMenu>
+                  <DropdownButton Icon={ IconTrash } className={ 'text-red-600' }>Delete</DropdownButton>
                 </DropdownMenu>
               </ShowcaseSection>
             </Panel>

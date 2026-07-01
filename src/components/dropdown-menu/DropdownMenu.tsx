@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { usePopover } from "@/popover/use-popover.tsx";
-import type { Placement } from "@floating-ui/react";
+import { FloatingTree, type Placement, useFloatingParentNodeId } from "@floating-ui/react";
 import { DropdownPanel } from "@/components/dropdown-menu/DropdownPanel.tsx";
 import { DropdownDismissContext } from "@/components/dropdown-menu/use-dropdown-dismiss.ts";
 import { DropdownNavigator } from "@/components/dropdown-menu/DropdownNavigator.tsx";
@@ -15,7 +15,7 @@ export type DropdownMenuProps = {
 }
 
 
-export const DropdownMenu = (props: DropdownMenuProps) => {
+const DropdownMenuInner = (props: DropdownMenuProps) => {
   const { trigger, children, placement = 'bottom-end', minWidth = 200, className } = props;
   const [ show, setShow ] = useState<boolean>(false);
 
@@ -43,4 +43,21 @@ export const DropdownMenu = (props: DropdownMenuProps) => {
       </Popover>
     </>
   );
+};
+
+export const DropdownMenu = (props: DropdownMenuProps) => {
+  // Establish a FloatingTree at the root so nested submenu popovers can
+  // communicate (outside-press/dismiss ignore descendant floating elements).
+  // If this menu is itself nested inside another menu's tree, reuse that tree.
+  const parentNodeId = useFloatingParentNodeId();
+
+  if (parentNodeId === null) {
+    return (
+      <FloatingTree>
+        <DropdownMenuInner { ...props }/>
+      </FloatingTree>
+    );
+  }
+
+  return <DropdownMenuInner { ...props }/>;
 };

@@ -79,6 +79,7 @@ export { DropdownButtonGroup } from "./components/dropdown-menu/DropdownButtonGr
 export { DropdownPanel } from "./components/dropdown-menu/DropdownPanel.tsx";
 export { DropdownMenu } from "./components/dropdown-menu/DropdownMenu.tsx";
 export { DropdownDrilldown } from "./components/dropdown-menu/DropdownDrilldown.tsx";
+export { DropdownSubMenu } from "./components/dropdown-menu/DropdownSubMenu.tsx";
 export { DropdownNavigator } from "./components/dropdown-menu/DropdownNavigator.tsx";
 export { useDropdownDismiss, DropdownDismissContext } from "./components/dropdown-menu/use-dropdown-dismiss.ts";
 // eslint-disable-next-line react-refresh/only-export-components
