@@ -1,29 +1,20 @@
 import * as React from "react";
 import { useEffect, useMemo, useState } from "react";
 import { classNames } from "@/util/classnames.util.ts";
-import { IconChevronDown, IconSearch, IconSearchOff, IconX } from "@tabler/icons-react";
+import { IconSearch, IconSearchOff } from "@tabler/icons-react";
 import { InputSelectOption } from "@/components/inputs/InputSelectOption.tsx";
 import { InputSelectGroupHeader } from "@/components/inputs/InputSelectGroupHeader.tsx";
 import { InputSelectDivider } from "@/components/inputs/InputSelectDivider.tsx";
 import { useSelectPopover } from "@/popover/use-select-popover.tsx";
 import { DropdownPanel } from "@/components/dropdown-menu/DropdownPanel.tsx";
 import { InputLabel } from "@/components/inputs/InputLabel.tsx";
-import { InputErrorIcon } from "@/components/inputs/InputErrorIcon.tsx";
-import { InputIconButton } from "@/components/inputs/InputIconButton.tsx";
-import { InputIconButtonTray } from "@/components/inputs/InputIconButtonTray.tsx";
 import { InputDescription } from "@/components/inputs/InputDescription.tsx";
 import { InputError } from "@/components/inputs/InputError.tsx";
+import { SelectTrigger } from "@/components/inputs/SelectTrigger.tsx";
 import { useDismiss } from "@/hooks/use-dismiss.ts";
 import { ControlSizeContext } from "@/control-size/use-control-size.ts";
 import { isSelectOption, selectValueEquals, type Option, type SelectItem } from "@/components/inputs/select-item.ts";
 export type { Option } from "@/components/inputs/select-item.ts";
-import {
-  sizeFontClasses,
-  sizeHeightClasses,
-  sizePaddingLeftClasses,
-  sizePaddingRightWithTrayClasses,
-  sizePaddingRightWithTrayTwoClasses,
-} from "@/control-size/control-size.util.ts";
 
 
 export type Size = 'sm' | 'md' | 'lg';
@@ -144,7 +135,7 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
         <InputLabel>{ label }</InputLabel>
 
         <div className={ 'relative flex w-full flex-col' } ref={ anchorRef }>
-          <div
+          <SelectTrigger
             { ...getReferenceProps({
               ref,
               role: 'button',
@@ -162,32 +153,16 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
                 }
               },
             }) }
-            className={ classNames(
-              'flex flex-row items-center border-[length:var(--border-width-input)] select-trigger transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] shadow-[var(--shadow-control)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none select-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
-              sizeHeightClasses[size],
-              sizeFontClasses[size],
-              sizePaddingLeftClasses[size],
-              clearable && value ? sizePaddingRightWithTrayTwoClasses[size] : sizePaddingRightWithTrayClasses[size],
-              disabled ? 'select-trigger-disabled' : error && 'select-trigger-error',
-              !disabled && open && 'ring-[length:var(--control-ring-width)]',
-            ) }
-          >
-            { selectedOption && (
-              <span className={ 'flex-1 min-w-0 break-all line-clamp-1 text-left' }>{ selectedOption.label }</span>
-            ) }
-            { !selectedOption && placeholder && (
-              <span className={ 'flex-1 min-w-0 break-all line-clamp-1 text-left select-placeholder' }>{ placeholder }</span>
-            ) }
-          </div>
-          <InputIconButtonTray>
-            { !disabled && error && (
-              <InputErrorIcon/>
-            ) }
-            { clearable && !!value && !disabled && (
-              <InputIconButton Icon={ IconX } onClick={ () => onChange(null) }/>
-            ) }
-            <InputIconButton Icon={ IconChevronDown }/>
-          </InputIconButtonTray>
+            size={ size }
+            open={ open }
+            disabled={ disabled }
+            error={ !!error }
+            clearable={ clearable }
+            hasValue={ !!value }
+            selectedLabel={ selectedOption?.label }
+            placeholder={ placeholder }
+            onClear={ () => onChange(null) }
+          />
           <Popover open={ open }>
             <DropdownPanel className={ 'gap-0 !p-0' } style={ { maxHeight: maxHeight } }>
               <div className={ 'sticky top-0 border-b select-search-bar py-1 backdrop-blur-sm' }>

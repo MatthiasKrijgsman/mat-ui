@@ -44,6 +44,8 @@ export { lexicalTheme, LEXICAL_NODES } from "./components/inputs/input-lexical/l
 export { InputSelectNative } from "./components/inputs/InputSelectNative.tsx";
 export { InputSelect } from "./components/inputs/InputSelect.tsx";
 export { InputSelectSearchable } from "./components/inputs/InputSelectSearchable.tsx";
+export { InputSelectDrilldown } from "./components/inputs/InputSelectDrilldown.tsx";
+export { SelectTrigger } from "./components/inputs/SelectTrigger.tsx";
 export { InputSelectSearchableAsync } from "./components/inputs/InputSelectSearchableAsync.tsx";
 export { InputSelectMultiple } from "./components/inputs/InputSelectMultiple.tsx";
 export { InputSelectOption } from "./components/inputs/InputSelectOption.tsx";
