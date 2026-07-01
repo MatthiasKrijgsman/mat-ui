@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
   AutoScroll,
   Badge,
@@ -21,6 +21,7 @@ import {
   InputPassword,
   InputRadio,
   InputSelect,
+  InputSelectDrilldown,
   InputSelectNative,
   InputSelectSearchable,
   InputSelectSearchableAsync,
@@ -101,6 +102,41 @@ const GROUPED_FRAMEWORK_OPTIONS: SelectItem<string>[] = [
   { label: 'Een hele lange zin als waarde om te kijken wat dit component nu gaat doen als ik deze selecteer', value: 'lang' },
 ];
 
+type GeoNode = { id: string; label: string; children?: GeoNode[] };
+
+const GEO_TREE: GeoNode[] = [
+  {
+    id: 'europe', label: 'Europe', children: [
+      { id: 'nl', label: 'Netherlands', children: [ { id: 'ams', label: 'Amsterdam' }, { id: 'rot', label: 'Rotterdam' } ] },
+      { id: 'fr', label: 'France', children: [ { id: 'par', label: 'Paris' }, { id: 'lyo', label: 'Lyon' } ] },
+    ],
+  },
+  {
+    id: 'asia', label: 'Asia', children: [
+      { id: 'jp', label: 'Japan', children: [ { id: 'tok', label: 'Tokyo' }, { id: 'osa', label: 'Osaka' } ] },
+      { id: 'sg', label: 'Singapore' },
+    ],
+  },
+];
+
+/** Renders one drilldown level: branches become DropdownDrilldown rows, leaves pick their path. */
+const renderGeoLevel = (nodes: GeoNode[], prefix: string, onPick: (path: string) => void): ReactNode =>
+  nodes.map((node) => {
+    const path = prefix ? `${ prefix } › ${ node.label }` : node.label;
+    if (node.children) {
+      return (
+        <DropdownDrilldown key={ node.id } label={ node.label }>
+          { renderGeoLevel(node.children, path, onPick) }
+        </DropdownDrilldown>
+      );
+    }
+    return (
+      <DropdownButton key={ node.id } dismissOnClick={ false } onClick={ () => onPick(path) }>
+        { node.label }
+      </DropdownButton>
+    );
+  });
+
 const SKILL_OPTIONS = [
   { label: 'TypeScript', value: 'typescript' },
   { label: 'React', value: 'react' },
@@ -180,6 +216,7 @@ export default function Page() {
   const [ frameworkSearchable, setFrameworkSearchable ] = useState<string | null>(null);
   const [ city, setCity ] = useState<string | null>('berlin');
   const [ nativeFramework, setNativeFramework ] = useState('react');
+  const [ location, setLocation ] = useState<string | null>(null);
 
   // Tags
   const [ skills, setSkills ] = useState<string[]>([ 'typescript', 'react', 'tailwind' ]);
@@ -481,8 +518,8 @@ export default function Page() {
           {/* Selects */ }
           <section id={ 'selects' } className={ 'flex flex-col gap-6 scroll-mt-24' }>
             <h2>Selects</h2>
-            <div>Five flavours: a native &lt;select&gt;, a styled popover select, a searchable variant, an async-fetch variant, and a multi-select.</div>
-            <ShowcaseImportPath path={ `import { InputSelect, InputSelectNative, InputSelectSearchable, InputSelectSearchableAsync, InputSelectMultiple } from "@matthiaskrijgsman/mat-ui"` }/>
+            <div>Six flavours: a native &lt;select&gt;, a styled popover select, a searchable variant, an async-fetch variant, a multi-select, and a drilldown for nested hierarchies. All share one <code>SelectTrigger</code>.</div>
+            <ShowcaseImportPath path={ `import { InputSelect, InputSelectNative, InputSelectSearchable, InputSelectSearchableAsync, InputSelectMultiple, InputSelectDrilldown } from "@matthiaskrijgsman/mat-ui"` }/>
             <Panel>
               <ShowcaseSection title={ 'Native' } layout={ 'vertical' } narrow={ true }>
                 <InputSelectNative
@@ -566,6 +603,21 @@ export default function Page() {
                   singleLine
                   className={ 'w-full' }
                 />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Drilldown' } layout={ 'vertical' } narrow={ true }>
+                <InputSelectDrilldown
+                  label={ 'Location' }
+                  description={ 'Descends Continent → Country → City. Branches slide; picking a leaf commits the path and closes.' }
+                  placeholder={ 'Pick a location…' }
+                  clearable
+                  hasValue={ !!location }
+                  valueLabel={ location }
+                  onClear={ () => setLocation(null) }
+                  className={ 'w-full' }
+                >
+                  { ({ close }) => renderGeoLevel(GEO_TREE, '', (path) => { setLocation(path); close(); }) }
+                </InputSelectDrilldown>
               </ShowcaseSection>
             </Panel>
           </section>
