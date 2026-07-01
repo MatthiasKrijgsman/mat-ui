@@ -45,6 +45,9 @@ export default defineConfig({
         },
       },
     },
+    // Ship readable output — consumers' bundlers minify and tree-shake on their
+    // side, so minifying here only obscures stack traces and source reading.
+    minify: false,
     sourcemap: true,
     emptyOutDir: true,
   },
