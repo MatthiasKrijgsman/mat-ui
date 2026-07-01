@@ -61,7 +61,7 @@ export const DropdownNavigator = (props: DropdownNavigatorProps) => {
             animate={ 'center' }
             exit={ 'exit' }
             transition={ { duration: 0.15, ease: 'easeInOut' } }
-            className={ 'flex flex-col space-y-1' }
+            className={ 'flex flex-col space-y-1 p-2' }
           >
             { current && (
               <DropdownButton dismissOnClick={ false } Icon={ IconChevronLeft } onClick={ pop } className={ 'mb-1' }>

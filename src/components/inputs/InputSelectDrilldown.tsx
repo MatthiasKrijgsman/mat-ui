@@ -117,7 +117,7 @@ export const InputSelectDrilldown = (props: InputSelectDrilldownProps) => {
             } }
           />
           <Popover open={ open }>
-            <DropdownPanel padding={ 'sm' } style={ { maxHeight } }>
+            <DropdownPanel className={ '!p-0' } style={ { maxHeight } }>
               <DropdownNavigator open={ open }>
                 { content }
               </DropdownNavigator>

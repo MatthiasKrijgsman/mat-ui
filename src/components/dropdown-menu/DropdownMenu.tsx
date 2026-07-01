@@ -33,7 +33,7 @@ const DropdownMenuInner = (props: DropdownMenuProps) => {
       </div>
 
       <Popover open={ show }>
-        <DropdownPanel padding={ 'sm' }>
+        <DropdownPanel className={ '!p-0' }>
           <DropdownDismissContext.Provider value={ () => setShow(false) }>
             <DropdownNavigator open={ show }>
               { children }
