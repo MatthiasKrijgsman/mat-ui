@@ -47,7 +47,11 @@ export const DropdownNavigator = (props: DropdownNavigatorProps) => {
 
   return (
     <DropdownDrilldownContext.Provider value={ { push, pop, reset, depth: stack.length } }>
-      <div className={ 'flex flex-col overflow-hidden' }>
+      { /* Clip the horizontal slide, but scroll vertically so a height-capped
+           parent (e.g. InputSelectDrilldown's maxHeight) scrolls instead of
+           clipping — `overflow` also gives this flex child min-height:0 so it
+           shrinks to the cap and becomes the scroll container. */ }
+      <div className={ 'flex flex-col overflow-x-hidden overflow-y-auto' }>
         <AnimatePresence initial={ false } mode={ 'wait' } custom={ direction }>
           <motion.div
             key={ levelKey }
