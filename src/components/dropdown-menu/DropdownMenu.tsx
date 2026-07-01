@@ -4,6 +4,7 @@ import { usePopover } from "@/popover/use-popover.tsx";
 import type { Placement } from "@floating-ui/react";
 import { DropdownPanel } from "@/components/dropdown-menu/DropdownPanel.tsx";
 import { DropdownDismissContext } from "@/components/dropdown-menu/use-dropdown-dismiss.ts";
+import { DropdownNavigator } from "@/components/dropdown-menu/DropdownNavigator.tsx";
 
 export type DropdownMenuProps = {
   trigger: React.ReactNode;
@@ -34,7 +35,9 @@ export const DropdownMenu = (props: DropdownMenuProps) => {
       <Popover open={ show }>
         <DropdownPanel padding={ 'sm' }>
           <DropdownDismissContext.Provider value={ () => setShow(false) }>
-            { children }
+            <DropdownNavigator open={ show }>
+              { children }
+            </DropdownNavigator>
           </DropdownDismissContext.Provider>
         </DropdownPanel>
       </Popover>

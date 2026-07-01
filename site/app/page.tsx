@@ -10,6 +10,7 @@ import {
   Divider,
   DropdownButton,
   DropdownButtonGroup,
+  DropdownDrilldown,
   DropdownMenu,
   Input,
   InputCheck,
@@ -784,7 +785,7 @@ export default function Page() {
           <section id={ 'tooltip-dropdown' } className={ 'flex flex-col gap-6 scroll-mt-24' }>
             <h2>Tooltip & Dropdown</h2>
             <div>Both built on the same Floating UI popover. Tooltip is hover-only; DropdownMenu is click-and-dismiss.</div>
-            <ShowcaseImportPath path={ `import { Tooltip, DropdownMenu, DropdownButton, DropdownButtonGroup } from "@matthiaskrijgsman/mat-ui"` }/>
+            <ShowcaseImportPath path={ `import { Tooltip, DropdownMenu, DropdownButton, DropdownButtonGroup, DropdownDrilldown } from "@matthiaskrijgsman/mat-ui"` }/>
             <Panel>
               <ShowcaseSection title={ 'Tooltip' }>
                 <Tooltip content={ 'Copy to clipboard' }>
@@ -820,6 +821,20 @@ export default function Page() {
                     <DropdownButton Icon={ IconCalendar }>Date</DropdownButton>
                     <DropdownButton Icon={ IconStar }>Rating</DropdownButton>
                   </DropdownButtonGroup>
+                </DropdownMenu>
+                <DropdownMenu
+                  trigger={ <Button variant={ 'white' } Icon={ IconShare }>Share</Button> }
+                  placement={ 'bottom-start' }
+                >
+                  <DropdownButton Icon={ IconLink }>Copy link</DropdownButton>
+                  <DropdownDrilldown label={ 'Share with…' } Icon={ IconUser }>
+                    <DropdownButton Icon={ IconMail }>Email</DropdownButton>
+                    <DropdownButton Icon={ IconBrandGithub }>GitHub</DropdownButton>
+                    <DropdownDrilldown label={ 'More options' } Icon={ IconSettings }>
+                      <DropdownButton Icon={ IconBell }>Notify on open</DropdownButton>
+                      <DropdownButton Icon={ IconShieldLock }>Require sign-in</DropdownButton>
+                    </DropdownDrilldown>
+                  </DropdownDrilldown>
                 </DropdownMenu>
               </ShowcaseSection>
             </Panel>

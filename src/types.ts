@@ -75,7 +75,10 @@ export type { DropdownButtonProps } from "./components/dropdown-menu/DropdownBut
 export type { DropdownButtonGroupProps } from "./components/dropdown-menu/DropdownButtonGroup.tsx";
 export type { DropdownMenuProps } from "./components/dropdown-menu/DropdownMenu.tsx";
 export type { DropdownPanelProps } from "./components/dropdown-menu/DropdownPanel.tsx";
+export type { DropdownDrilldownProps } from "./components/dropdown-menu/DropdownDrilldown.tsx";
+export type { DropdownNavigatorProps } from "./components/dropdown-menu/DropdownNavigator.tsx";
 export type { DropdownDismissContextType } from "./components/dropdown-menu/use-dropdown-dismiss.ts";
+export type { DropdownDrilldownContextType, DropdownDrilldownLevel } from "./components/dropdown-menu/use-dropdown-drilldown.ts";
 export type { UsePopoverProps, PopoverRendererProps, PopoverBaseRefProps, UsePopoverResult } from "./popover/use-popover.tsx";
 export type { PopoverBaseProps } from "./popover/PopoverBase.tsx";
 
