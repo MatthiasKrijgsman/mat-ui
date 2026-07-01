@@ -27,7 +27,7 @@ export const DropdownSubMenu = (props: DropdownSubMenuProps) => {
 
   return (
     <>
-      <div ref={ anchorRef }>
+      <div ref={ anchorRef } className={ 'flex flex-col' }>
         <DropdownButton
           dismissOnClick={ false }
           Icon={ Icon }
