@@ -128,7 +128,13 @@ export const LexicalToolbarItems = (props: LexicalToolbarItemsProps) => {
           <LexicalToolbarContext.Provider value={ { state, tone: "dark", orientation: "vertical" } }>
             <div
               className={ "flex flex-col items-stretch gap-1" }
-              onMouseDown={ (event) => event.preventDefault() }
+              onMouseDown={ (event) => {
+                // Keep the editor selection intact for button presses — but a
+                // blanket preventDefault would also block native focus, making
+                // the form fields inside (number/select inputs) untypeable.
+                const target = event.target as HTMLElement;
+                if (!target.closest("input, textarea, select")) event.preventDefault();
+              } }
             >
               { overflow.map((item, index) => (
                 <React.Fragment key={ index }>{ item }</React.Fragment>
