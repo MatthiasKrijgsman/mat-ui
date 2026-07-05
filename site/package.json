@@ -18,7 +18,7 @@
     "@lexical/selection": "0.45.0",
     "@lexical/utils": "0.45.0",
     "@matthiaskrijgsman/mat-ui": "workspace:*",
-    "@tabler/icons-react": "^3.34.1",
+    "@tabler/icons-react": "^3.44.0",
     "lexical": "0.45.0",
     "motion": "^12.23.12",
     "next": "^15.1.0",
