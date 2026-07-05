@@ -24,13 +24,21 @@ export type { UploadFileTileProps } from "./components/inputs/input-file/UploadF
 
 // Lexical rich text editor
 export type { InputLexicalProps, Size as InputLexicalSize, LexicalToolbarVariant } from "./components/inputs/input-lexical/InputLexical.tsx";
+export type { LexicalInlineProps } from "./components/inputs/input-lexical/LexicalInline.tsx";
 export type { LexicalToolbarProps } from "./components/inputs/input-lexical/LexicalToolbar.tsx";
 export type { LexicalFloatingToolbarProps } from "./components/inputs/input-lexical/LexicalFloatingToolbar.tsx";
+export type { FloatingToolbarShellProps } from "./components/inputs/input-lexical/FloatingToolbarShell.tsx";
 export type { LexicalToolbarItemsProps } from "./components/inputs/input-lexical/LexicalToolbarItems.tsx";
 export type { LexicalToolbarButtonProps } from "./components/inputs/input-lexical/LexicalToolbarButton.tsx";
 export type { LexicalToolbarDividerProps } from "./components/inputs/input-lexical/LexicalToolbarDivider.tsx";
+export type { LexicalToolbarSelectProps, LexicalToolbarSelectOption } from "./components/inputs/input-lexical/LexicalToolbarSelect.tsx";
+export type { LexicalToolbarNumberProps } from "./components/inputs/input-lexical/LexicalToolbarNumber.tsx";
+export type { LexicalToolbarColorProps } from "./components/inputs/input-lexical/LexicalToolbarColor.tsx";
+export type { LexicalSelectionStyleResult } from "./components/inputs/input-lexical/use-lexical-selection-style.ts";
+export type { ColorPickerProps } from "./components/inputs/ColorPicker.tsx";
 export type {
   LexicalBlockType,
+  LexicalAlign,
   LexicalToolbarState,
   LexicalToolbarTone,
   LexicalToolbarContextValue,

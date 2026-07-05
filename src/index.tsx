@@ -8,6 +8,7 @@ export { ButtonIconRound } from "./components/button-icon-round/ButtonIconRound.
 // Inputs
 export { Input } from "./components/inputs/Input.tsx";
 export { InputColor } from "./components/inputs/InputColor.tsx";
+export { ColorPicker } from "./components/inputs/ColorPicker.tsx";
 export { InputPassword } from "./components/inputs/InputPassword.tsx";
 export { InputTextArea } from "./components/inputs/InputTextArea.tsx";
 export { InputRadio } from "./components/inputs/InputRadio.tsx";
@@ -25,18 +26,28 @@ export { UploadFileTile } from "./components/inputs/input-file/UploadFileTile.ts
 
 // Lexical rich text editor
 export { InputLexical } from "./components/inputs/input-lexical/InputLexical.tsx";
+export { LexicalInline } from "./components/inputs/input-lexical/LexicalInline.tsx";
 export { LexicalToolbar, LexicalDefaultToolbarContent } from "./components/inputs/input-lexical/LexicalToolbar.tsx";
+// eslint-disable-next-line react-refresh/only-export-components
+export { lexicalDefaultToolbarItems } from "./components/inputs/input-lexical/LexicalToolbar.tsx";
 export { LexicalFloatingToolbar } from "./components/inputs/input-lexical/LexicalFloatingToolbar.tsx";
+export { FloatingToolbarShell } from "./components/inputs/input-lexical/FloatingToolbarShell.tsx";
 export { LexicalToolbarItems } from "./components/inputs/input-lexical/LexicalToolbarItems.tsx";
 export { LexicalToolbarButton } from "./components/inputs/input-lexical/LexicalToolbarButton.tsx";
 export { LexicalToolbarDivider } from "./components/inputs/input-lexical/LexicalToolbarDivider.tsx";
+export { LexicalToolbarSelect } from "./components/inputs/input-lexical/LexicalToolbarSelect.tsx";
+export { LexicalToolbarNumber } from "./components/inputs/input-lexical/LexicalToolbarNumber.tsx";
+export { LexicalToolbarColor } from "./components/inputs/input-lexical/LexicalToolbarColor.tsx";
 export { LexicalBlockTypeSelect } from "./components/inputs/input-lexical/LexicalBlockTypeSelect.tsx";
 export { LexicalFormatButtons } from "./components/inputs/input-lexical/LexicalFormatButtons.tsx";
+export { LexicalAlignButtons } from "./components/inputs/input-lexical/LexicalAlignButtons.tsx";
 export { LexicalListButtons } from "./components/inputs/input-lexical/LexicalListButtons.tsx";
 export { LexicalLinkButton } from "./components/inputs/input-lexical/LexicalLinkButton.tsx";
 export { LexicalHistoryButtons } from "./components/inputs/input-lexical/LexicalHistoryButtons.tsx";
 // eslint-disable-next-line react-refresh/only-export-components
 export { useLexicalToolbar, useLexicalToolbarState } from "./components/inputs/input-lexical/use-lexical-toolbar.ts";
+// eslint-disable-next-line react-refresh/only-export-components
+export { useLexicalSelectionStyle } from "./components/inputs/input-lexical/use-lexical-selection-style.ts";
 // eslint-disable-next-line react-refresh/only-export-components
 export { lexicalTheme, LEXICAL_NODES } from "./components/inputs/input-lexical/lexical-theme.ts";
 
@@ -83,6 +94,7 @@ export { DropdownMenu } from "./components/dropdown-menu/DropdownMenu.tsx";
 export { DropdownDrilldown } from "./components/dropdown-menu/DropdownDrilldown.tsx";
 export { DropdownSubMenu } from "./components/dropdown-menu/DropdownSubMenu.tsx";
 export { DropdownNavigator } from "./components/dropdown-menu/DropdownNavigator.tsx";
+// eslint-disable-next-line react-refresh/only-export-components
 export { useDropdownDismiss, DropdownDismissContext } from "./components/dropdown-menu/use-dropdown-dismiss.ts";
 // eslint-disable-next-line react-refresh/only-export-components
 export { useDropdownDrilldown, DropdownDrilldownContext } from "./components/dropdown-menu/use-dropdown-drilldown.ts";

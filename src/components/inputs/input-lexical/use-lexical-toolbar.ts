@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import {
   $getSelection,
+  $isElementNode,
   $isRangeSelection,
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
@@ -15,6 +16,7 @@ import { $isLinkNode } from "@lexical/link";
 import { $getNearestNodeOfType, mergeRegister } from "@lexical/utils";
 
 export type LexicalBlockType = "paragraph" | "h1" | "h2" | "h3" | "h4";
+export type LexicalAlign = "left" | "center" | "right" | "justify";
 
 export type LexicalToolbarState = {
   isBold: boolean;
@@ -24,6 +26,7 @@ export type LexicalToolbarState = {
   isUnorderedList: boolean;
   isOrderedList: boolean;
   blockType: LexicalBlockType;
+  align: LexicalAlign;
   canUndo: boolean;
   canRedo: boolean;
 };
@@ -36,6 +39,7 @@ export const DEFAULT_LEXICAL_TOOLBAR_STATE: LexicalToolbarState = {
   isUnorderedList: false,
   isOrderedList: false,
   blockType: "paragraph",
+  align: "left",
   canUndo: false,
   canRedo: false,
 };
@@ -77,13 +81,19 @@ export const useLexicalToolbarState = (): LexicalToolbarState => {
         const listNode = $getNearestNodeOfType<ListNode>(anchorNode, ListNode);
         const listType = listNode && $isListNode(listNode) ? listNode.getListType() : null;
 
+        const topElement =
+          anchorNode.getKey() === "root" ? anchorNode : anchorNode.getTopLevelElementOrThrow();
+
         let blockType: LexicalBlockType = "paragraph";
-        if (!listType) {
-          const element =
-            anchorNode.getKey() === "root" ? anchorNode : anchorNode.getTopLevelElementOrThrow();
-          if ($isHeadingNode(element)) {
-            blockType = element.getTag() as LexicalBlockType;
-          }
+        if (!listType && $isHeadingNode(topElement)) {
+          blockType = topElement.getTag() as LexicalBlockType;
+        }
+
+        let align: LexicalAlign = "left";
+        if ($isElementNode(topElement)) {
+          const formatType = topElement.getFormatType();
+          if (formatType === "center" || formatType === "justify") align = formatType;
+          else if (formatType === "right" || formatType === "end") align = "right";
         }
 
         // Read every node value here, inside the editor.read() context. Passing
@@ -103,6 +113,7 @@ export const useLexicalToolbarState = (): LexicalToolbarState => {
           isUnorderedList: listType === "bullet",
           isOrderedList: listType === "number",
           blockType,
+          align,
         }));
       });
     };
