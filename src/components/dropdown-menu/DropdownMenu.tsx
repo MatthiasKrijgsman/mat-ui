@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { usePopover } from "@/popover/use-popover.tsx";
+import { classNames } from "@/util/classnames.util.ts";
 import { FloatingTree, type Placement, useFloatingParentNodeId } from "@floating-ui/react";
 import { DropdownPanel } from "@/components/dropdown-menu/DropdownPanel.tsx";
 import { DropdownDismissContext } from "@/components/dropdown-menu/use-dropdown-dismiss.ts";
@@ -12,11 +13,13 @@ export type DropdownMenuProps = {
   placement?: Placement
   minWidth?: number;
   className?: string;
+  /** Extra classes for the floating panel (e.g. `"dark"` to theme it). */
+  panelClassName?: string;
 }
 
 
 const DropdownMenuInner = (props: DropdownMenuProps) => {
-  const { trigger, children, placement = 'bottom-end', minWidth = 200, className } = props;
+  const { trigger, children, placement = 'bottom-end', minWidth = 200, className, panelClassName } = props;
   const [ show, setShow ] = useState<boolean>(false);
 
   const { Popover, anchorRef } = usePopover({
@@ -33,7 +36,7 @@ const DropdownMenuInner = (props: DropdownMenuProps) => {
       </div>
 
       <Popover open={ show }>
-        <DropdownPanel className={ '!p-0' }>
+        <DropdownPanel className={ classNames('!p-0', panelClassName) }>
           <DropdownDismissContext.Provider value={ () => setShow(false) }>
             <DropdownNavigator open={ show }>
               { children }

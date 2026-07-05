@@ -110,6 +110,7 @@ export const LexicalToolbarItems = (props: LexicalToolbarItemsProps) => {
         <DropdownMenu
           placement={ "bottom-end" }
           minWidth={ 0 }
+          panelClassName={ "dark" }
           trigger={
             <button
               type={ "button" }
@@ -124,7 +125,7 @@ export const LexicalToolbarItems = (props: LexicalToolbarItemsProps) => {
             </button>
           }
         >
-          <LexicalToolbarContext.Provider value={ { state, tone: "light", orientation: "vertical" } }>
+          <LexicalToolbarContext.Provider value={ { state, tone: "dark", orientation: "vertical" } }>
             <div
               className={ "flex flex-col items-stretch gap-1" }
               onMouseDown={ (event) => event.preventDefault() }
