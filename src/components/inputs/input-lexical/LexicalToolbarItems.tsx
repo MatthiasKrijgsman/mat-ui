@@ -19,7 +19,6 @@ export type LexicalToolbarItemsProps = {
   collapsible?: boolean;
 };
 
-const GAP = 4; // gap-1 = 0.25rem
 const MORE_WIDTH = 36; // 32px button + gap reserved for the overflow trigger
 
 /* Flatten one or more levels of fragments so each building block becomes an
@@ -58,8 +57,16 @@ export const LexicalToolbarItems = (props: LexicalToolbarItemsProps) => {
     const mirror = mirrorRef.current;
     if (!container || !mirror) return;
 
-    const available = container.clientWidth;
-    const widths = Array.from(mirror.children).map((node) => (node as HTMLElement).offsetWidth);
+    // The zero-height in-flow mirror keeps the container's intrinsic width at
+    // the full item row, so this measures "the space we could use" (imposed
+    // width, or the full row when the bar is content-sized) — never a feedback
+    // loop off the currently visible items, which would latch a content-sized
+    // bar collapsed. Fractional widths + 0.5px slack avoid rounding flicker.
+    const available = container.getBoundingClientRect().width + 0.5;
+    // gap-1 in px — resolved rather than hardcoded so a non-16px root font
+    // (rem-based gap) doesn't skew the fit math.
+    const GAP = parseFloat(getComputedStyle(mirror).columnGap) || 4;
+    const widths = Array.from(mirror.children).map((node) => (node as HTMLElement).getBoundingClientRect().width);
     const total = widths.reduce((sum, w, i) => sum + w + (i > 0 ? GAP : 0), 0);
 
     if (!collapsible) {
@@ -115,17 +122,25 @@ export const LexicalToolbarItems = (props: LexicalToolbarItemsProps) => {
     return () => observer.disconnect();
   }, [ recompute ]);
 
+  /* In flow (not absolute) so the full item row defines the container's
+   * intrinsic width — a content-sized floating bar then sizes to all items
+   * (clamped by any imposed width/max-width) instead of to whatever happens
+   * to be visible. Zero height + clip keeps it out of the visual layout. */
   const mirror = (
-    <div
-      ref={ mirrorRef }
-      aria-hidden={ true }
-      className={ "pointer-events-none invisible absolute left-0 top-0 flex flex-row items-center gap-1 w-max" }
-    >
-      { items.map((item, index) => (
-        <div key={ index } className={ "flex flex-row items-center" }>
-          { item }
-        </div>
-      )) }
+    <div aria-hidden={ true } className={ "pointer-events-none invisible h-0 overflow-hidden" }>
+      <div
+        ref={ mirrorRef }
+        className={ "flex flex-row items-center gap-1 w-max" }
+      >
+        { items.map((item, index) => (
+          // shrink-0: the w-max row box can come out gap-short in some
+          // engines' intrinsic sizing — items must not shrink into it, or
+          // the measured widths under-report and the bar under-collapses.
+          <div key={ index } className={ "flex flex-row items-center shrink-0" }>
+            { item }
+          </div>
+        )) }
+      </div>
     </div>
   );
 
@@ -150,7 +165,7 @@ export const LexicalToolbarItems = (props: LexicalToolbarItemsProps) => {
     return (
       <div
         ref={ containerRef }
-        className={ "relative flex flex-col min-w-0 flex-1" }
+        className={ "flex flex-col min-w-0 flex-1" }
       >
         { mirror }
         { rows.map((row, rowIndex) => (
@@ -175,51 +190,53 @@ export const LexicalToolbarItems = (props: LexicalToolbarItemsProps) => {
   return (
     <div
       ref={ containerRef }
-      className={ "relative flex flex-row items-center gap-1 min-w-0 flex-1" }
+      className={ "flex flex-col min-w-0 flex-1" }
     >
       { mirror }
 
-      { visible.map((item, index) => (
-        <React.Fragment key={ index }>{ item }</React.Fragment>
-      )) }
+      <div className={ "flex flex-row items-center gap-1" }>
+        { visible.map((item, index) => (
+          <React.Fragment key={ index }>{ item }</React.Fragment>
+        )) }
 
-      { overflow.length > 0 && (
-        <DropdownMenu
-          placement={ "bottom-end" }
-          minWidth={ 0 }
-          panelClassName={ "dark" }
-          trigger={
-            <button
-              type={ "button" }
-              aria-label={ "More" }
-              onMouseDown={ (event) => event.preventDefault() }
-              className={ classNames(
-                "lexical-tb-btn h-8 w-8 shrink-0",
-                tone === "dark" ? "lexical-tb-btn-dark" : "lexical-tb-btn-light",
-              ) }
-            >
-              <IconDots className={ "h-[18px] w-[18px]" }/>
-            </button>
-          }
-        >
-          <LexicalToolbarContext.Provider value={ { state, tone: "dark", orientation: "vertical" } }>
-            <div
-              className={ "flex flex-col items-stretch gap-1" }
-              onMouseDown={ (event) => {
-                // Keep the editor selection intact for button presses — but a
-                // blanket preventDefault would also block native focus, making
-                // the form fields inside (number/select inputs) untypeable.
-                const target = event.target as HTMLElement;
-                if (!target.closest("input, textarea, select")) event.preventDefault();
-              } }
-            >
-              { overflow.map((item, index) => (
-                <React.Fragment key={ index }>{ item }</React.Fragment>
-              )) }
-            </div>
-          </LexicalToolbarContext.Provider>
-        </DropdownMenu>
-      ) }
+        { overflow.length > 0 && (
+          <DropdownMenu
+            placement={ "bottom-end" }
+            minWidth={ 0 }
+            panelClassName={ "dark" }
+            trigger={
+              <button
+                type={ "button" }
+                aria-label={ "More" }
+                onMouseDown={ (event) => event.preventDefault() }
+                className={ classNames(
+                  "lexical-tb-btn h-8 w-8 shrink-0",
+                  tone === "dark" ? "lexical-tb-btn-dark" : "lexical-tb-btn-light",
+                ) }
+              >
+                <IconDots className={ "h-[18px] w-[18px]" }/>
+              </button>
+            }
+          >
+            <LexicalToolbarContext.Provider value={ { state, tone: "dark", orientation: "vertical" } }>
+              <div
+                className={ "flex flex-col items-stretch gap-1" }
+                onMouseDown={ (event) => {
+                  // Keep the editor selection intact for button presses — but a
+                  // blanket preventDefault would also block native focus, making
+                  // the form fields inside (number/select inputs) untypeable.
+                  const target = event.target as HTMLElement;
+                  if (!target.closest("input, textarea, select")) event.preventDefault();
+                } }
+              >
+                { overflow.map((item, index) => (
+                  <React.Fragment key={ index }>{ item }</React.Fragment>
+                )) }
+              </div>
+            </LexicalToolbarContext.Provider>
+          </DropdownMenu>
+        ) }
+      </div>
     </div>
   );
 };

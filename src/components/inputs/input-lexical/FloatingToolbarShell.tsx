@@ -65,11 +65,16 @@ export const FloatingToolbarShell = (props: FloatingToolbarShellProps) => {
       flip(),
       shift({ padding: 8 }),
       size({
-        apply({ rects, elements }) {
+        padding: 8,
+        apply({ rects, availableWidth, elements }) {
           // Match the anchor width so the bar starts at the anchor and shares
           // the same max width (driving the overflow-collapse behaviour).
+          // Content-sized bars are instead capped at the space floating-ui
+          // reports, so the overflow-collapse kicks in at the viewport edge.
           if (matchAnchorWidth) {
             elements.floating.style.width = `${ rects.reference.width }px`;
+          } else {
+            elements.floating.style.maxWidth = `${ Math.max(0, availableWidth) }px`;
           }
         },
       }),
