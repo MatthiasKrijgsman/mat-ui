@@ -9,7 +9,9 @@ export { ButtonIconRound } from "./components/button-icon-round/ButtonIconRound.
 export { Input } from "./components/inputs/Input.tsx";
 export { InputColor } from "./components/inputs/InputColor.tsx";
 export { ColorPicker } from "./components/inputs/ColorPicker.tsx";
+export { ColorSwatch } from "./components/inputs/ColorSwatch.tsx";
 export { InputPassword } from "./components/inputs/InputPassword.tsx";
+export { InputRange } from "./components/inputs/InputRange.tsx";
 export { InputTextArea } from "./components/inputs/InputTextArea.tsx";
 export { InputRadio } from "./components/inputs/InputRadio.tsx";
 export { InputToggle } from "./components/inputs/InputToggle.tsx";
@@ -34,7 +36,7 @@ export { LexicalFloatingToolbar } from "./components/inputs/input-lexical/Lexica
 export { FloatingToolbarShell } from "./components/inputs/input-lexical/FloatingToolbarShell.tsx";
 export { LexicalToolbarItems } from "./components/inputs/input-lexical/LexicalToolbarItems.tsx";
 export { LexicalToolbarButton } from "./components/inputs/input-lexical/LexicalToolbarButton.tsx";
-export { LexicalToolbarDivider } from "./components/inputs/input-lexical/LexicalToolbarDivider.tsx";
+export { LexicalToolbarDivider, LexicalToolbarRowDivider } from "./components/inputs/input-lexical/LexicalToolbarDivider.tsx";
 export { LexicalToolbarSelect } from "./components/inputs/input-lexical/LexicalToolbarSelect.tsx";
 export { LexicalToolbarNumber } from "./components/inputs/input-lexical/LexicalToolbarNumber.tsx";
 export { LexicalToolbarColor } from "./components/inputs/input-lexical/LexicalToolbarColor.tsx";

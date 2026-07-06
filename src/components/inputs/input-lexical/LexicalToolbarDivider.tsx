@@ -30,3 +30,22 @@ export const LexicalToolbarDivider = (props: LexicalToolbarDividerProps) => {
     />
   );
 };
+
+export type LexicalToolbarRowDividerProps = LexicalToolbarDividerProps;
+
+/* Horizontal rule between stacked toolbar rows (second row, non-collapsible
+ * wrapping) — always full-width regardless of the context orientation. */
+export const LexicalToolbarRowDivider = (props: LexicalToolbarRowDividerProps) => {
+  const { tone: toneOverride, className } = props;
+  const { tone: contextTone } = useLexicalToolbar();
+  const tone = toneOverride ?? contextTone;
+  return (
+    <div
+      className={ classNames(
+        "h-px w-full my-1 shrink-0",
+        toneClasses[tone],
+        className,
+      ) }
+    />
+  );
+};

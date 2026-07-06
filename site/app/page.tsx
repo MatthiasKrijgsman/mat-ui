@@ -7,6 +7,8 @@ import {
   Button,
   ButtonIconRound,
   ButtonIconSquare,
+  ColorPicker,
+  ColorSwatch,
   Divider,
   DropdownButton,
   DropdownButtonGroup,
@@ -27,8 +29,10 @@ import {
   InputSelectSearchableAsync,
   InputSelectMultiple,
   InputLexical,
+  InputRange,
   InputTextArea,
   InputToggle,
+  LexicalAlignButtons,
   Modal,
   Panel,
   PanelField,
@@ -204,6 +208,8 @@ export default function Page() {
   // Inputs
   const [ email, setEmail ] = useState('');
   const [ color, setColor ] = useState('#0EA5E9');
+  const [ pickerColor, setPickerColor ] = useState('#F59E0B');
+  const [ rangeValue, setRangeValue ] = useState(40);
 
   // Choices
   const [ check, setCheck ] = useState(true);
@@ -225,6 +231,7 @@ export default function Page() {
   // Rich text (serialized Lexical state as JSON)
   const [ , setRichStatic ] = useState<string>('');
   const [ , setRichFloating ] = useState<string>('');
+  const [ , setRichRows ] = useState<string>('');
 
   // File
   const [ singleFile, setSingleFile ] = useState<File | null>(null);
@@ -406,7 +413,7 @@ export default function Page() {
           <section id={ 'inputs' } className={ 'flex flex-col gap-6 scroll-mt-24' }>
             <h2>Text inputs</h2>
             <div>Text, password, textarea and a hue/sat/value color picker — all share label, description, error and size.</div>
-            <ShowcaseImportPath path={ `import { Input, InputPassword, InputTextArea, InputColor } from "@matthiaskrijgsman/mat-ui"` }/>
+            <ShowcaseImportPath path={ `import { Input, InputPassword, InputTextArea, InputColor, ColorPicker, ColorSwatch } from "@matthiaskrijgsman/mat-ui"` }/>
             <Panel>
               <ShowcaseSection title={ 'Sizes' } layout={ 'vertical' } narrow={ true }>
                 <Input size={ 'lg' } placeholder={ 'Large' } className={ 'w-full' }/>
@@ -464,6 +471,84 @@ export default function Page() {
                   onChange={ (e) => setColor(e.target.value) }
                   className={ 'w-full' }
                 />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Standalone picker & swatch' } layout={ 'vertical' } narrow={ true }>
+                <div className={ 'flex flex-row items-start gap-8' }>
+                  <ColorPicker value={ pickerColor } onChange={ setPickerColor }/>
+                  <div className={ 'flex flex-col gap-3' }>
+                    <div className={ 'flex flex-row items-center gap-2' }>
+                      <ColorSwatch color={ pickerColor } size={ 'sm' }/>
+                      <ColorSwatch color={ pickerColor } size={ 'md' }/>
+                      <ColorSwatch color={ pickerColor } size={ 'lg' }/>
+                    </div>
+                    <div className={ 'font-mono text-sm text-stone-500' }>{ pickerColor }</div>
+                  </div>
+                </div>
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Flat variant' } layout={ 'vertical' } narrow={ true }>
+                <Input
+                  variant={ 'flat' }
+                  label={ 'Name' }
+                  placeholder={ 'Soft gray fill, no shadow' }
+                  className={ 'w-full' }
+                />
+                <InputSelectNative
+                  variant={ 'flat' }
+                  label={ 'Framework' }
+                  options={ FRAMEWORK_OPTIONS.slice(0, 5) }
+                  className={ 'w-full' }
+                />
+                <InputTextArea
+                  variant={ 'flat' }
+                  label={ 'Message' }
+                  placeholder={ 'Every field-like input takes variant="flat"…' }
+                  className={ 'w-full' }
+                />
+              </ShowcaseSection>
+            </Panel>
+          </section>
+
+          {/* Range */ }
+          <section id={ 'range' } className={ 'flex flex-col gap-6 scroll-mt-24' }>
+            <h2>Range</h2>
+            <div>A slider in the same visual language as the other controls — draggable thumb, arrow-key support, three sizes and an optional value readout.</div>
+            <ShowcaseImportPath path={ `import { InputRange } from "@matthiaskrijgsman/mat-ui"` }/>
+            <Panel>
+              <ShowcaseSection title={ 'Basic' } layout={ 'vertical' } narrow={ true }>
+                <InputRange
+                  label={ 'Volume' }
+                  description={ 'Drag the thumb or focus it and use the arrow keys.' }
+                  value={ rangeValue }
+                  onChange={ setRangeValue }
+                  showValue={ true }
+                  className={ 'w-full' }
+                />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Sizes' } layout={ 'vertical' } narrow={ true }>
+                <InputRange size={ 'lg' } defaultValue={ 70 } className={ 'w-full' }/>
+                <InputRange size={ 'md' } defaultValue={ 50 } className={ 'w-full' }/>
+                <InputRange size={ 'sm' } defaultValue={ 30 } className={ 'w-full' }/>
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Step & formatting' } layout={ 'vertical' } narrow={ true }>
+                <InputRange
+                  label={ 'Budget' }
+                  min={ 0 }
+                  max={ 5000 }
+                  step={ 100 }
+                  defaultValue={ 1500 }
+                  showValue={ true }
+                  formatValue={ (v) => `€ ${ v }` }
+                  className={ 'w-full' }
+                />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'States' } layout={ 'vertical' } narrow={ true }>
+                <InputRange label={ 'Disabled' } defaultValue={ 40 } disabled={ true } className={ 'w-full' }/>
+                <InputRange label={ 'Error' } defaultValue={ 90 } error={ 'Too high.' } className={ 'w-full' }/>
               </ShowcaseSection>
             </Panel>
           </section>
@@ -653,6 +738,19 @@ export default function Page() {
                   className={ 'w-full' }
                 />
               </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Second row & non-collapsible' } layout={ 'vertical' } narrow={ true }>
+                <InputLexical
+                  toolbar={ 'floating' }
+                  toolbarCollapsible={ false }
+                  renderToolbarSecondRow={ () => <LexicalAlignButtons/> }
+                  label={ 'Announcement' }
+                  description={ 'A second toolbar row below a divider; with toolbarCollapsible={false} overflowing controls wrap onto extra rows instead of collapsing into "⋮".' }
+                  placeholder={ 'Focus to reveal the two-row toolbar…' }
+                  onChange={ setRichRows }
+                  className={ 'w-full' }
+                />
+              </ShowcaseSection>
             </Panel>
           </section>
 
@@ -712,7 +810,7 @@ export default function Page() {
           {/* Tabs */ }
           <section id={ 'tabs' } className={ 'flex flex-col gap-6 scroll-mt-24' }>
             <h2>Tabs</h2>
-            <div>A simple segmented control. Pass an array of tab descriptors with optional icons.</div>
+            <div>A simple segmented control. Pass an array of tab descriptors with optional icons — or icons only — and stretch the tabs to equal widths with fullWidth.</div>
             <ShowcaseImportPath path={ `import { TabButtons } from "@matthiaskrijgsman/mat-ui"` }/>
             <Panel>
               <ShowcaseSection title={ 'Basic' } layout={ 'vertical' }>
@@ -741,6 +839,35 @@ export default function Page() {
                     { label: 'Inbox', count: 12, active: tab === 'overview', onClick: () => setTab('overview') },
                     { label: 'Drafts', count: 3, active: tab === 'activity', onClick: () => setTab('activity') },
                     { label: 'Archived', count: 0, active: tab === 'settings', onClick: () => setTab('settings') },
+                  ] }
+                />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Icon only' } layout={ 'vertical' }>
+                <TabButtons
+                  tabs={ [
+                    { Icon: IconUser, active: tab === 'overview', onClick: () => setTab('overview') },
+                    { Icon: IconBell, active: tab === 'activity', onClick: () => setTab('activity') },
+                    { Icon: IconShieldLock, active: tab === 'settings', onClick: () => setTab('settings') },
+                  ] }
+                />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Full width' } layout={ 'vertical' }>
+                <TabButtons
+                  fullWidth={ true }
+                  tabs={ [
+                    { label: 'Overview', active: tab === 'overview', onClick: () => setTab('overview') },
+                    { label: 'Activity', count: 3, active: tab === 'activity', onClick: () => setTab('activity') },
+                    { label: 'Settings', active: tab === 'settings', onClick: () => setTab('settings') },
+                  ] }
+                />
+                <TabButtons
+                  fullWidth={ true }
+                  tabs={ [
+                    { Icon: IconUser, active: tab === 'overview', onClick: () => setTab('overview') },
+                    { Icon: IconBell, active: tab === 'activity', onClick: () => setTab('activity') },
+                    { Icon: IconShieldLock, active: tab === 'settings', onClick: () => setTab('settings') },
                   ] }
                 />
               </ShowcaseSection>

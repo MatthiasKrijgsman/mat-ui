@@ -8,6 +8,7 @@ import { InputError } from "@/components/inputs/InputError.tsx";
 import { InputErrorIcon } from "@/components/inputs/InputErrorIcon.tsx";
 import { Spinner } from "@/spinner/Spinner.tsx";
 import { ControlSizeContext } from "@/control-size/use-control-size.ts";
+import { type InputVariant, inputVariantClasses } from "@/components/inputs/input-variant.util.ts";
 import {
   sizeFontClasses,
   sizeHeightClasses,
@@ -44,6 +45,7 @@ export type InputFileSingleProps = {
   buttonText?: string;
   Icon?: TablerIcon;
   size?: Size;
+  variant?: InputVariant;
   value?: File | null;
   isUploaded?: boolean;
   isUploading?: boolean;
@@ -67,6 +69,7 @@ export const InputFileSingle = (props: InputFileSingleProps) => {
     buttonText = 'Choose',
     Icon = IconPaperclip,
     size = 'md',
+    variant = 'default',
     value,
     isUploaded = false,
     isUploading = false,
@@ -112,7 +115,8 @@ export const InputFileSingle = (props: InputFileSingleProps) => {
           { ...getRootProps({
             className: classNames(
               'flex flex-row items-center',
-              'border-[length:var(--border-width-input)] input-base rounded-[var(--border-radius-input)] shadow-[var(--shadow-control)] transition-all duration-[var(--control-transition-duration)]',
+              'border-[length:var(--border-width-input)] input-base rounded-[var(--border-radius-input)] transition-all duration-[var(--control-transition-duration)]',
+              inputVariantClasses[variant],
               'ring-0 focus:outline-none',
               (isFocused || isDragActive) && 'ring-[length:var(--control-ring-width)]',
               error && 'input-error',

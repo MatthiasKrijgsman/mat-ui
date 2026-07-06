@@ -209,7 +209,7 @@ Controls share a consistent interaction model: a focus/hover "glow" ring, a thin
 
 ### Control sizing
 
-`Button`, `ButtonIconSquare`, `ButtonIconRound`, `Input`, `InputColor`, `InputTextArea`, `InputSelectNative`, `InputSelect`, `InputSelectSearchable`, and `InputSelectSearchableAsync` accept a `size?: 'sm' | 'md' | 'lg'` prop (default `'md'`) and read their dimensions from a single shared scale. Override these to adjust heights, padding, font size, and icon sizing consistently across all controls. Replace `{size}` with `sm`, `md`, or `lg`.
+`Button`, `ButtonIconSquare`, `ButtonIconRound`, `Input`, `InputColor`, `InputRange`, `InputTextArea`, `InputSelectNative`, `InputSelect`, `InputSelectSearchable`, and `InputSelectSearchableAsync` accept a `size?: 'sm' | 'md' | 'lg'` prop (default `'md'`) and read their dimensions from a single shared scale. Override these to adjust heights, padding, font size, and icon sizing consistently across all controls. Replace `{size}` with `sm`, `md`, or `lg`.
 
 | Token | Description | sm · md · lg defaults |
 |-------|-------------|------------------------|
@@ -217,8 +217,9 @@ Controls share a consistent interaction model: a focus/hover "glow" ring, a thin
 | `--control-size-{size}-px` | Horizontal padding | `1rem` · `1rem` · `1.25rem` |
 | `--control-size-{size}-gap` | Gap between icon and label inside buttons | `0.5rem` · `0.5rem` · `0.75rem` |
 | `--control-size-{size}-font-size` | Text size | `1rem` · `1rem` · `1rem` |
-| `--control-size-{size}-icon` | Icon glyph size inside controls | `1rem` · `1.25rem` · `1.5rem` |
+| `--control-size-{size}-icon` | Icon glyph size inside controls (also the `InputRange` thumb size) | `1rem` · `1.25rem` · `1.5rem` |
 | `--control-size-{size}-icon-offset` | Distance from the input edge to a leading icon (used when an `Icon` prop is set on `Input`) | `1rem` · `1rem` · `1.25rem` |
+| `--control-size-{size}-range-track` | `InputRange` track thickness | `0.375rem` · `0.5rem` · `0.625rem` |
 
 ### Color — focus ring
 
@@ -257,6 +258,15 @@ Each button variant (`primary`, `white`, `black`, `transparent`, `secondary`, `t
 | `--color-input-ring-error` | Ring color in error state | `rgb(220 38 38 / 0.2)` |
 | `--color-input-icon` | Leading icon color | `rgb(17 24 39 / 0.6)` |
 
+Field-like inputs (`Input`, `InputPassword`, `InputTextArea`, `InputColor`, `InputLexical`, `InputFileSingle`, and the whole select family) also accept `variant?: 'default' | 'flat'`. The `flat` variant drops the control shadow and swaps in a soft fill whose border matches the background:
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-input-flat-bg` | Flat-variant input background | `#f3f4f6` |
+| `--color-input-flat-border` | Flat-variant input border (defaults to the flat background) | `var(--color-input-flat-bg)` |
+
+(`InputCheck`, `InputRadio`, `InputToggle`, and the `InputFileMultiple` dropzone have no box chrome to flatten, so they don't take the variant.)
+
 ### Color — input labels, descriptions & errors
 
 | Token | Description | Light default |
@@ -285,6 +295,8 @@ All three components also rely on the shared `--color-status-success` / `--color
 ### Color — color input
 
 `InputColor` reuses the standard input tokens — the color swatch in the field and the outline of the picker's saturation/value plane both derive from `--color-input-border`, and the field itself uses the same `--color-input-*` tokens as `Input`. The picker's hue/brightness gradients and indicator rings are intrinsic to the color-picking UI (not theme-based) and are intentionally not tokenized.
+
+Both halves of `InputColor` are also exported standalone: `ColorPicker` (the HSV panel — drop it into your own popover or panel) and `ColorSwatch` (the small rounded color tile, sized via the `size` prop or the surrounding `ControlSizeContext`).
 
 ### Color — select options
 
@@ -323,6 +335,16 @@ All three components also rely on the shared `--color-status-success` / `--color
 | `--color-check-border` | Checkbox/radio border | `#d1d5db` |
 | `--color-check-ring` | Checkbox/radio focus ring | `rgb(17 24 39 / 0.1)` |
 | `--color-check-checked-bg` | Checkbox/radio fill when checked | `#2563eb` |
+
+### Color — range (slider)
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-range-track-bg` | `InputRange` track background | `#e5e7eb` |
+| `--color-range-fill-bg` | Filled portion of the track | `#2563eb` |
+| `--color-range-thumb-bg` | Thumb background | `#ffffff` |
+| `--color-range-thumb-border` | Thumb border | `#d1d5db` |
+| `--color-range-ring` | Thumb focus ring | `rgb(17 24 39 / 0.1)` |
 
 ### Color — dropdown menu
 
@@ -497,6 +519,27 @@ import {
 ```
 
 Building blocks read the active editor and formatting `state`/`tone` from context, so they work in either variant with no extra wiring. Dividers automatically flip orientation (and the whole toolbar collapses overflowing controls into a vertical `⋮` dropdown) when space runs out — return each control as a top-level child so it stays individually measurable.
+
+#### Second row & non-collapsible toolbars
+
+Two more layout knobs on `InputLexical` (and on `LexicalFloatingToolbar` / `FloatingToolbarShell` as `renderSecondRow` / `secondRow` and `collapsible`):
+
+- `renderToolbarSecondRow` — a second row of building blocks for the floating toolbar, rendered below a divider (`LexicalToolbarRowDivider`).
+- `toolbarCollapsible={false}` — disables the `⋮` overflow dropdown; controls that no longer fit wrap onto extra rows instead, each separated by a divider. Works for both the static and floating toolbar.
+
+```tsx
+<InputLexical
+  toolbar={"floating"}
+  toolbarCollapsible={false}
+  renderToolbarSecondRow={() => (
+    <>
+      <LexicalAlignButtons/>
+      <LexicalToolbarDivider/>
+      <LexicalHistoryButtons/>
+    </>
+  )}
+/>;
+```
 
 #### Custom controls
 

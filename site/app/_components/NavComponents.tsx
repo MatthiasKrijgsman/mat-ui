@@ -10,6 +10,7 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'buttons', label: 'Buttons' },
   { id: 'icon-buttons', label: 'Icon buttons' },
   { id: 'inputs', label: 'Inputs' },
+  { id: 'range', label: 'Range' },
   { id: 'choices', label: 'Choices' },
   { id: 'selects', label: 'Selects' },
   { id: 'rich-text', label: 'Rich text' },

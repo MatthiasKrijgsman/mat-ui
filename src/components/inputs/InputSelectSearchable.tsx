@@ -14,6 +14,7 @@ import { SelectTrigger } from "@/components/inputs/SelectTrigger.tsx";
 import { useDismiss } from "@/hooks/use-dismiss.ts";
 import { ControlSizeContext } from "@/control-size/use-control-size.ts";
 import { isSelectOption, selectValueEquals, type Option, type SelectItem } from "@/components/inputs/select-item.ts";
+import type { InputVariant } from "@/components/inputs/input-variant.util.ts";
 export type { Option } from "@/components/inputs/select-item.ts";
 
 
@@ -33,6 +34,7 @@ export type InputSelectSearchableProps<T> = {
   maxHeight?: number;
   error?: string | React.ReactNode;
   size?: Size;
+  variant?: InputVariant;
   disabled?: boolean;
   clearable?: boolean;
 }
@@ -51,6 +53,7 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
     maxHeight = 300,
     error,
     size = 'md',
+    variant = 'default',
     disabled = false,
     clearable = false,
   } = props;
@@ -154,6 +157,7 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
               },
             }) }
             size={ size }
+            variant={ variant }
             open={ open }
             disabled={ disabled }
             error={ !!error }

@@ -8,6 +8,7 @@ import { InputErrorIcon } from "@/components/inputs/InputErrorIcon.tsx";
 import { InputIconButton } from "@/components/inputs/InputIconButton.tsx";
 import { InputIconButtonTray } from "@/components/inputs/InputIconButtonTray.tsx";
 import { ControlSizeContext } from "@/control-size/use-control-size.ts";
+import { type InputVariant, inputVariantClasses } from "@/components/inputs/input-variant.util.ts";
 import {
   sizeFontClasses,
   sizeHeightClasses,
@@ -24,6 +25,7 @@ export type InputSelectNativeProps = Omit<React.InputHTMLAttributes<HTMLSelectEl
   options?: OptionNative[];
   error?: string | React.ReactNode;
   size?: Size;
+  variant?: InputVariant;
 }
 
 export type OptionNative = {
@@ -42,6 +44,7 @@ export const InputSelectNative = (props: InputSelectNativeProps) => {
     options,
     error,
     size = 'md',
+    variant = 'default',
     ...rest
   } = props;
 
@@ -56,7 +59,8 @@ export const InputSelectNative = (props: InputSelectNativeProps) => {
         <div className={ 'relative flex w-full flex-col' }>
           <select
             className={ classNames(
-              'appearance-none border-[length:var(--border-width-input)] input-base bg-none transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] shadow-[var(--shadow-control)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
+              'appearance-none border-[length:var(--border-width-input)] input-base bg-none transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
+              inputVariantClasses[variant],
               sizeHeightClasses[size],
               sizeFontClasses[size],
               sizePaddingLeftClasses[size],

@@ -4,6 +4,11 @@
     @apply text-[var(--color-input-text)];
     @apply ring-[var(--color-input-ring)];
 }
+/* Flat variant — mirrors .input-flat for the select trigger surface. */
+.select-trigger-flat {
+    @apply bg-[var(--color-input-flat-bg)];
+    @apply border-[var(--color-input-flat-border)];
+}
 .select-trigger-error {
     @apply border-[var(--color-input-border-error)];
     @apply ring-[var(--color-input-ring-error)];

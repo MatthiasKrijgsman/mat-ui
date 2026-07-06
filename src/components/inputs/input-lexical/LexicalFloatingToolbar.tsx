@@ -11,6 +11,11 @@ import { lexicalDefaultToolbarItems } from "@/components/inputs/input-lexical/Le
 
 export type LexicalFloatingToolbarProps = {
   render?: LexicalToolbarRender;
+  /** Building blocks for an optional second row, rendered below a divider. */
+  renderSecondRow?: LexicalToolbarRender;
+  /** When false, overflowing items wrap onto divider-separated rows instead
+   * of collapsing into the "⋮" dropdown. */
+  collapsible?: boolean;
   /** Controlled visibility. When set, the bar is pinned (focus/blur is
    * ignored) — popovers opened from the bar can take focus without closing
    * it. Omit for the default show-on-focus behaviour. */
@@ -19,7 +24,7 @@ export type LexicalFloatingToolbarProps = {
 };
 
 export const LexicalFloatingToolbar = (props: LexicalFloatingToolbarProps) => {
-  const { render, open: controlledOpen, matchAnchorWidth } = props;
+  const { render, renderSecondRow, collapsible, open: controlledOpen, matchAnchorWidth } = props;
   const [ editor ] = useLexicalComposerContext();
   const state = useLexicalToolbarState();
   const [ anchor, setAnchor ] = useState<HTMLElement | null>(null);
@@ -61,6 +66,8 @@ export const LexicalFloatingToolbar = (props: LexicalFloatingToolbarProps) => {
       matchAnchorWidth={ matchAnchorWidth }
       state={ state }
       tone={ "dark" }
+      collapsible={ collapsible }
+      secondRow={ renderSecondRow?.({ editor, state, tone: "dark" }) }
     >
       { render ? render({ editor, state, tone: "dark" }) : lexicalDefaultToolbarItems() }
     </FloatingToolbarShell>

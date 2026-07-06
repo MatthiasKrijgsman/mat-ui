@@ -17,6 +17,7 @@ import {
   type LexicalToolbarTone,
 } from "@/components/inputs/input-lexical/use-lexical-toolbar.ts";
 import { LexicalToolbarItems } from "@/components/inputs/input-lexical/LexicalToolbarItems.tsx";
+import { LexicalToolbarRowDivider } from "@/components/inputs/input-lexical/LexicalToolbarDivider.tsx";
 
 export type FloatingToolbarShellProps = {
   /** Element the bar floats above (top-start). */
@@ -28,6 +29,11 @@ export type FloatingToolbarShellProps = {
    * state — pass the real editor state when wrapping a Lexical editor. */
   state?: LexicalToolbarState;
   tone?: LexicalToolbarTone;
+  /** When false, overflowing items wrap onto divider-separated rows instead
+   * of collapsing into the "⋮" dropdown. */
+  collapsible?: boolean;
+  /** Extra building blocks rendered on a second row, below a divider. */
+  secondRow?: React.ReactNode;
   children: React.ReactNode;
 };
 
@@ -46,6 +52,8 @@ export const FloatingToolbarShell = (props: FloatingToolbarShellProps) => {
     matchAnchorWidth = true,
     state = DEFAULT_LEXICAL_TOOLBAR_STATE,
     tone = "dark",
+    collapsible = true,
+    secondRow,
     children,
   } = props;
 
@@ -80,15 +88,23 @@ export const FloatingToolbarShell = (props: FloatingToolbarShellProps) => {
           { open && (
             <div ref={ refs.setFloating } style={ floatingStyles } className={ "z-50" }>
               <motion.div
-                className={ "lexical-floating-toolbar flex w-full flex-row items-center p-1 rounded-[var(--border-radius-dropdown)]" }
+                className={ "lexical-floating-toolbar flex w-full flex-col p-1 rounded-[var(--border-radius-dropdown)]" }
                 initial={ { opacity: 0, y: 4 } }
                 animate={ { opacity: 1, y: 0 } }
                 exit={ { opacity: 0, y: 4 } }
                 transition={ { duration: 0.1, ease: "easeInOut" } }
               >
-                <LexicalToolbarItems>
+                <LexicalToolbarItems collapsible={ collapsible }>
                   { children }
                 </LexicalToolbarItems>
+                { secondRow != null && (
+                  <>
+                    <LexicalToolbarRowDivider/>
+                    <LexicalToolbarItems collapsible={ collapsible }>
+                      { secondRow }
+                    </LexicalToolbarItems>
+                  </>
+                ) }
               </motion.div>
             </div>
           ) }

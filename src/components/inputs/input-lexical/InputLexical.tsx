@@ -16,6 +16,7 @@ import { InputDescription } from "@/components/inputs/InputDescription.tsx";
 import { InputError } from "@/components/inputs/InputError.tsx";
 import { ControlSizeContext } from "@/control-size/use-control-size.ts";
 import { sizeFontClasses } from "@/control-size/control-size.util.ts";
+import { type InputVariant, inputVariantClasses } from "@/components/inputs/input-variant.util.ts";
 import { LEXICAL_NODES, lexicalTheme } from "@/components/inputs/input-lexical/lexical-theme.ts";
 import { LexicalToolbar } from "@/components/inputs/input-lexical/LexicalToolbar.tsx";
 import { LexicalFloatingToolbar } from "@/components/inputs/input-lexical/LexicalFloatingToolbar.tsx";
@@ -33,9 +34,15 @@ export type InputLexicalProps = {
   value?: string;
   onChange?: (value: string) => void;
   size?: Size;
+  variant?: InputVariant;
   toolbar?: LexicalToolbarVariant;
   /** Override the default toolbar content. Drop in the exported building blocks. */
   renderToolbar?: LexicalToolbarRender;
+  /** Optional second toolbar row (floating toolbar only), below a divider. */
+  renderToolbarSecondRow?: LexicalToolbarRender;
+  /** When false, overflowing toolbar items wrap onto divider-separated rows
+   * instead of collapsing into the "⋮" dropdown. */
+  toolbarCollapsible?: boolean;
   /** Minimum visible rows — sets a height floor for the editable area. */
   minRows?: number;
   /** Maximum visible rows. Content beyond this scrolls. */
@@ -62,8 +69,11 @@ export const InputLexical = (props: InputLexicalProps) => {
     value,
     onChange,
     size = "md",
+    variant = "default",
     toolbar = "static",
     renderToolbar,
+    renderToolbarSecondRow,
+    toolbarCollapsible,
     minRows = 4,
     maxRows,
     autogrow = false,
@@ -113,11 +123,12 @@ export const InputLexical = (props: InputLexicalProps) => {
         <LexicalComposer initialConfig={ initialConfig }>
           <div
             className={ classNames(
-              "relative flex flex-col border-[length:var(--border-width-input)] input-base rounded-[var(--border-radius-input)] shadow-[var(--shadow-control)] overflow-hidden transition-all duration-[var(--control-transition-duration)] ring-0 focus-within:ring-[length:var(--control-ring-width)] focus-within:outline-none font-[family-name:var(--font-family-base)]",
+              "relative flex flex-col border-[length:var(--border-width-input)] input-base rounded-[var(--border-radius-input)] overflow-hidden transition-all duration-[var(--control-transition-duration)] ring-0 focus-within:ring-[length:var(--control-ring-width)] focus-within:outline-none font-[family-name:var(--font-family-base)]",
+              inputVariantClasses[variant],
               hasError && "input-error",
             ) }
           >
-            { toolbar === "static" && <LexicalToolbar render={ renderToolbar }/> }
+            { toolbar === "static" && <LexicalToolbar render={ renderToolbar } collapsible={ toolbarCollapsible }/> }
 
             <div className={ "relative flex-1 min-h-0" }>
               <RichTextPlugin
@@ -151,7 +162,13 @@ export const InputLexical = (props: InputLexicalProps) => {
             { autoFocus && <AutoFocusPlugin/> }
             { onChange && <OnChangePlugin onChange={ handleChange }/> }
             { children }
-            { toolbar === "floating" && <LexicalFloatingToolbar render={ renderToolbar }/> }
+            { toolbar === "floating" && (
+              <LexicalFloatingToolbar
+                render={ renderToolbar }
+                renderSecondRow={ renderToolbarSecondRow }
+                collapsible={ toolbarCollapsible }
+              />
+            ) }
           </div>
         </LexicalComposer>
         <InputDescription>{ description }</InputDescription>

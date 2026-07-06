@@ -6,9 +6,12 @@ export type { ButtonIconSquareProps, Variant as ButtonIconSquareVariant, Size as
 export type { ButtonIconRoundProps, Variant as ButtonIconRoundVariant, Size as ButtonIconRoundSize } from "./components/button-icon-round/ButtonIconRound.tsx";
 
 // Inputs
+export type { InputVariant } from "./components/inputs/input-variant.util.ts";
 export type { InputProps, Size as InputSize } from "./components/inputs/Input.tsx";
 export type { InputColorProps, Size as InputColorSize } from "./components/inputs/InputColor.tsx";
+export type { ColorSwatchProps } from "./components/inputs/ColorSwatch.tsx";
 export type { InputPasswordProps } from "./components/inputs/InputPassword.tsx";
+export type { InputRangeProps, Size as InputRangeSize } from "./components/inputs/InputRange.tsx";
 export type { InputTextAreaProps, Size as InputTextAreaSize } from "./components/inputs/InputTextArea.tsx";
 export type { InputRadioProps } from "./components/inputs/InputRadio.tsx";
 export type { InputToggleProps } from "./components/inputs/InputToggle.tsx";
@@ -30,7 +33,7 @@ export type { LexicalFloatingToolbarProps } from "./components/inputs/input-lexi
 export type { FloatingToolbarShellProps } from "./components/inputs/input-lexical/FloatingToolbarShell.tsx";
 export type { LexicalToolbarItemsProps } from "./components/inputs/input-lexical/LexicalToolbarItems.tsx";
 export type { LexicalToolbarButtonProps } from "./components/inputs/input-lexical/LexicalToolbarButton.tsx";
-export type { LexicalToolbarDividerProps } from "./components/inputs/input-lexical/LexicalToolbarDivider.tsx";
+export type { LexicalToolbarDividerProps, LexicalToolbarRowDividerProps } from "./components/inputs/input-lexical/LexicalToolbarDivider.tsx";
 export type { LexicalToolbarSelectProps, LexicalToolbarSelectOption } from "./components/inputs/input-lexical/LexicalToolbarSelect.tsx";
 export type { LexicalToolbarNumberProps } from "./components/inputs/input-lexical/LexicalToolbarNumber.tsx";
 export type { LexicalToolbarColorProps } from "./components/inputs/input-lexical/LexicalToolbarColor.tsx";

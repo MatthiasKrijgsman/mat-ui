@@ -1,0 +1,14 @@
+.range-track {
+    @apply bg-[var(--color-range-track-bg)];
+}
+.range-fill {
+    @apply bg-[var(--color-range-fill-bg)];
+}
+.range-thumb {
+    @apply bg-[var(--color-range-thumb-bg)];
+    @apply border-[var(--color-range-thumb-border)];
+    @apply ring-[var(--color-range-ring)];
+}
+.range-value {
+    @apply text-[var(--color-input-text)];
+}

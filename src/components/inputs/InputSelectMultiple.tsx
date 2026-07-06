@@ -19,6 +19,7 @@ import { useDismiss } from "@/hooks/use-dismiss.ts";
 import { useOverflowFit } from "@/hooks/use-overflow-fit.ts";
 import { ControlSizeContext } from "@/control-size/use-control-size.ts";
 import { isSelectOption, selectValueEquals, type Option, type SelectItem } from "@/components/inputs/select-item.ts";
+import { type InputVariant, selectTriggerVariantClasses } from "@/components/inputs/input-variant.util.ts";
 import {
   sizeFontClasses,
   sizeHeightClasses,
@@ -45,6 +46,7 @@ export type InputSelectMultipleProps<T> = {
   maxHeight?: number;
   error?: string | React.ReactNode;
   size?: Size;
+  variant?: InputVariant;
   singleLine?: boolean;
   color?: BadgeColorKey;
   disabled?: boolean;
@@ -65,6 +67,7 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
     maxHeight = 300,
     error,
     size = 'md',
+    variant = 'default',
     singleLine = false,
     color = 'blue',
     disabled = false,
@@ -214,7 +217,8 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
               },
             }) }
             className={ classNames(
-              'flex flex-row items-center gap-1 border-[length:var(--border-width-input)] select-trigger transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] shadow-[var(--shadow-control)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none select-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
+              'flex flex-row items-center gap-1 border-[length:var(--border-width-input)] select-trigger transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none select-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
+              selectTriggerVariantClasses[variant],
               singleLine && classNames('flex-nowrap overflow-hidden', sizeHeightClasses[size]),
               !singleLine && classNames('flex-wrap py-1.5', sizeMinHeightClasses[size]),
               sizeFontClasses[size],

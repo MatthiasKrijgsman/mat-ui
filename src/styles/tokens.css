@@ -103,6 +103,11 @@
     --control-size-md-icon-offset: 1rem;
     --control-size-lg-icon-offset: 1.25rem;
 
+    /* InputRange track thickness (the thumb reuses the icon size scale). */
+    --control-size-sm-range-track: 0.375rem;
+    --control-size-md-range-track: 0.5rem;
+    --control-size-lg-range-track: 0.625rem;
+
     /* Primary variant (brand color) */
     --color-button-primary-bg: oklch(54.6% 0.245 262.881);
     --color-button-primary-bg-hover: var(--color-button-primary-bg);
@@ -191,6 +196,10 @@
     --color-input-ring-error: color-mix(in srgb, var(--color-red-600) 20%, transparent);
     --color-input-icon: color-mix(in srgb, var(--color-gray-900) 60%, transparent);
 
+    /* Input — flat variant (soft fill, border matches the fill, no shadow) */
+    --color-input-flat-bg: var(--color-gray-100);
+    --color-input-flat-border: var(--color-input-flat-bg);
+
     /* Input label / description / error */
     --color-input-label-text: var(--color-gray-900);
     --color-input-description-text: var(--color-gray-500);
@@ -249,6 +258,13 @@
     --color-check-border: var(--color-gray-300);
     --color-check-ring: color-mix(in srgb, var(--color-gray-900) 10%, transparent);
     --color-check-checked-bg: var(--color-blue-600);
+
+    /* Input range (slider) */
+    --color-range-track-bg: var(--color-gray-200);
+    --color-range-fill-bg: var(--color-blue-600);
+    --color-range-thumb-bg: var(--color-white);
+    --color-range-thumb-border: var(--color-gray-300);
+    --color-range-ring: color-mix(in srgb, var(--color-gray-900) 10%, transparent);
 
     /* Dropdown */
     --color-dropdown-bg: var(--color-white);
@@ -417,6 +433,10 @@
     --color-input-ring-error: color-mix(in srgb, var(--color-red-600) 30%, transparent);
     --color-input-icon: color-mix(in srgb, var(--color-stone-100) 60%, transparent);
 
+    /* Input — flat variant (soft fill, border matches the fill, no shadow) */
+    --color-input-flat-bg: var(--color-stone-800);
+    --color-input-flat-border: var(--color-input-flat-bg);
+
     /* Input label / description / error */
     --color-input-label-text: var(--color-stone-100);
     --color-input-description-text: var(--color-stone-400);
@@ -475,6 +495,13 @@
     --color-check-border: var(--color-stone-600);
     --color-check-ring: color-mix(in srgb, var(--color-stone-100) 10%, transparent);
     --color-check-checked-bg: var(--color-blue-500);
+
+    /* Input range (slider) */
+    --color-range-track-bg: var(--color-stone-700);
+    --color-range-fill-bg: var(--color-blue-600);
+    --color-range-thumb-bg: var(--color-white);
+    --color-range-thumb-border: var(--color-stone-600);
+    --color-range-ring: color-mix(in srgb, var(--color-stone-100) 15%, transparent);
 
     /* Dropdown */
     --color-dropdown-bg: var(--color-stone-900);

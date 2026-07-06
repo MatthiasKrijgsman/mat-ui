@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { classNames } from "@/util/classnames.util.ts";
 import { formatHex } from "@/util/color.util.ts";
 import { ColorPicker } from "@/components/inputs/ColorPicker.tsx";
+import { ColorSwatch } from "@/components/inputs/ColorSwatch.tsx";
 import { InputLabel } from "@/components/inputs/InputLabel.tsx";
 import { InputErrorIcon } from "@/components/inputs/InputErrorIcon.tsx";
 import { InputIconButtonTray } from "@/components/inputs/InputIconButtonTray.tsx";
@@ -12,10 +13,10 @@ import { DropdownPanel } from "@/components/dropdown-menu/DropdownPanel.tsx";
 import { usePopover } from "@/popover/use-popover.tsx";
 import { useDismiss } from "@/hooks/use-dismiss.ts";
 import { ControlSizeContext } from "@/control-size/use-control-size.ts";
+import { type InputVariant, inputVariantClasses } from "@/components/inputs/input-variant.util.ts";
 import {
   sizeFontClasses,
   sizeHeightClasses,
-  sizeIconClasses,
   sizeIconLeftPositionClasses,
   sizePaddingLeftWithIconClasses,
   sizePaddingRightClasses,
@@ -31,6 +32,7 @@ export type InputColorProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 
   error?: string | React.ReactNode;
   buttonTray?: React.ReactNode;
   size?: Size;
+  variant?: InputVariant;
 }
 
 
@@ -50,6 +52,7 @@ export const InputColor = (props: InputColorProps) => {
     error,
     buttonTray,
     size = 'md',
+    variant = 'default',
     value,
     defaultValue,
     onChange,
@@ -110,18 +113,19 @@ export const InputColor = (props: InputColorProps) => {
         ) }>
         <InputLabel>{ label }</InputLabel>
         <div className={ 'flex flex-col relative' } ref={ anchorRef }>
-          <div
+          <ColorSwatch
+            color={ swatchColor }
+            size={ size }
             className={ classNames(
-              'absolute top-1/2 -translate-y-1/2 rounded-[var(--border-radius-control-inner)] border-[length:var(--border-width-input)] color-swatch',
-              sizeIconClasses[size],
+              'absolute top-1/2 -translate-y-1/2',
               sizeIconLeftPositionClasses[size],
             ) }
-            style={ { backgroundColor: swatchColor } }
           />
           <input
             ref={ inputRef }
             className={ classNames(
-              'border-[length:var(--border-width-input)] input-base transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] shadow-[var(--shadow-control)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
+              'border-[length:var(--border-width-input)] input-base transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
+              inputVariantClasses[variant],
               sizeHeightClasses[size],
               sizeFontClasses[size],
               sizePaddingLeftWithIconClasses[size],

@@ -10,6 +10,7 @@ import { InputError } from "@/components/inputs/InputError.tsx";
 import { SelectTrigger } from "@/components/inputs/SelectTrigger.tsx";
 import { ControlSizeContext } from "@/control-size/use-control-size.ts";
 import type { ControlSize } from "@/control-size/control-size.util.ts";
+import type { InputVariant } from "@/components/inputs/input-variant.util.ts";
 
 export type SelectDrilldownApi = {
   /** Dismisses the popover — call after committing a leaf selection. */
@@ -23,6 +24,7 @@ export type InputSelectDrilldownProps = {
   description?: string | React.ReactNode;
   error?: string | React.ReactNode;
   size?: ControlSize;
+  variant?: InputVariant;
   disabled?: boolean;
   clearable?: boolean;
   placeholder?: string | React.ReactNode;
@@ -58,6 +60,7 @@ export const InputSelectDrilldown = (props: InputSelectDrilldownProps) => {
     description,
     error,
     size = 'md',
+    variant = 'default',
     disabled = false,
     clearable = false,
     placeholder,
@@ -96,6 +99,7 @@ export const InputSelectDrilldown = (props: InputSelectDrilldownProps) => {
             tabIndex={ disabled ? -1 : 0 }
             aria-disabled={ disabled }
             size={ size }
+            variant={ variant }
             open={ open }
             disabled={ disabled }
             error={ !!error }

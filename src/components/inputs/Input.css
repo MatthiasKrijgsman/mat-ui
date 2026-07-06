@@ -5,6 +5,12 @@
     @apply placeholder:text-[var(--color-input-placeholder)];
     @apply ring-[var(--color-input-ring)];
 }
+/* Flat variant — soft fill, border matches the fill, no shadow. Declared
+ * after .input-base so it wins the cascade at equal specificity. */
+.input-flat {
+    @apply bg-[var(--color-input-flat-bg)];
+    @apply border-[var(--color-input-flat-border)];
+}
 .input-error {
     @apply border-[var(--color-input-border-error)];
     @apply focus:ring-[var(--color-input-ring-error)];

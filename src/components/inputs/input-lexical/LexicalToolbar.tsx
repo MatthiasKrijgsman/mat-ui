@@ -34,11 +34,14 @@ export const LexicalDefaultToolbarContent = () => lexicalDefaultToolbarItems();
 
 export type LexicalToolbarProps = {
   render?: LexicalToolbarRender;
+  /** When false, overflowing items wrap onto divider-separated rows instead
+   * of collapsing into the "⋮" dropdown. */
+  collapsible?: boolean;
   className?: string;
 };
 
 export const LexicalToolbar = (props: LexicalToolbarProps) => {
-  const { render, className } = props;
+  const { render, collapsible, className } = props;
   const [ editor ] = useLexicalComposerContext();
   const state = useLexicalToolbarState();
 
@@ -50,7 +53,7 @@ export const LexicalToolbar = (props: LexicalToolbarProps) => {
           className,
         ) }
       >
-        <LexicalToolbarItems>
+        <LexicalToolbarItems collapsible={ collapsible }>
           { render ? render({ editor, state, tone: "light" }) : lexicalDefaultToolbarItems() }
         </LexicalToolbarItems>
       </div>

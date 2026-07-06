@@ -7,6 +7,7 @@ import { InputIconButtonTray } from "@/components/inputs/InputIconButtonTray.tsx
 import { InputDescription } from "@/components/inputs/InputDescription.tsx";
 import { InputError } from "@/components/inputs/InputError.tsx";
 import { ControlSizeContext } from "@/control-size/use-control-size.ts";
+import { type InputVariant, inputVariantClasses } from "@/components/inputs/input-variant.util.ts";
 import {
   sizeFontClasses,
   sizeHeightClasses,
@@ -28,6 +29,7 @@ export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size
   Icon?: TablerIcon;
   buttonTray?: React.ReactNode;
   size?: Size;
+  variant?: InputVariant;
 }
 
 
@@ -41,6 +43,7 @@ export const Input = (props: InputProps) => {
     error,
     buttonTray,
     size = 'md',
+    variant = 'default',
     ...rest
   } = props;
 
@@ -66,7 +69,8 @@ export const Input = (props: InputProps) => {
           ) }
           <input
             className={ classNames(
-              'border-[length:var(--border-width-input)] input-base transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] shadow-[var(--shadow-control)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
+              'border-[length:var(--border-width-input)] input-base transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
+              inputVariantClasses[variant],
               sizeHeightClasses[size],
               sizeFontClasses[size],
               Icon ? sizePaddingLeftWithIconClasses[size] : sizePaddingLeftClasses[size],

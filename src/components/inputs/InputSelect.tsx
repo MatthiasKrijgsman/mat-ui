@@ -13,6 +13,7 @@ import { InputError } from "@/components/inputs/InputError.tsx";
 import { SelectTrigger } from "@/components/inputs/SelectTrigger.tsx";
 import { useDismiss } from "@/hooks/use-dismiss.ts";
 import { ControlSizeContext } from "@/control-size/use-control-size.ts";
+import type { InputVariant } from "@/components/inputs/input-variant.util.ts";
 
 
 export type Size = 'sm' | 'md' | 'lg';
@@ -30,6 +31,7 @@ export type InputSelectProps<T> = {
   maxHeight?: number;
   error?: string | React.ReactNode;
   size?: Size;
+  variant?: InputVariant;
   disabled?: boolean;
   clearable?: boolean;
 }
@@ -50,6 +52,7 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
     maxHeight = 300,
     error,
     size = 'md',
+    variant = 'default',
     disabled = false,
     clearable = false,
   } = props;
@@ -138,6 +141,7 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
               },
             }) }
             size={ size }
+            variant={ variant }
             open={ open }
             disabled={ disabled }
             error={ !!error }

@@ -6,6 +6,7 @@ import { InputIconButton } from "@/components/inputs/InputIconButton.tsx";
 import { InputIconButtonTray } from "@/components/inputs/InputIconButtonTray.tsx";
 import { useControlSize } from "@/control-size/use-control-size.ts";
 import type { ControlSize } from "@/control-size/control-size.util.ts";
+import { type InputVariant, selectTriggerVariantClasses } from "@/components/inputs/input-variant.util.ts";
 import {
   sizeFontClasses,
   sizeHeightClasses,
@@ -17,6 +18,7 @@ import {
 export type SelectTriggerProps = {
   /** Overrides the size from `ControlSizeContext` when set. */
   size?: ControlSize;
+  variant?: InputVariant;
   open?: boolean;
   disabled?: boolean;
   error?: boolean;
@@ -43,6 +45,7 @@ export type SelectTriggerProps = {
 export const SelectTrigger = React.forwardRef<HTMLDivElement, SelectTriggerProps>((props, ref) => {
   const {
     size: sizeProp,
+    variant = 'default',
     open = false,
     disabled = false,
     error = false,
@@ -64,7 +67,8 @@ export const SelectTrigger = React.forwardRef<HTMLDivElement, SelectTriggerProps
       <div
         ref={ ref }
         className={ classNames(
-          'flex flex-row items-center border-[length:var(--border-width-input)] select-trigger transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] shadow-[var(--shadow-control)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none select-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
+          'flex flex-row items-center border-[length:var(--border-width-input)] select-trigger transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none select-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
+          selectTriggerVariantClasses[variant],
           sizeHeightClasses[size],
           sizeFontClasses[size],
           sizePaddingLeftClasses[size],

@@ -7,6 +7,7 @@ import { InputIconButtonTray } from "@/components/inputs/InputIconButtonTray.tsx
 import { InputDescription } from "@/components/inputs/InputDescription.tsx";
 import { InputError } from "@/components/inputs/InputError.tsx";
 import { ControlSizeContext } from "@/control-size/use-control-size.ts";
+import { type InputVariant, inputVariantClasses } from "@/components/inputs/input-variant.util.ts";
 import {
   sizeFontClasses,
   sizeMinHeightClasses,
@@ -23,6 +24,7 @@ export type InputTextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElemen
   description?: string | React.ReactNode;
   error?: string | React.ReactNode;
   size?: Size;
+  variant?: InputVariant;
   autogrow?: boolean;
   maxRows?: number;
   ref?: React.Ref<HTMLTextAreaElement>;
@@ -37,6 +39,7 @@ export const InputTextArea = (props: InputTextAreaProps) => {
     description,
     error,
     size = 'md',
+    variant = 'default',
     autogrow = false,
     maxRows,
     ref,
@@ -95,7 +98,8 @@ export const InputTextArea = (props: InputTextAreaProps) => {
             ref={ ref ? mergeRefs([ ref, internalRef ]) : internalRef }
             onChange={ handleChange }
             className={ classNames(
-              'py-2.5 border-[length:var(--border-width-input)] input-base transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] shadow-[var(--shadow-control)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
+              'py-2.5 border-[length:var(--border-width-input)] input-base transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
+              inputVariantClasses[variant],
               sizeMinHeightClasses[size],
               sizeFontClasses[size],
               sizePaddingLeftClasses[size],

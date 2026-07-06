@@ -13,7 +13,8 @@ import {
 export type Size = 'sm' | 'md' | 'lg';
 
 export type TabButton = {
-  label: string | React.ReactNode;
+  /** Omit for an icon-only tab (pass `Icon` instead). */
+  label?: string | React.ReactNode;
   active?: boolean;
   onClick?: () => void;
   href?: string;
@@ -25,6 +26,8 @@ export type TabButtonsProps = {
   className?: string;
   tabs: TabButton[];
   size?: Size;
+  /** Stretch the container and give every tab the same width. */
+  fullWidth?: boolean;
 }
 
 export const TabButtons = (props: TabButtonsProps) => {
@@ -32,18 +35,23 @@ export const TabButtons = (props: TabButtonsProps) => {
     className,
     tabs,
     size = 'md',
+    fullWidth = false,
   } = props;
   //TODO Implement scroll to active tab if overflow
   return (
     <ControlSizeContext.Provider value={ size }>
       <div className={ classNames(
-        'tab-container p-1 rounded-[var(--border-radius-tab)] inline-flex flex-row space-x-1 overflow-x-auto mat-ui-hide-scrollbars',
+        'tab-container p-1 rounded-[var(--border-radius-tab)] flex-row space-x-1',
+        fullWidth ? 'flex w-full' : 'inline-flex overflow-x-auto mat-ui-hide-scrollbars',
         sizeHeightClasses[size],
         className
       ) }>
         { tabs.map((tab, i) => {
+          const iconOnly = !!tab.Icon && tab.label == null;
           const tabClasses = classNames(
-            'shrink-0 h-full inline-flex flex-row items-center font-[number:var(--font-weight-tab)] font-[family-name:var(--font-family-base)] rounded-[var(--border-radius-tab)] cursor-pointer border border-transparent ring-0 tab-button transition-all duration-[var(--control-transition-duration)] select-none focus:outline-none focus:ring-0',
+            'h-full inline-flex flex-row items-center font-[number:var(--font-weight-tab)] font-[family-name:var(--font-family-base)] rounded-[var(--border-radius-tab)] cursor-pointer border border-transparent ring-0 tab-button transition-all duration-[var(--control-transition-duration)] select-none focus:outline-none focus:ring-0',
+            fullWidth ? 'flex-1 basis-0 min-w-0 justify-center' : 'shrink-0',
+            iconOnly && 'justify-center',
             sizePaddingXClasses[size],
             sizeFontClasses[size],
             sizeGapClasses[size],
@@ -52,7 +60,7 @@ export const TabButtons = (props: TabButtonsProps) => {
           const content = (
             <>
               { tab.Icon && (
-                <tab.Icon className={ classNames(sizeIconClasses[size], 'shrink-0 -ml-1') } />
+                <tab.Icon className={ classNames(sizeIconClasses[size], 'shrink-0', !iconOnly && '-ml-1') } />
               ) }
               { tab.label }
               { tab.count != null && (
