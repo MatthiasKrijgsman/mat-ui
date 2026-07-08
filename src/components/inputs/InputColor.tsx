@@ -117,7 +117,7 @@ export const InputColor = (props: InputColorProps) => {
             color={ swatchColor }
             size={ size }
             className={ classNames(
-              'absolute top-1/2 -translate-y-1/2',
+              'absolute top-1/2 -translate-y-1/2 pointer-events-none',
               sizeIconLeftPositionClasses[size],
             ) }
           />
