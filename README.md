@@ -1,5 +1,7 @@
 # mat-ui
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 A React component library providing UI primitives built with React 19, Tailwind CSS v4, and Floating UI.
 
 ## Showcase
