@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { VirtualElement } from "@floating-ui/react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { BLUR_COMMAND, COMMAND_PRIORITY_LOW, FOCUS_COMMAND } from "lexical";
 import { mergeRegister } from "@lexical/utils";
@@ -21,13 +22,27 @@ export type LexicalFloatingToolbarProps = {
    * it. Omit for the default show-on-focus behaviour. */
   open?: boolean;
   matchAnchorWidth?: boolean;
+  /** Anchor the bar to the live DOM selection (caret / selected text) inside
+   * the editor instead of the editor root, so it stays near the cursor.
+   * While focus is in the toolbar itself, the last in-editor selection keeps
+   * anchoring the bar. Implies `matchAnchorWidth: false`. */
+  anchorToSelection?: boolean;
 };
 
 export const LexicalFloatingToolbar = (props: LexicalFloatingToolbarProps) => {
-  const { render, renderSecondRow, collapsible, open: controlledOpen, matchAnchorWidth } = props;
+  const {
+    render,
+    renderSecondRow,
+    collapsible,
+    open: controlledOpen,
+    matchAnchorWidth,
+    anchorToSelection = false,
+  } = props;
   const [ editor ] = useLexicalComposerContext();
   const state = useLexicalToolbarState();
   const [ anchor, setAnchor ] = useState<HTMLElement | null>(null);
+  const [ selectionAnchor, setSelectionAnchor ] = useState<VirtualElement | null>(null);
+  const lastRangeRef = useRef<Range | null>(null);
   const [ focusOpen, setFocusOpen ] = useState(false);
   const controlled = controlledOpen !== undefined;
 
@@ -36,6 +51,48 @@ export const LexicalFloatingToolbar = (props: LexicalFloatingToolbarProps) => {
     // also covers the initial reference.
     return editor.registerRootListener((root) => setAnchor(root ?? null));
   }, [ editor ]);
+
+  useEffect(() => {
+    if (!anchorToSelection) return;
+
+    const rectOf = (range: Range): DOMRect => {
+      const rects = range.getClientRects();
+      const rect = rects.length > 0 ? rects[0] : range.getBoundingClientRect();
+      if (rect.height > 0) return rect;
+      // A collapsed caret in an empty block reports a zero rect in some
+      // engines — the nearest element is the best stand-in.
+      const node = range.startContainer;
+      const element = node instanceof Element ? node : node.parentElement;
+      return element ? element.getBoundingClientRect() : rect;
+    };
+
+    const readSelection = () => {
+      const root = editor.getRootElement();
+      const domSelection = root?.ownerDocument.getSelection();
+      if (!root || !domSelection || domSelection.rangeCount === 0) return;
+      const range = domSelection.getRangeAt(0);
+      // Selection outside the editor (a toolbar field took focus): keep the
+      // last in-editor range so the bar doesn't jump away.
+      if (!root.contains(range.commonAncestorContainer)) return;
+      lastRangeRef.current = range.cloneRange();
+      // Fresh object per change so the shell re-anchors (repositions);
+      // getBoundingClientRect reads the live range so scroll/layout-driven
+      // autoUpdate re-measures correctly between selection changes.
+      setSelectionAnchor({
+        contextElement: root,
+        getBoundingClientRect: () =>
+          lastRangeRef.current ? rectOf(lastRangeRef.current) : root.getBoundingClientRect(),
+      });
+    };
+
+    document.addEventListener("selectionchange", readSelection);
+    readSelection();
+    return () => {
+      document.removeEventListener("selectionchange", readSelection);
+      lastRangeRef.current = null;
+      setSelectionAnchor(null);
+    };
+  }, [ editor, anchorToSelection ]);
 
   useEffect(() => {
     if (controlled) return;
@@ -61,9 +118,9 @@ export const LexicalFloatingToolbar = (props: LexicalFloatingToolbarProps) => {
 
   return (
     <FloatingToolbarShell
-      anchor={ anchor }
+      anchor={ anchorToSelection ? (selectionAnchor ?? anchor) : anchor }
       open={ controlled ? controlledOpen : focusOpen }
-      matchAnchorWidth={ matchAnchorWidth }
+      matchAnchorWidth={ anchorToSelection ? false : matchAnchorWidth }
       state={ state }
       tone={ "dark" }
       collapsible={ collapsible }

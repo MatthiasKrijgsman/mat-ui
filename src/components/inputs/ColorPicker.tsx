@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
-import { hexToHsv, hsvToHex, type HSV } from "@/util/color.util.ts";
+import { formatHex, hexToHsv, hsvToHex, type HSV } from "@/util/color.util.ts";
 import { usePointerDrag } from "@/hooks/use-pointer-drag.ts";
+import { Input } from "@/components/inputs/Input.tsx";
 
 
 const HUE_GRADIENT = 'linear-gradient(to right, #f00 0%, #ff0 16.66%, #0f0 33.33%, #0ff 50%, #00f 66.66%, #f0f 83.33%, #f00 100%)';
@@ -32,14 +33,19 @@ const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
 export type ColorPickerProps = {
   value: string;
   onChange: (hex: string) => void;
+  /** Show a hex text field below the rails (commits on Enter/blur). Off by
+   * default — hosts like InputColor already have their own hex input. */
+  hexInput?: boolean;
 };
 
 /* The bare HSV picker panel (saturation/value surface + hue and brightness
  * rails). InputColor wraps it in a popover; it also works standalone inside
  * any popover/panel of your own. */
-export const ColorPicker = ({ value, onChange }: ColorPickerProps) => {
+export const ColorPicker = ({ value, onChange, hexInput = false }: ColorPickerProps) => {
   const [hsv, setHsv] = useState<HSV>(() => hexToHsv(value) ?? [0, 0, 1]);
   const lastEmittedRef = useRef<string>(hsvToHex(hsv[0], hsv[1], hsv[2]));
+  const [hexFocused, setHexFocused] = useState(false);
+  const [hexText, setHexText] = useState('');
 
   useEffect(() => {
     if ((value || '').toUpperCase() === lastEmittedRef.current) return;
@@ -51,6 +57,9 @@ export const ColorPicker = ({ value, onChange }: ColorPickerProps) => {
     setHsv(next);
     const hex = hsvToHex(next[0], next[1], next[2]);
     lastEmittedRef.current = hex;
+    // Rail drags don't blur the hex field (the panel's mousedown guard keeps
+    // focus), so a focused field follows the drag instead of going stale.
+    setHexText(hex);
     onChange(hex);
   };
 
@@ -58,6 +67,17 @@ export const ColorPicker = ({ value, onChange }: ColorPickerProps) => {
   const hueOnly = hsvToHex(h, 1, 1);
   const brightnessMax = hsvToHex(h, s, 1);
   const currentColor = hsvToHex(h, s, v);
+
+  const commitHex = () => {
+    const formatted = formatHex(hexText);
+    const parsed = formatted ? hexToHsv(formatted) : null;
+    if (formatted && parsed) {
+      setHexText(formatted);
+      updateHsv(parsed);
+    } else {
+      setHexText(currentColor);
+    }
+  };
 
   const svDrag = usePointerDrag((cx, cy, rect) => {
     updateHsv([h, clamp01((cx - rect.left) / rect.width), 1 - clamp01((cy - rect.top) / rect.height)]);
@@ -158,6 +178,35 @@ export const ColorPicker = ({ value, onChange }: ColorPickerProps) => {
           transition={ THUMB_SPRING }
         />
       </div>
+
+      { hexInput && (
+        // The panel-level onMouseDown preventDefault() (drag focus guard)
+        // would also block focusing this field — stop it from bubbling.
+        <div onMouseDown={ (e) => e.stopPropagation() }>
+          <Input
+            size={ 'sm' }
+            placeholder={ '#RRGGBB' }
+            spellCheck={ false }
+            value={ hexFocused ? hexText : currentColor }
+            onFocus={ (e) => {
+              setHexFocused(true);
+              setHexText(currentColor);
+              e.target.select();
+            } }
+            onChange={ (e) => setHexText(e.target.value) }
+            onBlur={ () => {
+              commitHex();
+              setHexFocused(false);
+            } }
+            onKeyDown={ (e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                commitHex();
+              }
+            } }
+          />
+        </div>
+      ) }
     </div>
   );
 };

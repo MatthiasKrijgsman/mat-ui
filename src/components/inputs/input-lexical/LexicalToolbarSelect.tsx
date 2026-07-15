@@ -13,10 +13,14 @@ export type LexicalToolbarSelectProps<T> = {
   options: LexicalToolbarSelectOption<T>[];
   value: T | null;
   onChange: (value: T | null) => void;
-  /** Trigger label when value is null (also the clear item's label). */
+  /** Trigger label when value is null (also the clear item's label unless
+   * `clearLabel` overrides it). */
   placeholder?: string;
   /** Adds a leading item that emits null (e.g. "inherit"). */
   clearable?: boolean;
+  /** Label for the clear item — lets the trigger show an inherited value
+   * ("Georgia") while the clear item explains it ("Default (Georgia)"). */
+  clearLabel?: string;
   minWidth?: number;
   title?: string;
 };
@@ -24,7 +28,7 @@ export type LexicalToolbarSelectProps<T> = {
 /* Generic value-driven select for the toolbar — no Lexical wiring; the
  * caller decides what the value means (font family, size preset, …). */
 export const LexicalToolbarSelect = <T, >(props: LexicalToolbarSelectProps<T>) => {
-  const { options, value, onChange, placeholder = "Default", clearable = false, minWidth = 180, title } = props;
+  const { options, value, onChange, placeholder = "Default", clearable = false, clearLabel, minWidth = 180, title } = props;
   const { tone } = useLexicalToolbar();
 
   const current = value !== null ? options.find((option) => option.value === value) : undefined;
@@ -54,7 +58,7 @@ export const LexicalToolbarSelect = <T, >(props: LexicalToolbarSelectProps<T>) =
           onClick={ () => onChange(null) }
           className={ value === null ? undefined : "pl-11" }
         >
-          { placeholder }
+          { clearLabel ?? placeholder }
         </DropdownButton>
       ) }
       { options.map((option, index) => (

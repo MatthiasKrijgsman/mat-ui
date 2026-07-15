@@ -49,7 +49,7 @@ export const LexicalToolbarColor = (props: LexicalToolbarColorProps) => {
       </button>
       <Popover open={ open }>
         <DropdownPanel padding={ "md" }>
-          <ColorPicker value={ value } onChange={ onChange }/>
+          <ColorPicker value={ value } onChange={ onChange } hexInput/>
         </DropdownPanel>
       </Popover>
     </span>

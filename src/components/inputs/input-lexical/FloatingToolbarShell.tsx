@@ -8,6 +8,7 @@ import {
   shift,
   size,
   useFloating,
+  type VirtualElement,
 } from "@floating-ui/react";
 import { AnimatePresence, motion } from "motion/react";
 import {
@@ -20,8 +21,10 @@ import { LexicalToolbarItems } from "@/components/inputs/input-lexical/LexicalTo
 import { LexicalToolbarRowDivider } from "@/components/inputs/input-lexical/LexicalToolbarDivider.tsx";
 
 export type FloatingToolbarShellProps = {
-  /** Element the bar floats above (top-start). */
-  anchor: HTMLElement | null;
+  /** Element the bar floats above (top-start). Also accepts a floating-ui
+   * virtual element (e.g. a live selection rect) — pair those with
+   * `matchAnchorWidth={false}`, a caret rect has no useful width. */
+  anchor: HTMLElement | VirtualElement | null;
   open: boolean;
   /** Match the bar width to the anchor width (drives overflow-collapse). */
   matchAnchorWidth?: boolean;
