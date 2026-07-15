@@ -22,10 +22,11 @@ export type LexicalFloatingToolbarProps = {
    * it. Omit for the default show-on-focus behaviour. */
   open?: boolean;
   matchAnchorWidth?: boolean;
-  /** Anchor the bar to the live DOM selection (caret / selected text) inside
-   * the editor instead of the editor root, so it stays near the cursor.
-   * While focus is in the toolbar itself, the last in-editor selection keeps
-   * anchoring the bar. Implies `matchAnchorWidth: false`. */
+  /** Anchor the bar to the line of the live DOM selection (caret / selected
+   * text): vertically it rides the cursor's line, horizontally it stays
+   * centered on the editor root. While focus is in the toolbar itself, the
+   * last in-editor selection keeps anchoring the bar. Implies
+   * `matchAnchorWidth: false` and `placement: "top"`. */
   anchorToSelection?: boolean;
 };
 
@@ -77,11 +78,19 @@ export const LexicalFloatingToolbar = (props: LexicalFloatingToolbarProps) => {
       lastRangeRef.current = range.cloneRange();
       // Fresh object per change so the shell re-anchors (repositions);
       // getBoundingClientRect reads the live range so scroll/layout-driven
-      // autoUpdate re-measures correctly between selection changes.
+      // autoUpdate re-measures correctly between selection changes. The rect
+      // is a hybrid: vertical from the selection's line (the bar rides the
+      // cursor), horizontal from the editor root (the bar stays centered on
+      // the field instead of chasing the caret sideways).
       setSelectionAnchor({
         contextElement: root,
-        getBoundingClientRect: () =>
-          lastRangeRef.current ? rectOf(lastRangeRef.current) : root.getBoundingClientRect(),
+        getBoundingClientRect: () => {
+          const rootRect = (editor.getRootElement() ?? root).getBoundingClientRect();
+          const current = lastRangeRef.current;
+          if (!current) return rootRect;
+          const lineRect = rectOf(current);
+          return new DOMRect(rootRect.x, lineRect.y, rootRect.width, lineRect.height);
+        },
       });
     };
 
@@ -120,6 +129,7 @@ export const LexicalFloatingToolbar = (props: LexicalFloatingToolbarProps) => {
     <FloatingToolbarShell
       anchor={ anchorToSelection ? (selectionAnchor ?? anchor) : anchor }
       open={ controlled ? controlledOpen : focusOpen }
+      placement={ anchorToSelection ? "top" : "top-start" }
       matchAnchorWidth={ anchorToSelection ? false : matchAnchorWidth }
       state={ state }
       tone={ "dark" }

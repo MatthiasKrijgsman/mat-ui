@@ -8,6 +8,7 @@ import {
   shift,
   size,
   useFloating,
+  type Placement,
   type VirtualElement,
 } from "@floating-ui/react";
 import { AnimatePresence, motion } from "motion/react";
@@ -26,6 +27,9 @@ export type FloatingToolbarShellProps = {
    * `matchAnchorWidth={false}`, a caret rect has no useful width. */
   anchor: HTMLElement | VirtualElement | null;
   open: boolean;
+  /** Where the bar sits relative to the anchor. "top-start" (default) aligns
+   * left edges; "top" centers the bar on the anchor. */
+  placement?: Placement;
   /** Match the bar width to the anchor width (drives overflow-collapse). */
   matchAnchorWidth?: boolean;
   /** Toolbar context for the building blocks inside. Defaults to an inert
@@ -52,6 +56,7 @@ export const FloatingToolbarShell = (props: FloatingToolbarShellProps) => {
   const {
     anchor,
     open,
+    placement = "top-start",
     matchAnchorWidth = true,
     state = DEFAULT_LEXICAL_TOOLBAR_STATE,
     tone = "dark",
@@ -61,7 +66,7 @@ export const FloatingToolbarShell = (props: FloatingToolbarShellProps) => {
   } = props;
 
   const { refs, floatingStyles } = useFloating({
-    placement: "top-start",
+    placement,
     strategy: "fixed",
     middleware: [
       offset(8),
