@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $getSelection, $isRangeSelection } from "lexical";
+import { $getSelection, $isRangeSelection, SKIP_DOM_SELECTION_TAG } from "lexical";
 import { $getSelectionStyleValueForProperty, $patchStyleText } from "@lexical/selection";
 
 export type LexicalSelectionStyleResult = {
@@ -58,12 +58,21 @@ export const useLexicalSelectionStyle = (
 
   const patch = useCallback(
     (stylePatch: Record<string, string | null>) => {
-      editor.update(() => {
-        const selection = $getSelection();
-        if ($isRangeSelection(selection)) {
-          $patchStyleText(selection, stylePatch);
-        }
-      });
+      // While a toolbar field owns focus (number/select inputs), reconciling
+      // the updated selection would pull DOM focus back into the
+      // contentEditable mid-edit — skip it; the editor-state selection still
+      // carries the patch.
+      const root = editor.getRootElement();
+      const editorHasFocus = Boolean(root && root.contains(root.ownerDocument.activeElement));
+      editor.update(
+        () => {
+          const selection = $getSelection();
+          if ($isRangeSelection(selection)) {
+            $patchStyleText(selection, stylePatch);
+          }
+        },
+        editorHasFocus ? undefined : { tag: SKIP_DOM_SELECTION_TAG },
+      );
     },
     [ editor ],
   );
