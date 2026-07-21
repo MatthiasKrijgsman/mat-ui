@@ -478,7 +478,7 @@ function Editor() {
     <InputLexical
       label={"Description"}
       placeholder={"Write something…"}
-      toolbar={"floating"}     // or "static" (default)
+      toolbar={"floating"}     // or "static" (default), or "none" to hide it
       value={value}
       onChange={setValue}
       autogrow                 // grow with content…

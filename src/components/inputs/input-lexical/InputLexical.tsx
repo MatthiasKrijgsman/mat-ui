@@ -23,7 +23,7 @@ import { LexicalFloatingToolbar } from "@/components/inputs/input-lexical/Lexica
 import type { LexicalToolbarRender } from "@/components/inputs/input-lexical/use-lexical-toolbar.ts";
 
 export type Size = "sm" | "md" | "lg";
-export type LexicalToolbarVariant = "static" | "floating";
+export type LexicalToolbarVariant = "static" | "floating" | "none";
 
 export type InputLexicalProps = {
   label?: string | React.ReactNode;
@@ -35,6 +35,8 @@ export type InputLexicalProps = {
   onChange?: (value: string) => void;
   size?: Size;
   variant?: InputVariant;
+  /** `"static"` (default) renders the toolbar above the editor, `"floating"`
+   * shows it on selection, `"none"` hides it entirely. */
   toolbar?: LexicalToolbarVariant;
   /** Override the default toolbar content. Drop in the exported building blocks. */
   renderToolbar?: LexicalToolbarRender;
