@@ -53,17 +53,36 @@
     --border-radius-menu-item: var(--radius-lg);
     --border-radius-option: var(--radius-xl);
     --border-radius-tab: var(--radius-xl);
+    /* Inner tab pills — follows the container radius by default; set it to
+     * e.g. calc(var(--border-radius-tab) - var(--tab-container-padding))
+     * for a concentric look. */
+    --border-radius-tab-inner: var(--border-radius-tab);
+    --border-radius-tooltip: var(--border-radius-dropdown);
     --border-radius-checkbox: var(--radius-lg);
     --border-radius-control-inner: var(--radius-md);
 
     /* Border width */
     --border-width-input: 1px;
     --border-width-tabs-indicator: 2px;
+    --border-width-tooltip: var(--border-width-input);
 
     /* Shadow — map to Tailwind's shadow scale for exact parity */
     --shadow-control: var(--shadow-sm);
     --shadow-dropdown: var(--shadow-lg);
     --shadow-overlay: var(--shadow-xl);
+    --shadow-tooltip: var(--shadow-dropdown);
+
+    /* Tab buttons — container geometry (the inset around the pills and the
+     * gap between them). */
+    --tab-container-padding: 0.25rem;
+    --tab-container-gap: 0.25rem;
+
+    /* Tooltip — panel padding. Font size/weight are opt-in tokens with no
+     * declared default: .tooltip-panel reads
+     * var(--font-size-tooltip, inherit) / var(--font-weight-tooltip, inherit)
+     * so the tooltip follows the surrounding text until a host sets them. */
+    --tooltip-padding-x: 0.75rem;
+    --tooltip-padding-y: 0.75rem;
 
     /* Ring — the focus/hover "glow" and the active/press inset. Color comes
      * from the per-component --color-*-ring tokens; these set the width. */
@@ -107,6 +126,20 @@
     --control-size-sm-range-track: 0.375rem;
     --control-size-md-range-track: 0.5rem;
     --control-size-lg-range-track: 0.625rem;
+
+    /* TabButtons — per-size overrides. Follow the shared control scale by
+     * default; override to size tabs independently of buttons/inputs. */
+    --control-size-sm-tab-height: var(--control-size-sm-height);
+    --control-size-md-tab-height: var(--control-size-md-height);
+    --control-size-lg-tab-height: var(--control-size-lg-height);
+
+    --control-size-sm-tab-px: var(--control-size-sm-px);
+    --control-size-md-tab-px: var(--control-size-md-px);
+    --control-size-lg-tab-px: var(--control-size-lg-px);
+
+    --control-size-sm-tab-font-size: var(--control-size-sm-font-size);
+    --control-size-md-tab-font-size: var(--control-size-md-font-size);
+    --control-size-lg-tab-font-size: var(--control-size-lg-font-size);
 
     /* Primary variant (brand color) */
     --color-button-primary-bg: oklch(54.6% 0.245 262.881);
@@ -297,6 +330,11 @@
     --color-tabs-count-text: var(--color-gray-600);
     --color-tabs-active-count-bg: var(--color-tabs-count-bg);
     --color-tabs-active-count-text: var(--color-tabs-count-text);
+
+    /* Tooltip — defaults mirror the dropdown panel it historically reused */
+    --color-tooltip-bg: var(--color-dropdown-bg);
+    --color-tooltip-border: var(--color-dropdown-border);
+    --color-tooltip-text: var(--color-dropdown-item-text);
 
     /* Panel */
     --color-panel-bg: var(--color-white);
@@ -534,6 +572,11 @@
     --color-tabs-count-text: var(--color-stone-300);
     --color-tabs-active-count-bg: var(--color-tabs-count-bg);
     --color-tabs-active-count-text: var(--color-tabs-count-text);
+
+    /* Tooltip — defaults mirror the dropdown panel it historically reused */
+    --color-tooltip-bg: var(--color-dropdown-bg);
+    --color-tooltip-border: var(--color-dropdown-border);
+    --color-tooltip-text: var(--color-dropdown-item-text);
 
     /* Panel */
     --color-panel-bg: var(--color-stone-900);

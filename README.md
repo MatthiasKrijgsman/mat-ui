@@ -164,6 +164,8 @@ Font weights resolve through a three-step base scale; the semantic tokens below 
 | `--font-size-description` | `InputDescription` and `PanelField` label size | `var(--text-sm)` |
 | `--font-size-error` | `InputError` size | `var(--text-sm)` |
 | `--font-size-tab-count` | `TabButtons` / `Tabs` count chip size | `var(--text-xs)` |
+| `--font-size-tooltip` | `Tooltip` text size — **opt-in**: undeclared by default, the tooltip inherits the surrounding text size | *(inherit)* |
+| `--font-weight-tooltip` | `Tooltip` text weight — **opt-in**: undeclared by default, the tooltip inherits the surrounding weight | *(inherit)* |
 
 > The text size of the input/button itself comes from the **control sizing** scale below (`--control-size-{size}-font-size`), not from these tokens.
 
@@ -180,7 +182,9 @@ Semantic radius tokens map onto Tailwind's radius scale. Override a token to cha
 | `--border-radius-option` | Select option rows | `var(--radius-xl)` |
 | `--border-radius-menu-item` | `DropdownButton`, `PanelLink`, Lexical toolbar buttons | `var(--radius-lg)` |
 | `--border-radius-badge` | `Badge` | `var(--radius-lg)` |
-| `--border-radius-tab` | `TabButtons` container and pills | `var(--radius-xl)` |
+| `--border-radius-tab` | `TabButtons` container | `var(--radius-xl)` |
+| `--border-radius-tab-inner` | `TabButtons` pills — set to `calc(var(--border-radius-tab) - var(--tab-container-padding))` for a concentric look | `var(--border-radius-tab)` |
+| `--border-radius-tooltip` | `Tooltip` panel | `var(--border-radius-dropdown)` |
 | `--border-radius-checkbox` | `InputCheck` box | `var(--radius-lg)` |
 | `--border-radius-control-inner` | Color swatch and picker bars in `InputColor` | `var(--radius-md)` |
 
@@ -192,9 +196,20 @@ Semantic radius tokens map onto Tailwind's radius scale. Override a token to cha
 |-------|-----------|---------|
 | `--border-width-input` | Border width of inputs, selects, buttons, panels, dropdowns, modals, check/radio, the `Tabs` bottom rule | `1px` |
 | `--border-width-tabs-indicator` | Active-tab underline in `Tabs` | `2px` |
+| `--border-width-tooltip` | `Tooltip` panel border width | `var(--border-width-input)` |
 | `--shadow-control` | Resting elevation of buttons, inputs, panels, tabs | `var(--shadow-sm)` |
 | `--shadow-dropdown` | `DropdownPanel` and the Lexical floating toolbar | `var(--shadow-lg)` |
 | `--shadow-overlay` | `Modal` and `SidebarModal` | `var(--shadow-xl)` |
+| `--shadow-tooltip` | `Tooltip` panel | `var(--shadow-dropdown)` |
+
+### Structure — component geometry
+
+| Token | Applies to | Default |
+|-------|-----------|---------|
+| `--tab-container-padding` | Inset between the `TabButtons` container edge and the pills | `0.25rem` |
+| `--tab-container-gap` | Gap between `TabButtons` pills | `0.25rem` |
+| `--tooltip-padding-x` | `Tooltip` panel horizontal padding | `0.75rem` |
+| `--tooltip-padding-y` | `Tooltip` panel vertical padding | `0.75rem` |
 
 ### Structure — ring & transition
 
@@ -222,6 +237,9 @@ Controls share a consistent interaction model: a focus/hover "glow" ring, a thin
 | `--control-size-{size}-icon` | Icon glyph size inside controls (also the `InputRange` thumb size) | `1rem` · `1.25rem` · `1.5rem` |
 | `--control-size-{size}-icon-offset` | Distance from the input edge to a leading icon (used when an `Icon` prop is set on `Input`) | `1rem` · `1rem` · `1.25rem` |
 | `--control-size-{size}-range-track` | `InputRange` track thickness | `0.375rem` · `0.5rem` · `0.625rem` |
+| `--control-size-{size}-tab-height` | `TabButtons` container height | `var(--control-size-{size}-height)` |
+| `--control-size-{size}-tab-px` | Horizontal padding inside each `TabButtons` pill | `var(--control-size-{size}-px)` |
+| `--control-size-{size}-tab-font-size` | `TabButtons` label text size | `var(--control-size-{size}-font-size)` |
 
 ### Color — focus ring
 
@@ -359,6 +377,16 @@ Both halves of `InputColor` are also exported standalone: `ColorPicker` (the HSV
 | `--color-dropdown-item-text` | Item text color | `#111827` |
 | `--color-dropdown-item-ring` | Item focus ring | `rgb(17 24 39 / 0.1)` |
 | `--color-dropdown-group-label` | Group label text color | `#6b7280` |
+
+### Color — tooltip
+
+Defaults mirror the dropdown panel the tooltip historically reused, so an untouched theme looks identical.
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-tooltip-bg` | Tooltip panel background | `var(--color-dropdown-bg)` |
+| `--color-tooltip-border` | Tooltip panel border | `var(--color-dropdown-border)` |
+| `--color-tooltip-text` | Tooltip text color | `var(--color-dropdown-item-text)` |
 
 ### Color — tab buttons
 
