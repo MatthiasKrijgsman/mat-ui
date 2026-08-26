@@ -21,6 +21,22 @@ This is a pnpm workspace (`pnpm-workspace.yaml`) with two packages:
 
 ## Architecture
 
+### Dependencies vs peers
+
+A package is a **peer** only if a duplicate copy would actually break something:
+`react`, `react-dom`, and `lexical` + the `@lexical/*` packages, which keep
+module-level state that consumers share when they render our Lexical
+components. Everything else the library uses internally — `@floating-ui/react`,
+`@tabler/icons-react`, `motion`, `react-dropzone`, `react-merge-refs` — is a
+plain `dependency` and installs itself; a consumer should not have to install
+our implementation details. (Their *types* still resolve, because a dependency
+is installed.)
+
+`vite.config.ts` externalizes **dependencies and peers alike**, and throws on
+any other bare import. Moving a package out of the peer list without that would
+silently start bundling it, which is the duplicate-instance failure the peer
+list exists to prevent.
+
 ### Library build
 
 - Entry point: `src/index.tsx` — exports all public components and re-exports all types from `src/types.ts`

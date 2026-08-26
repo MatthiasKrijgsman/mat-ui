@@ -8,15 +8,34 @@ import { createRequire } from 'node:module';
 
 const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
 
-// Externalize every peer dependency (and its subpath imports, e.g.
-// "@lexical/react/LexicalComposer") so consumers resolve a single shared copy.
-// Bundling them — lexical in particular — produces duplicate module instances
-// and runtime failures like Lexical error #290 when a consumer passes nodes
-// built against their own copy.
+// Externalize every dependency AND peer dependency (plus their subpath
+// imports, e.g. "@lexical/react/LexicalComposer") so consumers resolve a
+// single shared copy. Bundling them — lexical in particular — produces
+// duplicate module instances and runtime failures like Lexical error #290
+// when a consumer passes nodes built against their own copy.
+//
+// `dependencies` matters as much as `peerDependencies` here: a package moved
+// out of the peer list to spare consumers an install must still be external,
+// or the move silently starts bundling it.
 const pkg = createRequire(import.meta.url)('./package.json');
-const peerDeps = Object.keys(pkg.peerDependencies ?? {});
-const isExternal = (id: string) =>
-  peerDeps.some((dep) => id === dep || id.startsWith(`${ dep }/`));
+const externalDeps = [
+  ...Object.keys(pkg.dependencies ?? {}),
+  ...Object.keys(pkg.peerDependencies ?? {}),
+];
+const isExternal = (id: string) => {
+  if (externalDeps.some((dep) => id === dep || id.startsWith(`${ dep }/`))) return true;
+  // Any other bare specifier is a package we would silently BUNDLE — exactly
+  // the duplicate-instance failure described above. Fail the build instead;
+  // this also means dev:watch must be restarted after editing dependencies.
+  const isBare = !id.startsWith('.') && !id.startsWith('\0') && !id.startsWith('@/') && !path.isAbsolute(id);
+  if (isBare) {
+    throw new Error(
+      `"${ id }" is imported but not declared in dependencies/peerDependencies — ` +
+      'bundling it would create a duplicate module instance. Declare it (and restart dev:watch).',
+    );
+  }
+  return false;
+};
 
 export default defineConfig({
   plugins: [react(), tailwind()],

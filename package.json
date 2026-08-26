@@ -43,21 +43,23 @@
     "site:build": "pnpm --filter @matthiaskrijgsman/mat-ui-site build",
     "check:css": "node scripts/check-css.mjs"
   },
-  "peerDependencies": {
+  "dependencies": {
     "@floating-ui/react": "^0.27.16",
+    "@tabler/icons-react": "^3.34.1",
+    "motion": "^12.23.12",
+    "react-dropzone": "^15.0.0",
+    "react-merge-refs": "^3.0.2"
+  },
+  "peerDependencies": {
     "@lexical/link": "0.45.0",
     "@lexical/list": "0.45.0",
     "@lexical/react": "0.45.0",
     "@lexical/rich-text": "0.45.0",
     "@lexical/selection": "0.45.0",
     "@lexical/utils": "0.45.0",
-    "@tabler/icons-react": "^3.34.1",
     "lexical": "0.45.0",
-    "motion": "^12.23.12",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "react-dropzone": "^15.0.0",
-    "react-merge-refs": "^3.0.2"
+    "react-dom": "^19.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
