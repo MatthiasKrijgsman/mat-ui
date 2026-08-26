@@ -36,6 +36,12 @@ This is a pnpm workspace (`pnpm-workspace.yaml`) with two packages:
 ### Styling
 
 - Tailwind CSS v4 with `@tailwindcss/forms` plugin, integrated via `@tailwindcss/vite`
+- **The stylesheet ships NO global reset.** `@import "tailwindcss"` would bring preflight, whose
+  unscoped `h1-h6`/`a`/`ol`/`img`/form-control rules restyle the *host application*. `src/style.css`
+  takes theme + utilities only; the resets components need live in `src/styles/scoped-reset.css`,
+  applied to our own classes. `pnpm check:css` (part of `build` and `prepublishOnly`) fails if a
+  global reset reappears or a new component class is not covered — verify visually with
+  `site/public/preflight-check.html`, a deliberately non-Tailwind page.
 - Design tokens (CSS custom properties) for **all** colors and structure (typography, radius, border, shadow, ring, transition) live in `src/styles/tokens.css` — see the Design tokens section under Code Style
 - Component-specific CSS in co-located files (e.g., `src/components/button/Button.css`)
 - Global styles entry: `src/style.css` (imports Tailwind, tokens, and component CSS)
