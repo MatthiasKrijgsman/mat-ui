@@ -21,6 +21,22 @@ This is a pnpm workspace (`pnpm-workspace.yaml`) with two packages:
 
 ## Architecture
 
+### Dependencies vs peers
+
+A package is a **peer** only if a duplicate copy would actually break something:
+`react`, `react-dom`, and `lexical` + the `@lexical/*` packages, which keep
+module-level state that consumers share when they render our Lexical
+components. Everything else the library uses internally — `@floating-ui/react`,
+`@tabler/icons-react`, `motion`, `react-dropzone`, `react-merge-refs` — is a
+plain `dependency` and installs itself; a consumer should not have to install
+our implementation details. (Their *types* still resolve, because a dependency
+is installed.)
+
+`vite.config.ts` externalizes **dependencies and peers alike**, and throws on
+any other bare import. Moving a package out of the peer list without that would
+silently start bundling it, which is the duplicate-instance failure the peer
+list exists to prevent.
+
 ### Library build
 
 - Entry point: `src/index.tsx` — exports all public components and re-exports all types from `src/types.ts`
@@ -36,6 +52,12 @@ This is a pnpm workspace (`pnpm-workspace.yaml`) with two packages:
 ### Styling
 
 - Tailwind CSS v4 with `@tailwindcss/forms` plugin, integrated via `@tailwindcss/vite`
+- **The stylesheet ships NO global reset.** `@import "tailwindcss"` would bring preflight, whose
+  unscoped `h1-h6`/`a`/`ol`/`img`/form-control rules restyle the *host application*. `src/style.css`
+  takes theme + utilities only; the resets components need live in `src/styles/scoped-reset.css`,
+  applied to our own classes. `pnpm check:css` (part of `build` and `prepublishOnly`) fails if a
+  global reset reappears or a new component class is not covered — verify visually with
+  `site/public/preflight-check.html`, a deliberately non-Tailwind page.
 - Design tokens (CSS custom properties) for **all** colors and structure (typography, radius, border, shadow, ring, transition) live in `src/styles/tokens.css` — see the Design tokens section under Code Style
 - Component-specific CSS in co-located files (e.g., `src/components/button/Button.css`)
 - Global styles entry: `src/style.css` (imports Tailwind, tokens, and component CSS)

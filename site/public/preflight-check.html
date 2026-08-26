@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light only">
+<title>mat-ui preflight check</title>
+<!--
+  A host that is NOT on Tailwind. Two questions at once:
+    ?builder=0 (default) — does the host's own content survive our stylesheet?
+    the component row     — do OUR components still render correctly?
+  A correct stylesheet answers yes to both.
+-->
+<style>
+  html { background:#fff; color-scheme: light; }
+  body { font-family: Georgia, serif; max-width: 52rem; margin: 2rem auto; color:#1a1a1a; line-height:1.6 }
+  section { border-top:1px solid #ddd; padding-top:.5rem; margin-top:1.5rem }
+  .row { display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; margin:.5rem 0 }
+</style>
+<link rel="stylesheet" href="/_mat-ui-style.css">
+</head>
+<body>
+<p><b>WITH mat-ui's stylesheet</b> — host content below must look untouched, components must look right.</p>
+
+<section>
+  <h2>Host content (must be unaffected)</h2>
+  <h1>Heading level 1</h1>
+  <h3>Heading level 3</h3>
+  <p>A paragraph with <a href="#">an inline link</a>, <b>bold</b>, and an
+     <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect width='16' height='16' fill='%23e11d48'/%3E%3C/svg%3E" alt=""> inline image.</p>
+  <ul><li>Bulleted item</li></ul>
+  <ol><li>Numbered item</li></ol>
+  <button>A host button</button>
+  <input type="text" value="A host input">
+</section>
+
+<section>
+  <h2>mat-ui components (must render correctly)</h2>
+  <div class="row" id="components"></div>
+</section>
+
+<script>
+  // Real markup, lifted from the showcase.
+  const BUTTON_BASE = "inline-flex flex-row items-center justify-center button-ring " +
+    "font-[number:var(--font-weight-button)] font-[family-name:var(--font-family-base)] ring-0 " +
+    "rounded-[var(--border-radius-button)] cursor-pointer select-none " +
+    "border-[length:var(--border-width-input)] shadow-[var(--shadow-control)] " +
+    "h-[var(--control-size-md-height)] px-[var(--control-size-md-px)] " +
+    "text-[length:var(--control-size-md-font-size)] gap-[var(--control-size-md-gap)]";
+  const mk = (variant, label) => `<button class="${BUTTON_BASE} button-${variant}">${label}</button>`;
+  document.getElementById("components").innerHTML =
+    mk("primary","Primary") + mk("secondary","Secondary") + mk("tertiary","Tertiary") + mk("white","White") +
+    `<input class="border-[length:var(--border-width-input)] input-base rounded-[var(--border-radius-input)] ` +
+    `h-[var(--control-size-md-height)] px-[var(--control-size-md-px)]" value="mat-ui input">`;
+
+  window.__probe = () => {
+    const q = s => document.querySelector(s);
+    const cs = (el,p) => getComputedStyle(el).getPropertyValue(p);
+    const hostBtn = [...document.querySelectorAll("button")].find(b => b.textContent === "A host button");
+    const uiBtn = q(".button-primary");
+    const uiInput = q(".input-base");
+    return {
+      host: {
+        h1Size: cs(q("h1"),"font-size"), h1Weight: cs(q("h1"),"font-weight"),
+        linkColor: cs(q("a"),"color"), linkDecoration: cs(q("a"),"text-decoration-line"),
+        ulMarker: cs(q("ul"),"list-style-type"), olMarker: cs(q("ol"),"list-style-type"),
+        imgDisplay: cs(q("img"),"display"),
+        hostButtonFont: cs(hostBtn,"font-family").slice(0,20), hostButtonBg: cs(hostBtn,"background-color"),
+      },
+      component: {
+        buttonBorderStyle: cs(uiBtn,"border-top-style"), buttonBoxSizing: cs(uiBtn,"box-sizing"),
+        buttonHeight: cs(uiBtn,"height"), buttonFont: cs(uiBtn,"font-family").slice(0,20),
+        inputBorderStyle: cs(uiInput,"border-top-style"), inputBoxSizing: cs(uiInput,"box-sizing"),
+        inputHeight: cs(uiInput,"height"),
+      },
+    };
+  };
+</script>
+</body>
+</html>

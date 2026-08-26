@@ -1,4 +1,25 @@
-@import "tailwindcss";
+/*
+ * Tailwind, WITHOUT preflight.
+ *
+ * `@import "tailwindcss"` is theme + preflight + utilities, and preflight is a
+ * GLOBAL reset: unscoped rules for h1-h6, a, ol/ul, img, tables and form
+ * controls. Shipping that from a component library means the host application
+ * is restyled the moment it imports our stylesheet — their headings lose their
+ * size, their links lose their colour, their lists lose their markers. For a
+ * host already on Tailwind it is a no-op; for anyone else it reads as "this
+ * library broke our app", with the cause nowhere near the symptom.
+ *
+ * The resets our components genuinely need are in styles/scoped-reset.css,
+ * applied to our own classes. A host that WANTS the global reset can add it
+ * themselves in one line — it is not ours to impose:
+ *
+ *     @import "tailwindcss/preflight.css" layer(base);
+ */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@import "./styles/scoped-reset.css";
 
 @variant dark (&:where(.dark, .dark *));
 
