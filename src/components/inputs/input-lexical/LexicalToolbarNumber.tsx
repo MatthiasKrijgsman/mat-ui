@@ -96,7 +96,7 @@ export const LexicalToolbarNumber = (props: LexicalToolbarNumberProps) => {
           commit(event.target.value);
         } }
         onKeyDown={ handleKeyDown }
-        className={ "mat:w-9 mat:bg-transparent mat:text-center mat:outline-none mat:border-none mat:p-0 mat:text-inherit mat:text-sm" }
+        className={ "mat:w-9 mat:bg-transparent mat:text-center mat:outline-none mat:border-none mat:p-0 mat:text-inherit mat:text-sm mat:font-[family-name:var(--font-family-numeric)] mat:tabular-nums" }
       />
     </span>
   );

@@ -75,6 +75,8 @@ export const Input = (props: InputProps) => {
               sizeFontClasses[size],
               Icon ? sizePaddingLeftWithIconClasses[size] : sizePaddingLeftClasses[size],
               hasTray ? sizePaddingRightWithTrayClasses[size] : sizePaddingRightClasses[size],
+              // Numbers get their own family and tabular figures (--font-family-numeric)
+              rest.type === 'number' && 'mat:font-[family-name:var(--font-family-numeric)] mat:tabular-nums',
               error && 'input-error',
             ) }
             { ...rest }

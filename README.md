@@ -113,7 +113,7 @@ Tokens fall into three families:
 **Structure** and **color** tokens use a two-tier model:
 
 1. **Base scales** — a small set of primitives (e.g. `--font-weight-strong`, `--radius-xl`). Change one to shift the whole kit at once.
-2. **Semantic aliases** — per-component tokens that point at the base scale by default (e.g. `--font-weight-button: var(--font-weight-strong)`, `--border-radius-dropdown: var(--radius-xl)`). Override one to retheme a single component without touching anything else.
+2. **Semantic aliases** — per-component tokens that point at the base scale by default (e.g. `--font-weight-button: var(--font-weight-strong)`, `--border-radius-dropdown: var(--mat-radius-xl)`). Override one to retheme a single component without touching anything else.
 
 So `--font-weight-strong: 700` makes every emphasised element heavier, while `--font-weight-button: 700` changes only buttons. Pick the tier that matches how broad your change is.
 
@@ -176,10 +176,11 @@ Font weights resolve through a three-step base scale; the semantic tokens below 
 | Token | Description | Default |
 |-------|-------------|---------|
 | `--font-family-base` | Typeface for all kit text (defaults to the host font) | `inherit` |
-| `--font-size-label` | Dropdown / select group label size | `var(--text-sm)` |
-| `--font-size-description` | `InputDescription` and `PanelField` label size | `var(--text-sm)` |
-| `--font-size-error` | `InputError` size | `var(--text-sm)` |
-| `--font-size-tab-count` | `TabButtons` / `Tabs` count chip size | `var(--text-xs)` |
+| `--font-family-numeric` | Number inputs (`type="number"`) and the rich-text toolbar's numeric fields, rendered with tabular figures — point it at a mono stack if your numerals live there | `var(--font-family-base)` |
+| `--font-size-label` | Dropdown / select group label size | `var(--mat-text-sm)` |
+| `--font-size-description` | `InputDescription` and `PanelField` label size | `var(--mat-text-sm)` |
+| `--font-size-error` | `InputError` size | `var(--mat-text-sm)` |
+| `--font-size-tab-count` | `TabButtons` / `Tabs` count chip size | `var(--mat-text-xs)` |
 | `--font-size-tooltip` | `Tooltip` text size — **opt-in**: undeclared by default, the tooltip inherits the surrounding text size | *(inherit)* |
 | `--font-weight-tooltip` | `Tooltip` text weight — **opt-in**: undeclared by default, the tooltip inherits the surrounding weight | *(inherit)* |
 
@@ -187,22 +188,22 @@ Font weights resolve through a three-step base scale; the semantic tokens below 
 
 ### Structure — border radius
 
-Semantic radius tokens map onto Tailwind's radius scale. Override a token to change one group; override the underlying `--radius-*` to change several at once.
+Semantic radius tokens map onto Tailwind's radius scale. Override a token to change one group; override the underlying `--mat-radius-*` (Tailwind's scale, prefixed) to change several at once.
 
 | Token | Applies to | Default |
 |-------|-----------|---------|
-| `--border-radius-input` | Text inputs, selects, textareas, file inputs, the Lexical editor box | `var(--radius-xl)` |
+| `--border-radius-input` | Text inputs, selects, textareas, file inputs, the Lexical editor box | `var(--mat-radius-xl)` |
 | `--border-radius-button` | `Button`, `ButtonIconSquare` (and the file-input "Choose" button) | `var(--border-radius-input)` |
-| `--border-radius-panel` | `Panel`, `PanelStack`, `Modal`, `TableEmpty` icon frame | `var(--radius-2xl)` |
-| `--border-radius-dropdown` | `DropdownPanel`, Lexical floating toolbar | `var(--radius-xl)` |
-| `--border-radius-option` | Select option rows | `var(--radius-xl)` |
-| `--border-radius-menu-item` | `DropdownButton`, `PanelLink`, Lexical toolbar buttons | `var(--radius-lg)` |
-| `--border-radius-badge` | `Badge` | `var(--radius-lg)` |
-| `--border-radius-tab` | `TabButtons` container | `var(--radius-xl)` |
+| `--border-radius-panel` | `Panel`, `PanelStack`, `Modal`, `TableEmpty` icon frame | `var(--mat-radius-2xl)` |
+| `--border-radius-dropdown` | `DropdownPanel`, Lexical floating toolbar | `var(--mat-radius-xl)` |
+| `--border-radius-option` | Select option rows | `var(--mat-radius-xl)` |
+| `--border-radius-menu-item` | `DropdownButton`, `PanelLink`, Lexical toolbar buttons | `var(--mat-radius-lg)` |
+| `--border-radius-badge` | `Badge` | `var(--mat-radius-lg)` |
+| `--border-radius-tab` | `TabButtons` container | `var(--mat-radius-xl)` |
 | `--border-radius-tab-inner` | `TabButtons` pills — set to `calc(var(--border-radius-tab) - var(--tab-container-padding))` for a concentric look | `var(--border-radius-tab)` |
 | `--border-radius-tooltip` | `Tooltip` panel | `var(--border-radius-dropdown)` |
-| `--border-radius-checkbox` | `InputCheck` box | `var(--radius-lg)` |
-| `--border-radius-control-inner` | Color swatch and picker bars in `InputColor` | `var(--radius-md)` |
+| `--border-radius-checkbox` | `InputCheck` box | `var(--mat-radius-lg)` |
+| `--border-radius-control-inner` | Color swatch and picker bars in `InputColor` | `var(--mat-radius-md)` |
 
 > `ButtonIconRound`, the toggle track/thumb, and radio dots are intentionally fully round (`rounded-full`) and are not tokenized.
 
@@ -213,9 +214,9 @@ Semantic radius tokens map onto Tailwind's radius scale. Override a token to cha
 | `--border-width-input` | Border width of inputs, selects, buttons, panels, dropdowns, modals, check/radio, the `Tabs` bottom rule | `1px` |
 | `--border-width-tabs-indicator` | Active-tab underline in `Tabs` | `2px` |
 | `--border-width-tooltip` | `Tooltip` panel border width | `var(--border-width-input)` |
-| `--shadow-control` | Resting elevation of buttons, inputs, panels, tabs | `var(--shadow-sm)` |
-| `--shadow-dropdown` | `DropdownPanel` and the Lexical floating toolbar | `var(--shadow-lg)` |
-| `--shadow-overlay` | `Modal` and `SidebarModal` | `var(--shadow-xl)` |
+| `--shadow-control` | Resting elevation of buttons, inputs, panels, tabs | `var(--mat-shadow-sm)` |
+| `--shadow-dropdown` | `DropdownPanel` and the Lexical floating toolbar | `var(--mat-shadow-lg)` |
+| `--shadow-overlay` | `Modal` and `SidebarModal` | `var(--mat-shadow-xl)` |
 | `--shadow-tooltip` | `Tooltip` panel | `var(--shadow-dropdown)` |
 
 ### Structure — component geometry
