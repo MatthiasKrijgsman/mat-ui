@@ -89,10 +89,10 @@ export const InputSelectDrilldown = (props: InputSelectDrilldownProps) => {
 
   return (
     <ControlSizeContext.Provider value={ size }>
-      <div className={ classNames('flex flex-col', className) }>
+      <div className={ classNames('mat:flex mat:flex-col', className) }>
         <InputLabel>{ label }</InputLabel>
 
-        <div className={ 'relative flex w-full flex-col' } ref={ anchorRef }>
+        <div className={ 'mat:relative mat:flex mat:w-full mat:flex-col' } ref={ anchorRef }>
           <SelectTrigger
             id={ id }
             role={ 'button' }
@@ -121,7 +121,7 @@ export const InputSelectDrilldown = (props: InputSelectDrilldownProps) => {
             } }
           />
           <Popover open={ open }>
-            <DropdownPanel className={ '!p-0' } style={ { maxHeight } }>
+            <DropdownPanel className={ 'mat:!p-0' } style={ { maxHeight } }>
               <DropdownNavigator open={ open }>
                 { content }
               </DropdownNavigator>

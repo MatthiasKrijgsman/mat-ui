@@ -91,12 +91,12 @@ export const ColorPicker = ({ value, onChange, hexInput = false }: ColorPickerPr
 
   return (
     <div
-      className={ 'flex flex-col gap-3' }
+      className={ 'mat:flex mat:flex-col mat:gap-3' }
       style={ { width: 220, userSelect: 'none' } }
       onMouseDown={ (e) => e.preventDefault() }
     >
       <div
-        className={ 'relative w-full' }
+        className={ 'mat:relative mat:w-full' }
         style={ {
           height: 160,
           touchAction: 'none',
@@ -105,20 +105,20 @@ export const ColorPicker = ({ value, onChange, hexInput = false }: ColorPickerPr
         { ...svDrag.bind }
       >
         <div
-          className={ 'absolute inset-0 rounded-[var(--border-radius-control-inner)] overflow-hidden border-[length:var(--border-width-input)] color-picker-surface' }
+          className={ 'mat:absolute mat:inset-0 mat:rounded-[var(--border-radius-control-inner)] mat:overflow-hidden mat:border-[length:var(--border-width-input)] color-picker-surface' }
           style={ { backgroundColor: hueOnly } }
         >
           <div
-            className={ 'absolute inset-0 pointer-events-none' }
+            className={ 'mat:absolute mat:inset-0 mat:pointer-events-none' }
             style={ { background: SV_SATURATION_GRADIENT } }
           />
           <div
-            className={ 'absolute inset-0 pointer-events-none' }
+            className={ 'mat:absolute mat:inset-0 mat:pointer-events-none' }
             style={ { background: SV_VALUE_GRADIENT } }
           />
         </div>
         <motion.div
-          className={ 'absolute pointer-events-none border-1 border-white' }
+          className={ 'mat:absolute mat:pointer-events-none mat:border-1 mat:border-white' }
           style={ {
             left: `${ s * 100 }%`,
             top: `${ (1 - v) * 100 }%`,
@@ -132,7 +132,7 @@ export const ColorPicker = ({ value, onChange, hexInput = false }: ColorPickerPr
       </div>
 
       <div
-        className={ 'relative w-full rounded-[var(--border-radius-control-inner)]' }
+        className={ 'mat:relative mat:w-full mat:rounded-[var(--border-radius-control-inner)]' }
         style={ {
           height: 12,
           background: HUE_GRADIENT,
@@ -142,7 +142,7 @@ export const ColorPicker = ({ value, onChange, hexInput = false }: ColorPickerPr
         { ...hueDrag.bind }
       >
         <motion.div
-          className={ 'absolute pointer-events-none border-1 border-white' }
+          className={ 'mat:absolute mat:pointer-events-none mat:border-1 mat:border-white' }
           style={ {
             top: '50%',
             left: `${ (h / 360) * 100 }%`,
@@ -156,7 +156,7 @@ export const ColorPicker = ({ value, onChange, hexInput = false }: ColorPickerPr
       </div>
 
       <div
-        className={ 'relative w-full rounded-[var(--border-radius-control-inner)]' }
+        className={ 'mat:relative mat:w-full mat:rounded-[var(--border-radius-control-inner)]' }
         style={ {
           height: 12,
           background: `linear-gradient(to right, #000, ${ brightnessMax })`,
@@ -166,7 +166,7 @@ export const ColorPicker = ({ value, onChange, hexInput = false }: ColorPickerPr
         { ...brightnessDrag.bind }
       >
         <motion.div
-          className={ 'absolute pointer-events-none border-1 border-white' }
+          className={ 'mat:absolute mat:pointer-events-none mat:border-1 mat:border-white' }
           style={ {
             top: '50%',
             left: `${ v * 100 }%`,

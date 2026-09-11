@@ -48,12 +48,12 @@ export const LexicalBlockTypeSelect = () => {
           type={ "button" }
           onMouseDown={ (event) => event.preventDefault() }
           className={ classNames(
-            "lexical-tb-btn h-8 px-2 gap-1 text-sm font-[number:var(--font-weight-input-option-label)]",
+            "lexical-tb-btn mat:h-8 mat:px-2 mat:gap-1 mat:text-sm mat:font-[number:var(--font-weight-input-option-label)]",
             tone === "dark" ? "lexical-tb-btn-dark" : "lexical-tb-btn-light",
           ) }
         >
-          <span className={ "break-all line-clamp-1" }>{ current.label }</span>
-          <IconChevronDown className={ "h-4 w-4 shrink-0" }/>
+          <span className={ "mat:break-all mat:line-clamp-1" }>{ current.label }</span>
+          <IconChevronDown className={ "mat:h-4 mat:w-4 mat:shrink-0" }/>
         </button>
       }
     >
@@ -62,7 +62,7 @@ export const LexicalBlockTypeSelect = () => {
           key={ option.value }
           Icon={ option.value === state.blockType ? IconCheck : undefined }
           onClick={ () => applyBlockType(option.value) }
-          className={ option.value === state.blockType ? undefined : "pl-11" }
+          className={ option.value === state.blockType ? undefined : "mat:pl-11" }
         >
           { option.label }
         </DropdownButton>

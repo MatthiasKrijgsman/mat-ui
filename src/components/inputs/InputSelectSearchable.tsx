@@ -132,12 +132,12 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
     <ControlSizeContext.Provider value={ size }>
       <div
         className={ classNames(
-          'flex flex-col',
+          'mat:flex mat:flex-col',
           className
         ) }>
         <InputLabel>{ label }</InputLabel>
 
-        <div className={ 'relative flex w-full flex-col' } ref={ anchorRef }>
+        <div className={ 'mat:relative mat:flex mat:w-full mat:flex-col' } ref={ anchorRef }>
           <SelectTrigger
             { ...getReferenceProps({
               ref,
@@ -168,14 +168,14 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
             onClear={ () => onChange(null) }
           />
           <Popover open={ open }>
-            <DropdownPanel className={ 'gap-0 !p-0' } style={ { maxHeight: maxHeight } }>
-              <div className={ 'sticky top-0 border-b select-search-bar py-1 backdrop-blur-sm' }>
+            <DropdownPanel className={ 'mat:gap-0 mat:!p-0' } style={ { maxHeight: maxHeight } }>
+              <div className={ 'mat:sticky mat:top-0 mat:border-b select-search-bar mat:py-1 mat:backdrop-blur-sm' }>
                 <input
                   ref={ inputSearchRef }
                   type={ 'text' }
                   placeholder={ 'Search' }
                   value={ search }
-                  className={ 'appearance-none border-none w-full bg-transparent rounded- pl-10 transition-all duration-[var(--control-transition-duration)] focus:outline-none ring-0 placeholder:text-[var(--color-input-placeholder)]' }
+                  className={ 'mat:appearance-none mat:border-none mat:w-full mat:bg-transparent rounded- mat:pl-10 mat:transition-all mat:duration-[var(--control-transition-duration)] mat:focus:outline-none mat:ring-0 mat:placeholder:text-[var(--color-input-placeholder)]' }
                   onChange={ (e) => setSearch(e.target.value) }
                   onKeyDown={ (e) => {
                     if (e.key === 'Enter' && activeIndex != null) {
@@ -184,12 +184,12 @@ export const InputSelectSearchable = <T, >(props: InputSelectSearchableProps<T>)
                     }
                   } }
                 />
-                <IconSearch className={ 'absolute select-search-icon left-4 top-4 h-4 w-4' }/>
+                <IconSearch className={ 'mat:absolute select-search-icon mat:left-4 mat:top-4 mat:h-4 mat:w-4' }/>
               </div>
-              <div className={ 'flex flex-col gap-1 p-2' }>
+              <div className={ 'mat:flex mat:flex-col mat:gap-1 mat:p-2' }>
                 { search !== '' && !hasSelectableVisible && (
-                  <div className={ 'flex flex-col items-center justify-center py-6' }>
-                    <IconSearchOff className={ 'h-6 w-6 text-[var(--color-input-text)]' }/>
+                  <div className={ 'mat:flex mat:flex-col mat:items-center mat:justify-center mat:py-6' }>
+                    <IconSearchOff className={ 'mat:h-6 mat:w-6 mat:text-[var(--color-input-text)]' }/>
                   </div>
                 ) }
                 { visibleOptions.map((item, i) => {

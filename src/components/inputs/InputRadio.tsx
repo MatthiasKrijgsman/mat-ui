@@ -21,20 +21,20 @@ export const InputRadio = (props: InputRadioProps) => {
   return (
     <div
       className={ classNames(
-        'flex flex-col',
+        'mat:flex mat:flex-col',
         className
       ) }
     >
-      <div className={ 'flex flex-row gap-3' }>
+      <div className={ 'mat:flex mat:flex-row mat:gap-3' }>
         <input
           type={ 'radio' }
-          className={ 'h-6 w-6 shrink-0 rounded-full border-[length:var(--border-width-input)] check-base shadow-[var(--shadow-control)] ring-0 hover:ring-[length:var(--control-ring-width)] focus:ring-[length:var(--control-ring-width)] ring-offset-0 focus:outline-0 transition-all duration-[var(--control-transition-duration)]' }
+          className={ 'mat:h-6 mat:w-6 mat:shrink-0 mat:rounded-full mat:border-[length:var(--border-width-input)] check-base mat:shadow-[var(--shadow-control)] mat:ring-0 mat:hover:ring-[length:var(--control-ring-width)] mat:focus:ring-[length:var(--control-ring-width)] mat:ring-offset-0 mat:focus:outline-0 mat:transition-all mat:duration-[var(--control-transition-duration)]' }
           { ...rest }
         />
         { label && (
           <label htmlFor={ props.id } className={ classNames(
-            'input-label font-[number:var(--font-weight-input-option-label)] mb-1',
-            props.id && 'cursor-pointer'
+            'input-label mat:font-[number:var(--font-weight-input-option-label)] mat:mb-1',
+            props.id && 'mat:cursor-pointer'
           ) }>{ label }</label>
         ) }
       </div>

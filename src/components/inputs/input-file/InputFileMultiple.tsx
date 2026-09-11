@@ -132,36 +132,36 @@ export const InputFileMultiple = (props: InputFileMultipleProps) => {
   });
 
   return (
-    <div className={ classNames('flex flex-col', className) }>
+    <div className={ classNames('mat:flex mat:flex-col', className) }>
       <InputLabel>{ label }</InputLabel>
 
       <div
         { ...getRootProps({
           className: classNames(
-            'flex flex-col items-center justify-center gap-1',
-            'border-2 border-dashed input-base rounded-[var(--border-radius-input)] bg-transparent!',
-            'py-10 px-6 cursor-pointer transition-all duration-[var(--control-transition-duration)]',
-            'ring-0 focus:outline-none',
-            (isFocused || isDragActive) && 'ring-[length:var(--control-ring-width)]',
+            'mat:flex mat:flex-col mat:items-center mat:justify-center mat:gap-1',
+            'mat:border-2 mat:border-dashed input-base mat:rounded-[var(--border-radius-input)] mat:bg-transparent!',
+            'mat:py-10 mat:px-6 mat:cursor-pointer mat:transition-all mat:duration-[var(--control-transition-duration)]',
+            'mat:ring-0 mat:focus:outline-none',
+            (isFocused || isDragActive) && 'mat:ring-[length:var(--control-ring-width)]',
             error && 'input-error',
-            disabled && 'opacity-60 cursor-not-allowed',
+            disabled && 'mat:opacity-60 mat:cursor-not-allowed',
           ),
         }) }
       >
         <input { ...getInputProps() } />
-        <div className={ 'h-14 w-14 rounded-[var(--border-radius-input)] flex items-center justify-center bg-[var(--color-input-file-icon-bg)] mb-2' }>
-          <Icon className={ 'h-7 w-7 input-icon' }/>
+        <div className={ 'mat:h-14 mat:w-14 mat:rounded-[var(--border-radius-input)] mat:flex mat:items-center mat:justify-center mat:bg-[var(--color-input-file-icon-bg)] mat:mb-2' }>
+          <Icon className={ 'mat:h-7 mat:w-7 input-icon' }/>
         </div>
-        <div className={ 'text-base font-[number:var(--font-weight-button)]' }>
+        <div className={ 'mat:text-base mat:font-[number:var(--font-weight-button)]' }>
           { title }
         </div>
         { hint && (
-          <div className={ 'text-sm text-[var(--color-input-description-text)] ' }>{ hint }</div>
+          <div className={ 'mat:text-sm mat:text-[var(--color-input-description-text)] ' }>{ hint }</div>
         ) }
       </div>
 
       { entries.length > 0 && (
-        <div className={ 'flex flex-col gap-2 mt-3' }>
+        <div className={ 'mat:flex mat:flex-col mat:gap-2 mat:mt-3' }>
           { entries.map((entry) => {
             const defaultProps: UploadFileTileProps = {
               file: entry.file,

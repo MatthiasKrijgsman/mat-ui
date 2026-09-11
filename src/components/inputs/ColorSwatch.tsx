@@ -29,7 +29,7 @@ export const ColorSwatch = (props: ColorSwatchProps) => {
   return (
     <div
       className={ classNames(
-        'shrink-0 rounded-[var(--border-radius-control-inner)] border-[length:var(--border-width-input)] color-swatch',
+        'mat:shrink-0 mat:rounded-[var(--border-radius-control-inner)] mat:border-[length:var(--border-width-input)] color-swatch',
         sizeIconClasses[size],
         className,
       ) }

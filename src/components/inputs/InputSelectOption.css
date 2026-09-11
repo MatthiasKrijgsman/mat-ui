@@ -1,24 +1,24 @@
 .option-base {
-    @apply hover:bg-[var(--color-option-bg-hover)];
-    @apply active:bg-[var(--color-option-bg-active)];
+    @apply mat:hover:bg-[var(--color-option-bg-hover)];
+    @apply mat:active:bg-[var(--color-option-bg-active)];
 }
 .option-selected {
-    @apply bg-[var(--color-option-bg-selected)];
-    @apply hover:bg-[var(--color-option-bg-selected-hover)];
-    @apply active:bg-[var(--color-option-bg-selected-active)];
+    @apply mat:bg-[var(--color-option-bg-selected)];
+    @apply mat:hover:bg-[var(--color-option-bg-selected-hover)];
+    @apply mat:active:bg-[var(--color-option-bg-selected-active)];
 }
 .option-active {
-    @apply bg-[var(--color-option-bg-hover)];
+    @apply mat:bg-[var(--color-option-bg-hover)];
 }
 .option-selected.option-active {
-    @apply bg-[var(--color-option-bg-selected-hover)];
+    @apply mat:bg-[var(--color-option-bg-selected-hover)];
 }
 .option-disabled {
-    @apply text-[var(--color-option-text-disabled)];
+    @apply mat:text-[var(--color-option-text-disabled)];
 }
 .option-group-header {
-    @apply text-[var(--color-option-text-disabled)];
+    @apply mat:text-[var(--color-option-text-disabled)];
 }
 .option-divider {
-    @apply bg-[var(--color-option-text-disabled)] opacity-30;
+    @apply mat:bg-[var(--color-option-text-disabled)] mat:opacity-30;
 }

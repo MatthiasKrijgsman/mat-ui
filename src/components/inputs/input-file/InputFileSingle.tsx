@@ -20,21 +20,21 @@ import {
 export type Size = 'sm' | 'md' | 'lg';
 
 const chooseButtonHeightClasses: Record<Size, string> = {
-  sm: 'h-7',
-  md: 'h-8',
-  lg: 'h-10',
+  sm: 'mat:h-7',
+  md: 'mat:h-8',
+  lg: 'mat:h-10',
 };
 
 const chooseButtonPaddingClasses: Record<Size, string> = {
-  sm: 'px-2.5',
-  md: 'px-3',
-  lg: 'px-4',
+  sm: 'mat:px-2.5',
+  md: 'mat:px-3',
+  lg: 'mat:px-4',
 };
 
 const chooseButtonFontClasses: Record<Size, string> = {
-  sm: 'text-xs',
-  md: 'text-sm',
-  lg: 'text-sm',
+  sm: 'mat:text-xs',
+  md: 'mat:text-sm',
+  lg: 'mat:text-sm',
 };
 
 export type InputFileSingleProps = {
@@ -109,31 +109,31 @@ export const InputFileSingle = (props: InputFileSingleProps) => {
 
   return (
     <ControlSizeContext.Provider value={ size }>
-      <div className={ classNames('flex flex-col', className) }>
+      <div className={ classNames('mat:flex mat:flex-col', className) }>
         <InputLabel>{ label }</InputLabel>
         <div
           { ...getRootProps({
             className: classNames(
-              'flex flex-row items-center',
-              'border-[length:var(--border-width-input)] input-base rounded-[var(--border-radius-input)] transition-all duration-[var(--control-transition-duration)]',
+              'mat:flex mat:flex-row mat:items-center',
+              'mat:border-[length:var(--border-width-input)] input-base mat:rounded-[var(--border-radius-input)] mat:transition-all mat:duration-[var(--control-transition-duration)]',
               inputVariantClasses[variant],
-              'ring-0 focus:outline-none',
-              (isFocused || isDragActive) && 'ring-[length:var(--control-ring-width)]',
+              'mat:ring-0 mat:focus:outline-none',
+              (isFocused || isDragActive) && 'mat:ring-[length:var(--control-ring-width)]',
               error && 'input-error',
-              disabled && 'opacity-60 cursor-not-allowed',
+              disabled && 'mat:opacity-60 mat:cursor-not-allowed',
               sizeHeightClasses[size],
               sizePaddingLeftClasses[size],
-              'gap-3',
+              'mat:gap-3',
             ),
           }) }
         >
           <input { ...getInputProps() } />
-          <Icon className={ classNames('input-icon shrink-0', sizeIconClasses[size]) }/>
+          <Icon className={ classNames('input-icon mat:shrink-0', sizeIconClasses[size]) }/>
           <span
             className={ classNames(
-              'flex-1 truncate',
+              'mat:flex-1 mat:truncate',
               sizeFontClasses[size],
-              !fileName && 'text-[var(--color-input-placeholder)]',
+              !fileName && 'mat:text-[var(--color-input-placeholder)]',
             ) }
           >
             { fileName ?? placeholder }
@@ -142,13 +142,13 @@ export const InputFileSingle = (props: InputFileSingleProps) => {
             <InputErrorIcon/>
           ) }
           { isUploading && !error && (
-            <div className={ 'h-5 w-5 flex items-center justify-center' }>
-              <Spinner className={ 'h-4 w-4 text-[var(--color-input-icon)]' }/>
+            <div className={ 'mat:h-5 mat:w-5 mat:flex mat:items-center mat:justify-center' }>
+              <Spinner className={ 'mat:h-4 mat:w-4 mat:text-[var(--color-input-icon)]' }/>
             </div>
           ) }
           { isUploaded && !isUploading && !error && (
-            <div className={ 'h-5 w-5' }>
-              <IconCircleCheckFilled className={ 'h-5 w-5 text-[var(--color-status-success)]' }/>
+            <div className={ 'mat:h-5 mat:w-5' }>
+              <IconCircleCheckFilled className={ 'mat:h-5 mat:w-5 mat:text-[var(--color-status-success)]' }/>
             </div>
           ) }
           <button
@@ -159,12 +159,12 @@ export const InputFileSingle = (props: InputFileSingleProps) => {
               open();
             } }
             className={ classNames(
-              'inline-flex flex-row items-center justify-center shrink-0',
-              'border-[length:var(--border-width-input)] button-white shadow-[var(--shadow-control)] rounded-[calc(var(--border-radius-button)-0.25rem)]',
-              'font-[number:var(--font-weight-button)] font-[family-name:var(--font-family-base)] cursor-pointer select-none transition-all duration-[var(--control-transition-duration)]',
-              'button-ring ring-0 hover:ring-[length:var(--control-ring-width)] active:ring-[length:var(--control-ring-width-active)] focus:outline-none focus:ring-[length:var(--control-ring-width)]',
-              'disabled:cursor-default',
-              'mr-1.5',
+              'mat:inline-flex mat:flex-row mat:items-center mat:justify-center mat:shrink-0',
+              'mat:border-[length:var(--border-width-input)] button-white mat:shadow-[var(--shadow-control)] mat:rounded-[calc(var(--border-radius-button)-0.25rem)]',
+              'mat:font-[number:var(--font-weight-button)] mat:font-[family-name:var(--font-family-base)] mat:cursor-pointer mat:select-none mat:transition-all mat:duration-[var(--control-transition-duration)]',
+              'button-ring mat:ring-0 mat:hover:ring-[length:var(--control-ring-width)] mat:active:ring-[length:var(--control-ring-width-active)] mat:focus:outline-none mat:focus:ring-[length:var(--control-ring-width)]',
+              'mat:disabled:cursor-default',
+              'mat:mr-1.5',
               chooseButtonHeightClasses[size],
               chooseButtonPaddingClasses[size],
               chooseButtonFontClasses[size],

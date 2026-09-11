@@ -12,7 +12,7 @@ export const InputSelectGroupHeader = React.forwardRef<HTMLDivElement, InputSele
       ref={ ref }
       { ...rest }
       className={ classNames(
-        'option-group-header px-4 pt-3 pb-1 text-xs font-[number:var(--font-weight-group-header)] uppercase tracking-wide select-none',
+        'option-group-header mat:px-4 mat:pt-3 mat:pb-1 mat:text-xs mat:font-[number:var(--font-weight-group-header)] mat:uppercase mat:tracking-wide mat:select-none',
         className,
       ) }
     >

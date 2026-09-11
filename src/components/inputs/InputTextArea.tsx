@@ -89,16 +89,16 @@ export const InputTextArea = (props: InputTextAreaProps) => {
     <ControlSizeContext.Provider value={ size }>
       <div
         className={ classNames(
-          'flex flex-col',
+          'mat:flex mat:flex-col',
           className
         ) }>
         <InputLabel>{ label }</InputLabel>
-        <div className={ 'flex flex-col relative' }>
+        <div className={ 'mat:flex mat:flex-col mat:relative' }>
           <textarea
             ref={ ref ? mergeRefs([ ref, internalRef ]) : internalRef }
             onChange={ handleChange }
             className={ classNames(
-              'py-2.5 border-[length:var(--border-width-input)] input-base transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
+              'mat:py-2.5 mat:border-[length:var(--border-width-input)] input-base mat:transition-all mat:duration-[var(--control-transition-duration)] mat:rounded-[var(--border-radius-input)] mat:ring-0 mat:focus:ring-[length:var(--control-ring-width)] mat:focus:outline-none mat:font-[number:var(--font-weight-input-text)] mat:font-[family-name:var(--font-family-base)]',
               inputVariantClasses[variant],
               sizeMinHeightClasses[size],
               sizeFontClasses[size],
@@ -106,12 +106,12 @@ export const InputTextArea = (props: InputTextAreaProps) => {
               error ? sizePaddingRightWithTrayClasses[size] : sizePaddingRightClasses[size],
               error && 'input-error',
               autogrow && (maxRows
-                ? 'resize-none overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
-                : 'resize-none overflow-hidden'),
+                ? 'mat:resize-none mat:overflow-y-auto mat:[scrollbar-width:none] mat:[&::-webkit-scrollbar]:hidden'
+                : 'mat:resize-none mat:overflow-hidden'),
             ) }
             { ...rest }
           />
-          <InputIconButtonTray className={ 'top-3.5 translate-y-0' }>
+          <InputIconButtonTray className={ 'mat:top-3.5 mat:translate-y-0' }>
             { error && (
               <InputErrorIcon/>
             ) }

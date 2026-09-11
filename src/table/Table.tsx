@@ -121,16 +121,16 @@ export const Table = <T, >(props: TableProps<T>) => {
   };
 
   return (
-    <div className={ classNames('flex flex-col h-full w-full', className) }>
+    <div className={ classNames('mat:flex mat:flex-col mat:h-full mat:w-full', className) }>
       {/* Header strip — overflow-hidden, scroll-synced with body via JS so
           users only scroll one container. */}
       <div
         ref={ headerScrollRef }
-        className={ 'overflow-hidden shrink-0 table-header-strip' }
+        className={ 'mat:overflow-hidden mat:shrink-0 table-header-strip' }
         style={ { height: headerHeight } }
       >
         <div
-          className={ 'flex flex-row table-header font-[number:var(--font-weight-table-header)]' }
+          className={ 'mat:flex mat:flex-row table-header mat:font-[number:var(--font-weight-table-header)]' }
           style={ { width: totalWidth, minWidth: '100%' } }
         >
           { columns.map((col) => (
@@ -148,37 +148,37 @@ export const Table = <T, >(props: TableProps<T>) => {
       </div>
       {/* Body — the only scrolling container. */}
       <div
-        className={ 'flex-1 overflow-auto' }
+        className={ 'mat:flex-1 mat:overflow-auto' }
         onScroll={ handleBodyScroll }
       >
         { rows.length === 0 && emptyState ? (
-          <div className={ 'flex h-full min-w-full items-center justify-center p-8' }>
+          <div className={ 'mat:flex mat:h-full mat:min-w-full mat:items-center mat:justify-center mat:p-8' }>
             { emptyState }
           </div>
         ) : (
         <div
-          className={ 'flex flex-col' }
+          className={ 'mat:flex mat:flex-col' }
           style={ { width: totalWidth, minWidth: '100%' } }
         >
           { rows.map((row, rowIndex) => (
             <div
               key={ getRowId(row, rowIndex) }
               className={ classNames(
-                'flex flex-row table-body-row transition-colors duration-[var(--control-transition-duration-fast)]',
-                onRowClick && 'cursor-pointer',
+                'mat:flex mat:flex-row table-body-row mat:transition-colors mat:duration-[var(--control-transition-duration-fast)]',
+                onRowClick && 'mat:cursor-pointer',
               ) }
               onClick={ onRowClick ? () => onRowClick(row, rowIndex) : undefined }
             >
               { columns.map((col) => (
                 <div
                   key={ col.id }
-                  className={ 'shrink-0 content-center px-4 relative' }
+                  className={ 'mat:shrink-0 mat:content-center mat:px-4 mat:relative' }
                   style={ {
                     width: widths[col.id] ?? col.defaultWidth ?? DEFAULT_COLUMN_WIDTH,
                     height: rowHeight,
                   } }
                 >
-                  <div className={'break-all line-clamp-1 font-[number:var(--font-weight-table-cell)]'}>
+                  <div className={'mat:break-all mat:line-clamp-1 mat:font-[number:var(--font-weight-table-cell)]'}>
                     { col.renderCell(row, rowIndex) }
                   </div>
                 </div>

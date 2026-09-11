@@ -99,9 +99,9 @@ export const FloatingToolbarShell = (props: FloatingToolbarShellProps) => {
       <FloatingPortal>
         <AnimatePresence>
           { open && (
-            <div ref={ refs.setFloating } style={ floatingStyles } className={ "z-50" }>
+            <div ref={ refs.setFloating } style={ floatingStyles } className={ "mat:z-50" }>
               <motion.div
-                className={ "lexical-floating-toolbar flex w-full flex-col p-1 rounded-[var(--border-radius-dropdown)]" }
+                className={ "lexical-floating-toolbar mat:flex mat:w-full mat:flex-col mat:p-1 mat:rounded-[var(--border-radius-dropdown)]" }
                 initial={ { opacity: 0, y: 4 } }
                 animate={ { opacity: 1, y: 0 } }
                 exit={ { opacity: 0, y: 4 } }

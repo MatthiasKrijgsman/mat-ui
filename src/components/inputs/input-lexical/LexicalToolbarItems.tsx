@@ -127,16 +127,16 @@ export const LexicalToolbarItems = (props: LexicalToolbarItemsProps) => {
    * (clamped by any imposed width/max-width) instead of to whatever happens
    * to be visible. Zero height + clip keeps it out of the visual layout. */
   const mirror = (
-    <div aria-hidden={ true } className={ "pointer-events-none invisible h-0 overflow-hidden" }>
+    <div aria-hidden={ true } className={ "mat:pointer-events-none mat:invisible mat:h-0 mat:overflow-hidden" }>
       <div
         ref={ mirrorRef }
-        className={ "flex flex-row items-center gap-1 w-max" }
+        className={ "mat:flex mat:flex-row mat:items-center mat:gap-1 mat:w-max" }
       >
         { items.map((item, index) => (
           // shrink-0: the w-max row box can come out gap-short in some
           // engines' intrinsic sizing — items must not shrink into it, or
           // the measured widths under-report and the bar under-collapses.
-          <div key={ index } className={ "flex flex-row items-center shrink-0" }>
+          <div key={ index } className={ "mat:flex mat:flex-row mat:items-center mat:shrink-0" }>
             { item }
           </div>
         )) }
@@ -165,13 +165,13 @@ export const LexicalToolbarItems = (props: LexicalToolbarItemsProps) => {
     return (
       <div
         ref={ containerRef }
-        className={ "flex flex-col min-w-0 flex-1" }
+        className={ "mat:flex mat:flex-col mat:min-w-0 mat:flex-1" }
       >
         { mirror }
         { rows.map((row, rowIndex) => (
           <React.Fragment key={ rowIndex }>
             { rowIndex > 0 && <LexicalToolbarRowDivider/> }
-            <div className={ "flex flex-row items-center gap-1" }>
+            <div className={ "mat:flex mat:flex-row mat:items-center mat:gap-1" }>
               { row.map((item, index) => (
                 <React.Fragment key={ index }>
                   { (index === 0 || index === row.length - 1) && isDivider(item) ? null : item }
@@ -190,11 +190,11 @@ export const LexicalToolbarItems = (props: LexicalToolbarItemsProps) => {
   return (
     <div
       ref={ containerRef }
-      className={ "flex flex-col min-w-0 flex-1" }
+      className={ "mat:flex mat:flex-col mat:min-w-0 mat:flex-1" }
     >
       { mirror }
 
-      <div className={ "flex flex-row items-center gap-1" }>
+      <div className={ "mat:flex mat:flex-row mat:items-center mat:gap-1" }>
         { visible.map((item, index) => (
           <React.Fragment key={ index }>{ item }</React.Fragment>
         )) }
@@ -210,17 +210,17 @@ export const LexicalToolbarItems = (props: LexicalToolbarItemsProps) => {
                 aria-label={ "More" }
                 onMouseDown={ (event) => event.preventDefault() }
                 className={ classNames(
-                  "lexical-tb-btn h-8 w-8 shrink-0",
+                  "lexical-tb-btn mat:h-8 mat:w-8 mat:shrink-0",
                   tone === "dark" ? "lexical-tb-btn-dark" : "lexical-tb-btn-light",
                 ) }
               >
-                <IconDots className={ "h-[18px] w-[18px]" }/>
+                <IconDots className={ "mat:h-[18px] mat:w-[18px]" }/>
               </button>
             }
           >
             <LexicalToolbarContext.Provider value={ { state, tone: "dark", orientation: "vertical" } }>
               <div
-                className={ "flex flex-col items-stretch gap-1" }
+                className={ "mat:flex mat:flex-col mat:items-stretch mat:gap-1" }
                 onMouseDown={ (event) => {
                   // Keep the editor selection intact for button presses — but a
                   // blanket preventDefault would also block native focus, making

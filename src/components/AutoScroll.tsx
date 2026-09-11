@@ -132,8 +132,8 @@ export const AutoScroll = (props: AutoScrollProps) => {
     <div
       ref={ containerRef }
       className={ classNames(
-        'min-h-0 min-w-0',
-        horizontal ? 'overflow-x-auto' : 'overflow-y-auto',
+        'mat:min-h-0 mat:min-w-0',
+        horizontal ? 'mat:overflow-x-auto' : 'mat:overflow-y-auto',
         className
       ) }
       { ...rest }

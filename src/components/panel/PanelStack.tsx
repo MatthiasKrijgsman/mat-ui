@@ -18,7 +18,7 @@ export const PanelStack = React.forwardRef<HTMLDivElement, PanelStackProps>((pro
     <div
       ref={ ref }
       className={ classNames(
-        'flex flex-col gap-1 border-[length:var(--border-width-input)] panel-base rounded-[var(--border-radius-panel)] shadow-[var(--shadow-control)] p-2',
+        'mat:flex mat:flex-col mat:gap-1 mat:border-[length:var(--border-width-input)] panel-base mat:rounded-[var(--border-radius-panel)] mat:shadow-[var(--shadow-control)] mat:p-2',
         className
       ) }
       { ...rest }

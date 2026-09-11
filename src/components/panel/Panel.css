@@ -1,5 +1,5 @@
 .panel-base {
-    @apply bg-[var(--color-panel-bg)];
-    @apply border-[var(--color-panel-border)];
-    @apply text-[var(--color-panel-text)];
+    @apply mat:bg-[var(--color-panel-bg)];
+    @apply mat:border-[var(--color-panel-border)];
+    @apply mat:text-[var(--color-panel-text)];
 }

@@ -27,6 +27,8 @@ pnpm site:build
 
 The showcase pulls in the library via the workspace alias (`workspace:*`), so edits under `src/` are reflected on the next dev rebuild. Deployments to GitHub Pages happen via [.github/workflows/deploy-site.yml](.github/workflows/deploy-site.yml).
 
+**Authoring rule:** every Tailwind utility in `src/` is written with the `mat:` prefix — `mat:flex`, `mat:hover:ring-2`, `mat:-translate-y-1/2` — and so is every `@apply`. An unprefixed utility compiles to nothing (Tailwind only accepts prefixed candidates once a prefix is set), and `pnpm build` runs `scripts/check-css.mjs`, which fails on any unprefixed class in the utilities layer. Authored component classes (`.button-primary`, `.input-base`, …) are not utilities and stay as they are.
+
 ## Installation
 
 ```bash
@@ -35,11 +37,25 @@ pnpm install @matthiaskrijgsman/mat-ui
 
 ### Styles
 
-Import the mat-ui stylesheet in your CSS entry file. Be sure to do this **after** the Tailwind import.
+Import the mat-ui stylesheet in your CSS entry file. On a Tailwind v4 host, do this **after** the Tailwind import.
 
 ```css
 @import "@matthiaskrijgsman/mat-ui/style";
 ```
+
+The stylesheet is Tailwind v4 output with every utility **prefixed** (`mat:flex` compiles to `.mat\:flex`, the theme variables to `--mat-*`), so nothing in it can collide with your own Tailwind classes, whatever version you run. It ships no global preflight; the few resets the components need are scoped to their own classes.
+
+**Not on Tailwind v4?** `./style` uses native cascade layers, and in a host whose own CSS is unlayered (Tailwind v3, or no Tailwind) every layered rule loses to every host rule — your reset's `input { padding: 0 }` would beat our inputs' padding. A v3 PostCSS pipeline also refuses to import a file with bare `@layer` blocks. Import the flat entry instead, and mark the subtree that uses mat-ui components:
+
+```css
+@import "@matthiaskrijgsman/mat-ui/style-flat";
+```
+
+```html
+<div class="mat-ui">…your app…</div>   <!-- or data-mat-ui -->
+```
+
+`style-flat` is the same rules with the layers flattened and every selector scoped to `.mat-ui` / `[data-mat-ui]` (plus Floating UI's portal, where menus, tooltips and modals render), at zero extra specificity. Its `:root` / `.dark` token declarations drop to zero specificity too, so a same-named custom property of your own always wins. Wrap your app root, or just the region that renders mat-ui — anything outside the wrapper is untouched by the stylesheet.
 
 ## Usage
 

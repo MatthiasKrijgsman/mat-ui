@@ -33,9 +33,9 @@ export type InputRangeProps = {
 }
 
 const sizeTrackHeightClasses: Record<Size, string> = {
-  sm: 'h-[var(--control-size-sm-range-track)]',
-  md: 'h-[var(--control-size-md-range-track)]',
-  lg: 'h-[var(--control-size-lg-range-track)]',
+  sm: 'mat:h-[var(--control-size-sm-range-track)]',
+  md: 'mat:h-[var(--control-size-md-range-track)]',
+  lg: 'mat:h-[var(--control-size-lg-range-track)]',
 };
 
 const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n));
@@ -103,20 +103,20 @@ export const InputRange = (props: InputRangeProps) => {
     <ControlSizeContext.Provider value={ size }>
       <div
         className={ classNames(
-          'flex flex-col',
+          'mat:flex mat:flex-col',
           className
         ) }>
         <InputLabel>{ label }</InputLabel>
         <div className={ classNames(
-          'flex flex-row items-center gap-3',
+          'mat:flex mat:flex-row mat:items-center mat:gap-3',
           sizeHeightClasses[size],
-          disabled && 'opacity-60',
+          disabled && 'mat:opacity-60',
         ) }>
           <div
             className={ classNames(
-              'relative flex-1 rounded-full range-track',
+              'mat:relative mat:flex-1 mat:rounded-full range-track',
               sizeTrackHeightClasses[size],
-              disabled ? 'cursor-not-allowed' : 'cursor-pointer',
+              disabled ? 'mat:cursor-not-allowed' : 'mat:cursor-pointer',
             ) }
             style={ { touchAction: 'none' } }
             { ...(disabled ? {} : {
@@ -128,7 +128,7 @@ export const InputRange = (props: InputRangeProps) => {
             }) }
           >
             <div
-              className={ 'absolute inset-y-0 left-0 rounded-full range-fill' }
+              className={ 'mat:absolute mat:inset-y-0 mat:left-0 mat:rounded-full range-fill' }
               style={ { width: `${ ratio * 100 }%` } }
             />
             <div
@@ -143,18 +143,18 @@ export const InputRange = (props: InputRangeProps) => {
               tabIndex={ disabled ? -1 : 0 }
               onKeyDown={ disabled ? undefined : handleKeyDown }
               className={ classNames(
-                'absolute top-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full border-[length:var(--border-width-input)] range-thumb shadow-md select-none',
-                'ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none',
-                'transition-[box-shadow,scale] duration-[var(--control-transition-duration)]',
-                !disabled && 'hover:scale-110 cursor-grab',
-                drag.isDragging && 'scale-110 cursor-grabbing',
+                'mat:absolute mat:top-1/2 mat:-translate-y-1/2 mat:-translate-x-1/2 mat:rounded-full mat:border-[length:var(--border-width-input)] range-thumb mat:shadow-md mat:select-none',
+                'mat:ring-0 mat:focus:ring-[length:var(--control-ring-width)] mat:focus:outline-none',
+                'mat:transition-[box-shadow,scale] mat:duration-[var(--control-transition-duration)]',
+                !disabled && 'mat:hover:scale-110 mat:cursor-grab',
+                drag.isDragging && 'mat:scale-110 mat:cursor-grabbing',
                 sizeIconClasses[size],
               ) }
               style={ { left: `${ ratio * 100 }%` } }
             />
           </div>
           { showValue && (
-            <span className={ 'range-value shrink-0 tabular-nums text-[length:var(--font-size-description)] font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]' }>
+            <span className={ 'range-value mat:shrink-0 mat:tabular-nums mat:text-[length:var(--font-size-description)] mat:font-[number:var(--font-weight-input-text)] mat:font-[family-name:var(--font-family-base)]' }>
               { formatValue ? formatValue(currentValue) : currentValue }
             </span>
           ) }

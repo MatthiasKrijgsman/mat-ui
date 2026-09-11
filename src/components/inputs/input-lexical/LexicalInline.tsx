@@ -74,7 +74,7 @@ export const LexicalInline = (props: LexicalInlineProps) => {
 
   return (
     <LexicalComposer initialConfig={ initialConfig }>
-      <div className={ "relative" }>
+      <div className={ "mat:relative" }>
         <RichTextPlugin
           contentEditable={
             <ContentEditable
@@ -82,7 +82,7 @@ export const LexicalInline = (props: LexicalInlineProps) => {
               style={ { outline: "none", ...style } }
               aria-placeholder={ placeholder ?? "" }
               placeholder={
-                <div className={ "lexical-placeholder pointer-events-none absolute left-0 top-0" }>
+                <div className={ "lexical-placeholder mat:pointer-events-none mat:absolute mat:left-0 mat:top-0" }>
                   { placeholder ?? "" }
                 </div>
               }

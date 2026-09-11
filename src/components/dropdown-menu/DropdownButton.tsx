@@ -11,7 +11,7 @@ export type DropdownButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> 
   dismissOnClick?: boolean;
 }
 
-const base: string = `inline-flex flex-row items-center gap-3 h-10 px-3 font-[number:var(--font-weight-dropdown-item)] font-[family-name:var(--font-family-base)] ring-0 dropdown-item rounded-[var(--border-radius-menu-item)] cursor-pointer transition-all duration-[var(--control-transition-duration)] select-none focus:outline-none focus:ring-0 border border-transparent bg-transparent`;
+const base: string = `mat:inline-flex mat:flex-row mat:items-center mat:gap-3 mat:h-10 mat:px-3 mat:font-[number:var(--font-weight-dropdown-item)] mat:font-[family-name:var(--font-family-base)] mat:ring-0 dropdown-item mat:rounded-[var(--border-radius-menu-item)] mat:cursor-pointer mat:transition-all mat:duration-[var(--control-transition-duration)] mat:select-none mat:focus:outline-none mat:focus:ring-0 mat:border mat:border-transparent mat:bg-transparent`;
 
 export const DropdownButton = React.forwardRef<HTMLButtonElement, DropdownButtonProps>((props, ref) => {
   const {
@@ -40,7 +40,7 @@ export const DropdownButton = React.forwardRef<HTMLButtonElement, DropdownButton
       onClick={ handleOnClick }
       { ...rest }
     >
-      { Icon && <Icon className={ 'h-5 w-5 shrink-0' }/> }
+      { Icon && <Icon className={ 'mat:h-5 mat:w-5 mat:shrink-0' }/> }
       { children }
     </button>
   );

@@ -22,7 +22,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>((props: BadgeP
     color = 'gray',
   } = props;
   const classes = classNames(
-    'inline-flex align-top items-center gap-2 px-3 h-7 rounded-[var(--border-radius-badge)] font-[number:var(--font-weight-badge)] font-[family-name:var(--font-family-base)]',
+    'mat:inline-flex mat:align-top mat:items-center mat:gap-2 mat:px-3 mat:h-7 mat:rounded-[var(--border-radius-badge)] mat:font-[number:var(--font-weight-badge)] mat:font-[family-name:var(--font-family-base)]',
     BadgeColor[color],
     className
   )
@@ -30,14 +30,14 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>((props: BadgeP
     return (
       <div ref={ ref }>
         <button
-          className={ classNames('cursor-pointer ring-0 hover:ring-[length:var(--control-ring-width)] active:ring-[length:var(--control-ring-width-active)] transition-all duration-[var(--control-transition-duration-fast)] select-none focus:outline-none focus:ring-[length:var(--control-ring-width)]', classes) }
+          className={ classNames('mat:cursor-pointer mat:ring-0 mat:hover:ring-[length:var(--control-ring-width)] mat:active:ring-[length:var(--control-ring-width-active)] mat:transition-all mat:duration-[var(--control-transition-duration-fast)] mat:select-none mat:focus:outline-none mat:focus:ring-[length:var(--control-ring-width)]', classes) }
           onClick={ onClick }
         >
-          { Icon && <Icon className={ 'h-4 w-4 shrink-0' }/> }
-          <div className={ 'break-all line-clamp-1 text-left' }>{ children }</div>
+          { Icon && <Icon className={ 'mat:h-4 mat:w-4 mat:shrink-0' }/> }
+          <div className={ 'mat:break-all mat:line-clamp-1 mat:text-left' }>{ children }</div>
           { showCloseIcon && (
             <IconX
-              className={ 'h-4 w-4 shrink-0' }
+              className={ 'mat:h-4 mat:w-4 mat:shrink-0' }
             />
           ) }
         </button>
@@ -46,8 +46,8 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>((props: BadgeP
   }
   return (
     <div className={ classes } ref={ ref }>
-      { Icon && <Icon className={ 'h-4 w-4 shrink-0' }/> }
-      <div className={ 'break-all line-clamp-1 text-left' }>{ children }</div>
+      { Icon && <Icon className={ 'mat:h-4 mat:w-4 mat:shrink-0' }/> }
+      <div className={ 'mat:break-all mat:line-clamp-1 mat:text-left' }>{ children }</div>
     </div>
   );
 });

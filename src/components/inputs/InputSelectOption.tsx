@@ -27,17 +27,17 @@ export const InputSelectOption = React.forwardRef<HTMLDivElement, InputSelectOpt
       { ...rest }
       onClick={ () => !disabled && onClick && onClick() }
       className={ classNames(
-        'option-base px-4 py-2 rounded-[var(--border-radius-option)] cursor-pointer transition-all duration-[var(--control-transition-duration)] select-none flex flex-row gap-3 items-center',
+        'option-base mat:px-4 mat:py-2 mat:rounded-[var(--border-radius-option)] mat:cursor-pointer mat:transition-all mat:duration-[var(--control-transition-duration)] mat:select-none mat:flex mat:flex-row mat:gap-3 mat:items-center',
         (selected && !disabled) && 'option-selected',
         (active && !disabled) && 'option-active',
-        disabled && 'option-disabled cursor-not-allowed hover:bg-transparent active:bg-transparent',
+        disabled && 'option-disabled mat:cursor-not-allowed mat:hover:bg-transparent mat:active:bg-transparent',
         className,
       ) }
     >
-      <div className={ 'flex-1 min-w-0 break-all line-clamp-1' }>{ children }</div>
+      <div className={ 'mat:flex-1 mat:min-w-0 mat:break-all mat:line-clamp-1' }>{ children }</div>
       { (selected && !disabled) && (
-        <div className={ 'shrink-0' }>
-          <IconCheck className={ 'h-5 w-5' }/>
+        <div className={ 'mat:shrink-0' }>
+          <IconCheck className={ 'mat:h-5 mat:w-5' }/>
         </div>
       ) }
     </div>

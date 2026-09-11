@@ -1,6 +1,6 @@
 .modal-overlay {
-    @apply bg-[var(--color-modal-overlay)];
+    @apply mat:bg-[var(--color-modal-overlay)];
 }
 .modal-content {
-    @apply bg-[var(--color-modal-bg)];
+    @apply mat:bg-[var(--color-modal-bg)];
 }

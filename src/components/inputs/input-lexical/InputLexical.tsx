@@ -120,24 +120,24 @@ export const InputLexical = (props: InputLexicalProps) => {
 
   return (
     <ControlSizeContext.Provider value={ size }>
-      <div className={ classNames("flex flex-col", className) }>
+      <div className={ classNames("mat:flex mat:flex-col", className) }>
         <InputLabel>{ label }</InputLabel>
         <LexicalComposer initialConfig={ initialConfig }>
           <div
             className={ classNames(
-              "relative flex flex-col border-[length:var(--border-width-input)] input-base rounded-[var(--border-radius-input)] overflow-hidden transition-all duration-[var(--control-transition-duration)] ring-0 focus-within:ring-[length:var(--control-ring-width)] focus-within:outline-none font-[family-name:var(--font-family-base)]",
+              "mat:relative mat:flex mat:flex-col mat:border-[length:var(--border-width-input)] input-base mat:rounded-[var(--border-radius-input)] mat:overflow-hidden mat:transition-all mat:duration-[var(--control-transition-duration)] mat:ring-0 mat:focus-within:ring-[length:var(--control-ring-width)] mat:focus-within:outline-none mat:font-[family-name:var(--font-family-base)]",
               inputVariantClasses[variant],
               hasError && "input-error",
             ) }
           >
             { toolbar === "static" && <LexicalToolbar render={ renderToolbar } collapsible={ toolbarCollapsible }/> }
 
-            <div className={ "relative flex-1 min-h-0" }>
+            <div className={ "mat:relative mat:flex-1 mat:min-h-0" }>
               <RichTextPlugin
                 contentEditable={
                   <ContentEditable
                     className={ classNames(
-                      "lexical-content w-full outline-none px-3 py-3 leading-[1.55] overflow-y-auto mat-ui-hide-scrollbars",
+                      "lexical-content mat:w-full mat:outline-none mat:px-3 mat:py-3 mat:leading-[1.55] mat:overflow-y-auto mat-ui-hide-scrollbars",
                       fontClass,
                     ) }
                     style={ contentStyle }
@@ -145,7 +145,7 @@ export const InputLexical = (props: InputLexicalProps) => {
                     placeholder={
                       <div
                         className={ classNames(
-                          "lexical-placeholder pointer-events-none absolute left-3 top-3",
+                          "lexical-placeholder mat:pointer-events-none mat:absolute mat:left-3 mat:top-3",
                           fontClass,
                         ) }
                       >

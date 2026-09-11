@@ -27,15 +27,15 @@ export const DropdownSubMenu = (props: DropdownSubMenuProps) => {
 
   return (
     <>
-      <div ref={ anchorRef } className={ 'flex flex-col' }>
+      <div ref={ anchorRef } className={ 'mat:flex mat:flex-col' }>
         <DropdownButton
           dismissOnClick={ false }
           Icon={ Icon }
           onClick={ () => setOpen((prev) => !prev) }
           className={ className }
         >
-          <span className={ 'flex-1 text-left' }>{ label }</span>
-          <IconChevronRight className={ 'h-5 w-5 shrink-0 -mr-1 opacity-60' }/>
+          <span className={ 'mat:flex-1 mat:text-left' }>{ label }</span>
+          <IconChevronRight className={ 'mat:h-5 mat:w-5 mat:shrink-0 mat:-mr-1 mat:opacity-60' }/>
         </DropdownButton>
       </div>
 

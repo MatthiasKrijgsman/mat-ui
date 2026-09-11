@@ -30,20 +30,20 @@ export const LexicalToolbarColor = (props: LexicalToolbarColorProps) => {
   });
 
   return (
-    <span ref={ anchorRef } className={ "inline-flex" }>
+    <span ref={ anchorRef } className={ "mat:inline-flex" }>
       <button
         type={ "button" }
         title={ title }
         onMouseDown={ (event) => event.preventDefault() }
         onClick={ () => setOpen((prev) => !prev) }
         className={ classNames(
-          "lexical-tb-btn h-8 w-8",
+          "lexical-tb-btn mat:h-8 mat:w-8",
           tone === "dark" ? "lexical-tb-btn-dark" : "lexical-tb-btn-light",
           open && "lexical-tb-btn-active",
         ) }
       >
         <span
-          className={ "h-[18px] w-[18px] rounded-[var(--border-radius-control-inner)] border-[length:var(--border-width-input)] color-swatch" }
+          className={ "mat:h-[18px] mat:w-[18px] mat:rounded-[var(--border-radius-control-inner)] mat:border-[length:var(--border-width-input)] color-swatch" }
           style={ { backgroundColor: value || "white" } }
         />
       </button>

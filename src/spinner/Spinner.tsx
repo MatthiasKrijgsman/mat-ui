@@ -27,12 +27,12 @@ export const Spinner = (props: SpinnerProps) => {
     <AnimatePresence>
       <motion.div
         role={ 'status' }
-        className={ classNames('relative rounded-full', className) }
+        className={ classNames('mat:relative mat:rounded-full', className) }
         animate={ { rotate: 360 } }
         transition={ { repeat: Infinity, ease: 'linear', duration: rotateDuration } }
       >
         <motion.div
-          className={ 'absolute inset-0 rounded-full' }
+          className={ 'mat:absolute mat:inset-0 mat:rounded-full' }
           style={ {
             boxSizing: 'border-box',
             borderStyle: 'solid',

@@ -1,20 +1,20 @@
 .input-base {
-    @apply bg-[var(--color-input-bg)];
-    @apply border-[var(--color-input-border)];
-    @apply text-[var(--color-input-text)];
-    @apply placeholder:text-[var(--color-input-placeholder)];
-    @apply ring-[var(--color-input-ring)];
+    @apply mat:bg-[var(--color-input-bg)];
+    @apply mat:border-[var(--color-input-border)];
+    @apply mat:text-[var(--color-input-text)];
+    @apply mat:placeholder:text-[var(--color-input-placeholder)];
+    @apply mat:ring-[var(--color-input-ring)];
 }
 /* Flat variant — soft fill, border matches the fill, no shadow. Declared
  * after .input-base so it wins the cascade at equal specificity. */
 .input-flat {
-    @apply bg-[var(--color-input-flat-bg)];
-    @apply border-[var(--color-input-flat-border)];
+    @apply mat:bg-[var(--color-input-flat-bg)];
+    @apply mat:border-[var(--color-input-flat-border)];
 }
 .input-error {
-    @apply border-[var(--color-input-border-error)];
-    @apply focus:ring-[var(--color-input-ring-error)];
+    @apply mat:border-[var(--color-input-border-error)];
+    @apply mat:focus:ring-[var(--color-input-ring-error)];
 }
 .input-icon {
-    @apply text-[var(--color-input-icon)];
+    @apply mat:text-[var(--color-input-icon)];
 }

@@ -10,7 +10,7 @@ export const InputSelectDivider = React.forwardRef<HTMLDivElement, InputSelectDi
       ref={ ref }
       { ...rest }
       className={ classNames(
-        'option-divider my-1 h-px',
+        'option-divider mat:my-1 mat:h-px',
         className,
       ) }
     />

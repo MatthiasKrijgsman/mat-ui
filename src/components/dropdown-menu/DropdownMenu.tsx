@@ -36,7 +36,7 @@ const DropdownMenuInner = (props: DropdownMenuProps) => {
       </div>
 
       <Popover open={ show }>
-        <DropdownPanel className={ classNames('!p-0', panelClassName) }>
+        <DropdownPanel className={ classNames('mat:!p-0', panelClassName) }>
           <DropdownDismissContext.Provider value={ () => setShow(false) }>
             <DropdownNavigator open={ show }>
               { children }

@@ -1,7 +1,7 @@
 .tooltip-panel {
-    @apply bg-[var(--color-tooltip-bg)];
-    @apply border-[var(--color-tooltip-border)];
-    @apply text-[var(--color-tooltip-text)];
+    @apply mat:bg-[var(--color-tooltip-bg)];
+    @apply mat:border-[var(--color-tooltip-border)];
+    @apply mat:text-[var(--color-tooltip-text)];
     /* Opt-in tokens: undeclared by default so the tooltip keeps following the
      * surrounding text (there is no token value that means "inherit"). */
     font-size: var(--font-size-tooltip, inherit);

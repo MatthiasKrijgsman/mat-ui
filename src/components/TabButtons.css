@@ -1,20 +1,20 @@
 .tab-container {
-    @apply bg-[var(--color-tab-container-bg)];
-    @apply text-[var(--color-tab-text)];
+    @apply mat:bg-[var(--color-tab-container-bg)];
+    @apply mat:text-[var(--color-tab-text)];
 }
 .tab-button {
-    @apply hover:bg-[var(--color-tab-bg-hover)];
-    @apply active:bg-[var(--color-tab-bg-active)];
+    @apply mat:hover:bg-[var(--color-tab-bg-hover)];
+    @apply mat:active:bg-[var(--color-tab-bg-active)];
 }
 .tab-button-active {
-    @apply bg-[var(--color-tab-active-bg)];
-    @apply border-[var(--color-tab-active-border)];
+    @apply mat:bg-[var(--color-tab-active-bg)];
+    @apply mat:border-[var(--color-tab-active-border)];
 }
 .tab-button-count {
-    @apply bg-[var(--color-tab-count-bg)];
-    @apply text-[var(--color-tab-count-text)];
+    @apply mat:bg-[var(--color-tab-count-bg)];
+    @apply mat:text-[var(--color-tab-count-text)];
 }
 .tab-button-count-active {
-    @apply bg-[var(--color-tab-active-count-bg)];
-    @apply text-[var(--color-tab-active-count-text)];
+    @apply mat:bg-[var(--color-tab-active-count-bg)];
+    @apply mat:text-[var(--color-tab-active-count-text)];
 }

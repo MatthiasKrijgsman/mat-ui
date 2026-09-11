@@ -112,12 +112,12 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
     <ControlSizeContext.Provider value={ size }>
       <div
         className={ classNames(
-          'flex flex-col',
+          'mat:flex mat:flex-col',
           className
         ) }>
         <InputLabel>{ label }</InputLabel>
 
-        <div className={ 'relative flex w-full flex-col' } ref={ anchorRef }>
+        <div className={ 'mat:relative mat:flex mat:w-full mat:flex-col' } ref={ anchorRef }>
           <SelectTrigger
             { ...getReferenceProps({
               ref,
@@ -152,8 +152,8 @@ export const InputSelect = <T, >(props: InputSelectProps<T>) => {
             onClear={ () => onChange(null) }
           />
           <Popover open={ open }>
-            <DropdownPanel className={ '!p-0' } style={ { maxHeight: maxHeight } }>
-              <div className={ 'flex flex-col p-2 gap-1' }>
+            <DropdownPanel className={ 'mat:!p-0' } style={ { maxHeight: maxHeight } }>
+              <div className={ 'mat:flex mat:flex-col mat:p-2 mat:gap-1' }>
                 { options.map((item, i) => {
                   if (!isSelectOption(item)) {
                     if (item.kind === 'header') {

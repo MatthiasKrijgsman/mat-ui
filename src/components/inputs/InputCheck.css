@@ -1,7 +1,7 @@
 .check-base {
-    @apply bg-[var(--color-input-bg)];
-    @apply border-[var(--color-check-border)];
-    @apply ring-[var(--color-check-ring)];
-    @apply checked:bg-[var(--color-check-checked-bg)] checked:border-[var(--color-check-checked-bg)];
-    @apply checked:hover:bg-[var(--color-check-checked-bg)] checked:hover:border-[var(--color-check-checked-bg)];
+    @apply mat:bg-[var(--color-input-bg)];
+    @apply mat:border-[var(--color-check-border)];
+    @apply mat:ring-[var(--color-check-ring)];
+    @apply mat:checked:bg-[var(--color-check-checked-bg)] mat:checked:border-[var(--color-check-checked-bg)];
+    @apply mat:checked:hover:bg-[var(--color-check-checked-bg)] mat:checked:hover:border-[var(--color-check-checked-bg)];
 }

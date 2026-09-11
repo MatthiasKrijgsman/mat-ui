@@ -16,19 +16,19 @@ export const TableEmpty = (props: TableEmptyProps) => {
   const { Icon, title, description, children, className } = props;
 
   return (
-    <div className={ classNames('flex flex-col items-center gap-3 text-center', className) }>
+    <div className={ classNames('mat:flex mat:flex-col mat:items-center mat:gap-3 mat:text-center', className) }>
       { Icon && (
-        <div className={ 'flex h-14 w-14 items-center justify-center rounded-[var(--border-radius-panel)] bg-[var(--color-table-header-bg)]' }>
-          <Icon className={ 'h-6 w-6 text-[var(--color-input-icon)]' }/>
+        <div className={ 'mat:flex mat:h-14 mat:w-14 mat:items-center mat:justify-center mat:rounded-[var(--border-radius-panel)] mat:bg-[var(--color-table-header-bg)]' }>
+          <Icon className={ 'mat:h-6 mat:w-6 mat:text-[var(--color-input-icon)]' }/>
         </div>
       ) }
       { (title || description) && (
-        <div className={ 'flex flex-col gap-1' }>
+        <div className={ 'mat:flex mat:flex-col mat:gap-1' }>
           { title && (
-            <div className={ 'font-[number:var(--font-weight-table-header)] text-[var(--color-input-text)]' }>{ title }</div>
+            <div className={ 'mat:font-[number:var(--font-weight-table-header)] mat:text-[var(--color-input-text)]' }>{ title }</div>
           ) }
           { description && (
-            <div className={ 'text-sm text-[var(--color-input-description-text)]' }>{ description }</div>
+            <div className={ 'mat:text-sm mat:text-[var(--color-input-description-text)]' }>{ description }</div>
           ) }
         </div>
       ) }
