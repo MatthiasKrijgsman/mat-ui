@@ -28,6 +28,7 @@ import {
   InputSelectSearchable,
   InputSelectSearchableAsync,
   InputSelectMultiple,
+  InputTags,
   InputLexical,
   InputRange,
   InputTextArea,
@@ -227,6 +228,9 @@ export default function Page() {
   // Tags
   const [ skills, setSkills ] = useState<string[]>([ 'typescript', 'react', 'tailwind' ]);
   const [ recipients, setRecipients ] = useState<string[]>([ 'alice', 'bram', 'chen', 'daria', 'eitan' ]);
+  const [ tags, setTags ] = useState<string[]>([ 'design', 'frontend' ]);
+  const [ caseNumbers, setCaseNumbers ] = useState<string[]>([ 'C/13/741234', 'C/13/741236' ]);
+  const [ slug, setSlug ] = useState('dieselgate');
 
   // Rich text (serialized Lexical state as JSON)
   const [ , setRichStatic ] = useState<string>('');
@@ -412,8 +416,8 @@ export default function Page() {
           {/* Inputs */ }
           <section id={ 'inputs' } className={ 'flex flex-col gap-6 scroll-mt-24' }>
             <h2>Text inputs</h2>
-            <div>Text, password, textarea and a hue/sat/value color picker — all share label, description, error and size.</div>
-            <ShowcaseImportPath path={ `import { Input, InputPassword, InputTextArea, InputColor, ColorPicker, ColorSwatch } from "@matthiaskrijgsman/mat-ui"` }/>
+            <div>Text, password, textarea, free-text tags and a hue/sat/value color picker — all share label, description, error and size.</div>
+            <ShowcaseImportPath path={ `import { Input, InputPassword, InputTextArea, InputTags, InputColor, ColorPicker, ColorSwatch } from "@matthiaskrijgsman/mat-ui"` }/>
             <Panel>
               <ShowcaseSection title={ 'Sizes' } layout={ 'vertical' } narrow={ true }>
                 <Input size={ 'lg' } placeholder={ 'Large' } className={ 'w-full' }/>
@@ -443,6 +447,27 @@ export default function Page() {
                 />
               </ShowcaseSection>
               <Divider/>
+              <ShowcaseSection title={ 'Prefix' } layout={ 'vertical' } narrow={ true }>
+                <Input
+                  label={ 'Slug' }
+                  description={ 'Fixed text inside the field; clicking it focuses the input.' }
+                  prefix={ '/zaken/' }
+                  value={ slug }
+                  onChange={ (e) => setSlug(e.target.value) }
+                  className={ 'w-full' }
+                />
+                <Input
+                  size={ 'sm' }
+                  variant={ 'flat' }
+                  label={ 'Website' }
+                  prefix={ 'https://' }
+                  Icon={ IconLink }
+                  placeholder={ 'example.com' }
+                  error={ 'Enter a domain.' }
+                  className={ 'w-full' }
+                />
+              </ShowcaseSection>
+              <Divider/>
               <ShowcaseSection title={ 'Password' } layout={ 'vertical' } narrow={ true }>
                 <InputPassword
                   label={ 'Password' }
@@ -459,6 +484,29 @@ export default function Page() {
                   placeholder={ 'Tell us about yourself…' }
                   autogrow={true}
                   maxRows={5}
+                  className={ 'w-full' }
+                />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Tags' } layout={ 'vertical' } narrow={ true }>
+                <InputTags
+                  label={ 'Tags' }
+                  description={ 'Enter or comma adds a tag; paste a list; Backspace removes the last.' }
+                  placeholder={ 'Add a tag…' }
+                  value={ tags }
+                  onChange={ setTags }
+                  className={ 'w-full' }
+                />
+                <InputTags
+                  label={ 'Case numbers' }
+                  description={ 'Monospace chips via badgeClassName, at most 5, Dutch remove labels.' }
+                  placeholder={ 'C/13/…' }
+                  color={ 'gray' }
+                  badgeClassName={ 'font-mono' }
+                  maxItems={ 5 }
+                  removeLabel={ (v) => `Verwijder ${ v }` }
+                  value={ caseNumbers }
+                  onChange={ setCaseNumbers }
                   className={ 'w-full' }
                 />
               </ShowcaseSection>

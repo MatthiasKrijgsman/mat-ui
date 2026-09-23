@@ -237,6 +237,13 @@
     --color-input-flat-bg: var(--mat-color-gray-100);
     --color-input-flat-border: var(--color-input-flat-bg);
 
+    /* Input — fixed prefix segment (`Input` `prefix`) */
+    --color-input-prefix-bg: var(--mat-color-gray-50);
+    --color-input-prefix-text: var(--mat-color-gray-500);
+    --color-input-prefix-border: var(--color-input-border);
+    --color-input-flat-prefix-bg: color-mix(in srgb, var(--mat-color-gray-900) 4%, transparent);
+    --color-input-flat-prefix-border: var(--mat-color-gray-200);
+
     /* Input label / description / error */
     --color-input-label-text: var(--mat-color-gray-900);
     --color-input-description-text: var(--mat-color-gray-500);
@@ -478,6 +485,13 @@
     /* Input — flat variant (soft fill, border matches the fill, no shadow) */
     --color-input-flat-bg: var(--mat-color-stone-800);
     --color-input-flat-border: var(--color-input-flat-bg);
+
+    /* Input — fixed prefix segment (`Input` `prefix`) */
+    --color-input-prefix-bg: var(--mat-color-stone-900);
+    --color-input-prefix-text: var(--mat-color-stone-400);
+    --color-input-prefix-border: var(--color-input-border);
+    --color-input-flat-prefix-bg: color-mix(in srgb, var(--mat-color-stone-100) 5%, transparent);
+    --color-input-flat-prefix-border: var(--mat-color-stone-700);
 
     /* Input label / description / error */
     --color-input-label-text: var(--mat-color-stone-100);

@@ -15,6 +15,17 @@
     @apply mat:border-[var(--color-input-border-error)];
     @apply mat:focus:ring-[var(--color-input-ring-error)];
 }
+/* Fixed prefix segment of `Input` — muted fill, vertical rule on its right. */
+.input-prefix {
+    @apply mat:bg-[var(--color-input-prefix-bg)];
+    @apply mat:text-[var(--color-input-prefix-text)];
+    @apply mat:border-r-[var(--color-input-prefix-border)];
+}
+/* Declared after .input-prefix so it wins at equal specificity. */
+.input-prefix-flat {
+    @apply mat:bg-[var(--color-input-flat-prefix-bg)];
+    @apply mat:border-r-[var(--color-input-flat-prefix-border)];
+}
 .input-icon {
     @apply mat:text-[var(--color-input-icon)];
 }

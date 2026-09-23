@@ -302,6 +302,16 @@ Field-like inputs (`Input`, `InputPassword`, `InputTextArea`, `InputColor`, `Inp
 | `--color-input-flat-bg` | Flat-variant input background | `#f3f4f6` |
 | `--color-input-flat-border` | Flat-variant input border (defaults to the flat background) | `var(--color-input-flat-bg)` |
 
+`Input`'s `prefix` (fixed text such as `/zaken/` before a slug) renders as a muted segment inside the field, set off by a vertical rule:
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-input-prefix-bg` | Prefix segment background | `#f9fafb` |
+| `--color-input-prefix-text` | Prefix text color | `#6b7280` |
+| `--color-input-prefix-border` | Rule between prefix and input (defaults to the input border) | `var(--color-input-border)` |
+| `--color-input-flat-prefix-bg` | Prefix segment background, flat variant | `rgb(17 24 39 / 0.04)` |
+| `--color-input-flat-prefix-border` | Rule between prefix and input, flat variant | `#e5e7eb` |
+
 (`InputCheck`, `InputRadio`, `InputToggle`, and the `InputFileMultiple` dropzone have no box chrome to flatten, so they don't take the variant.)
 
 ### Color — input labels, descriptions & errors
