@@ -178,7 +178,11 @@ export const Table = <T, >(props: TableProps<T>) => {
                     height: rowHeight,
                   } }
                 >
-                  <div className={'mat:break-all mat:line-clamp-1 mat:font-[number:var(--font-weight-table-cell)]'}>
+                  {/* One line that ends in an ellipsis. Not `line-clamp-1`: WebKit applies a
+                      -webkit-box clamp to the content's own layout, so a cell holding more than
+                      text (a thumbnail beside two lines, a badge) was cut at its first line with
+                      stray ellipses until a relayout. */}
+                  <div className={ 'mat:truncate mat:font-[number:var(--font-weight-table-cell)]' }>
                     { col.renderCell(row, rowIndex) }
                   </div>
                 </div>
