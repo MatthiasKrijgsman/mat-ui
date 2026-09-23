@@ -61,6 +61,7 @@ export { InputSelectDrilldown } from "./components/inputs/InputSelectDrilldown.t
 export { SelectTrigger } from "./components/inputs/SelectTrigger.tsx";
 export { InputSelectSearchableAsync } from "./components/inputs/InputSelectSearchableAsync.tsx";
 export { InputSelectMultiple } from "./components/inputs/InputSelectMultiple.tsx";
+export { InputTags } from "./components/inputs/InputTags.tsx";
 export { InputSelectOption } from "./components/inputs/InputSelectOption.tsx";
 export { InputSelectGroupHeader } from "./components/inputs/InputSelectGroupHeader.tsx";
 export { InputSelectDivider } from "./components/inputs/InputSelectDivider.tsx";

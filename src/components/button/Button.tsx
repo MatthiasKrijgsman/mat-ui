@@ -23,20 +23,20 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 }
 
 const base: string = `
-  inline-flex flex-row items-center justify-center
-  button-ring font-[number:var(--font-weight-button)] font-[family-name:var(--font-family-base)] ring-0 disabled:hover:ring-0 hover:ring-[length:var(--control-ring-width)] active:ring-[length:var(--control-ring-width-active)]
-  rounded-[var(--border-radius-button)]
-  cursor-pointer transition-all duration-[var(--control-transition-duration)] select-none focus:outline-none focus:ring-[length:var(--control-ring-width)]
-  disabled:cursor-default
+  mat:inline-flex mat:flex-row mat:items-center mat:justify-center
+  button-ring mat:font-[number:var(--font-weight-button)] mat:font-[family-name:var(--font-family-base)] mat:ring-0 mat:disabled:hover:ring-0 mat:hover:ring-[length:var(--control-ring-width)] mat:active:ring-[length:var(--control-ring-width-active)]
+  mat:rounded-[var(--border-radius-button)]
+  mat:cursor-pointer mat:transition-all mat:duration-[var(--control-transition-duration)] mat:select-none mat:focus:outline-none mat:focus:ring-[length:var(--control-ring-width)]
+  mat:disabled:cursor-default
   `;
 
 const variantClasses: Record<Variant, string> = {
-  primary: 'border-[length:var(--border-width-input)] button-primary shadow-[var(--shadow-control)]',
-  secondary: 'border-[length:var(--border-width-input)] button-secondary shadow-[var(--shadow-control)]',
-  tertiary: 'border-[length:var(--border-width-input)] button-tertiary',
-  white: 'border-[length:var(--border-width-input)] button-white shadow-[var(--shadow-control)]',
-  black: 'border-[length:var(--border-width-input)] button-black shadow-[var(--shadow-control)]',
-  transparent: 'border-[length:var(--border-width-input)] button-transparent'
+  primary: 'mat:border-[length:var(--border-width-input)] button-primary mat:shadow-[var(--shadow-control)]',
+  secondary: 'mat:border-[length:var(--border-width-input)] button-secondary mat:shadow-[var(--shadow-control)]',
+  tertiary: 'mat:border-[length:var(--border-width-input)] button-tertiary',
+  white: 'mat:border-[length:var(--border-width-input)] button-white mat:shadow-[var(--shadow-control)]',
+  black: 'mat:border-[length:var(--border-width-input)] button-black mat:shadow-[var(--shadow-control)]',
+  transparent: 'mat:border-[length:var(--border-width-input)] button-transparent'
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
@@ -68,9 +68,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
     >
       { loading && <Spinner className={ classNames(sizeIconClasses[size]) } /> }
       { !loading && (<>
-        { Icon && <Icon className={ classNames(sizeIconClasses[size], '-ml-1') }/> }
+        { Icon && <Icon className={ classNames(sizeIconClasses[size], 'mat:-ml-1') }/> }
         { children }
-        { IconRight && <IconRight className={ classNames(sizeIconClasses[size], '-mr-1') }/> }
+        { IconRight && <IconRight className={ classNames(sizeIconClasses[size], 'mat:-mr-1') }/> }
       </>) }
     </button>
   );

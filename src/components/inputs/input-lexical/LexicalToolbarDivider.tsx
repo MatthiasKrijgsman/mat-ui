@@ -22,8 +22,8 @@ export const LexicalToolbarDivider = (props: LexicalToolbarDividerProps) => {
   return (
     <div
       className={ classNames(
-        vertical ? "h-px w-full my-1" : "w-px h-5 my-auto mx-1",
-        "shrink-0",
+        vertical ? "mat:h-px mat:w-full mat:my-1" : "mat:w-px mat:h-5 mat:my-auto mat:mx-1",
+        "mat:shrink-0",
         toneClasses[tone],
         className,
       ) }
@@ -42,7 +42,7 @@ export const LexicalToolbarRowDivider = (props: LexicalToolbarRowDividerProps) =
   return (
     <div
       className={ classNames(
-        "h-px w-full my-1 shrink-0",
+        "mat:h-px mat:w-full mat:my-1 mat:shrink-0",
         toneClasses[tone],
         className,
       ) }

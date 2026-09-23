@@ -32,29 +32,29 @@ export const TableColumnHead = <T, >(props: TableColumnHeadProps<T>) => {
   return (
     <div
       style={ { width, height } }
-      className={ 'flex flex-row items-stretch select-none shrink-0' }
+      className={ 'mat:flex mat:flex-row mat:items-stretch mat:select-none mat:shrink-0' }
     >
       <div
         className={ classNames(
-          'flex-1 min-w-0 px-4 table-header-cell transition-colors duration-[var(--control-transition-duration-fast)] flex flex-row items-center gap-2',
-          sortable && 'cursor-pointer',
+          'mat:flex-1 mat:min-w-0 mat:px-4 table-header-cell mat:transition-colors mat:duration-[var(--control-transition-duration-fast)] mat:flex mat:flex-row mat:items-center mat:gap-2',
+          sortable && 'mat:cursor-pointer',
         ) }
         onClick={ sortable ? onSortClick : undefined }
       >
-        <span className={ 'truncate' }>{ column.header }</span>
+        <span className={ 'mat:truncate' }>{ column.header }</span>
         { sortable && sortDirection === 'asc' && (
-          <IconChevronUp className={ 'h-4 w-4 shrink-0' }/>
+          <IconChevronUp className={ 'mat:h-4 mat:w-4 mat:shrink-0' }/>
         ) }
         { sortable && sortDirection === 'desc' && (
-          <IconChevronDown className={ 'h-4 w-4 shrink-0' }/>
+          <IconChevronDown className={ 'mat:h-4 mat:w-4 mat:shrink-0' }/>
         ) }
       </div>
       <div
         { ...bind }
-        className={ 'cursor-ew-resize group py-4 table-resize-handle w-[8px]' }
+        className={ 'mat:cursor-ew-resize mat:group mat:py-4 table-resize-handle mat:w-[8px]' }
       >
         <div
-          className={ 'w-0.5 h-full mx-auto table-resize-divider table-resize-divider-hover pointer-events-none' }/>
+          className={ 'mat:w-0.5 mat:h-full mat:mx-auto table-resize-divider table-resize-divider-hover mat:pointer-events-none' }/>
       </div>
     </div>
   );

@@ -52,14 +52,14 @@ export const InputSelectNative = (props: InputSelectNativeProps) => {
     <ControlSizeContext.Provider value={ size }>
       <div
         className={ classNames(
-          'flex flex-col',
+          'mat:flex mat:flex-col',
           className
         ) }>
         <InputLabel>{ label }</InputLabel>
-        <div className={ 'relative flex w-full flex-col' }>
+        <div className={ 'mat:relative mat:flex mat:w-full mat:flex-col' }>
           <select
             className={ classNames(
-              'appearance-none border-[length:var(--border-width-input)] input-base bg-none transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
+              'mat:appearance-none mat:border-[length:var(--border-width-input)] input-base mat:bg-none mat:transition-all mat:duration-[var(--control-transition-duration)] mat:rounded-[var(--border-radius-input)] mat:ring-0 mat:focus:ring-[length:var(--control-ring-width)] mat:focus:outline-none mat:font-[number:var(--font-weight-input-text)] mat:font-[family-name:var(--font-family-base)]',
               inputVariantClasses[variant],
               sizeHeightClasses[size],
               sizeFontClasses[size],

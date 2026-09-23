@@ -10,7 +10,7 @@ export type PanelFieldProps = React.HTMLAttributes<HTMLDivElement> & {
   orientation?: PanelFieldOrientation;
 }
 
-const labelClasses: string = 'input-description text-[length:var(--font-size-description)] font-[number:var(--font-weight-panel-field)]';
+const labelClasses: string = 'input-description mat:text-[length:var(--font-size-description)] mat:font-[number:var(--font-weight-panel-field)]';
 
 export const PanelField = (props: PanelFieldProps) => {
 
@@ -26,13 +26,13 @@ export const PanelField = (props: PanelFieldProps) => {
     return (
       <div
         className={ classNames(
-          'flex flex-row items-center gap-3 px-3 py-2',
+          'mat:flex mat:flex-row mat:items-center mat:gap-3 mat:px-3 mat:py-2',
           className
         ) }
         { ...rest }
       >
-        <div className={ classNames(labelClasses, 'w-1/2 line-clamp-1 break-all') }>{ label }</div>
-        <div className={ 'w-1/2 line-clamp-1 break-all' }>{ children }</div>
+        <div className={ classNames(labelClasses, 'mat:w-1/2 mat:line-clamp-1 mat:break-all') }>{ label }</div>
+        <div className={ 'mat:w-1/2 mat:line-clamp-1 mat:break-all' }>{ children }</div>
       </div>
     );
   }
@@ -40,7 +40,7 @@ export const PanelField = (props: PanelFieldProps) => {
   return (
     <div
       className={ classNames(
-        'flex flex-col gap-1 px-3 py-2',
+        'mat:flex mat:flex-col mat:gap-1 mat:px-3 mat:py-2',
         className
       ) }
       { ...rest }

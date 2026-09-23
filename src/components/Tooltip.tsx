@@ -24,9 +24,9 @@ export type TooltipProps = {
  * every default resolves to the dropdown-panel values the tooltip used
  * before it had its own tokens, so overriding nothing changes nothing. */
 const panelClasses =
-  'tooltip-panel flex flex-col border-[length:var(--border-width-tooltip)] ' +
-  'rounded-[var(--border-radius-tooltip)] shadow-[var(--shadow-tooltip)] ' +
-  'px-[var(--tooltip-padding-x)] py-[var(--tooltip-padding-y)] overflow-hidden';
+  'tooltip-panel mat:flex mat:flex-col mat:border-[length:var(--border-width-tooltip)] ' +
+  'mat:rounded-[var(--border-radius-tooltip)] mat:shadow-[var(--shadow-tooltip)] ' +
+  'mat:px-[var(--tooltip-padding-x)] mat:py-[var(--tooltip-padding-y)] mat:overflow-hidden';
 
 export const Tooltip = (props: TooltipProps) => {
   const {

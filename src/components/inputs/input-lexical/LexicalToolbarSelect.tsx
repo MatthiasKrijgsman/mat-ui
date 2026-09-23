@@ -43,12 +43,12 @@ export const LexicalToolbarSelect = <T, >(props: LexicalToolbarSelectProps<T>) =
           title={ title }
           onMouseDown={ (event) => event.preventDefault() }
           className={ classNames(
-            "lexical-tb-btn h-8 px-2 gap-1 text-sm font-[number:var(--font-weight-input-option-label)]",
+            "lexical-tb-btn mat:h-8 mat:px-2 mat:gap-1 mat:text-sm mat:font-[number:var(--font-weight-input-option-label)]",
             tone === "dark" ? "lexical-tb-btn-dark" : "lexical-tb-btn-light",
           ) }
         >
-          <span className={ "break-all line-clamp-1" }>{ current ? current.label : placeholder }</span>
-          <IconChevronDown className={ "h-4 w-4 shrink-0" }/>
+          <span className={ "mat:break-all mat:line-clamp-1" }>{ current ? current.label : placeholder }</span>
+          <IconChevronDown className={ "mat:h-4 mat:w-4 mat:shrink-0" }/>
         </button>
       }
     >
@@ -56,7 +56,7 @@ export const LexicalToolbarSelect = <T, >(props: LexicalToolbarSelectProps<T>) =
         <DropdownButton
           Icon={ value === null ? IconCheck : undefined }
           onClick={ () => onChange(null) }
-          className={ value === null ? undefined : "pl-11" }
+          className={ value === null ? undefined : "mat:pl-11" }
         >
           { clearLabel ?? placeholder }
         </DropdownButton>
@@ -66,7 +66,7 @@ export const LexicalToolbarSelect = <T, >(props: LexicalToolbarSelectProps<T>) =
           key={ index }
           Icon={ option.value === value ? IconCheck : undefined }
           onClick={ () => onChange(option.value) }
-          className={ option.value === value ? undefined : "pl-11" }
+          className={ option.value === value ? undefined : "mat:pl-11" }
         >
           { option.label }
         </DropdownButton>

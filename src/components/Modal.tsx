@@ -36,7 +36,7 @@ export const Modal = (props: ModalProps) => {
       { open && (
         <FloatingPortal>
           <motion.div
-            className={ 'fixed inset-0 z-40' }
+            className={ 'mat:fixed mat:inset-0 mat:z-40' }
             style={ { transformOrigin: 'center' } }
             initial={ { opacity: 0 } }
             animate={ { opacity: 1 } }
@@ -44,16 +44,16 @@ export const Modal = (props: ModalProps) => {
             transition={ { duration: 0.15, ease: "easeInOut" } }
           >
             <FloatingOverlay
-              className={ 'modal-overlay backdrop-blur-[1px]' }
+              className={ 'modal-overlay mat:backdrop-blur-[1px]' }
               onClick={ enableDismissOnOutsideClick ? onDismiss : undefined }
               lockScroll={ true }
             />
           </motion.div>
 
-          <div className={ 'fixed inset-0 flex flex-col items-center pointer-events-none p-4 lg:p-12 overflow-y-auto z-50' }>
+          <div className={ 'mat:fixed mat:inset-0 mat:flex mat:flex-col mat:items-center mat:pointer-events-none mat:p-4 mat:lg:p-12 mat:overflow-y-auto mat:z-50' }>
             <motion.div
               className={ classNames(
-                'flex flex-col modal-content rounded-[var(--border-radius-panel)] shadow-[var(--shadow-overlay)] p-6 lg:p-12 pointer-events-auto w-full relative',
+                'mat:flex mat:flex-col modal-content mat:rounded-[var(--border-radius-panel)] mat:shadow-[var(--shadow-overlay)] mat:p-6 mat:lg:p-12 mat:pointer-events-auto mat:w-full mat:relative',
                 className
               ) }
               style={ { transformOrigin: 'bottom', maxWidth: maxWidth } }
@@ -65,7 +65,7 @@ export const Modal = (props: ModalProps) => {
               { enableDismissButton && (
                 <ButtonIconRound
                   Icon={ IconX }
-                  className={ 'absolute top-4 right-4' }
+                  className={ 'mat:absolute mat:top-4 mat:right-4' }
                   variant={ 'transparent' }
                   size={ 'sm' }
                   onClick={ onDismiss }

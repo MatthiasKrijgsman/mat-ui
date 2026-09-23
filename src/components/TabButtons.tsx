@@ -9,19 +9,19 @@ export type Size = 'sm' | 'md' | 'lg';
 /* Tab-specific size maps — the tokens default to the shared control scale
  * (see tokens.css), so tabs match buttons/inputs until a host overrides them. */
 const tabHeightClasses: Record<Size, string> = {
-  sm: 'h-[var(--control-size-sm-tab-height)]',
-  md: 'h-[var(--control-size-md-tab-height)]',
-  lg: 'h-[var(--control-size-lg-tab-height)]',
+  sm: 'mat:h-[var(--control-size-sm-tab-height)]',
+  md: 'mat:h-[var(--control-size-md-tab-height)]',
+  lg: 'mat:h-[var(--control-size-lg-tab-height)]',
 };
 const tabPaddingXClasses: Record<Size, string> = {
-  sm: 'px-[var(--control-size-sm-tab-px)]',
-  md: 'px-[var(--control-size-md-tab-px)]',
-  lg: 'px-[var(--control-size-lg-tab-px)]',
+  sm: 'mat:px-[var(--control-size-sm-tab-px)]',
+  md: 'mat:px-[var(--control-size-md-tab-px)]',
+  lg: 'mat:px-[var(--control-size-lg-tab-px)]',
 };
 const tabFontClasses: Record<Size, string> = {
-  sm: 'text-[length:var(--control-size-sm-tab-font-size)]',
-  md: 'text-[length:var(--control-size-md-tab-font-size)]',
-  lg: 'text-[length:var(--control-size-lg-tab-font-size)]',
+  sm: 'mat:text-[length:var(--control-size-sm-tab-font-size)]',
+  md: 'mat:text-[length:var(--control-size-md-tab-font-size)]',
+  lg: 'mat:text-[length:var(--control-size-lg-tab-font-size)]',
 };
 
 export type TabButton = {
@@ -53,31 +53,31 @@ export const TabButtons = (props: TabButtonsProps) => {
   return (
     <ControlSizeContext.Provider value={ size }>
       <div className={ classNames(
-        'tab-container p-[var(--tab-container-padding)] rounded-[var(--border-radius-tab)] flex-row gap-[var(--tab-container-gap)]',
-        fullWidth ? 'flex w-full' : 'inline-flex overflow-x-auto mat-ui-hide-scrollbars',
+        'tab-container mat:p-[var(--tab-container-padding)] mat:rounded-[var(--border-radius-tab)] mat:flex-row mat:gap-[var(--tab-container-gap)]',
+        fullWidth ? 'mat:flex mat:w-full' : 'mat:inline-flex mat:overflow-x-auto mat-ui-hide-scrollbars',
         tabHeightClasses[size],
         className
       ) }>
         { tabs.map((tab, i) => {
           const iconOnly = !!tab.Icon && tab.label == null;
           const tabClasses = classNames(
-            'h-full inline-flex flex-row items-center font-[number:var(--font-weight-tab)] font-[family-name:var(--font-family-base)] rounded-[var(--border-radius-tab-inner)] cursor-pointer border border-transparent ring-0 tab-button transition-all duration-[var(--control-transition-duration)] select-none focus:outline-none focus:ring-0',
-            fullWidth ? 'flex-1 basis-0 min-w-0 justify-center' : 'shrink-0',
-            iconOnly && 'justify-center',
+            'mat:h-full mat:inline-flex mat:flex-row mat:items-center mat:font-[number:var(--font-weight-tab)] mat:font-[family-name:var(--font-family-base)] mat:rounded-[var(--border-radius-tab-inner)] mat:cursor-pointer mat:border mat:border-transparent mat:ring-0 tab-button mat:transition-all mat:duration-[var(--control-transition-duration)] mat:select-none mat:focus:outline-none mat:focus:ring-0',
+            fullWidth ? 'mat:flex-1 mat:basis-0 mat:min-w-0 mat:justify-center' : 'mat:shrink-0',
+            iconOnly && 'mat:justify-center',
             tabPaddingXClasses[size],
             tabFontClasses[size],
             sizeGapClasses[size],
-            tab.active && 'tab-button-active shadow-[var(--shadow-control)]'
+            tab.active && 'tab-button-active mat:shadow-[var(--shadow-control)]'
           )
           const content = (
             <>
               { tab.Icon && (
-                <tab.Icon className={ classNames(sizeIconClasses[size], 'shrink-0', !iconOnly && '-ml-1') } />
+                <tab.Icon className={ classNames(sizeIconClasses[size], 'mat:shrink-0', !iconOnly && 'mat:-ml-1') } />
               ) }
               { tab.label }
               { tab.count != null && (
                 <span className={ classNames(
-                  'shrink-0 inline-flex items-center justify-center h-5 min-w-5 px-1.5 rounded-full font-[number:var(--font-weight-tab-count)] font-[family-name:var(--font-family-base)] text-[length:var(--font-size-tab-count)]',
+                  'mat:shrink-0 mat:inline-flex mat:items-center mat:justify-center mat:h-5 mat:min-w-5 mat:px-1.5 mat:rounded-full mat:font-[number:var(--font-weight-tab-count)] mat:font-[family-name:var(--font-family-base)] mat:text-[length:var(--font-size-tab-count)]',
                   tab.active ? 'tab-button-count-active' : 'tab-button-count'
                 ) }>
                   { tab.count }

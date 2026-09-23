@@ -67,23 +67,23 @@ export const SelectTrigger = React.forwardRef<HTMLDivElement, SelectTriggerProps
       <div
         ref={ ref }
         className={ classNames(
-          'flex flex-row items-center border-[length:var(--border-width-input)] select-trigger transition-all duration-[var(--control-transition-duration)] rounded-[var(--border-radius-input)] ring-0 focus:ring-[length:var(--control-ring-width)] focus:outline-none select-none font-[number:var(--font-weight-input-text)] font-[family-name:var(--font-family-base)]',
+          'mat:flex mat:flex-row mat:items-center mat:border-[length:var(--border-width-input)] select-trigger mat:transition-all mat:duration-[var(--control-transition-duration)] mat:rounded-[var(--border-radius-input)] mat:ring-0 mat:focus:ring-[length:var(--control-ring-width)] mat:focus:outline-none mat:select-none mat:font-[number:var(--font-weight-input-text)] mat:font-[family-name:var(--font-family-base)]',
           selectTriggerVariantClasses[variant],
           sizeHeightClasses[size],
           sizeFontClasses[size],
           sizePaddingLeftClasses[size],
           clearable && hasValue ? sizePaddingRightWithTrayTwoClasses[size] : sizePaddingRightWithTrayClasses[size],
           disabled ? 'select-trigger-disabled' : error && 'select-trigger-error',
-          !disabled && open && 'ring-[length:var(--control-ring-width)]',
+          !disabled && open && 'mat:ring-[length:var(--control-ring-width)]',
           className,
         ) }
         { ...rest }
       >
         { selectedLabel && (
-          <span className={ 'flex-1 min-w-0 break-all line-clamp-1 text-left' }>{ selectedLabel }</span>
+          <span className={ 'mat:flex-1 mat:min-w-0 mat:break-all mat:line-clamp-1 mat:text-left' }>{ selectedLabel }</span>
         ) }
         { !selectedLabel && placeholder && (
-          <span className={ 'flex-1 min-w-0 break-all line-clamp-1 text-left select-placeholder' }>{ placeholder }</span>
+          <span className={ 'mat:flex-1 mat:min-w-0 mat:break-all mat:line-clamp-1 mat:text-left select-placeholder' }>{ placeholder }</span>
         ) }
       </div>
       <InputIconButtonTray>

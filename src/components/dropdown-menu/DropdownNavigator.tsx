@@ -51,7 +51,7 @@ export const DropdownNavigator = (props: DropdownNavigatorProps) => {
            parent (e.g. InputSelectDrilldown's maxHeight) scrolls instead of
            clipping — `overflow` also gives this flex child min-height:0 so it
            shrinks to the cap and becomes the scroll container. */ }
-      <div className={ 'flex flex-col overflow-x-hidden overflow-y-auto' }>
+      <div className={ 'mat:flex mat:flex-col mat:overflow-x-hidden mat:overflow-y-auto' }>
         <AnimatePresence initial={ false } mode={ 'wait' } custom={ direction }>
           <motion.div
             key={ levelKey }
@@ -61,11 +61,11 @@ export const DropdownNavigator = (props: DropdownNavigatorProps) => {
             animate={ 'center' }
             exit={ 'exit' }
             transition={ { duration: 0.15, ease: 'easeInOut' } }
-            className={ 'flex flex-col space-y-1 p-2' }
+            className={ 'mat:flex mat:flex-col mat:space-y-1 mat:p-2' }
           >
             { current && (
-              <DropdownButton dismissOnClick={ false } Icon={ IconChevronLeft } onClick={ pop } className={ 'mb-1' }>
-                <span className={ 'flex-1 text-left font-[number:var(--font-weight-group-header)]' }>{ current.label }</span>
+              <DropdownButton dismissOnClick={ false } Icon={ IconChevronLeft } onClick={ pop } className={ 'mat:mb-1' }>
+                <span className={ 'mat:flex-1 mat:text-left mat:font-[number:var(--font-weight-group-header)]' }>{ current.label }</span>
               </DropdownButton>
             ) }
             { content }

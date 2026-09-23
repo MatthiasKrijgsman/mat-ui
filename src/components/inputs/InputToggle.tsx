@@ -20,31 +20,31 @@ export const InputToggle = (props: InputToggleProps) => {
   return (
     <div
       className={ classNames(
-        'flex flex-col',
+        'mat:flex mat:flex-col',
         className
       ) }
     >
-      <div className={ 'flex flex-row gap-3' }>
-        <div className={'relative shrink-0 h-6 w-10'}>
+      <div className={ 'mat:flex mat:flex-row mat:gap-3' }>
+        <div className={'mat:relative mat:shrink-0 mat:h-6 mat:w-10'}>
           <input
             type={ 'checkbox' }
-            className={ 'appearance-none absolute inset-0 h-6 w-10 rounded-full checked:bg-transparent border-0 toggle-input ring-0 hover:ring-[length:var(--control-ring-width)] focus:ring-[length:var(--control-ring-width)] ring-offset-0 focus:outline-0 transition-all duration-[var(--control-transition-duration)]' }
+            className={ 'mat:appearance-none mat:absolute mat:inset-0 mat:h-6 mat:w-10 mat:rounded-full mat:checked:bg-transparent mat:border-0 toggle-input mat:ring-0 mat:hover:ring-[length:var(--control-ring-width)] mat:focus:ring-[length:var(--control-ring-width)] mat:ring-offset-0 mat:focus:outline-0 mat:transition-all mat:duration-[var(--control-transition-duration)]' }
             { ...rest }
           />
           <div className={classNames(
-            'rounded-full absolute border inset-0 pointer-events-none transition-colors duration-[var(--control-transition-duration)] ',
+            'mat:rounded-full mat:absolute mat:border mat:inset-0 mat:pointer-events-none mat:transition-colors mat:duration-[var(--control-transition-duration)] ',
             props.checked ? 'toggle-track-on' : 'toggle-track-off'
           )}>
             <div className={classNames(
-              'absolute top-1/2 -translate-y-1/2 left-1 h-4 w-4 rounded-full toggle-thumb shadow-md transition-all duration-[var(--control-transition-duration)]',
-              props.checked && 'translate-x-3.5 '
+              'mat:absolute mat:top-1/2 mat:-translate-y-1/2 mat:left-1 mat:h-4 mat:w-4 mat:rounded-full toggle-thumb mat:shadow-md mat:transition-all mat:duration-[var(--control-transition-duration)]',
+              props.checked && 'mat:translate-x-3.5 '
             )}/>
           </div>
         </div>
         { label && (
           <label htmlFor={ props.id } className={ classNames(
-            'input-label font-[number:var(--font-weight-input-option-label)] mb-1',
-            props.id && 'cursor-pointer'
+            'input-label mat:font-[number:var(--font-weight-input-option-label)] mat:mb-1',
+            props.id && 'mat:cursor-pointer'
           ) }>{ label }</label>
         ) }
       </div>

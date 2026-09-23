@@ -58,6 +58,7 @@ export type { InputSelectDividerProps } from "./components/inputs/InputSelectDiv
 export type { InputSelectSearchableProps, Option as InputSelectSearchableOption, Size as InputSelectSearchableSize } from "./components/inputs/InputSelectSearchable.tsx";
 export type { InputSelectSearchableAsyncProps, Option as InputSelectSearchableAsyncOption, Size as InputSelectSearchableAsyncSize } from "./components/inputs/InputSelectSearchableAsync.tsx";
 export type { InputSelectMultipleProps, Size as InputSelectMultipleSize } from "./components/inputs/InputSelectMultiple.tsx";
+export type { InputTagsProps, Size as InputTagsSize } from "./components/inputs/InputTags.tsx";
 export type { InputSelectOptionProps } from "./components/inputs/InputSelectOption.tsx";
 
 // Layout and feedback

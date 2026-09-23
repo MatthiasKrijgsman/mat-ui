@@ -1,12 +1,12 @@
 .table-header {
-    @apply bg-[var(--color-table-header-bg)];
-    @apply text-[var(--color-table-header-text)];
+    @apply mat:bg-[var(--color-table-header-bg)];
+    @apply mat:text-[var(--color-table-header-text)];
 }
 .table-header-strip {
-    @apply border-b border-[var(--color-table-border)];
+    @apply mat:border-b mat:border-[var(--color-table-border)];
 }
 .table-header-cell {
-    @apply bg-[var(--color-table-header-bg)] text-sm;
+    @apply mat:bg-[var(--color-table-header-bg)] mat:text-sm;
     font-weight: var(--font-weight-table-header);
 }
 .table-header-cell:hover {
@@ -16,20 +16,20 @@
     background-color: var(--color-table-header-bg-active);
 }
 .table-body-row {
-    @apply bg-[var(--color-table-row-bg)];
-    @apply text-[var(--color-table-row-text)];
-    @apply border-b border-[var(--color-table-border)];
+    @apply mat:bg-[var(--color-table-row-bg)];
+    @apply mat:text-[var(--color-table-row-text)];
+    @apply mat:border-b mat:border-[var(--color-table-border)];
 }
 .table-body-row:hover {
     background-color: var(--color-table-row-bg-hover);
 }
 .table-resize-handle {
-    @apply bg-[var(--color-table-header-bg)];
+    @apply mat:bg-[var(--color-table-header-bg)];
 }
 .table-resize-divider {
-    @apply bg-[var(--color-table-resize-handle)];
+    @apply mat:bg-[var(--color-table-resize-handle)];
 }
 .table-resize-divider-hover {
-    @apply group-hover:bg-[var(--color-table-resize-handle-hover)];
-    @apply group-active:bg-[var(--color-table-resize-handle-active)];
+    @apply mat:group-hover:bg-[var(--color-table-resize-handle-hover)];
+    @apply mat:group-active:bg-[var(--color-table-resize-handle-active)];
 }

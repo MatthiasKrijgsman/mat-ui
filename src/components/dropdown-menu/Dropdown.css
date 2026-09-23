@@ -1,14 +1,14 @@
 .dropdown-panel {
-    @apply bg-[var(--color-dropdown-bg)];
-    @apply border-[var(--color-dropdown-border)];
-    @apply text-[var(--color-dropdown-item-text)];
+    @apply mat:bg-[var(--color-dropdown-bg)];
+    @apply mat:border-[var(--color-dropdown-border)];
+    @apply mat:text-[var(--color-dropdown-item-text)];
 }
 .dropdown-item {
-    @apply text-[var(--color-dropdown-item-text)];
-    @apply hover:bg-[var(--color-dropdown-item-bg-hover)];
-    @apply active:bg-[var(--color-dropdown-item-bg-active)];
-    @apply ring-[var(--color-dropdown-item-ring)];
+    @apply mat:text-[var(--color-dropdown-item-text)];
+    @apply mat:hover:bg-[var(--color-dropdown-item-bg-hover)];
+    @apply mat:active:bg-[var(--color-dropdown-item-bg-active)];
+    @apply mat:ring-[var(--color-dropdown-item-ring)];
 }
 .dropdown-group-label {
-    @apply text-[var(--color-dropdown-group-label)];
+    @apply mat:text-[var(--color-dropdown-group-label)];
 }

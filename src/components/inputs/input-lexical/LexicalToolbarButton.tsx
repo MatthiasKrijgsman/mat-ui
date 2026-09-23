@@ -30,14 +30,14 @@ export const LexicalToolbarButton = React.forwardRef<HTMLButtonElement, LexicalT
         type={ "button" }
         onMouseDown={ handleMouseDown }
         className={ classNames(
-          "lexical-tb-btn h-8 w-8",
+          "lexical-tb-btn mat:h-8 mat:w-8",
           toneClasses[tone],
           active && "lexical-tb-btn-active",
           className,
         ) }
         { ...rest }
       >
-        <Icon className={ "h-[18px] w-[18px]" }/>
+        <Icon className={ "mat:h-[18px] mat:w-[18px]" }/>
       </button>
     );
   },

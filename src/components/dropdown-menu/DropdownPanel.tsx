@@ -8,12 +8,12 @@ export type DropdownPanelProps = React.HTMLProps<HTMLDivElement> & {
   padding?: Size;
 }
 
-const baseClassName: string = 'flex flex-col dropdown-panel border-[length:var(--border-width-input)] mt-1 rounded-[var(--border-radius-dropdown)] shadow-[var(--shadow-dropdown)] overflow-x-hidden overflow-y-auto relative space-y-1';
+const baseClassName: string = 'mat:flex mat:flex-col dropdown-panel mat:border-[length:var(--border-width-input)] mat:mt-1 mat:rounded-[var(--border-radius-dropdown)] mat:shadow-[var(--shadow-dropdown)] mat:overflow-x-hidden mat:overflow-y-auto mat:relative mat:space-y-1';
 
 const paddingClasses: Record<Size, string> = {
-  sm: 'p-2',
-  md: 'p-3',
-  lg: 'p-4'
+  sm: 'mat:p-2',
+  md: 'mat:p-3',
+  lg: 'mat:p-4'
 }
 
 export const DropdownPanel = (props: DropdownPanelProps) => {

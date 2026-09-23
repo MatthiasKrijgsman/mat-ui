@@ -20,10 +20,10 @@ const statusIcons: Record<PanelLinkStatus, TablerIcon> = {
 };
 
 const statusColorClasses: Record<PanelLinkStatus, string> = {
-  error: 'text-[var(--color-status-error)]',
-  warning: 'text-[var(--color-status-warning)]',
-  success: 'text-[var(--color-status-success)]',
-  info: 'text-[var(--color-status-info)]',
+  error: 'mat:text-[var(--color-status-error)]',
+  warning: 'mat:text-[var(--color-status-warning)]',
+  success: 'mat:text-[var(--color-status-success)]',
+  info: 'mat:text-[var(--color-status-info)]',
 };
 
 type PanelLinkBaseProps = {
@@ -42,7 +42,7 @@ type PanelLinkButtonProps = PanelLinkBaseProps
 
 export type PanelLinkProps = PanelLinkAnchorProps | PanelLinkButtonProps;
 
-const base: string = `inline-flex flex-row gap-3 items-center justify-between h-10 px-3 font-[number:var(--font-weight-panel-link)] font-[family-name:var(--font-family-base)] ring-0 dropdown-item rounded-[var(--border-radius-menu-item)] cursor-pointer transition-all duration-[var(--control-transition-duration)] select-none focus:outline-none focus:ring-0 border border-transparent bg-transparent`;
+const base: string = `mat:inline-flex mat:flex-row mat:gap-3 mat:items-center mat:justify-between mat:h-10 mat:px-3 mat:font-[number:var(--font-weight-panel-link)] mat:font-[family-name:var(--font-family-base)] mat:ring-0 dropdown-item mat:rounded-[var(--border-radius-menu-item)] mat:cursor-pointer mat:transition-all mat:duration-[var(--control-transition-duration)] mat:select-none mat:focus:outline-none mat:focus:ring-0 mat:border mat:border-transparent mat:bg-transparent`;
 
 export const PanelLink = (props: PanelLinkProps) => {
 
@@ -58,15 +58,15 @@ export const PanelLink = (props: PanelLinkProps) => {
 
   const content = (
     <>
-      <span className={ 'inline-flex flex-row items-center gap-3 min-w-0' }>
-        { Icon && <Icon className={ 'h-5 w-5 shrink-0' }/> }
-        <span className={ 'truncate' }>{ children }</span>
+      <span className={ 'mat:inline-flex mat:flex-row mat:items-center mat:gap-3 mat:min-w-0' }>
+        { Icon && <Icon className={ 'mat:h-5 mat:w-5 mat:shrink-0' }/> }
+        <span className={ 'mat:truncate' }>{ children }</span>
       </span>
-      <span className={ 'inline-flex flex-row items-center gap-2 shrink-0' }>
+      <span className={ 'mat:inline-flex mat:flex-row mat:items-center mat:gap-2 mat:shrink-0' }>
         { StatusIcon && status && (
-          <StatusIcon className={ classNames('h-5 w-5', statusColorClasses[status]) }/>
+          <StatusIcon className={ classNames('mat:h-5 mat:w-5', statusColorClasses[status]) }/>
         ) }
-        <IconChevronRight className={ 'h-5 w-5 text-[var(--color-input-icon-button-icon)]' }/>
+        <IconChevronRight className={ 'mat:h-5 mat:w-5 mat:text-[var(--color-input-icon-button-icon)]' }/>
       </span>
     </>
   );

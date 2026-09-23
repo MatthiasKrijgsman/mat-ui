@@ -52,8 +52,8 @@ const sampleColumns = [
 
 export const Test = () => {
   return (
-    <div className={ 'flex flex-col gap-6' }>
-      <div className={ 'flex flex-row items-center justify-start gap-3' }>
+    <div className={ 'mat:flex mat:flex-col mat:gap-6' }>
+      <div className={ 'mat:flex mat:flex-row mat:items-center mat:justify-start mat:gap-3' }>
         <Input Icon={ IconSearch } placeholder={ 'Search...' }/>
         <ButtonIconSquare Icon={ IconSettings }/>
         <Button Icon={ IconPlus }>New</Button>
@@ -62,13 +62,13 @@ export const Test = () => {
         >
           <DropdownButton dismissOnClick={ false } Icon={ IconPlus }>Add new</DropdownButton>
           <DropdownButton Icon={ IconTrash }>Remove</DropdownButton>
-          <DropdownButtonGroup label={ 'Test' } className={ 'mt-2' }>
+          <DropdownButtonGroup label={ 'Test' } className={ 'mat:mt-2' }>
             <DropdownButton>Item 1</DropdownButton>
             <DropdownButton>Item 2</DropdownButton>
             <DropdownButton>Item 3</DropdownButton>
             <DropdownButton>Item 4</DropdownButton>
           </DropdownButtonGroup>
-          <DropdownButtonGroup label={ 'Test' } className={ 'mt-2' }>
+          <DropdownButtonGroup label={ 'Test' } className={ 'mat:mt-2' }>
             <DropdownButton>Item 1</DropdownButton>
             <DropdownButton>Item 2</DropdownButton>
             <DropdownButton>Item 3</DropdownButton>
@@ -99,7 +99,7 @@ export const Test = () => {
       } }/>
 
       <Table
-        className={ 'h-[300px] w-[300px]' }
+        className={ 'mat:h-[300px] mat:w-[300px]' }
         columns={ sampleColumns }
         rows={ sampleData }
         getRowId={ (row) => row.id }
@@ -115,7 +115,7 @@ const BadgePopover = () => {
 
     <DropdownMenu
       placement={ 'bottom-end' }
-      className={ 'inline-block' }
+      className={ 'mat:inline-block' }
       trigger={
         <Badge onClick={ () => {
         } }>Test</Badge>

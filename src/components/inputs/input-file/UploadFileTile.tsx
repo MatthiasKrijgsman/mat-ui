@@ -39,30 +39,30 @@ export const UploadFileTile = (props: UploadFileTileProps) => {
   return (
     <div
       className={ classNames(
-        'flex flex-row items-center gap-3',
-        'border-[length:var(--border-width-input)] input-base rounded-[var(--border-radius-input)] shadow-[var(--shadow-control)]',
-        'pl-4 pr-1 py-1',
+        'mat:flex mat:flex-row mat:items-center mat:gap-3',
+        'mat:border-[length:var(--border-width-input)] input-base mat:rounded-[var(--border-radius-input)] mat:shadow-[var(--shadow-control)]',
+        'mat:pl-4 mat:pr-1 mat:py-1',
         error && 'input-error',
         className,
       ) }
     >
       { showStatus && (
-        <div className={ 'shrink-0 h-5 w-5 flex items-center justify-center' }>
+        <div className={ 'mat:shrink-0 mat:h-5 mat:w-5 mat:flex mat:items-center mat:justify-center' }>
           { error ? (
-            <IconExclamationCircleFilled className={ 'h-5 w-5 input-error-icon' }/>
+            <IconExclamationCircleFilled className={ 'mat:h-5 mat:w-5 input-error-icon' }/>
           ) : isUploading ? (
-            <Spinner className={ 'h-4 w-4 text-[var(--color-input-icon)]' }/>
+            <Spinner className={ 'mat:h-4 mat:w-4 mat:text-[var(--color-input-icon)]' }/>
           ) : (
-            <IconCircleCheckFilled className={ 'h-5 w-5 text-[var(--color-status-success)]' }/>
+            <IconCircleCheckFilled className={ 'mat:h-5 mat:w-5 mat:text-[var(--color-status-success)]' }/>
           ) }
         </div>
       ) }
 
-      <div className={ 'flex-1 min-w-0 font-[number:var(--font-weight-input-option-label)] truncate' }>
+      <div className={ 'mat:flex-1 mat:min-w-0 mat:font-[number:var(--font-weight-input-option-label)] mat:truncate' }>
         { file.name }
       </div>
 
-      <div className={ 'shrink-0 text-sm text-[var(--color-input-description-text)]' }>
+      <div className={ 'mat:shrink-0 mat:text-sm mat:text-[var(--color-input-description-text)]' }>
         { formatBytes(file.size) }
       </div>
 
@@ -73,7 +73,7 @@ export const UploadFileTile = (props: UploadFileTileProps) => {
           Icon={ IconX }
           onClick={ onRemove }
           aria-label={ 'Remove file' }
-          className={ 'shrink-0' }
+          className={ 'mat:shrink-0' }
         />
       ) }
     </div>

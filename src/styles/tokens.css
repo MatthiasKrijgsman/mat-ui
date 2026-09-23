@@ -1,5 +1,5 @@
 :root {
-    --color-input-focus-ring: color-mix(in srgb, var(--color-gray-900) 15%, transparent);
+    --color-input-focus-ring: color-mix(in srgb, var(--mat-color-gray-900) 15%, transparent);
 
     /* ─────────────────────────────────────────────────────────────
      * STRUCTURE — typography, radius, border width, shadow.
@@ -13,6 +13,10 @@
 
     /* Font family — single typographic knob (defaults to host font) */
     --font-family-base: inherit;
+    /* Numbers being edited: number inputs and the toolbar's numeric fields,
+       set with tabular figures so digits line up as they change. Follows the
+       base family unless a design system sets its numerals in mono. */
+    --font-family-numeric: var(--font-family-base);
 
     /* Font weight — base scale */
     --font-weight-normal: 400;
@@ -21,10 +25,10 @@
 
     /* Font size — secondary text (the control's own text size lives in
      * the control-size tokens below). Map to Tailwind's text scale. */
-    --font-size-label: var(--text-sm);
-    --font-size-description: var(--text-sm);
-    --font-size-error: var(--text-sm);
-    --font-size-tab-count: var(--text-xs);
+    --font-size-label: var(--mat-text-sm);
+    --font-size-description: var(--mat-text-sm);
+    --font-size-error: var(--mat-text-sm);
+    --font-size-tab-count: var(--mat-text-xs);
 
     /* Font weight — semantic */
     --font-weight-input-text: var(--font-weight-normal);
@@ -45,21 +49,21 @@
     --font-weight-table-cell: var(--font-weight-normal);
 
     /* Border radius — semantic (map to Tailwind's radius scale) */
-    --border-radius-input: var(--radius-xl);
+    --border-radius-input: var(--mat-radius-xl);
     --border-radius-button: var(--border-radius-input);
-    --border-radius-panel: var(--radius-2xl);
-    --border-radius-dropdown: var(--radius-xl);
-    --border-radius-badge: var(--radius-lg);
-    --border-radius-menu-item: var(--radius-lg);
-    --border-radius-option: var(--radius-xl);
-    --border-radius-tab: var(--radius-xl);
+    --border-radius-panel: var(--mat-radius-2xl);
+    --border-radius-dropdown: var(--mat-radius-xl);
+    --border-radius-badge: var(--mat-radius-lg);
+    --border-radius-menu-item: var(--mat-radius-lg);
+    --border-radius-option: var(--mat-radius-xl);
+    --border-radius-tab: var(--mat-radius-xl);
     /* Inner tab pills — follows the container radius by default; set it to
      * e.g. calc(var(--border-radius-tab) - var(--tab-container-padding))
      * for a concentric look. */
     --border-radius-tab-inner: var(--border-radius-tab);
     --border-radius-tooltip: var(--border-radius-dropdown);
-    --border-radius-checkbox: var(--radius-lg);
-    --border-radius-control-inner: var(--radius-md);
+    --border-radius-checkbox: var(--mat-radius-lg);
+    --border-radius-control-inner: var(--mat-radius-md);
 
     /* Border width */
     --border-width-input: 1px;
@@ -67,9 +71,9 @@
     --border-width-tooltip: var(--border-width-input);
 
     /* Shadow — map to Tailwind's shadow scale for exact parity */
-    --shadow-control: var(--shadow-sm);
-    --shadow-dropdown: var(--shadow-lg);
-    --shadow-overlay: var(--shadow-xl);
+    --shadow-control: var(--mat-shadow-sm);
+    --shadow-dropdown: var(--mat-shadow-lg);
+    --shadow-overlay: var(--mat-shadow-xl);
     --shadow-tooltip: var(--shadow-dropdown);
 
     /* Tab buttons — container geometry (the inset around the pills and the
@@ -148,37 +152,37 @@
     --color-button-primary-border: oklch(54.6% 0.245 262.881);
     --color-button-primary-border-hover: var(--color-button-primary-bg);
     --color-button-primary-border-active: oklch(48.8% 0.243 264.376);
-    --color-button-primary-text: var(--color-white);
-    --color-button-primary-text-active: var(--color-white);
-    --color-button-primary-bg-disabled: var(--color-gray-200);
-    --color-button-primary-border-disabled: var(--color-gray-200);
-    --color-button-primary-text-disabled: var(--color-gray-400);
+    --color-button-primary-text: var(--mat-color-white);
+    --color-button-primary-text-active: var(--mat-color-white);
+    --color-button-primary-bg-disabled: var(--mat-color-gray-200);
+    --color-button-primary-border-disabled: var(--mat-color-gray-200);
+    --color-button-primary-text-disabled: var(--mat-color-gray-400);
 
     /* White variant */
-    --color-button-white-bg: var(--color-white);
+    --color-button-white-bg: var(--mat-color-white);
     --color-button-white-bg-hover: var(--color-button-white-bg);
-    --color-button-white-bg-active: var(--color-gray-50);
-    --color-button-white-border: var(--color-gray-200);
+    --color-button-white-bg-active: var(--mat-color-gray-50);
+    --color-button-white-border: var(--mat-color-gray-200);
     --color-button-white-border-hover: var(--color-button-white-bg);
-    --color-button-white-border-active: var(--color-gray-200);
-    --color-button-white-text: var(--color-gray-900);
-    --color-button-white-text-active: var(--color-gray-900);
-    --color-button-white-bg-disabled: var(--color-gray-100);
-    --color-button-white-border-disabled: var(--color-gray-200);
-    --color-button-white-text-disabled: var(--color-gray-400);
+    --color-button-white-border-active: var(--mat-color-gray-200);
+    --color-button-white-text: var(--mat-color-gray-900);
+    --color-button-white-text-active: var(--mat-color-gray-900);
+    --color-button-white-bg-disabled: var(--mat-color-gray-100);
+    --color-button-white-border-disabled: var(--mat-color-gray-200);
+    --color-button-white-text-disabled: var(--mat-color-gray-400);
 
     /* Black variant */
-    --color-button-black-bg: var(--color-gray-950);
+    --color-button-black-bg: var(--mat-color-gray-950);
     --color-button-black-bg-hover: var(--color-button-black-bg);
-    --color-button-black-bg-active: var(--color-gray-800);
-    --color-button-black-border: var(--color-gray-950);
+    --color-button-black-bg-active: var(--mat-color-gray-800);
+    --color-button-black-border: var(--mat-color-gray-950);
     --color-button-black-border-hover: var(--color-button-black-bg);
-    --color-button-black-border-active: var(--color-gray-800);
-    --color-button-black-text: var(--color-white);
-    --color-button-black-text-active: var(--color-white);
-    --color-button-black-bg-disabled: var(--color-gray-200);
-    --color-button-black-border-disabled: var(--color-gray-200);
-    --color-button-black-text-disabled: var(--color-gray-400);
+    --color-button-black-border-active: var(--mat-color-gray-800);
+    --color-button-black-text: var(--mat-color-white);
+    --color-button-black-text-active: var(--mat-color-white);
+    --color-button-black-bg-disabled: var(--mat-color-gray-200);
+    --color-button-black-border-disabled: var(--mat-color-gray-200);
+    --color-button-black-text-disabled: var(--mat-color-gray-400);
 
     /* Transparent variant */
     --color-button-transparent-bg: transparent;
@@ -187,11 +191,11 @@
     --color-button-transparent-border: transparent;
     --color-button-transparent-border-hover: var(--color-button-transparent-bg);
     --color-button-transparent-border-active: transparent;
-    --color-button-transparent-text: var(--color-gray-900);
-    --color-button-transparent-text-active: var(--color-gray-900);
+    --color-button-transparent-text: var(--mat-color-gray-900);
+    --color-button-transparent-text-active: var(--mat-color-gray-900);
     --color-button-transparent-bg-disabled: transparent;
     --color-button-transparent-border-disabled: transparent;
-    --color-button-transparent-text-disabled: var(--color-gray-400);
+    --color-button-transparent-text-disabled: var(--mat-color-gray-400);
 
     /* Secondary variant (neutral fill) */
     --color-button-secondary-bg: oklch(76.9% 0.188 70.08);
@@ -200,11 +204,11 @@
     --color-button-secondary-border: oklch(76.9% 0.188 70.08);
     --color-button-secondary-border-hover: var(--color-button-secondary-bg);
     --color-button-secondary-border-active: oklch(68.1% 0.162 75.834);
-    --color-button-secondary-text: var(--color-white);
-    --color-button-secondary-text-active: var(--color-white);
-    --color-button-secondary-bg-disabled: var(--color-gray-200);
-    --color-button-secondary-border-disabled: var(--color-gray-200);
-    --color-button-secondary-text-disabled: var(--color-gray-400);
+    --color-button-secondary-text: var(--mat-color-white);
+    --color-button-secondary-text-active: var(--mat-color-white);
+    --color-button-secondary-bg-disabled: var(--mat-color-gray-200);
+    --color-button-secondary-border-disabled: var(--mat-color-gray-200);
+    --color-button-secondary-text-disabled: var(--mat-color-gray-400);
 
     /* Tertiary variant (subtle) */
     --color-button-tertiary-bg: oklch(64.8% 0.2 131.684);
@@ -213,121 +217,128 @@
     --color-button-tertiary-border: oklch(64.8% 0.2 131.684);
     --color-button-tertiary-border-hover: var(--color-button-tertiary-bg);
     --color-button-tertiary-border-active: oklch(53.2% 0.157 131.589);
-    --color-button-tertiary-text: var(--color-white);
-    --color-button-tertiary-text-active: var(--color-white);
-    --color-button-tertiary-bg-disabled: var(--color-gray-200);
-    --color-button-tertiary-border-disabled: var(--color-gray-200);
-    --color-button-tertiary-text-disabled: var(--color-gray-400);
+    --color-button-tertiary-text: var(--mat-color-white);
+    --color-button-tertiary-text-active: var(--mat-color-white);
+    --color-button-tertiary-bg-disabled: var(--mat-color-gray-200);
+    --color-button-tertiary-border-disabled: var(--mat-color-gray-200);
+    --color-button-tertiary-text-disabled: var(--mat-color-gray-400);
 
     /* Input */
-    --color-input-bg: var(--color-white);
-    --color-input-border: var(--color-gray-200);
-    --color-input-text: var(--color-gray-900);
-    --color-input-placeholder: var(--color-gray-400);
-    --color-input-ring: color-mix(in srgb, var(--color-gray-900) 10%, transparent);
-    --color-input-border-error: var(--color-red-600);
-    --color-input-ring-error: color-mix(in srgb, var(--color-red-600) 20%, transparent);
-    --color-input-icon: color-mix(in srgb, var(--color-gray-900) 60%, transparent);
+    --color-input-bg: var(--mat-color-white);
+    --color-input-border: var(--mat-color-gray-200);
+    --color-input-text: var(--mat-color-gray-900);
+    --color-input-placeholder: var(--mat-color-gray-400);
+    --color-input-ring: color-mix(in srgb, var(--mat-color-gray-900) 10%, transparent);
+    --color-input-border-error: var(--mat-color-red-600);
+    --color-input-ring-error: color-mix(in srgb, var(--mat-color-red-600) 20%, transparent);
+    --color-input-icon: color-mix(in srgb, var(--mat-color-gray-900) 60%, transparent);
 
     /* Input — flat variant (soft fill, border matches the fill, no shadow) */
-    --color-input-flat-bg: var(--color-gray-100);
+    --color-input-flat-bg: var(--mat-color-gray-100);
     --color-input-flat-border: var(--color-input-flat-bg);
 
+    /* Input — fixed prefix segment (`Input` `prefix`) */
+    --color-input-prefix-bg: var(--mat-color-gray-50);
+    --color-input-prefix-text: var(--mat-color-gray-500);
+    --color-input-prefix-border: var(--color-input-border);
+    --color-input-flat-prefix-bg: color-mix(in srgb, var(--mat-color-gray-900) 4%, transparent);
+    --color-input-flat-prefix-border: var(--mat-color-gray-200);
+
     /* Input label / description / error */
-    --color-input-label-text: var(--color-gray-900);
-    --color-input-description-text: var(--color-gray-500);
-    --color-input-error-text: var(--color-red-600);
+    --color-input-label-text: var(--mat-color-gray-900);
+    --color-input-description-text: var(--mat-color-gray-500);
+    --color-input-error-text: var(--mat-color-red-600);
 
     /* Input icon button */
-    --color-input-icon-button-ring: var(--color-gray-200);
-    --color-input-icon-button-icon: var(--color-gray-500);
+    --color-input-icon-button-ring: var(--mat-color-gray-200);
+    --color-input-icon-button-icon: var(--mat-color-gray-500);
 
     /* Input file (dropzone icon frame in InputFileMultiple) */
-    --color-input-file-icon-bg: var(--color-gray-100);
+    --color-input-file-icon-bg: var(--mat-color-gray-100);
 
     /* Lexical rich text editor — content */
     --color-lexical-content-text: var(--color-input-text);
     --color-lexical-placeholder: var(--color-input-placeholder);
-    --color-lexical-link: var(--color-sky-600);
+    --color-lexical-link: var(--mat-color-sky-600);
 
     /* Lexical static toolbar (sits inside the input box) */
     --color-lexical-toolbar-border: var(--color-input-border);
-    --color-lexical-toolbar-btn-icon: var(--color-gray-600);
-    --color-lexical-toolbar-btn-bg-hover: var(--color-gray-100);
-    --color-lexical-toolbar-btn-bg-active: var(--color-gray-200);
-    --color-lexical-toolbar-btn-icon-active: var(--color-gray-900);
+    --color-lexical-toolbar-btn-icon: var(--mat-color-gray-600);
+    --color-lexical-toolbar-btn-bg-hover: var(--mat-color-gray-100);
+    --color-lexical-toolbar-btn-bg-active: var(--mat-color-gray-200);
+    --color-lexical-toolbar-btn-icon-active: var(--mat-color-gray-900);
 
     /* Lexical floating toolbar (dark pill anchored to the selection) */
-    --color-lexical-floating-bg: var(--color-stone-900);
-    --color-lexical-floating-border: var(--color-stone-700);
-    --color-lexical-floating-divider: var(--color-stone-700);
-    --color-lexical-floating-btn-icon: var(--color-stone-300);
-    --color-lexical-floating-btn-bg-hover: var(--color-stone-700);
-    --color-lexical-floating-btn-bg-active: var(--color-stone-700);
-    --color-lexical-floating-btn-icon-active: var(--color-white);
-    --color-lexical-floating-btn-ring: color-mix(in srgb, var(--color-stone-100) 20%, transparent);
+    --color-lexical-floating-bg: var(--mat-color-stone-900);
+    --color-lexical-floating-border: var(--mat-color-stone-700);
+    --color-lexical-floating-divider: var(--mat-color-stone-700);
+    --color-lexical-floating-btn-icon: var(--mat-color-stone-300);
+    --color-lexical-floating-btn-bg-hover: var(--mat-color-stone-700);
+    --color-lexical-floating-btn-bg-active: var(--mat-color-stone-700);
+    --color-lexical-floating-btn-icon-active: var(--mat-color-white);
+    --color-lexical-floating-btn-ring: color-mix(in srgb, var(--mat-color-stone-100) 20%, transparent);
 
     /* Input select option */
-    --color-option-bg-hover: var(--color-gray-100);
-    --color-option-bg-active: var(--color-gray-200);
-    --color-option-bg-selected: var(--color-blue-50);
-    --color-option-bg-selected-hover: var(--color-blue-100);
-    --color-option-bg-selected-active: var(--color-blue-100);
-    --color-option-text-disabled: var(--color-gray-400);
+    --color-option-bg-hover: var(--mat-color-gray-100);
+    --color-option-bg-active: var(--mat-color-gray-200);
+    --color-option-bg-selected: var(--mat-color-blue-50);
+    --color-option-bg-selected-hover: var(--mat-color-blue-100);
+    --color-option-bg-selected-active: var(--mat-color-blue-100);
+    --color-option-text-disabled: var(--mat-color-gray-400);
 
     /* Input select search bar */
-    --color-select-search-border: var(--color-gray-200);
-    --color-select-search-bg: color-mix(in srgb, var(--color-white) 50%, transparent);
-    --color-select-search-icon: var(--color-gray-500);
+    --color-select-search-border: var(--mat-color-gray-200);
+    --color-select-search-bg: color-mix(in srgb, var(--mat-color-white) 50%, transparent);
+    --color-select-search-icon: var(--mat-color-gray-500);
 
     /* Input toggle */
-    --color-toggle-track-on-bg: var(--color-blue-600);
-    --color-toggle-track-on-border: var(--color-blue-600);
-    --color-toggle-track-off-bg: var(--color-gray-300);
-    --color-toggle-track-off-border: var(--color-gray-300);
-    --color-toggle-thumb-bg: var(--color-white);
+    --color-toggle-track-on-bg: var(--mat-color-blue-600);
+    --color-toggle-track-on-border: var(--mat-color-blue-600);
+    --color-toggle-track-off-bg: var(--mat-color-gray-300);
+    --color-toggle-track-off-border: var(--mat-color-gray-300);
+    --color-toggle-thumb-bg: var(--mat-color-white);
 
     /* Input check / radio */
-    --color-check-border: var(--color-gray-300);
-    --color-check-ring: color-mix(in srgb, var(--color-gray-900) 10%, transparent);
-    --color-check-checked-bg: var(--color-blue-600);
+    --color-check-border: var(--mat-color-gray-300);
+    --color-check-ring: color-mix(in srgb, var(--mat-color-gray-900) 10%, transparent);
+    --color-check-checked-bg: var(--mat-color-blue-600);
 
     /* Input range (slider) */
-    --color-range-track-bg: var(--color-gray-200);
-    --color-range-fill-bg: var(--color-blue-600);
-    --color-range-thumb-bg: var(--color-white);
-    --color-range-thumb-border: var(--color-gray-300);
-    --color-range-ring: color-mix(in srgb, var(--color-gray-900) 10%, transparent);
+    --color-range-track-bg: var(--mat-color-gray-200);
+    --color-range-fill-bg: var(--mat-color-blue-600);
+    --color-range-thumb-bg: var(--mat-color-white);
+    --color-range-thumb-border: var(--mat-color-gray-300);
+    --color-range-ring: color-mix(in srgb, var(--mat-color-gray-900) 10%, transparent);
 
     /* Dropdown */
-    --color-dropdown-bg: var(--color-white);
-    --color-dropdown-border: var(--color-gray-200);
-    --color-dropdown-item-bg-hover: var(--color-gray-100);
-    --color-dropdown-item-bg-active: var(--color-gray-200);
-    --color-dropdown-item-text: var(--color-gray-900);
-    --color-dropdown-item-ring: color-mix(in srgb, var(--color-gray-900) 10%, transparent);
-    --color-dropdown-group-label: var(--color-gray-500);
+    --color-dropdown-bg: var(--mat-color-white);
+    --color-dropdown-border: var(--mat-color-gray-200);
+    --color-dropdown-item-bg-hover: var(--mat-color-gray-100);
+    --color-dropdown-item-bg-active: var(--mat-color-gray-200);
+    --color-dropdown-item-text: var(--mat-color-gray-900);
+    --color-dropdown-item-ring: color-mix(in srgb, var(--mat-color-gray-900) 10%, transparent);
+    --color-dropdown-group-label: var(--mat-color-gray-500);
 
     /* Tab buttons */
-    --color-tab-text: var(--color-gray-900);
-    --color-tab-container-bg: var(--color-gray-100);
-    --color-tab-bg-hover: var(--color-gray-200);
-    --color-tab-bg-active: color-mix(in srgb, var(--color-gray-300) 80%, transparent);
-    --color-tab-active-bg: var(--color-white);
-    --color-tab-active-border: var(--color-gray-200);
-    --color-tab-count-bg: var(--color-gray-200);
-    --color-tab-count-text: var(--color-gray-700);
-    --color-tab-active-count-bg: var(--color-gray-900);
-    --color-tab-active-count-text: var(--color-white);
+    --color-tab-text: var(--mat-color-gray-900);
+    --color-tab-container-bg: var(--mat-color-gray-100);
+    --color-tab-bg-hover: var(--mat-color-gray-200);
+    --color-tab-bg-active: color-mix(in srgb, var(--mat-color-gray-300) 80%, transparent);
+    --color-tab-active-bg: var(--mat-color-white);
+    --color-tab-active-border: var(--mat-color-gray-200);
+    --color-tab-count-bg: var(--mat-color-gray-200);
+    --color-tab-count-text: var(--mat-color-gray-700);
+    --color-tab-active-count-bg: var(--mat-color-gray-900);
+    --color-tab-active-count-text: var(--mat-color-white);
 
     /* Tabs (underline) */
-    --color-tabs-text: var(--color-gray-500);
-    --color-tabs-text-hover: var(--color-gray-700);
-    --color-tabs-active-text: var(--color-gray-900);
-    --color-tabs-border: var(--color-gray-200);
-    --color-tabs-active-indicator: var(--color-gray-900);
-    --color-tabs-count-bg: var(--color-gray-100);
-    --color-tabs-count-text: var(--color-gray-600);
+    --color-tabs-text: var(--mat-color-gray-500);
+    --color-tabs-text-hover: var(--mat-color-gray-700);
+    --color-tabs-active-text: var(--mat-color-gray-900);
+    --color-tabs-border: var(--mat-color-gray-200);
+    --color-tabs-active-indicator: var(--mat-color-gray-900);
+    --color-tabs-count-bg: var(--mat-color-gray-100);
+    --color-tabs-count-text: var(--mat-color-gray-600);
     --color-tabs-active-count-bg: var(--color-tabs-count-bg);
     --color-tabs-active-count-text: var(--color-tabs-count-text);
 
@@ -337,51 +348,51 @@
     --color-tooltip-text: var(--color-dropdown-item-text);
 
     /* Panel */
-    --color-panel-bg: var(--color-white);
-    --color-panel-border: var(--color-gray-200);
-    --color-panel-text: var(--color-gray-900);
+    --color-panel-bg: var(--mat-color-white);
+    --color-panel-border: var(--mat-color-gray-200);
+    --color-panel-text: var(--mat-color-gray-900);
 
     /* Modal */
-    --color-modal-overlay: color-mix(in srgb, var(--color-gray-400) 30%, transparent);
-    --color-modal-bg: var(--color-white);
+    --color-modal-overlay: color-mix(in srgb, var(--mat-color-gray-400) 30%, transparent);
+    --color-modal-bg: var(--mat-color-white);
 
     /* Table */
-    --color-table-header-text: var(--color-gray-800);
-    --color-table-header-bg: var(--color-gray-50);
-    --color-table-header-bg-hover: var(--color-gray-100);
-    --color-table-header-bg-active: var(--color-gray-200);
-    --color-table-border: var(--color-gray-200);
-    --color-table-row-bg: var(--color-white);
-    --color-table-row-bg-hover: var(--color-gray-50);
-    --color-table-row-text: var(--color-gray-900);
-    --color-table-resize-handle: var(--color-gray-200);
-    --color-table-resize-handle-hover: var(--color-gray-300);
-    --color-table-resize-handle-active: var(--color-blue-600);
+    --color-table-header-text: var(--mat-color-gray-800);
+    --color-table-header-bg: var(--mat-color-gray-50);
+    --color-table-header-bg-hover: var(--mat-color-gray-100);
+    --color-table-header-bg-active: var(--mat-color-gray-200);
+    --color-table-border: var(--mat-color-gray-200);
+    --color-table-row-bg: var(--mat-color-white);
+    --color-table-row-bg-hover: var(--mat-color-gray-50);
+    --color-table-row-text: var(--mat-color-gray-900);
+    --color-table-resize-handle: var(--mat-color-gray-200);
+    --color-table-resize-handle-hover: var(--mat-color-gray-300);
+    --color-table-resize-handle-active: var(--mat-color-blue-600);
 
     /* Divider */
-    --color-divider: var(--color-gray-200);
+    --color-divider: var(--mat-color-gray-200);
 
     /* Status (shared across components) */
-    --color-status-error: var(--color-red-600);
-    --color-status-warning: var(--color-amber-500);
-    --color-status-success: var(--color-green-600);
-    --color-status-info: var(--color-blue-600);
+    --color-status-error: var(--mat-color-red-600);
+    --color-status-warning: var(--mat-color-amber-500);
+    --color-status-success: var(--mat-color-green-600);
+    --color-status-info: var(--mat-color-blue-600);
 
     /* Badge (white/black only) */
-    --color-badge-white-bg: var(--color-white);
-    --color-badge-white-text: var(--color-gray-900);
-    --color-badge-white-ring: var(--color-stone-300);
-    --color-badge-black-bg: var(--color-black);
-    --color-badge-black-text: var(--color-white);
-    --color-badge-black-ring: var(--color-stone-300);
+    --color-badge-white-bg: var(--mat-color-white);
+    --color-badge-white-text: var(--mat-color-gray-900);
+    --color-badge-white-ring: var(--mat-color-stone-300);
+    --color-badge-black-bg: var(--mat-color-black);
+    --color-badge-black-text: var(--mat-color-white);
+    --color-badge-black-ring: var(--mat-color-stone-300);
 
     /* Select trigger placeholder */
-    --color-input-select-placeholder: var(--color-gray-500);
+    --color-input-select-placeholder: var(--mat-color-gray-500);
 }
 
 /* ─── Dark theme ─── */
 .dark {
-    --color-input-focus-ring: color-mix(in srgb, var(--color-stone-100) 20%, transparent);
+    --color-input-focus-ring: color-mix(in srgb, var(--mat-color-stone-100) 20%, transparent);
 
     /* Primary variant (brand color) — keeps vivid purple, adjusts disabled states */
     --color-button-primary-bg: oklch(54.6% 0.245 262.881);
@@ -390,37 +401,37 @@
     --color-button-primary-border: oklch(54.6% 0.245 262.881);
     --color-button-primary-border-hover: var(--color-button-primary-bg);
     --color-button-primary-border-active: oklch(45% 0.243 264.376);
-    --color-button-primary-text: var(--color-white);
-    --color-button-primary-text-active: var(--color-white);
-    --color-button-primary-bg-disabled: var(--color-stone-800);
-    --color-button-primary-border-disabled: var(--color-stone-800);
-    --color-button-primary-text-disabled: var(--color-stone-600);
+    --color-button-primary-text: var(--mat-color-white);
+    --color-button-primary-text-active: var(--mat-color-white);
+    --color-button-primary-bg-disabled: var(--mat-color-stone-800);
+    --color-button-primary-border-disabled: var(--mat-color-stone-800);
+    --color-button-primary-text-disabled: var(--mat-color-stone-600);
 
     /* White variant — inverts to dark surface */
-    --color-button-white-bg: var(--color-stone-800);
+    --color-button-white-bg: var(--mat-color-stone-800);
     --color-button-white-bg-hover: var(--color-button-white-bg);
-    --color-button-white-bg-active: var(--color-stone-700);
-    --color-button-white-border: var(--color-stone-700);
+    --color-button-white-bg-active: var(--mat-color-stone-700);
+    --color-button-white-border: var(--mat-color-stone-700);
     --color-button-white-border-hover: var(--color-button-white-bg);
-    --color-button-white-border-active: var(--color-stone-700);
-    --color-button-white-text: var(--color-stone-100);
-    --color-button-white-text-active: var(--color-stone-100);
-    --color-button-white-bg-disabled: var(--color-stone-800);
-    --color-button-white-border-disabled: var(--color-stone-700);
-    --color-button-white-text-disabled: var(--color-stone-600);
+    --color-button-white-border-active: var(--mat-color-stone-700);
+    --color-button-white-text: var(--mat-color-stone-100);
+    --color-button-white-text-active: var(--mat-color-stone-100);
+    --color-button-white-bg-disabled: var(--mat-color-stone-800);
+    --color-button-white-border-disabled: var(--mat-color-stone-700);
+    --color-button-white-text-disabled: var(--mat-color-stone-600);
 
     /* Black variant — inverts to light surface */
-    --color-button-black-bg: var(--color-stone-100);
+    --color-button-black-bg: var(--mat-color-stone-100);
     --color-button-black-bg-hover: var(--color-button-black-bg);
-    --color-button-black-bg-active: var(--color-stone-200);
-    --color-button-black-border: var(--color-stone-100);
+    --color-button-black-bg-active: var(--mat-color-stone-200);
+    --color-button-black-border: var(--mat-color-stone-100);
     --color-button-black-border-hover: var(--color-button-black-bg);
-    --color-button-black-border-active: var(--color-stone-200);
-    --color-button-black-text: var(--color-stone-900);
-    --color-button-black-text-active: var(--color-stone-900);
-    --color-button-black-bg-disabled: var(--color-stone-800);
-    --color-button-black-border-disabled: var(--color-stone-800);
-    --color-button-black-text-disabled: var(--color-stone-600);
+    --color-button-black-border-active: var(--mat-color-stone-200);
+    --color-button-black-text: var(--mat-color-stone-900);
+    --color-button-black-text-active: var(--mat-color-stone-900);
+    --color-button-black-bg-disabled: var(--mat-color-stone-800);
+    --color-button-black-border-disabled: var(--mat-color-stone-800);
+    --color-button-black-text-disabled: var(--mat-color-stone-600);
 
     /* Transparent variant */
     --color-button-transparent-bg: transparent;
@@ -429,11 +440,11 @@
     --color-button-transparent-border: transparent;
     --color-button-transparent-border-hover: var(--color-button-transparent-bg);
     --color-button-transparent-border-active: transparent;
-    --color-button-transparent-text: var(--color-stone-100);
-    --color-button-transparent-text-active: var(--color-stone-100);
+    --color-button-transparent-text: var(--mat-color-stone-100);
+    --color-button-transparent-text-active: var(--mat-color-stone-100);
     --color-button-transparent-bg-disabled: transparent;
     --color-button-transparent-border-disabled: transparent;
-    --color-button-transparent-text-disabled: var(--color-stone-600);
+    --color-button-transparent-text-disabled: var(--mat-color-stone-600);
 
     /* Secondary variant — slightly reduced lightness */
     --color-button-secondary-bg: oklch(70% 0.188 70.08);
@@ -442,11 +453,11 @@
     --color-button-secondary-border: oklch(70% 0.188 70.08);
     --color-button-secondary-border-hover: var(--color-button-secondary-bg);
     --color-button-secondary-border-active: oklch(62% 0.162 75.834);
-    --color-button-secondary-text: var(--color-white);
-    --color-button-secondary-text-active: var(--color-white);
-    --color-button-secondary-bg-disabled: var(--color-stone-800);
-    --color-button-secondary-border-disabled: var(--color-stone-800);
-    --color-button-secondary-text-disabled: var(--color-stone-600);
+    --color-button-secondary-text: var(--mat-color-white);
+    --color-button-secondary-text-active: var(--mat-color-white);
+    --color-button-secondary-bg-disabled: var(--mat-color-stone-800);
+    --color-button-secondary-border-disabled: var(--mat-color-stone-800);
+    --color-button-secondary-text-disabled: var(--mat-color-stone-600);
 
     /* Tertiary variant */
     --color-button-tertiary-bg: oklch(64.8% 0.2 131.684);
@@ -455,121 +466,128 @@
     --color-button-tertiary-border: oklch(64.8% 0.2 131.684);
     --color-button-tertiary-border-hover: var(--color-button-tertiary-bg);
     --color-button-tertiary-border-active: oklch(53.2% 0.157 131.589);
-    --color-button-tertiary-text: var(--color-white);
-    --color-button-tertiary-text-active: var(--color-white);
-    --color-button-tertiary-bg-disabled: var(--color-stone-800);
-    --color-button-tertiary-border-disabled: var(--color-stone-800);
-    --color-button-tertiary-text-disabled: var(--color-stone-600);
+    --color-button-tertiary-text: var(--mat-color-white);
+    --color-button-tertiary-text-active: var(--mat-color-white);
+    --color-button-tertiary-bg-disabled: var(--mat-color-stone-800);
+    --color-button-tertiary-border-disabled: var(--mat-color-stone-800);
+    --color-button-tertiary-text-disabled: var(--mat-color-stone-600);
 
     /* Input */
-    --color-input-bg: var(--color-stone-800);
-    --color-input-border: var(--color-stone-700);
-    --color-input-text: var(--color-stone-100);
-    --color-input-placeholder: var(--color-stone-500);
-    --color-input-ring: color-mix(in srgb, var(--color-stone-100) 15%, transparent);
-    --color-input-border-error: var(--color-red-600);
-    --color-input-ring-error: color-mix(in srgb, var(--color-red-600) 30%, transparent);
-    --color-input-icon: color-mix(in srgb, var(--color-stone-100) 60%, transparent);
+    --color-input-bg: var(--mat-color-stone-800);
+    --color-input-border: var(--mat-color-stone-700);
+    --color-input-text: var(--mat-color-stone-100);
+    --color-input-placeholder: var(--mat-color-stone-500);
+    --color-input-ring: color-mix(in srgb, var(--mat-color-stone-100) 15%, transparent);
+    --color-input-border-error: var(--mat-color-red-600);
+    --color-input-ring-error: color-mix(in srgb, var(--mat-color-red-600) 30%, transparent);
+    --color-input-icon: color-mix(in srgb, var(--mat-color-stone-100) 60%, transparent);
 
     /* Input — flat variant (soft fill, border matches the fill, no shadow) */
-    --color-input-flat-bg: var(--color-stone-800);
+    --color-input-flat-bg: var(--mat-color-stone-800);
     --color-input-flat-border: var(--color-input-flat-bg);
 
+    /* Input — fixed prefix segment (`Input` `prefix`) */
+    --color-input-prefix-bg: var(--mat-color-stone-900);
+    --color-input-prefix-text: var(--mat-color-stone-400);
+    --color-input-prefix-border: var(--color-input-border);
+    --color-input-flat-prefix-bg: color-mix(in srgb, var(--mat-color-stone-100) 5%, transparent);
+    --color-input-flat-prefix-border: var(--mat-color-stone-700);
+
     /* Input label / description / error */
-    --color-input-label-text: var(--color-stone-100);
-    --color-input-description-text: var(--color-stone-400);
-    --color-input-error-text: var(--color-red-500);
+    --color-input-label-text: var(--mat-color-stone-100);
+    --color-input-description-text: var(--mat-color-stone-400);
+    --color-input-error-text: var(--mat-color-red-500);
 
     /* Input icon button */
-    --color-input-icon-button-ring: var(--color-stone-700);
-    --color-input-icon-button-icon: var(--color-stone-400);
+    --color-input-icon-button-ring: var(--mat-color-stone-700);
+    --color-input-icon-button-icon: var(--mat-color-stone-400);
 
     /* Input file (dropzone icon frame in InputFileMultiple) */
-    --color-input-file-icon-bg: var(--color-stone-700);
+    --color-input-file-icon-bg: var(--mat-color-stone-700);
 
     /* Lexical rich text editor — content */
     --color-lexical-content-text: var(--color-input-text);
     --color-lexical-placeholder: var(--color-input-placeholder);
-    --color-lexical-link: var(--color-sky-400);
+    --color-lexical-link: var(--mat-color-sky-400);
 
     /* Lexical static toolbar (sits inside the input box) */
     --color-lexical-toolbar-border: var(--color-input-border);
-    --color-lexical-toolbar-btn-icon: var(--color-stone-400);
-    --color-lexical-toolbar-btn-bg-hover: var(--color-stone-800);
-    --color-lexical-toolbar-btn-bg-active: var(--color-stone-700);
-    --color-lexical-toolbar-btn-icon-active: var(--color-stone-100);
+    --color-lexical-toolbar-btn-icon: var(--mat-color-stone-400);
+    --color-lexical-toolbar-btn-bg-hover: var(--mat-color-stone-800);
+    --color-lexical-toolbar-btn-bg-active: var(--mat-color-stone-700);
+    --color-lexical-toolbar-btn-icon-active: var(--mat-color-stone-100);
 
     /* Lexical floating toolbar (kept dark in both themes) */
-    --color-lexical-floating-bg: var(--color-stone-900);
-    --color-lexical-floating-border: var(--color-stone-700);
-    --color-lexical-floating-divider: var(--color-stone-700);
-    --color-lexical-floating-btn-icon: var(--color-stone-300);
-    --color-lexical-floating-btn-bg-hover: var(--color-stone-700);
-    --color-lexical-floating-btn-bg-active: var(--color-stone-700);
-    --color-lexical-floating-btn-icon-active: var(--color-white);
-    --color-lexical-floating-btn-ring: color-mix(in srgb, var(--color-stone-100) 20%, transparent);
+    --color-lexical-floating-bg: var(--mat-color-stone-900);
+    --color-lexical-floating-border: var(--mat-color-stone-700);
+    --color-lexical-floating-divider: var(--mat-color-stone-700);
+    --color-lexical-floating-btn-icon: var(--mat-color-stone-300);
+    --color-lexical-floating-btn-bg-hover: var(--mat-color-stone-700);
+    --color-lexical-floating-btn-bg-active: var(--mat-color-stone-700);
+    --color-lexical-floating-btn-icon-active: var(--mat-color-white);
+    --color-lexical-floating-btn-ring: color-mix(in srgb, var(--mat-color-stone-100) 20%, transparent);
 
     /* Input select option */
-    --color-option-bg-hover: var(--color-stone-800);
-    --color-option-bg-active: var(--color-stone-700);
+    --color-option-bg-hover: var(--mat-color-stone-800);
+    --color-option-bg-active: var(--mat-color-stone-700);
     --color-option-bg-selected: #1e3a5f;
-    --color-option-bg-selected-hover: var(--color-blue-800);
-    --color-option-bg-selected-active: var(--color-blue-800);
-    --color-option-text-disabled: var(--color-stone-600);
+    --color-option-bg-selected-hover: var(--mat-color-blue-800);
+    --color-option-bg-selected-active: var(--mat-color-blue-800);
+    --color-option-text-disabled: var(--mat-color-stone-600);
 
     /* Input select search bar */
-    --color-select-search-border: var(--color-stone-700);
-    --color-select-search-bg: color-mix(in srgb, var(--color-stone-900) 50%, transparent);
-    --color-select-search-icon: var(--color-stone-400);
+    --color-select-search-border: var(--mat-color-stone-700);
+    --color-select-search-bg: color-mix(in srgb, var(--mat-color-stone-900) 50%, transparent);
+    --color-select-search-icon: var(--mat-color-stone-400);
 
     /* Input toggle */
-    --color-toggle-track-on-bg: var(--color-blue-600);
-    --color-toggle-track-on-border: var(--color-blue-600);
-    --color-toggle-track-off-bg: var(--color-stone-600);
-    --color-toggle-track-off-border: var(--color-stone-600);
-    --color-toggle-thumb-bg: var(--color-white);
+    --color-toggle-track-on-bg: var(--mat-color-blue-600);
+    --color-toggle-track-on-border: var(--mat-color-blue-600);
+    --color-toggle-track-off-bg: var(--mat-color-stone-600);
+    --color-toggle-track-off-border: var(--mat-color-stone-600);
+    --color-toggle-thumb-bg: var(--mat-color-white);
 
     /* Input check / radio */
-    --color-check-border: var(--color-stone-600);
-    --color-check-ring: color-mix(in srgb, var(--color-stone-100) 10%, transparent);
-    --color-check-checked-bg: var(--color-blue-500);
+    --color-check-border: var(--mat-color-stone-600);
+    --color-check-ring: color-mix(in srgb, var(--mat-color-stone-100) 10%, transparent);
+    --color-check-checked-bg: var(--mat-color-blue-500);
 
     /* Input range (slider) */
-    --color-range-track-bg: var(--color-stone-700);
-    --color-range-fill-bg: var(--color-blue-600);
-    --color-range-thumb-bg: var(--color-white);
-    --color-range-thumb-border: var(--color-stone-600);
-    --color-range-ring: color-mix(in srgb, var(--color-stone-100) 15%, transparent);
+    --color-range-track-bg: var(--mat-color-stone-700);
+    --color-range-fill-bg: var(--mat-color-blue-600);
+    --color-range-thumb-bg: var(--mat-color-white);
+    --color-range-thumb-border: var(--mat-color-stone-600);
+    --color-range-ring: color-mix(in srgb, var(--mat-color-stone-100) 15%, transparent);
 
     /* Dropdown */
-    --color-dropdown-bg: var(--color-stone-900);
-    --color-dropdown-border: var(--color-stone-700);
-    --color-dropdown-item-bg-hover: var(--color-stone-800);
-    --color-dropdown-item-bg-active: var(--color-stone-700);
-    --color-dropdown-item-text: var(--color-stone-100);
-    --color-dropdown-item-ring: color-mix(in srgb, var(--color-stone-100) 10%, transparent);
-    --color-dropdown-group-label: var(--color-stone-400);
+    --color-dropdown-bg: var(--mat-color-stone-900);
+    --color-dropdown-border: var(--mat-color-stone-700);
+    --color-dropdown-item-bg-hover: var(--mat-color-stone-800);
+    --color-dropdown-item-bg-active: var(--mat-color-stone-700);
+    --color-dropdown-item-text: var(--mat-color-stone-100);
+    --color-dropdown-item-ring: color-mix(in srgb, var(--mat-color-stone-100) 10%, transparent);
+    --color-dropdown-group-label: var(--mat-color-stone-400);
 
     /* Tab buttons */
-    --color-tab-text: var(--color-stone-100);
-    --color-tab-container-bg: var(--color-stone-800);
-    --color-tab-bg-hover: var(--color-stone-700);
-    --color-tab-bg-active: color-mix(in srgb, var(--color-stone-600) 80%, transparent);
-    --color-tab-active-bg: var(--color-stone-900);
-    --color-tab-active-border: var(--color-stone-700);
-    --color-tab-count-bg: var(--color-stone-700);
-    --color-tab-count-text: var(--color-stone-200);
-    --color-tab-active-count-bg: var(--color-stone-100);
-    --color-tab-active-count-text: var(--color-stone-900);
+    --color-tab-text: var(--mat-color-stone-100);
+    --color-tab-container-bg: var(--mat-color-stone-800);
+    --color-tab-bg-hover: var(--mat-color-stone-700);
+    --color-tab-bg-active: color-mix(in srgb, var(--mat-color-stone-600) 80%, transparent);
+    --color-tab-active-bg: var(--mat-color-stone-900);
+    --color-tab-active-border: var(--mat-color-stone-700);
+    --color-tab-count-bg: var(--mat-color-stone-700);
+    --color-tab-count-text: var(--mat-color-stone-200);
+    --color-tab-active-count-bg: var(--mat-color-stone-100);
+    --color-tab-active-count-text: var(--mat-color-stone-900);
 
     /* Tabs (underline) */
-    --color-tabs-text: var(--color-stone-400);
-    --color-tabs-text-hover: var(--color-stone-200);
-    --color-tabs-active-text: var(--color-stone-100);
-    --color-tabs-border: var(--color-stone-700);
-    --color-tabs-active-indicator: var(--color-stone-100);
-    --color-tabs-count-bg: var(--color-stone-800);
-    --color-tabs-count-text: var(--color-stone-300);
+    --color-tabs-text: var(--mat-color-stone-400);
+    --color-tabs-text-hover: var(--mat-color-stone-200);
+    --color-tabs-active-text: var(--mat-color-stone-100);
+    --color-tabs-border: var(--mat-color-stone-700);
+    --color-tabs-active-indicator: var(--mat-color-stone-100);
+    --color-tabs-count-bg: var(--mat-color-stone-800);
+    --color-tabs-count-text: var(--mat-color-stone-300);
     --color-tabs-active-count-bg: var(--color-tabs-count-bg);
     --color-tabs-active-count-text: var(--color-tabs-count-text);
 
@@ -579,44 +597,44 @@
     --color-tooltip-text: var(--color-dropdown-item-text);
 
     /* Panel */
-    --color-panel-bg: var(--color-stone-900);
-    --color-panel-border: var(--color-stone-700);
-    --color-panel-text: var(--color-stone-100);
+    --color-panel-bg: var(--mat-color-stone-900);
+    --color-panel-border: var(--mat-color-stone-700);
+    --color-panel-text: var(--mat-color-stone-100);
 
     /* Modal */
-    --color-modal-overlay: color-mix(in srgb, var(--color-black) 50%, transparent);
-    --color-modal-bg: var(--color-stone-900);
+    --color-modal-overlay: color-mix(in srgb, var(--mat-color-black) 50%, transparent);
+    --color-modal-bg: var(--mat-color-stone-900);
 
     /* Table */
-    --color-table-header-text: var(--color-stone-200);
-    --color-table-header-bg: var(--color-stone-800);
-    --color-table-header-bg-hover: var(--color-stone-700);
-    --color-table-header-bg-active: var(--color-stone-600);
-    --color-table-border: var(--color-stone-700);
-    --color-table-row-bg: var(--color-stone-900);
-    --color-table-row-bg-hover: var(--color-stone-800);
-    --color-table-row-text: var(--color-stone-100);
-    --color-table-resize-handle: var(--color-stone-700);
-    --color-table-resize-handle-hover: var(--color-stone-600);
-    --color-table-resize-handle-active: var(--color-blue-500);
+    --color-table-header-text: var(--mat-color-stone-200);
+    --color-table-header-bg: var(--mat-color-stone-800);
+    --color-table-header-bg-hover: var(--mat-color-stone-700);
+    --color-table-header-bg-active: var(--mat-color-stone-600);
+    --color-table-border: var(--mat-color-stone-700);
+    --color-table-row-bg: var(--mat-color-stone-900);
+    --color-table-row-bg-hover: var(--mat-color-stone-800);
+    --color-table-row-text: var(--mat-color-stone-100);
+    --color-table-resize-handle: var(--mat-color-stone-700);
+    --color-table-resize-handle-hover: var(--mat-color-stone-600);
+    --color-table-resize-handle-active: var(--mat-color-blue-500);
 
     /* Divider */
-    --color-divider: var(--color-stone-700);
+    --color-divider: var(--mat-color-stone-700);
 
     /* Badge (white/black only) */
-    --color-badge-white-bg: var(--color-stone-800);
-    --color-badge-white-text: var(--color-stone-100);
-    --color-badge-white-ring: var(--color-stone-700);
-    --color-badge-black-bg: var(--color-stone-100);
-    --color-badge-black-text: var(--color-stone-900);
-    --color-badge-black-ring: var(--color-stone-700);
+    --color-badge-white-bg: var(--mat-color-stone-800);
+    --color-badge-white-text: var(--mat-color-stone-100);
+    --color-badge-white-ring: var(--mat-color-stone-700);
+    --color-badge-black-bg: var(--mat-color-stone-100);
+    --color-badge-black-text: var(--mat-color-stone-900);
+    --color-badge-black-ring: var(--mat-color-stone-700);
 
     /* Status (shared across components) */
-    --color-status-error: var(--color-red-500);
-    --color-status-warning: var(--color-amber-400);
-    --color-status-success: var(--color-green-500);
-    --color-status-info: var(--color-blue-500);
+    --color-status-error: var(--mat-color-red-500);
+    --color-status-warning: var(--mat-color-amber-400);
+    --color-status-success: var(--mat-color-green-500);
+    --color-status-info: var(--mat-color-blue-500);
 
     /* Select trigger placeholder */
-    --color-input-select-placeholder: var(--color-stone-400);
+    --color-input-select-placeholder: var(--mat-color-stone-400);
 }

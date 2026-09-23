@@ -27,6 +27,8 @@ pnpm site:build
 
 The showcase pulls in the library via the workspace alias (`workspace:*`), so edits under `src/` are reflected on the next dev rebuild. Deployments to GitHub Pages happen via [.github/workflows/deploy-site.yml](.github/workflows/deploy-site.yml).
 
+**Authoring rule:** every Tailwind utility in `src/` is written with the `mat:` prefix — `mat:flex`, `mat:hover:ring-2`, `mat:-translate-y-1/2` — and so is every `@apply`. An unprefixed utility compiles to nothing (Tailwind only accepts prefixed candidates once a prefix is set), and `pnpm build` runs `scripts/check-css.mjs`, which fails on any unprefixed class in the utilities layer. Authored component classes (`.button-primary`, `.input-base`, …) are not utilities and stay as they are.
+
 ## Installation
 
 ```bash
@@ -35,11 +37,25 @@ pnpm install @matthiaskrijgsman/mat-ui
 
 ### Styles
 
-Import the mat-ui stylesheet in your CSS entry file. Be sure to do this **after** the Tailwind import.
+Import the mat-ui stylesheet in your CSS entry file. On a Tailwind v4 host, do this **after** the Tailwind import.
 
 ```css
 @import "@matthiaskrijgsman/mat-ui/style";
 ```
+
+The stylesheet is Tailwind v4 output with every utility **prefixed** (`mat:flex` compiles to `.mat\:flex`, the theme variables to `--mat-*`), so nothing in it can collide with your own Tailwind classes, whatever version you run. It ships no global preflight; the few resets the components need are scoped to their own classes.
+
+**Not on Tailwind v4?** `./style` uses native cascade layers, and in a host whose own CSS is unlayered (Tailwind v3, or no Tailwind) every layered rule loses to every host rule — your reset's `input { padding: 0 }` would beat our inputs' padding. A v3 PostCSS pipeline also refuses to import a file with bare `@layer` blocks. Import the flat entry instead, and mark the subtree that uses mat-ui components:
+
+```css
+@import "@matthiaskrijgsman/mat-ui/style-flat";
+```
+
+```html
+<div class="mat-ui">…your app…</div>   <!-- or data-mat-ui -->
+```
+
+`style-flat` is the same rules with the layers flattened and every selector scoped to `.mat-ui` / `[data-mat-ui]` (plus Floating UI's portal, where menus, tooltips and modals render), at zero extra specificity. Its `:root` / `.dark` token declarations drop to zero specificity too, so a same-named custom property of your own always wins. Wrap your app root, or just the region that renders mat-ui — anything outside the wrapper is untouched by the stylesheet.
 
 ## Usage
 
@@ -97,7 +113,7 @@ Tokens fall into three families:
 **Structure** and **color** tokens use a two-tier model:
 
 1. **Base scales** — a small set of primitives (e.g. `--font-weight-strong`, `--radius-xl`). Change one to shift the whole kit at once.
-2. **Semantic aliases** — per-component tokens that point at the base scale by default (e.g. `--font-weight-button: var(--font-weight-strong)`, `--border-radius-dropdown: var(--radius-xl)`). Override one to retheme a single component without touching anything else.
+2. **Semantic aliases** — per-component tokens that point at the base scale by default (e.g. `--font-weight-button: var(--font-weight-strong)`, `--border-radius-dropdown: var(--mat-radius-xl)`). Override one to retheme a single component without touching anything else.
 
 So `--font-weight-strong: 700` makes every emphasised element heavier, while `--font-weight-button: 700` changes only buttons. Pick the tier that matches how broad your change is.
 
@@ -160,10 +176,11 @@ Font weights resolve through a three-step base scale; the semantic tokens below 
 | Token | Description | Default |
 |-------|-------------|---------|
 | `--font-family-base` | Typeface for all kit text (defaults to the host font) | `inherit` |
-| `--font-size-label` | Dropdown / select group label size | `var(--text-sm)` |
-| `--font-size-description` | `InputDescription` and `PanelField` label size | `var(--text-sm)` |
-| `--font-size-error` | `InputError` size | `var(--text-sm)` |
-| `--font-size-tab-count` | `TabButtons` / `Tabs` count chip size | `var(--text-xs)` |
+| `--font-family-numeric` | Number inputs (`type="number"`) and the rich-text toolbar's numeric fields, rendered with tabular figures — point it at a mono stack if your numerals live there | `var(--font-family-base)` |
+| `--font-size-label` | Dropdown / select group label size | `var(--mat-text-sm)` |
+| `--font-size-description` | `InputDescription` and `PanelField` label size | `var(--mat-text-sm)` |
+| `--font-size-error` | `InputError` size | `var(--mat-text-sm)` |
+| `--font-size-tab-count` | `TabButtons` / `Tabs` count chip size | `var(--mat-text-xs)` |
 | `--font-size-tooltip` | `Tooltip` text size — **opt-in**: undeclared by default, the tooltip inherits the surrounding text size | *(inherit)* |
 | `--font-weight-tooltip` | `Tooltip` text weight — **opt-in**: undeclared by default, the tooltip inherits the surrounding weight | *(inherit)* |
 
@@ -171,22 +188,22 @@ Font weights resolve through a three-step base scale; the semantic tokens below 
 
 ### Structure — border radius
 
-Semantic radius tokens map onto Tailwind's radius scale. Override a token to change one group; override the underlying `--radius-*` to change several at once.
+Semantic radius tokens map onto Tailwind's radius scale. Override a token to change one group; override the underlying `--mat-radius-*` (Tailwind's scale, prefixed) to change several at once.
 
 | Token | Applies to | Default |
 |-------|-----------|---------|
-| `--border-radius-input` | Text inputs, selects, textareas, file inputs, the Lexical editor box | `var(--radius-xl)` |
+| `--border-radius-input` | Text inputs, selects, textareas, file inputs, the Lexical editor box | `var(--mat-radius-xl)` |
 | `--border-radius-button` | `Button`, `ButtonIconSquare` (and the file-input "Choose" button) | `var(--border-radius-input)` |
-| `--border-radius-panel` | `Panel`, `PanelStack`, `Modal`, `TableEmpty` icon frame | `var(--radius-2xl)` |
-| `--border-radius-dropdown` | `DropdownPanel`, Lexical floating toolbar | `var(--radius-xl)` |
-| `--border-radius-option` | Select option rows | `var(--radius-xl)` |
-| `--border-radius-menu-item` | `DropdownButton`, `PanelLink`, Lexical toolbar buttons | `var(--radius-lg)` |
-| `--border-radius-badge` | `Badge` | `var(--radius-lg)` |
-| `--border-radius-tab` | `TabButtons` container | `var(--radius-xl)` |
+| `--border-radius-panel` | `Panel`, `PanelStack`, `Modal`, `TableEmpty` icon frame | `var(--mat-radius-2xl)` |
+| `--border-radius-dropdown` | `DropdownPanel`, Lexical floating toolbar | `var(--mat-radius-xl)` |
+| `--border-radius-option` | Select option rows | `var(--mat-radius-xl)` |
+| `--border-radius-menu-item` | `DropdownButton`, `PanelLink`, Lexical toolbar buttons | `var(--mat-radius-lg)` |
+| `--border-radius-badge` | `Badge` | `var(--mat-radius-lg)` |
+| `--border-radius-tab` | `TabButtons` container | `var(--mat-radius-xl)` |
 | `--border-radius-tab-inner` | `TabButtons` pills — set to `calc(var(--border-radius-tab) - var(--tab-container-padding))` for a concentric look | `var(--border-radius-tab)` |
 | `--border-radius-tooltip` | `Tooltip` panel | `var(--border-radius-dropdown)` |
-| `--border-radius-checkbox` | `InputCheck` box | `var(--radius-lg)` |
-| `--border-radius-control-inner` | Color swatch and picker bars in `InputColor` | `var(--radius-md)` |
+| `--border-radius-checkbox` | `InputCheck` box | `var(--mat-radius-lg)` |
+| `--border-radius-control-inner` | Color swatch and picker bars in `InputColor` | `var(--mat-radius-md)` |
 
 > `ButtonIconRound`, the toggle track/thumb, and radio dots are intentionally fully round (`rounded-full`) and are not tokenized.
 
@@ -197,9 +214,9 @@ Semantic radius tokens map onto Tailwind's radius scale. Override a token to cha
 | `--border-width-input` | Border width of inputs, selects, buttons, panels, dropdowns, modals, check/radio, the `Tabs` bottom rule | `1px` |
 | `--border-width-tabs-indicator` | Active-tab underline in `Tabs` | `2px` |
 | `--border-width-tooltip` | `Tooltip` panel border width | `var(--border-width-input)` |
-| `--shadow-control` | Resting elevation of buttons, inputs, panels, tabs | `var(--shadow-sm)` |
-| `--shadow-dropdown` | `DropdownPanel` and the Lexical floating toolbar | `var(--shadow-lg)` |
-| `--shadow-overlay` | `Modal` and `SidebarModal` | `var(--shadow-xl)` |
+| `--shadow-control` | Resting elevation of buttons, inputs, panels, tabs | `var(--mat-shadow-sm)` |
+| `--shadow-dropdown` | `DropdownPanel` and the Lexical floating toolbar | `var(--mat-shadow-lg)` |
+| `--shadow-overlay` | `Modal` and `SidebarModal` | `var(--mat-shadow-xl)` |
 | `--shadow-tooltip` | `Tooltip` panel | `var(--shadow-dropdown)` |
 
 ### Structure — component geometry
@@ -284,6 +301,16 @@ Field-like inputs (`Input`, `InputPassword`, `InputTextArea`, `InputColor`, `Inp
 |-------|-------------|---------------|
 | `--color-input-flat-bg` | Flat-variant input background | `#f3f4f6` |
 | `--color-input-flat-border` | Flat-variant input border (defaults to the flat background) | `var(--color-input-flat-bg)` |
+
+`Input`'s `prefix` (fixed text such as `/zaken/` before a slug) renders as a muted segment inside the field, set off by a vertical rule:
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-input-prefix-bg` | Prefix segment background | `#f9fafb` |
+| `--color-input-prefix-text` | Prefix text color | `#6b7280` |
+| `--color-input-prefix-border` | Rule between prefix and input (defaults to the input border) | `var(--color-input-border)` |
+| `--color-input-flat-prefix-bg` | Prefix segment background, flat variant | `rgb(17 24 39 / 0.04)` |
+| `--color-input-flat-prefix-border` | Rule between prefix and input, flat variant | `#e5e7eb` |
 
 (`InputCheck`, `InputRadio`, `InputToggle`, and the `InputFileMultiple` dropzone have no box chrome to flatten, so they don't take the variant.)
 

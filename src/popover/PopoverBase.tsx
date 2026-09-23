@@ -28,7 +28,7 @@ export const PopoverBase: React.FC<PopoverBaseProps> = React.memo(
       <FloatingPortal>
         <AnimatePresence>
           { open && (
-            <div ref={ setFloating } style={ floatingStyles } className={ 'z-50' } { ...floatingProps }>
+            <div ref={ setFloating } style={ floatingStyles } className={ 'mat:z-50' } { ...floatingProps }>
               <motion.div
                 className={ className }
                 style={ { transformOrigin: placementOriginMap[placement] } }

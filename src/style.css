@@ -15,9 +15,17 @@
  *
  *     @import "tailwindcss/preflight.css" layer(base);
  */
+/*
+ * PREFIXED. Every utility is authored as `mat:flex`, `mat:h-full`, … and
+ * compiles to `.mat\:flex`; the theme variables come out as `--mat-*`. A host
+ * on Tailwind v3 (or on v4 with a different config) therefore never has a
+ * class of the same name: its `.flex` and ours cannot collide, and a v3
+ * `-translate-y-1/2` can never stack on top of our `mat:-translate-y-1/2`.
+ * `scripts/check-css.mjs` fails the build if an unprefixed utility slips in.
+ */
 @layer theme, base, components, utilities;
-@import "tailwindcss/theme.css" layer(theme);
-@import "tailwindcss/utilities.css" layer(utilities);
+@import "tailwindcss/theme.css" layer(theme) prefix(mat);
+@import "tailwindcss/utilities.css" layer(utilities) prefix(mat);
 
 @import "./styles/scoped-reset.css";
 

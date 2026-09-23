@@ -76,11 +76,11 @@ export const LexicalToolbarNumber = (props: LexicalToolbarNumberProps) => {
     <span
       title={ title }
       className={ classNames(
-        "lexical-tb-btn h-8 px-1.5 gap-1 text-sm font-[number:var(--font-weight-input-option-label)]",
+        "lexical-tb-btn mat:h-8 mat:px-1.5 mat:gap-1 mat:text-sm mat:font-[number:var(--font-weight-input-option-label)]",
         tone === "dark" ? "lexical-tb-btn-dark" : "lexical-tb-btn-light",
       ) }
     >
-      { prefix && <span className={ "opacity-60 select-none" }>{ prefix }</span> }
+      { prefix && <span className={ "mat:opacity-60 mat:select-none" }>{ prefix }</span> }
       <input
         type={ "text" }
         inputMode={ "decimal" }
@@ -96,7 +96,7 @@ export const LexicalToolbarNumber = (props: LexicalToolbarNumberProps) => {
           commit(event.target.value);
         } }
         onKeyDown={ handleKeyDown }
-        className={ "w-9 bg-transparent text-center outline-none border-none p-0 text-inherit text-sm" }
+        className={ "mat:w-9 mat:bg-transparent mat:text-center mat:outline-none mat:border-none mat:p-0 mat:text-inherit mat:text-sm mat:font-[family-name:var(--font-family-numeric)] mat:tabular-nums" }
       />
     </span>
   );

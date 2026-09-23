@@ -49,7 +49,7 @@ export const LexicalToolbar = (props: LexicalToolbarProps) => {
     <LexicalToolbarContext.Provider value={ { state, tone: "light" } }>
       <div
         className={ classNames(
-          "lexical-toolbar flex flex-row items-center p-1.5",
+          "lexical-toolbar mat:flex mat:flex-row mat:items-center mat:p-1.5",
           className,
         ) }
       >
