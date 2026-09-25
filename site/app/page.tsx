@@ -615,7 +615,15 @@ export default function Page() {
                   checked={ check }
                   onChange={ (e) => setCheck(e.target.checked) }
                 />
+                <InputCheck id={ 'check-indeterminate' } label={ 'Indeterminate' } indeterminate readOnly/>
+                <InputCheck
+                  id={ 'check-error' }
+                  label={ 'I accept the terms' }
+                  error={ 'You must accept the terms to continue.' }
+                />
                 <InputCheck id={ 'check-disabled' } label={ 'Disabled' } disabled/>
+                <InputCheck id={ 'check-disabled-checked' } label={ 'Disabled, checked' } disabled checked readOnly/>
+                <InputCheck id={ 'check-disabled-indeterminate' } label={ 'Disabled, indeterminate' } disabled indeterminate readOnly/>
               </ShowcaseSection>
               <Divider/>
               <ShowcaseSection title={ 'Radio' } layout={ 'vertical' }>
