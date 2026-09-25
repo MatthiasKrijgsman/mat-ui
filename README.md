@@ -381,7 +381,13 @@ Both halves of `InputColor` are also exported standalone: `ColorPicker` (the HSV
 |-------|-------------|---------------|
 | `--color-check-border` | Checkbox/radio border | `#d1d5db` |
 | `--color-check-ring` | Checkbox/radio focus ring | `rgb(17 24 39 / 0.1)` |
-| `--color-check-checked-bg` | Checkbox/radio fill when checked | `#2563eb` |
+| `--color-check-checked-bg` | Checkbox/radio fill when checked or indeterminate | `#2563eb` |
+| `--color-check-border-error` | Checkbox/radio border when `error` is set | `var(--color-input-border-error)` |
+| `--color-check-ring-error` | Checkbox/radio hover/focus ring when `error` is set | `var(--color-input-ring-error)` |
+| `--color-check-disabled-bg` | Checkbox/radio fill when disabled | `#f3f4f6` |
+| `--color-check-disabled-border` | Checkbox/radio border when disabled | `#e5e7eb` |
+| `--color-check-disabled-checked-bg` | Checkbox/radio fill when disabled and checked/indeterminate | `#d1d5db` |
+| `--color-check-disabled-label` | Checkbox/radio label text when disabled | `#9ca3af` |
 
 ### Color — range (slider)
 

@@ -4,4 +4,26 @@
     @apply mat:ring-[var(--color-check-ring)];
     @apply mat:checked:bg-[var(--color-check-checked-bg)] mat:checked:border-[var(--color-check-checked-bg)];
     @apply mat:checked:hover:bg-[var(--color-check-checked-bg)] mat:checked:hover:border-[var(--color-check-checked-bg)];
+    @apply mat:indeterminate:bg-[var(--color-check-checked-bg)] mat:indeterminate:border-[var(--color-check-checked-bg)];
+    @apply mat:indeterminate:hover:bg-[var(--color-check-checked-bg)] mat:indeterminate:hover:border-[var(--color-check-checked-bg)];
+}
+/* Declared after .check-base so it wins at equal specificity. A checked box
+ * keeps its fill; the error shows on the ring. */
+.check-error {
+    @apply mat:border-[var(--color-check-border-error)];
+    @apply mat:ring-[var(--color-check-ring-error)];
+}
+/* Last, so disabled beats both the error and the checked/indeterminate fill. */
+.check-base:disabled {
+    @apply mat:cursor-not-allowed mat:shadow-none;
+    @apply mat:bg-[var(--color-check-disabled-bg)] mat:border-[var(--color-check-disabled-border)];
+}
+.check-base:disabled:checked,
+.check-base:disabled:indeterminate {
+    @apply mat:bg-[var(--color-check-disabled-checked-bg)] mat:border-[var(--color-check-disabled-checked-bg)];
+}
+/* Compound selector: .input-label (InputShared.css) is imported later and
+ * would otherwise win at equal specificity. */
+.input-label.check-label-disabled {
+    @apply mat:text-[var(--color-check-disabled-label)];
 }

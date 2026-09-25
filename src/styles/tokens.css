@@ -302,6 +302,12 @@
     --color-check-border: var(--mat-color-gray-300);
     --color-check-ring: color-mix(in srgb, var(--mat-color-gray-900) 10%, transparent);
     --color-check-checked-bg: var(--mat-color-blue-600);
+    --color-check-border-error: var(--color-input-border-error);
+    --color-check-ring-error: var(--color-input-ring-error);
+    --color-check-disabled-bg: var(--mat-color-gray-100);
+    --color-check-disabled-border: var(--mat-color-gray-200);
+    --color-check-disabled-checked-bg: var(--mat-color-gray-300);
+    --color-check-disabled-label: var(--mat-color-gray-400);
 
     /* Input range (slider) */
     --color-range-track-bg: var(--mat-color-gray-200);
@@ -551,6 +557,12 @@
     --color-check-border: var(--mat-color-stone-600);
     --color-check-ring: color-mix(in srgb, var(--mat-color-stone-100) 10%, transparent);
     --color-check-checked-bg: var(--mat-color-blue-500);
+    --color-check-border-error: var(--color-input-border-error);
+    --color-check-ring-error: var(--color-input-ring-error);
+    --color-check-disabled-bg: var(--mat-color-stone-900);
+    --color-check-disabled-border: var(--mat-color-stone-700);
+    --color-check-disabled-checked-bg: var(--mat-color-stone-600);
+    --color-check-disabled-label: var(--mat-color-stone-600);
 
     /* Input range (slider) */
     --color-range-track-bg: var(--mat-color-stone-700);
