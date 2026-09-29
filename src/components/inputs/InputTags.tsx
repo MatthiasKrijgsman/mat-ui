@@ -13,6 +13,7 @@ import {
   sizeFontClasses,
   sizeMinHeightClasses,
   sizePaddingLeftClasses,
+  sizeTagInsetLeftClasses,
   sizePaddingRightClasses,
   sizePaddingRightWithTrayClasses,
 } from "@/control-size/control-size.util.ts";
@@ -190,7 +191,7 @@ export const InputTags = (props: InputTagsProps) => {
               selectTriggerVariantClasses[variant],
               sizeMinHeightClasses[size],
               sizeFontClasses[size],
-              sizePaddingLeftClasses[size],
+              value.length > 0 ? sizeTagInsetLeftClasses[size] : sizePaddingLeftClasses[size],
               !disabled && error ? sizePaddingRightWithTrayClasses[size] : sizePaddingRightClasses[size],
               disabled ? 'select-trigger-disabled' : classNames('mat:cursor-text', error && 'select-trigger-error'),
             ) }
