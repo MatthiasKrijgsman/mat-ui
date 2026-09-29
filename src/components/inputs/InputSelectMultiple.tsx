@@ -25,6 +25,8 @@ import {
   sizeHeightClasses,
   sizeMinHeightClasses,
   sizePaddingLeftClasses,
+  sizeTagInsetLeftClasses,
+  sizeTagInsetLeftSingleLineClasses,
   sizePaddingRightWithTrayClasses,
   sizePaddingRightWithTrayTwoClasses,
 } from "@/control-size/control-size.util.ts";
@@ -222,7 +224,8 @@ export const InputSelectMultiple = <T, >(props: InputSelectMultipleProps<T>) => 
               singleLine && classNames('mat:flex-nowrap mat:overflow-hidden', sizeHeightClasses[size]),
               !singleLine && classNames('mat:flex-wrap mat:py-1.5', sizeMinHeightClasses[size]),
               sizeFontClasses[size],
-              sizePaddingLeftClasses[size],
+              !hasSelection ? sizePaddingLeftClasses[size]
+                : singleLine ? sizeTagInsetLeftSingleLineClasses[size] : sizeTagInsetLeftClasses[size],
               clearable && hasSelection ? sizePaddingRightWithTrayTwoClasses[size] : sizePaddingRightWithTrayClasses[size],
               disabled ? 'select-trigger-disabled' : error && 'select-trigger-error',
               !disabled && open && 'mat:ring-[length:var(--control-ring-width)]',

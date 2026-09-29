@@ -36,6 +36,22 @@ export const sizePaddingLeftClasses: Record<ControlSize, string> = {
   lg: 'mat:pl-[var(--control-size-lg-px)]',
 };
 
+/* Left padding while a field shows tags (Badges, fixed at 1.75rem / `h-7`), so the space left of
+ * the first tag equals the space above it. On a fixed-height field that is the centring remainder:
+ * (height - 2 * border - 1.75rem) / 2. A wrapping field also has `py-1.5`, which wins when the
+ * remainder is smaller. Keep the 1.75rem in step with Badge's height. */
+export const sizeTagInsetLeftClasses: Record<ControlSize, string> = {
+  sm: 'mat:pl-[max(0.375rem,calc((var(--control-size-sm-height)_-_2_*_var(--border-width-input)_-_1.75rem)_/_2))]',
+  md: 'mat:pl-[max(0.375rem,calc((var(--control-size-md-height)_-_2_*_var(--border-width-input)_-_1.75rem)_/_2))]',
+  lg: 'mat:pl-[max(0.375rem,calc((var(--control-size-lg-height)_-_2_*_var(--border-width-input)_-_1.75rem)_/_2))]',
+};
+
+export const sizeTagInsetLeftSingleLineClasses: Record<ControlSize, string> = {
+  sm: 'mat:pl-[calc((var(--control-size-sm-height)_-_2_*_var(--border-width-input)_-_1.75rem)_/_2)]',
+  md: 'mat:pl-[calc((var(--control-size-md-height)_-_2_*_var(--border-width-input)_-_1.75rem)_/_2)]',
+  lg: 'mat:pl-[calc((var(--control-size-lg-height)_-_2_*_var(--border-width-input)_-_1.75rem)_/_2)]',
+};
+
 export const sizePaddingRightClasses: Record<ControlSize, string> = {
   sm: 'mat:pr-[var(--control-size-sm-px)]',
   md: 'mat:pr-[var(--control-size-md-px)]',
