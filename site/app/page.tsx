@@ -7,6 +7,7 @@ import {
   Button,
   ButtonIconRound,
   ButtonIconSquare,
+  Calendar,
   ColorPicker,
   ColorSwatch,
   Divider,
@@ -18,6 +19,8 @@ import {
   Input,
   InputCheck,
   InputColor,
+  InputDate,
+  InputDateTime,
   InputFileMultiple,
   InputFileSingle,
   InputPassword,
@@ -211,6 +214,17 @@ export default function Page() {
   const [ color, setColor ] = useState('#0EA5E9');
   const [ pickerColor, setPickerColor ] = useState('#F59E0B');
   const [ rangeValue, setRangeValue ] = useState(40);
+  const [ date, setDate ] = useState<Date | null>(null);
+  const [ dateTime, setDateTime ] = useState<Date | null>(() => new Date(2026, 9, 14, 14, 30));
+  const [ calendarDate, setCalendarDate ] = useState<Date | null>(null);
+  // Bounds for the min/max demo: today up to 30 days ahead
+  const [ dateBounds ] = useState(() => {
+    const min = new Date();
+    min.setHours(0, 0, 0, 0);
+    const max = new Date(min);
+    max.setDate(max.getDate() + 30);
+    return { min, max };
+  });
 
   // Choices
   const [ check, setCheck ] = useState(true);
@@ -554,6 +568,72 @@ export default function Page() {
                   placeholder={ 'Every field-like input takes variant="flat"…' }
                   className={ 'w-full' }
                 />
+              </ShowcaseSection>
+            </Panel>
+          </section>
+
+          {/* Dates */ }
+          <section id={ 'dates' } className={ 'flex flex-col gap-6 scroll-mt-24' }>
+            <h2>Dates</h2>
+            <div>Masked date and date-time fields with a calendar popover. Type digits and the separators fill themselves in, step a segment with the arrow keys, or pick from the calendar — the value is a plain <code>Date</code>.</div>
+            <ShowcaseImportPath path={ `import { InputDate, InputDateTime, Calendar } from "@matthiaskrijgsman/mat-ui"` }/>
+            <Panel>
+              <ShowcaseSection title={ 'Date' } layout={ 'vertical' } narrow={ true }>
+                <InputDate
+                  label={ 'Date of birth' }
+                  description={ date ? date.toDateString() : 'Try typing 3-11-88, or click to open the calendar.' }
+                  value={ date }
+                  onChange={ setDate }
+                  className={ 'w-full' }
+                />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Date & time' } layout={ 'vertical' } narrow={ true }>
+                <InputDateTime
+                  label={ 'Hearing' }
+                  description={ dateTime ? `${ dateTime.toDateString() } ${ dateTime.toTimeString().slice(0, 5) }` : 'No date set.' }
+                  value={ dateTime }
+                  onChange={ setDateTime }
+                  className={ 'w-full' }
+                />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Format, locale and bounds' } layout={ 'vertical' } narrow={ true }>
+                <InputDate
+                  label={ 'US format, week starts on Sunday' }
+                  format={ 'MM/dd/yyyy' }
+                  locale={ 'en-US' }
+                  weekStartsOn={ 0 }
+                  className={ 'w-full' }
+                />
+                <InputDate
+                  label={ 'Nederlands' }
+                  locale={ 'nl-NL' }
+                  labels={ { today: 'Vandaag', previous: 'Vorige', next: 'Volgende' } }
+                  className={ 'w-full' }
+                />
+                <InputDateTime
+                  label={ 'Within the next 30 days' }
+                  description={ 'min / max disable days in the calendar and reject typed dates outside them.' }
+                  min={ dateBounds.min }
+                  max={ dateBounds.max }
+                  minuteStep={ 15 }
+                  className={ 'w-full' }
+                />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Sizes and states' } layout={ 'vertical' } narrow={ true }>
+                <InputDate size={ 'lg' } className={ 'w-full' }/>
+                <InputDate size={ 'md' } className={ 'w-full' }/>
+                <InputDate size={ 'sm' } className={ 'w-full' }/>
+                <InputDate variant={ 'flat' } label={ 'Flat' } className={ 'w-full' }/>
+                <InputDate label={ 'Error' } error={ 'Pick a date in the future.' } defaultValue={ new Date(2020, 0, 1) } className={ 'w-full' }/>
+                <InputDate label={ 'Disabled' } disabled={ true } defaultValue={ new Date(2026, 0, 1) } className={ 'w-full' }/>
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Standalone calendar' } layout={ 'vertical' } narrow={ true }>
+                {/* Rendered on the server too, so the locale is pinned — the browser's default would not match the prerendered HTML */ }
+                <Calendar value={ calendarDate } onChange={ setCalendarDate } locale={ 'en-GB' }/>
               </ShowcaseSection>
             </Panel>
           </section>

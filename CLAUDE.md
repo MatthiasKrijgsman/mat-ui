@@ -65,6 +65,7 @@ list exists to prevent.
 ### Component organization
 
 - `src/components/` — most UI components; some grouped in subdirectories (`button/`, `inputs/`, `dropdown-menu/`, `panel/`, `inputs/input-file/`, `inputs/input-lexical/`, etc.)
+- `src/components/inputs/input-date/` — `InputDate` / `InputDateTime` (thin wrappers over the shared `DateField`), the standalone `Calendar` and the internal `TimeColumns`; the mask, parsing and date math are pure functions in `src/util/date.util.ts`
 - `src/control-size/` — the shared `sm | md | lg` control sizing system (`control-size.util.ts` class maps + `use-control-size.ts` `ControlSizeContext`)
 - `src/popover/` — popover system using Floating UI (`use-popover.tsx` for generic popovers/`PopoverBase`, `use-select-popover.tsx` for keyboard-navigable select lists)
 - `src/hooks/` — shared hooks (`use-debounce`, `use-dismiss`, `use-drag-x`, `use-pointer-drag`, `use-overflow-fit`)
