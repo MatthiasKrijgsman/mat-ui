@@ -29,6 +29,9 @@
     --font-size-description: var(--mat-text-sm);
     --font-size-error: var(--mat-text-sm);
     --font-size-tab-count: var(--mat-text-xs);
+    --font-size-calendar-title: var(--mat-text-sm);
+    --font-size-calendar-cell: var(--mat-text-sm);
+    --font-size-calendar-weekday: var(--mat-text-xs);
 
     /* Font weight — semantic */
     --font-weight-input-text: var(--font-weight-normal);
@@ -47,6 +50,8 @@
     --font-weight-panel-link: var(--font-weight-strong);
     --font-weight-table-header: var(--font-weight-medium);
     --font-weight-table-cell: var(--font-weight-normal);
+    --font-weight-calendar-title: var(--font-weight-strong);
+    --font-weight-calendar-cell: var(--font-weight-medium);
 
     /* Border radius — semantic (map to Tailwind's radius scale) */
     --border-radius-input: var(--mat-radius-xl);
@@ -64,6 +69,7 @@
     --border-radius-tooltip: var(--border-radius-dropdown);
     --border-radius-checkbox: var(--mat-radius-lg);
     --border-radius-control-inner: var(--mat-radius-md);
+    --border-radius-calendar-cell: var(--border-radius-menu-item);
 
     /* Border width */
     --border-width-input: 1px;
@@ -87,6 +93,9 @@
      * so the tooltip follows the surrounding text until a host sets them. */
     --tooltip-padding-x: 0.75rem;
     --tooltip-padding-y: 0.75rem;
+
+    /* Calendar — edge of one day cell; the month grid is seven of these wide. */
+    --calendar-cell-size: 2.25rem;
 
     /* Ring — the focus/hover "glow" and the active/press inset. Color comes
      * from the per-component --color-*-ring tokens; these set the width. */
@@ -324,6 +333,21 @@
     --color-dropdown-item-text: var(--mat-color-gray-900);
     --color-dropdown-item-ring: color-mix(in srgb, var(--mat-color-gray-900) 10%, transparent);
     --color-dropdown-group-label: var(--mat-color-gray-500);
+
+    /* Calendar (date picker of InputDate / InputDateTime) */
+    --color-calendar-text: var(--color-dropdown-item-text);
+    --color-calendar-text-muted: var(--mat-color-gray-500);
+    --color-calendar-text-outside: var(--mat-color-gray-400);
+    --color-calendar-text-disabled: var(--mat-color-gray-300);
+    --color-calendar-divider: var(--color-dropdown-border);
+    --color-calendar-cell-bg-hover: var(--color-dropdown-item-bg-hover);
+    --color-calendar-cell-bg-active: var(--color-dropdown-item-bg-active);
+    --color-calendar-cell-ring: var(--color-dropdown-item-ring);
+    --color-calendar-cell-today-border: var(--color-button-primary-bg);
+    --color-calendar-cell-selected-bg: var(--color-button-primary-bg);
+    --color-calendar-cell-selected-bg-hover: var(--color-button-primary-bg-hover);
+    --color-calendar-cell-selected-bg-active: var(--color-button-primary-bg-active);
+    --color-calendar-cell-selected-text: var(--color-button-primary-text);
 
     /* Tab buttons */
     --color-tab-text: var(--mat-color-gray-900);
@@ -579,6 +603,21 @@
     --color-dropdown-item-text: var(--mat-color-stone-100);
     --color-dropdown-item-ring: color-mix(in srgb, var(--mat-color-stone-100) 10%, transparent);
     --color-dropdown-group-label: var(--mat-color-stone-400);
+
+    /* Calendar (date picker of InputDate / InputDateTime) */
+    --color-calendar-text: var(--color-dropdown-item-text);
+    --color-calendar-text-muted: var(--mat-color-stone-400);
+    --color-calendar-text-outside: var(--mat-color-stone-500);
+    --color-calendar-text-disabled: var(--mat-color-stone-700);
+    --color-calendar-divider: var(--color-dropdown-border);
+    --color-calendar-cell-bg-hover: var(--color-dropdown-item-bg-hover);
+    --color-calendar-cell-bg-active: var(--color-dropdown-item-bg-active);
+    --color-calendar-cell-ring: var(--color-dropdown-item-ring);
+    --color-calendar-cell-today-border: var(--color-button-primary-bg);
+    --color-calendar-cell-selected-bg: var(--color-button-primary-bg);
+    --color-calendar-cell-selected-bg-hover: var(--color-button-primary-bg-hover);
+    --color-calendar-cell-selected-bg-active: var(--color-button-primary-bg-active);
+    --color-calendar-cell-selected-text: var(--color-button-primary-text);
 
     /* Tab buttons */
     --color-tab-text: var(--mat-color-stone-100);

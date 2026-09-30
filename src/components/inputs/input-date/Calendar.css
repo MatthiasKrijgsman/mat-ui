@@ -1,0 +1,33 @@
+.calendar-weekday {
+    @apply mat:text-[var(--color-calendar-text-muted)];
+}
+.calendar-divider {
+    @apply mat:border-[var(--color-calendar-divider)];
+}
+/* Every pressable thing in the picker: days, months, years, time options and
+ * the header buttons. The modifiers below are declared after it so they win
+ * the cascade at equal specificity. */
+.calendar-cell {
+    @apply mat:bg-transparent;
+    @apply mat:text-[var(--color-calendar-text)];
+    @apply mat:hover:bg-[var(--color-calendar-cell-bg-hover)];
+    @apply mat:active:bg-[var(--color-calendar-cell-bg-active)];
+    @apply mat:ring-[var(--color-calendar-cell-ring)];
+}
+.calendar-cell-outside {
+    @apply mat:text-[var(--color-calendar-text-outside)];
+}
+.calendar-cell-today {
+    @apply mat:border-[var(--color-calendar-cell-today-border)];
+}
+.calendar-cell-selected {
+    @apply mat:bg-[var(--color-calendar-cell-selected-bg)];
+    @apply mat:text-[var(--color-calendar-cell-selected-text)];
+    @apply mat:hover:bg-[var(--color-calendar-cell-selected-bg-hover)];
+    @apply mat:active:bg-[var(--color-calendar-cell-selected-bg-active)];
+}
+.calendar-cell-disabled {
+    @apply mat:text-[var(--color-calendar-text-disabled)];
+    @apply mat:hover:bg-transparent;
+    @apply mat:active:bg-transparent;
+}

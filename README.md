@@ -172,6 +172,8 @@ Font weights resolve through a three-step base scale; the semantic tokens below 
 | `--font-weight-panel-link` | `PanelLink` | `--font-weight-strong` |
 | `--font-weight-table-header` | `Table` header cells, `TableEmpty` title | `--font-weight-medium` |
 | `--font-weight-table-cell` | `Table` body cells | `--font-weight-normal` |
+| `--font-weight-calendar-title` | `Calendar` header (month / year) and its "Today" button | `--font-weight-strong` |
+| `--font-weight-calendar-cell` | `Calendar` days, months, years, weekday names and the time options | `--font-weight-medium` |
 
 | Token | Description | Default |
 |-------|-------------|---------|
@@ -181,6 +183,9 @@ Font weights resolve through a three-step base scale; the semantic tokens below 
 | `--font-size-description` | `InputDescription` and `PanelField` label size | `var(--mat-text-sm)` |
 | `--font-size-error` | `InputError` size | `var(--mat-text-sm)` |
 | `--font-size-tab-count` | `TabButtons` / `Tabs` count chip size | `var(--mat-text-xs)` |
+| `--font-size-calendar-title` | `Calendar` header and "Today" button size | `var(--mat-text-sm)` |
+| `--font-size-calendar-cell` | `Calendar` days, months, years and time options | `var(--mat-text-sm)` |
+| `--font-size-calendar-weekday` | `Calendar` weekday names | `var(--mat-text-xs)` |
 | `--font-size-tooltip` | `Tooltip` text size — **opt-in**: undeclared by default, the tooltip inherits the surrounding text size | *(inherit)* |
 | `--font-weight-tooltip` | `Tooltip` text weight — **opt-in**: undeclared by default, the tooltip inherits the surrounding weight | *(inherit)* |
 
@@ -204,6 +209,7 @@ Semantic radius tokens map onto Tailwind's radius scale. Override a token to cha
 | `--border-radius-tooltip` | `Tooltip` panel | `var(--border-radius-dropdown)` |
 | `--border-radius-checkbox` | `InputCheck` box | `var(--mat-radius-lg)` |
 | `--border-radius-control-inner` | Color swatch and picker bars in `InputColor` | `var(--mat-radius-md)` |
+| `--border-radius-calendar-cell` | `Calendar` days, months, years, header buttons and time options | `var(--border-radius-menu-item)` |
 
 > `ButtonIconRound`, the toggle track/thumb, and radio dots are intentionally fully round (`rounded-full`) and are not tokenized.
 
@@ -227,6 +233,7 @@ Semantic radius tokens map onto Tailwind's radius scale. Override a token to cha
 | `--tab-container-gap` | Gap between `TabButtons` pills | `0.25rem` |
 | `--tooltip-padding-x` | `Tooltip` panel horizontal padding | `0.75rem` |
 | `--tooltip-padding-y` | `Tooltip` panel vertical padding | `0.75rem` |
+| `--calendar-cell-size` | Edge of one `Calendar` day cell — the month grid is seven of these wide, the time options one high | `2.25rem` |
 
 ### Structure — ring & transition
 
@@ -243,7 +250,7 @@ Controls share a consistent interaction model: a focus/hover "glow" ring, a thin
 
 ### Control sizing
 
-`Button`, `ButtonIconSquare`, `ButtonIconRound`, `Input`, `InputColor`, `InputRange`, `InputTextArea`, `InputSelectNative`, `InputSelect`, `InputSelectSearchable`, and `InputSelectSearchableAsync` accept a `size?: 'sm' | 'md' | 'lg'` prop (default `'md'`) and read their dimensions from a single shared scale. Override these to adjust heights, padding, font size, and icon sizing consistently across all controls. Replace `{size}` with `sm`, `md`, or `lg`.
+`Button`, `ButtonIconSquare`, `ButtonIconRound`, `Input`, `InputColor`, `InputDate`, `InputDateTime`, `InputRange`, `InputTextArea`, `InputSelectNative`, `InputSelect`, `InputSelectSearchable`, and `InputSelectSearchableAsync` accept a `size?: 'sm' | 'md' | 'lg'` prop (default `'md'`) and read their dimensions from a single shared scale. Override these to adjust heights, padding, font size, and icon sizing consistently across all controls. Replace `{size}` with `sm`, `md`, or `lg`.
 
 | Token | Description | sm · md · lg defaults |
 |-------|-------------|------------------------|
@@ -295,7 +302,7 @@ Each button variant (`primary`, `white`, `black`, `transparent`, `secondary`, `t
 | `--color-input-ring-error` | Ring color in error state | `rgb(220 38 38 / 0.2)` |
 | `--color-input-icon` | Leading icon color | `rgb(17 24 39 / 0.6)` |
 
-Field-like inputs (`Input`, `InputPassword`, `InputTextArea`, `InputColor`, `InputLexical`, `InputFileSingle`, and the whole select family) also accept `variant?: 'default' | 'flat'`. The `flat` variant drops the control shadow and swaps in a soft fill whose border matches the background:
+Field-like inputs (`Input`, `InputPassword`, `InputTextArea`, `InputColor`, `InputDate`, `InputDateTime`, `InputLexical`, `InputFileSingle`, and the whole select family) also accept `variant?: 'default' | 'flat'`. The `flat` variant drops the control shadow and swaps in a soft fill whose border matches the background:
 
 | Token | Description | Light default |
 |-------|-------------|---------------|
@@ -344,6 +351,42 @@ All three components also rely on the shared `--color-status-success` / `--color
 `InputColor` reuses the standard input tokens — the color swatch in the field and the outline of the picker's saturation/value plane both derive from `--color-input-border`, and the field itself uses the same `--color-input-*` tokens as `Input`. The picker's hue/brightness gradients and indicator rings are intrinsic to the color-picking UI (not theme-based) and are intentionally not tokenized.
 
 Both halves of `InputColor` are also exported standalone: `ColorPicker` (the HSV panel — drop it into your own popover or panel) and `ColorSwatch` (the small rounded color tile, sized via the `size` prop or the surrounding `ControlSizeContext`).
+
+### Color — date inputs & calendar
+
+`InputDate` and `InputDateTime` are masked text fields with a calendar popover; the field itself uses the `--color-input-*` tokens and the popover panel the `--color-dropdown-*` ones.
+
+```tsx
+const [date, setDate] = useState<Date | null>(null);
+
+<InputDate label="Date of birth" value={date} onChange={setDate} />
+<InputDateTime label="Hearing" value={date} onChange={setDate} minuteStep={15} min={new Date()} />
+<InputDate format="MM/dd/yyyy" locale="en-US" weekStartsOn={0} name="due" />
+```
+
+- **Value** is a `Date | null` in local time (`InputDate` gives midnight). It is `null` while the field is empty or holds an incomplete or out-of-range date; `value` / `defaultValue` make it controlled or uncontrolled. With a `name`, a hidden input submits `YYYY-MM-DD` (or `YYYY-MM-DDTHH:mm`) like a native date input.
+- **`format`** is built from `dd`, `MM`, `yyyy`, `HH` (24-hour) and `mm` with any separators; it drives the mask and the placeholder. Defaults: `dd-MM-yyyy` and `dd-MM-yyyy HH:mm`.
+- **Typing**: separators fill themselves in, `4` becomes `04`, a typed separator completes the segment (`3-` → `03-`), full segments are overwritten in place, and a pasted ISO date is understood in any format. Leaving the field completes what it can (`3-11-25` → `03-11-2025`, a missing time → `00:00`) and clears what it cannot.
+- **Keyboard**: `↑` / `↓` step the segment under the caret, `Alt+↓` moves into the calendar (arrows, `PageUp` / `PageDown`, `Home` / `End`, `Enter`), `Esc` closes it.
+- **`locale`**, **`weekStartsOn`** and **`labels`** localise the calendar; `min` / `max` bound both typing and picking.
+
+`Calendar` is exported on its own too. When you render it on the server, pass a `locale` — the default is the runtime's, which can differ between server and browser.
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-calendar-text` | Day, month, year and header text | `var(--color-dropdown-item-text)` |
+| `--color-calendar-text-muted` | Weekday names | `#6b7280` |
+| `--color-calendar-text-outside` | Days of the previous / next month | `#9ca3af` |
+| `--color-calendar-text-disabled` | Days, months, years and times outside `min` / `max` | `#d1d5db` |
+| `--color-calendar-divider` | Rules above "Today" and beside the time columns | `var(--color-dropdown-border)` |
+| `--color-calendar-cell-bg-hover` | Cell background on hover | `var(--color-dropdown-item-bg-hover)` |
+| `--color-calendar-cell-bg-active` | Cell background on press | `var(--color-dropdown-item-bg-active)` |
+| `--color-calendar-cell-ring` | Cell keyboard-focus ring | `var(--color-dropdown-item-ring)` |
+| `--color-calendar-cell-today-border` | Outline marking today | `var(--color-button-primary-bg)` |
+| `--color-calendar-cell-selected-bg` | Selected day / month / year / time | `var(--color-button-primary-bg)` |
+| `--color-calendar-cell-selected-bg-hover` | Selected cell on hover | `var(--color-button-primary-bg-hover)` |
+| `--color-calendar-cell-selected-bg-active` | Selected cell on press | `var(--color-button-primary-bg-active)` |
+| `--color-calendar-cell-selected-text` | Selected cell text | `var(--color-button-primary-text)` |
 
 ### Color — select options
 
