@@ -1,6 +1,7 @@
 import * as React from "react";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
@@ -57,9 +58,20 @@ export type InputLexicalProps = {
   /** Theme classes merged over the defaults (e.g. to style custom nodes). */
   theme?: EditorThemeClasses;
   autoFocus?: boolean;
+  /** Read-only and greyed out; the toolbar stays in place but cannot be used. */
+  disabled?: boolean;
   /** Extra Lexical plugins, mounted inside the editor alongside the built-ins. */
   children?: React.ReactNode;
   className?: string;
+};
+
+/* Lexical reads `editable` from initialConfig once; this keeps it in sync with `disabled`. */
+const EditablePlugin = ({ editable }: { editable: boolean }) => {
+  const [ editor ] = useLexicalComposerContext();
+  useEffect(() => {
+    editor.setEditable(editable);
+  }, [ editor, editable ]);
+  return null;
 };
 
 export const InputLexical = (props: InputLexicalProps) => {
@@ -83,6 +95,7 @@ export const InputLexical = (props: InputLexicalProps) => {
     nodes,
     theme,
     autoFocus = false,
+    disabled = false,
     children,
     className,
   } = props;
@@ -93,6 +106,7 @@ export const InputLexical = (props: InputLexicalProps) => {
       theme: theme ? { ...lexicalTheme, ...theme } : lexicalTheme,
       nodes: [ ...LEXICAL_NODES, ...(nodes ?? []) ],
       editorState: value ?? null,
+      editable: !disabled,
       onError: (e: Error) => {
         throw e;
       },
@@ -128,9 +142,14 @@ export const InputLexical = (props: InputLexicalProps) => {
               "mat:relative mat:flex mat:flex-col mat:border-[length:var(--border-width-input)] input-base mat:rounded-[var(--border-radius-input)] mat:overflow-hidden mat:transition-all mat:duration-[var(--control-transition-duration)] mat:ring-0 mat:focus-within:ring-[length:var(--control-ring-width)] mat:focus-within:outline-none mat:font-[family-name:var(--font-family-base)]",
               inputVariantClasses[variant],
               hasError && "input-error",
+              disabled && "input-disabled",
             ) }
           >
-            { toolbar === "static" && <LexicalToolbar render={ renderToolbar } collapsible={ toolbarCollapsible }/> }
+            { toolbar === "static" && (
+              <div inert={ disabled } className={ "mat:contents" }>
+                <LexicalToolbar render={ renderToolbar } collapsible={ toolbarCollapsible }/>
+              </div>
+            ) }
 
             <div className={ "mat:relative mat:flex-1 mat:min-h-0" }>
               <RichTextPlugin
@@ -161,10 +180,11 @@ export const InputLexical = (props: InputLexicalProps) => {
             <HistoryPlugin/>
             <ListPlugin/>
             <LinkPlugin/>
-            { autoFocus && <AutoFocusPlugin/> }
+            <EditablePlugin editable={ !disabled }/>
+            { autoFocus && !disabled && <AutoFocusPlugin/> }
             { onChange && <OnChangePlugin onChange={ handleChange }/> }
             { children }
-            { toolbar === "floating" && (
+            { toolbar === "floating" && !disabled && (
               <LexicalFloatingToolbar
                 render={ renderToolbar }
                 renderSecondRow={ renderToolbarSecondRow }

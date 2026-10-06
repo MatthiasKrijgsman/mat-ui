@@ -246,6 +246,12 @@
     --color-input-flat-bg: var(--mat-color-gray-100);
     --color-input-flat-border: var(--color-input-flat-bg);
 
+    /* Input — disabled (every field-like input and select trigger, both variants) */
+    --color-input-disabled-bg: var(--mat-color-gray-100);
+    --color-input-disabled-border: var(--mat-color-gray-200);
+    --color-input-disabled-text: var(--mat-color-gray-400);
+    --color-input-disabled-placeholder: var(--mat-color-gray-300);
+
     /* Input — fixed prefix segment (`Input` `prefix`) */
     --color-input-prefix-bg: var(--mat-color-gray-50);
     --color-input-prefix-text: var(--mat-color-gray-500);
@@ -306,6 +312,9 @@
     --color-toggle-track-off-bg: var(--mat-color-gray-300);
     --color-toggle-track-off-border: var(--mat-color-gray-300);
     --color-toggle-thumb-bg: var(--mat-color-white);
+    --color-toggle-disabled-track-on-bg: var(--mat-color-gray-400);
+    --color-toggle-disabled-track-off-bg: var(--mat-color-gray-200);
+    --color-toggle-disabled-thumb-bg: var(--mat-color-gray-50);
 
     /* Input check / radio */
     --color-check-border: var(--mat-color-gray-300);
@@ -313,10 +322,10 @@
     --color-check-checked-bg: var(--mat-color-blue-600);
     --color-check-border-error: var(--color-input-border-error);
     --color-check-ring-error: var(--color-input-ring-error);
-    --color-check-disabled-bg: var(--mat-color-gray-100);
-    --color-check-disabled-border: var(--mat-color-gray-200);
+    --color-check-disabled-bg: var(--color-input-disabled-bg);
+    --color-check-disabled-border: var(--color-input-disabled-border);
     --color-check-disabled-checked-bg: var(--mat-color-gray-300);
-    --color-check-disabled-label: var(--mat-color-gray-400);
+    --color-check-disabled-label: var(--color-input-disabled-text);
 
     /* Input range (slider) */
     --color-range-track-bg: var(--mat-color-gray-200);
@@ -324,6 +333,10 @@
     --color-range-thumb-bg: var(--mat-color-white);
     --color-range-thumb-border: var(--mat-color-gray-300);
     --color-range-ring: color-mix(in srgb, var(--mat-color-gray-900) 10%, transparent);
+    --color-range-disabled-track-bg: var(--mat-color-gray-100);
+    --color-range-disabled-fill-bg: var(--mat-color-gray-300);
+    --color-range-disabled-thumb-bg: var(--mat-color-gray-50);
+    --color-range-disabled-thumb-border: var(--color-input-disabled-border);
 
     /* Dropdown */
     --color-dropdown-bg: var(--mat-color-white);
@@ -516,6 +529,12 @@
     --color-input-flat-bg: var(--mat-color-stone-800);
     --color-input-flat-border: var(--color-input-flat-bg);
 
+    /* Input — disabled (every field-like input and select trigger, both variants) */
+    --color-input-disabled-bg: var(--mat-color-stone-900);
+    --color-input-disabled-border: var(--mat-color-stone-700);
+    --color-input-disabled-text: var(--mat-color-stone-600);
+    --color-input-disabled-placeholder: var(--mat-color-stone-700);
+
     /* Input — fixed prefix segment (`Input` `prefix`) */
     --color-input-prefix-bg: var(--mat-color-stone-900);
     --color-input-prefix-text: var(--mat-color-stone-400);
@@ -576,6 +595,9 @@
     --color-toggle-track-off-bg: var(--mat-color-stone-600);
     --color-toggle-track-off-border: var(--mat-color-stone-600);
     --color-toggle-thumb-bg: var(--mat-color-white);
+    --color-toggle-disabled-track-on-bg: var(--mat-color-stone-600);
+    --color-toggle-disabled-track-off-bg: var(--mat-color-stone-800);
+    --color-toggle-disabled-thumb-bg: var(--mat-color-stone-400);
 
     /* Input check / radio */
     --color-check-border: var(--mat-color-stone-600);
@@ -583,10 +605,10 @@
     --color-check-checked-bg: var(--mat-color-blue-500);
     --color-check-border-error: var(--color-input-border-error);
     --color-check-ring-error: var(--color-input-ring-error);
-    --color-check-disabled-bg: var(--mat-color-stone-900);
-    --color-check-disabled-border: var(--mat-color-stone-700);
+    --color-check-disabled-bg: var(--color-input-disabled-bg);
+    --color-check-disabled-border: var(--color-input-disabled-border);
     --color-check-disabled-checked-bg: var(--mat-color-stone-600);
-    --color-check-disabled-label: var(--mat-color-stone-600);
+    --color-check-disabled-label: var(--color-input-disabled-text);
 
     /* Input range (slider) */
     --color-range-track-bg: var(--mat-color-stone-700);
@@ -594,6 +616,10 @@
     --color-range-thumb-bg: var(--mat-color-white);
     --color-range-thumb-border: var(--mat-color-stone-600);
     --color-range-ring: color-mix(in srgb, var(--mat-color-stone-100) 15%, transparent);
+    --color-range-disabled-track-bg: var(--mat-color-stone-800);
+    --color-range-disabled-fill-bg: var(--mat-color-stone-600);
+    --color-range-disabled-thumb-bg: var(--mat-color-stone-400);
+    --color-range-disabled-thumb-border: var(--color-input-disabled-border);
 
     /* Dropdown */
     --color-dropdown-bg: var(--mat-color-stone-900);

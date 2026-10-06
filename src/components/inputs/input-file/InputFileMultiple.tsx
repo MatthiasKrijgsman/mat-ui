@@ -139,18 +139,19 @@ export const InputFileMultiple = (props: InputFileMultipleProps) => {
         { ...getRootProps({
           className: classNames(
             'mat:flex mat:flex-col mat:items-center mat:justify-center mat:gap-1',
-            'mat:border-2 mat:border-dashed input-base mat:rounded-[var(--border-radius-input)] mat:bg-transparent!',
+            'mat:border-2 mat:border-dashed input-base mat:rounded-[var(--border-radius-input)]',
+            // Transparent drop area; a disabled one takes the disabled fill instead
+            disabled ? 'input-disabled' : 'mat:bg-transparent!',
             'mat:py-10 mat:px-6 mat:cursor-pointer mat:transition-all mat:duration-[var(--control-transition-duration)]',
             'mat:ring-0 mat:focus:outline-none',
             (isFocused || isDragActive) && 'mat:ring-[length:var(--control-ring-width)]',
             error && 'input-error',
-            disabled && 'mat:opacity-60 mat:cursor-not-allowed',
           ),
         }) }
       >
         <input { ...getInputProps() } />
         <div className={ 'mat:h-14 mat:w-14 mat:rounded-[var(--border-radius-input)] mat:flex mat:items-center mat:justify-center mat:bg-[var(--color-input-file-icon-bg)] mat:mb-2' }>
-          <Icon className={ 'mat:h-7 mat:w-7 input-icon' }/>
+          <Icon className={ classNames('mat:h-7 mat:w-7 input-icon', disabled && 'input-icon-disabled') }/>
         </div>
         <div className={ 'mat:text-base mat:font-[number:var(--font-weight-button)]' }>
           { title }

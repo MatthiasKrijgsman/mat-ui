@@ -321,6 +321,15 @@ Field-like inputs (`Input`, `InputPassword`, `InputTextArea`, `InputColor`, `Inp
 
 (`InputCheck`, `InputRadio`, `InputToggle`, and the `InputFileMultiple` dropzone have no box chrome to flatten, so they don't take the variant.)
 
+Every field-like input and the whole select family share one disabled look, for both variants: the fill, border and text below, no control shadow, and a `not-allowed` cursor. `InputLexical` takes `disabled` too (read-only, toolbar inert); checkbox/radio, toggle and range have their own tokens, which default to these.
+
+| Token | Description | Light default |
+|-------|-------------|---------------|
+| `--color-input-disabled-bg` | Disabled input background | `#f3f4f6` |
+| `--color-input-disabled-border` | Disabled input border | `#e5e7eb` |
+| `--color-input-disabled-text` | Disabled input text and leading icon | `#9ca3af` |
+| `--color-input-disabled-placeholder` | Disabled placeholder text | `#d1d5db` |
+
 ### Color — input labels, descriptions & errors
 
 | Token | Description | Light default |
@@ -417,6 +426,9 @@ const [date, setDate] = useState<Date | null>(null);
 | `--color-toggle-track-off-bg` | Track background when off | `#d1d5db` |
 | `--color-toggle-track-off-border` | Track border when off | `#d1d5db` |
 | `--color-toggle-thumb-bg` | Thumb background | `#ffffff` |
+| `--color-toggle-disabled-track-on-bg` | Track background and border when disabled and on | `#9ca3af` |
+| `--color-toggle-disabled-track-off-bg` | Track background and border when disabled and off | `#e5e7eb` |
+| `--color-toggle-disabled-thumb-bg` | Thumb background when disabled | `#f9fafb` |
 
 ### Color — checkbox & radio
 
@@ -427,10 +439,10 @@ const [date, setDate] = useState<Date | null>(null);
 | `--color-check-checked-bg` | Checkbox/radio fill when checked or indeterminate | `#2563eb` |
 | `--color-check-border-error` | Checkbox/radio border when `error` is set | `var(--color-input-border-error)` |
 | `--color-check-ring-error` | Checkbox/radio hover/focus ring when `error` is set | `var(--color-input-ring-error)` |
-| `--color-check-disabled-bg` | Checkbox/radio fill when disabled | `#f3f4f6` |
-| `--color-check-disabled-border` | Checkbox/radio border when disabled | `#e5e7eb` |
+| `--color-check-disabled-bg` | Checkbox/radio fill when disabled | `var(--color-input-disabled-bg)` |
+| `--color-check-disabled-border` | Checkbox/radio border when disabled | `var(--color-input-disabled-border)` |
 | `--color-check-disabled-checked-bg` | Checkbox/radio fill when disabled and checked/indeterminate | `#d1d5db` |
-| `--color-check-disabled-label` | Checkbox/radio label text when disabled | `#9ca3af` |
+| `--color-check-disabled-label` | Checkbox/radio/toggle label text when disabled | `var(--color-input-disabled-text)` |
 
 ### Color — range (slider)
 
@@ -441,6 +453,10 @@ const [date, setDate] = useState<Date | null>(null);
 | `--color-range-thumb-bg` | Thumb background | `#ffffff` |
 | `--color-range-thumb-border` | Thumb border | `#d1d5db` |
 | `--color-range-ring` | Thumb focus ring | `rgb(17 24 39 / 0.1)` |
+| `--color-range-disabled-track-bg` | Track background when disabled | `#f3f4f6` |
+| `--color-range-disabled-fill-bg` | Filled portion when disabled | `#d1d5db` |
+| `--color-range-disabled-thumb-bg` | Thumb background when disabled | `#f9fafb` |
+| `--color-range-disabled-thumb-border` | Thumb border when disabled | `var(--color-input-disabled-border)` |
 
 ### Color — dropdown menu
 
@@ -592,6 +608,8 @@ function Editor() {
   );
 }
 ```
+
+Pass `disabled` to make the editor read-only: it takes the disabled input colors, the static toolbar stays in place but cannot be used, and the floating toolbar is not shown.
 
 Sizing mirrors `InputTextArea`: `minRows` sets a height floor, `maxRows` caps the height (content beyond it scrolls), and `autogrow` lets the editor grow with its content between the two. Without `autogrow` the editor is fixed at `minRows`.
 

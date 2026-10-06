@@ -92,3 +92,16 @@
 .lexical-tb-divider-dark {
     @apply mat:bg-[var(--color-lexical-floating-divider)];
 }
+
+/* Disabled editor (frame carries .input-disabled). Last, so it beats the
+ * tones and the active state. The toolbar stays for layout
+ * but is inert; its buttons take the disabled text color. */
+.input-disabled .lexical-content {
+    @apply mat:text-[var(--color-input-disabled-text)];
+}
+.input-disabled .lexical-placeholder {
+    @apply mat:text-[var(--color-input-disabled-placeholder)];
+}
+.input-disabled .lexical-tb-btn {
+    @apply mat:text-[var(--color-input-disabled-text)] mat:bg-transparent;
+}

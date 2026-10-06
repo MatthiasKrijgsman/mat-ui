@@ -110,7 +110,7 @@ export const InputRange = (props: InputRangeProps) => {
         <div className={ classNames(
           'mat:flex mat:flex-row mat:items-center mat:gap-3',
           sizeHeightClasses[size],
-          disabled && 'mat:opacity-60',
+          disabled && 'range-disabled',
         ) }>
           <div
             className={ classNames(

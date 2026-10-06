@@ -221,7 +221,7 @@ export const InputTags = (props: InputTagsProps) => {
               onPaste={ handlePaste }
               onBlur={ commitDraft }
               className={ classNames(
-                'mat:flex-1 mat:min-w-20 mat:h-7 mat:p-0 mat:appearance-none mat:border-0 mat:bg-transparent mat:shadow-none mat:ring-0 mat:outline-none mat:focus:ring-0 mat:focus:shadow-none mat:focus:outline-none mat:text-[var(--color-input-text)] mat:placeholder:text-[var(--color-input-placeholder)] mat:font-[number:var(--font-weight-input-text)] mat:font-[family-name:var(--font-family-base)]',
+                'mat:flex-1 mat:min-w-20 mat:h-7 mat:p-0 mat:appearance-none mat:border-0 mat:bg-transparent mat:shadow-none mat:ring-0 mat:outline-none mat:focus:ring-0 mat:focus:shadow-none mat:focus:outline-none mat:text-[var(--color-input-text)] mat:placeholder:text-[var(--color-input-placeholder)] mat:disabled:text-[var(--color-input-disabled-text)] mat:disabled:placeholder:text-[var(--color-input-disabled-placeholder)] mat:font-[number:var(--font-weight-input-text)] mat:font-[family-name:var(--font-family-base)]',
                 sizeFontClasses[size],
                 disabled && 'mat:cursor-not-allowed',
                 isFull && 'mat:min-w-4',

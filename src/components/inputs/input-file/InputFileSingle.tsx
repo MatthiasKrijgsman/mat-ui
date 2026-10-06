@@ -120,7 +120,7 @@ export const InputFileSingle = (props: InputFileSingleProps) => {
               'mat:ring-0 mat:focus:outline-none',
               (isFocused || isDragActive) && 'mat:ring-[length:var(--control-ring-width)]',
               error && 'input-error',
-              disabled && 'mat:opacity-60 mat:cursor-not-allowed',
+              disabled && 'input-disabled',
               sizeHeightClasses[size],
               sizePaddingLeftClasses[size],
               'mat:gap-3',
@@ -128,12 +128,12 @@ export const InputFileSingle = (props: InputFileSingleProps) => {
           }) }
         >
           <input { ...getInputProps() } />
-          <Icon className={ classNames('input-icon mat:shrink-0', sizeIconClasses[size]) }/>
+          <Icon className={ classNames('input-icon mat:shrink-0', disabled && 'input-icon-disabled', sizeIconClasses[size]) }/>
           <span
             className={ classNames(
               'mat:flex-1 mat:truncate',
               sizeFontClasses[size],
-              !fileName && 'mat:text-[var(--color-input-placeholder)]',
+              !fileName && (disabled ? 'mat:text-[var(--color-input-disabled-placeholder)]' : 'mat:text-[var(--color-input-placeholder)]'),
             ) }
           >
             { fileName ?? placeholder }

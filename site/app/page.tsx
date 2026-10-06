@@ -569,6 +569,17 @@ export default function Page() {
                   className={ 'w-full' }
                 />
               </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Disabled' } layout={ 'vertical' } narrow={ true }>
+                <Input label={ 'Email' } Icon={ IconMail } defaultValue={ 'jane@example.com' } disabled className={ 'w-full' }/>
+                <Input label={ 'Placeholder' } placeholder={ 'Nothing to type here' } disabled className={ 'w-full' }/>
+                <Input label={ 'Slug' } prefix={ '/zaken/' } defaultValue={ 'my-case' } disabled className={ 'w-full' }/>
+                <Input variant={ 'flat' } label={ 'Flat' } type={ 'number' } defaultValue={ 42 } disabled className={ 'w-full' }/>
+                <InputPassword label={ 'Password' } defaultValue={ 'secret-password' } disabled className={ 'w-full' }/>
+                <InputTextArea label={ 'Message' } defaultValue={ 'Disabled fields share --color-input-disabled-*.' } disabled className={ 'w-full' }/>
+                <InputTags label={ 'Tags' } value={ [ 'design', 'tokens' ] } onChange={ () => {} } disabled className={ 'w-full' }/>
+                <InputColor label={ 'Color' } defaultValue={ '#2563eb' } disabled className={ 'w-full' }/>
+              </ShowcaseSection>
             </Panel>
           </section>
 
@@ -732,6 +743,7 @@ export default function Page() {
                   onChange={ (e) => setToggle(e.target.checked) }
                 />
                 <InputToggle id={ 'toggle-disabled' } label={ 'Disabled' } disabled/>
+                <InputToggle id={ 'toggle-disabled-checked' } label={ 'Disabled, on' } disabled checked readOnly/>
               </ShowcaseSection>
             </Panel>
           </section>
@@ -840,6 +852,13 @@ export default function Page() {
                   { ({ close }) => renderGeoLevel(GEO_TREE, '', (path) => { setLocation(path); close(); }) }
                 </InputSelectDrilldown>
               </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Disabled' } layout={ 'vertical' } narrow={ true }>
+                <InputSelectNative label={ 'Native' } options={ FRAMEWORK_OPTIONS } disabled className={ 'w-full' }/>
+                <InputSelect label={ 'Popover' } options={ FRAMEWORK_OPTIONS } value={ 'react' } onChange={ () => {} } disabled className={ 'w-full' }/>
+                <InputSelect label={ 'Placeholder' } placeholder={ 'Pick one…' } options={ FRAMEWORK_OPTIONS } value={ null } onChange={ () => {} } disabled className={ 'w-full' }/>
+                <InputSelectMultiple label={ 'Multiple' } options={ SKILL_OPTIONS } value={ [ 'typescript', 'react' ] } onChange={ () => {} } disabled className={ 'w-full' }/>
+              </ShowcaseSection>
             </Panel>
           </section>
 
@@ -887,6 +906,15 @@ export default function Page() {
                   className={ 'w-full' }
                 />
               </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Disabled' } layout={ 'vertical' } narrow={ true }>
+                <InputLexical
+                  label={ 'Read-only notes' }
+                  placeholder={ 'Not editable…' }
+                  disabled
+                  className={ 'w-full' }
+                />
+              </ShowcaseSection>
             </Panel>
           </section>
 
@@ -912,6 +940,11 @@ export default function Page() {
                   hint={ 'or click to browse' }
                   className={ 'w-full' }
                 />
+              </ShowcaseSection>
+              <Divider/>
+              <ShowcaseSection title={ 'Disabled' } layout={ 'vertical' } narrow={ true }>
+                <InputFileSingle label={ 'Avatar' } value={ null } onChange={ () => {} } disabled className={ 'w-full' }/>
+                <InputFileMultiple label={ 'Attachments' } hint={ 'or click to browse' } disabled className={ 'w-full' }/>
               </ShowcaseSection>
             </Panel>
           </section>
