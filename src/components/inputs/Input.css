@@ -15,6 +15,17 @@
     @apply mat:border-[var(--color-input-border-error)];
     @apply mat:focus:ring-[var(--color-input-ring-error)];
 }
+/* Disabled — after .input-flat and .input-error so it beats the flat fill and
+ * the error border. `.input-disabled` is for a box that is not itself the
+ * disabled control (the prefixed `Input` wrapper, a dropzone, the Lexical frame). */
+.input-base:disabled,
+.input-disabled {
+    @apply mat:cursor-not-allowed mat:shadow-none;
+    @apply mat:bg-[var(--color-input-disabled-bg)];
+    @apply mat:border-[var(--color-input-disabled-border)];
+    @apply mat:text-[var(--color-input-disabled-text)];
+    @apply mat:placeholder:text-[var(--color-input-disabled-placeholder)];
+}
 /* Fixed prefix segment of `Input` — muted fill, vertical rule on its right. */
 .input-prefix {
     @apply mat:bg-[var(--color-input-prefix-bg)];
@@ -26,6 +37,13 @@
     @apply mat:bg-[var(--color-input-flat-prefix-bg)];
     @apply mat:border-r-[var(--color-input-flat-prefix-border)];
 }
+/* The prefix segment of a disabled `Input` sits on the disabled fill. */
+.input-disabled .input-prefix {
+    @apply mat:bg-transparent mat:text-[var(--color-input-disabled-text)] mat:cursor-not-allowed;
+}
 .input-icon {
     @apply mat:text-[var(--color-input-icon)];
+}
+.input-icon-disabled {
+    @apply mat:text-[var(--color-input-disabled-text)];
 }

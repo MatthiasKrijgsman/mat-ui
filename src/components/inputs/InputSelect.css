@@ -13,12 +13,19 @@
     @apply mat:border-[var(--color-input-border-error)];
     @apply mat:ring-[var(--color-input-ring-error)];
 }
-.select-trigger-disabled {
-    @apply mat:cursor-not-allowed;
-    @apply mat:focus:ring-0;
-}
 .select-placeholder {
     @apply mat:text-[var(--color-input-select-placeholder)];
+}
+/* Last, so disabled beats the flat fill and the error border. */
+.select-trigger-disabled {
+    @apply mat:cursor-not-allowed mat:shadow-none;
+    @apply mat:focus:ring-0;
+    @apply mat:bg-[var(--color-input-disabled-bg)];
+    @apply mat:border-[var(--color-input-disabled-border)];
+    @apply mat:text-[var(--color-input-disabled-text)];
+}
+.select-trigger-disabled .select-placeholder {
+    @apply mat:text-[var(--color-input-disabled-placeholder)];
 }
 .select-search-bar {
     @apply mat:border-b-[var(--color-select-search-border)];

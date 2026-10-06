@@ -12,3 +12,16 @@
 .range-value {
     @apply mat:text-[var(--color-input-text)];
 }
+/* Set on the row that holds track + value. Last, so it beats the above. */
+.range-disabled .range-track {
+    @apply mat:bg-[var(--color-range-disabled-track-bg)];
+}
+.range-disabled .range-fill {
+    @apply mat:bg-[var(--color-range-disabled-fill-bg)];
+}
+.range-disabled .range-thumb {
+    @apply mat:bg-[var(--color-range-disabled-thumb-bg)] mat:border-[var(--color-range-disabled-thumb-border)];
+}
+.range-disabled .range-value {
+    @apply mat:text-[var(--color-input-disabled-text)];
+}

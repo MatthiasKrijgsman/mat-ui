@@ -44,7 +44,8 @@ export const InputToggle = (props: InputToggleProps) => {
         { label && (
           <label htmlFor={ props.id } className={ classNames(
             'input-label mat:font-[number:var(--font-weight-input-option-label)] mat:mb-1',
-            props.id && 'mat:cursor-pointer'
+            props.id && !props.disabled && 'mat:cursor-pointer',
+            props.disabled && 'check-label-disabled mat:cursor-not-allowed'
           ) }>{ label }</label>
         ) }
       </div>

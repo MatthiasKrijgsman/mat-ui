@@ -84,6 +84,7 @@ export const Input = (props: InputProps) => {
               sizeHeightClasses[size],
               sizeFontClasses[size],
               error && 'input-error mat:focus-within:ring-[var(--color-input-ring-error)]',
+              rest.disabled && 'input-disabled',
             ) }>
               <span
                 onMouseDown={ (e) => {
@@ -98,14 +99,14 @@ export const Input = (props: InputProps) => {
                 ) }
               >
                 { Icon && (
-                  <Icon className={ classNames('input-icon mat:shrink-0', sizeIconClasses[size]) }/>
+                  <Icon className={ classNames('input-icon mat:shrink-0', rest.disabled && 'input-icon-disabled', sizeIconClasses[size]) }/>
                 ) }
                 { prefix }
               </span>
               <input
                 ref={ mergeRefs([ inputRef, ref ]) }
                 className={ classNames(
-                  'mat:flex-1 mat:min-w-0 mat:h-full mat:appearance-none mat:border-0 mat:bg-transparent mat:shadow-none mat:ring-0 mat:rounded-none mat:focus:ring-0 mat:focus:shadow-none mat:focus:outline-none mat:text-[var(--color-input-text)] mat:placeholder:text-[var(--color-input-placeholder)] mat:font-[number:var(--font-weight-input-text)] mat:font-[family-name:var(--font-family-base)] mat:py-0',
+                  'mat:flex-1 mat:min-w-0 mat:h-full mat:appearance-none mat:border-0 mat:bg-transparent mat:shadow-none mat:ring-0 mat:rounded-none mat:focus:ring-0 mat:focus:shadow-none mat:focus:outline-none mat:text-[var(--color-input-text)] mat:placeholder:text-[var(--color-input-placeholder)] mat:disabled:cursor-not-allowed mat:disabled:text-[var(--color-input-disabled-text)] mat:disabled:placeholder:text-[var(--color-input-disabled-placeholder)] mat:font-[number:var(--font-weight-input-text)] mat:font-[family-name:var(--font-family-base)] mat:py-0',
                   sizeFontClasses[size],
                   sizePaddingLeftClasses[size],
                   hasTray ? sizePaddingRightWithTrayClasses[size] : sizePaddingRightClasses[size],
@@ -119,6 +120,7 @@ export const Input = (props: InputProps) => {
               { Icon && (
                 <Icon className={ classNames(
                   'input-icon mat:absolute mat:top-1/2 mat:-translate-y-1/2',
+                  rest.disabled && 'input-icon-disabled',
                   sizeIconClasses[size],
                   sizeIconLeftPositionClasses[size],
                 ) }/>

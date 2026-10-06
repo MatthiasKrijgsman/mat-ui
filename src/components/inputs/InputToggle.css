@@ -13,3 +13,16 @@
 .toggle-thumb {
     @apply mat:bg-[var(--color-toggle-thumb-bg)];
 }
+/* The track is the input's next sibling. Last, so disabled beats on/off. */
+.toggle-input:disabled {
+    @apply mat:cursor-not-allowed mat:hover:ring-0;
+}
+.toggle-input:disabled + .toggle-track-on {
+    @apply mat:bg-[var(--color-toggle-disabled-track-on-bg)] mat:border-[var(--color-toggle-disabled-track-on-bg)];
+}
+.toggle-input:disabled + .toggle-track-off {
+    @apply mat:bg-[var(--color-toggle-disabled-track-off-bg)] mat:border-[var(--color-toggle-disabled-track-off-bg)];
+}
+.toggle-input:disabled + * .toggle-thumb {
+    @apply mat:bg-[var(--color-toggle-disabled-thumb-bg)];
+}
